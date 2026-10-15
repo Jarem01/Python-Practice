@@ -1,0 +1,156 @@
+{
+  "problems": [
+    {
+      "id": "fix-word-count-dict",
+      "type": "fix_the_code",
+      "title": "Counting words with a dictionary",
+      "topics": ["Data Structures", "Dictionaries"],
+      "difficulty": "medium",
+      "prompt": "The program should count how often each word appears, but it crashes with a `KeyError` the first time it sees a word.\n\nFix the counting line so it works for new keys. Expected output:\n\n```\n{'hi': 3, 'there': 1, 'ok': 1}\n```",
+      "starter_code": "words = [\"hi\", \"there\", \"hi\", \"ok\", \"hi\"]\n\ncounts = {}\nfor word in words:\n    counts[word] = counts[word] + 1\n\nprint(counts)\n",
+      "expected_output": "{'hi': 3, 'there': 1, 'ok': 1}",
+      "hints": [
+        "`counts[word]` only works if the key is already in the dictionary.",
+        "`dict.get(key, default)` returns the default when the key is missing.",
+        "`counts[word] = counts.get(word, 0) + 1` is the classic one-liner."
+      ],
+      "solution": "words = [\"hi\", \"there\", \"hi\", \"ok\", \"hi\"]\n\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\n\nprint(counts)\n",
+      "glossary": ["dictionary", "key", "method", "for-loop"]
+    },
+    {
+      "id": "predict-list-alias",
+      "type": "predict_output",
+      "title": "Two names, one list",
+      "topics": ["Data Structures", "Lists"],
+      "difficulty": "medium",
+      "prompt": "`other = nums` does **not** copy the list. Type what this program prints.",
+      "starter_code": "nums = [1, 2, 3]\nother = nums\nother.append(4)\n\nprint(nums)\nprint(len(nums))\nprint(other is nums)\n",
+      "expected_output": "[1, 2, 3, 4]\n4\nTrue",
+      "hints": [
+        "Assignment binds a *name* to the same object.",
+        "`other.append(4)` mutates that single shared list.",
+        "`is` compares identity, so both names still point at the same object."
+      ],
+      "solution": "nums = [1, 2, 3]\nother = nums\nother.append(4)\n\nprint(nums)          # [1, 2, 3, 4] - same object!\nprint(len(nums))     # 4\nprint(other is nums) # True\n\n# Use nums.copy() or nums[:] to get an independent list.\n",
+      "glossary": ["list", "mutability", "method", "reference"]
+    },
+    {
+      "id": "fill-dict-comprehension",
+      "type": "fill_in_blank",
+      "title": "Name lengths as a dictionary",
+      "topics": ["Data Structures", "Dictionaries"],
+      "difficulty": "medium",
+      "prompt": "Fill the blank so `lengths` maps each name to the number of characters in it.\n\nExpected output: `{'ana': 3, 'bo': 2}`",
+      "starter_code": "names = [\"ana\", \"bo\"]\nlengths = {name: ___ for name in names}\n\nprint(lengths)\n",
+      "expected_output": "{'ana': 3, 'bo': 2}",
+      "blanks": [
+        { "accepted": ["len(name)"], "hint": "The built-in function for the length of a sequence." }
+      ],
+      "hints": [
+        "A dict comprehension is `{key: value for item in sequence}`.",
+        "The value here depends on the loop variable `name`."
+      ],
+      "solution": "names = [\"ana\", \"bo\"]\nlengths = {name: len(name) for name in names}\n\nprint(lengths)\n",
+      "glossary": ["dict-comprehension", "dictionary", "len", "list-comprehension"]
+    },
+    {
+      "id": "write-most-common",
+      "type": "write_from_scratch",
+      "title": "Most common item",
+      "topics": ["Data Structures", "Dictionaries", "Functions"],
+      "difficulty": "hard",
+      "mode": "both",
+      "line_count": 9,
+      "prompt": "Write a function `most_common(items)` that returns the item that occurs most often. If there is a tie, return the one that appeared **first** in the list.\n\nThen print `most_common([\"b\", \"a\", \"b\", \"c\", \"b\"])`.\n\nExpected output: `b`",
+      "hints": [
+        "Count the items with a dictionary, exactly like the earlier word-count exercise.",
+        "Remember to handle a first-time key: `counts.get(item, 0) + 1`.",
+        "Keep a `best` variable for the current winner and a `best_count` for its score.",
+        "Loop over the counts and replace `best` only when `count > best_count` — using `>` (not `>=`) keeps the first item on a tie.",
+        "Return `best` at the end."
+      ],
+      "expected_output": "b",
+      "tests": "assert most_common([\"b\", \"a\", \"b\", \"c\", \"b\"]) == \"b\"\nassert most_common([1, 2, 2, 3]) == 2\nassert most_common([\"x\", \"y\"]) == \"x\", \"on a tie the first item wins\"\n",
+      "test_summary": "Checks a clear winner, a numeric winner, and that ties return the earliest item.",
+      "solution": "def most_common(items):\n    counts = {}\n    for item in items:\n        counts[item] = counts.get(item, 0) + 1\n\n    best = None\n    best_count = 0\n    for item, count in counts.items():\n        if count > best_count:\n            best = item\n            best_count = count\n    return best\n\nprint(most_common([\"b\", \"a\", \"b\", \"c\", \"b\"]))\n",
+      "glossary": ["dictionary", "method", "function", "return", "for-loop"]
+    },
+    {
+      "id": "fix-first-even-return",
+      "type": "fix_the_code",
+      "title": "Return the first even number",
+      "topics": ["Functions", "Loops"],
+      "difficulty": "medium",
+      "prompt": "This should print `8` — the first even number in the list. Instead it prints a `None` at the end and keeps looking after it finds one.\n\nFix the function.",
+      "starter_code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            print(n)\n\nprint(first_even([3, 5, 8, 10]))\n",
+      "expected_output": "8",
+      "hints": [
+        "`print(n)` shows the value, but the loop keeps going to the next number.",
+        "`return` leaves the function immediately — that is exactly what you want here.",
+        "If you return the value, the outer `print(...)` call is the one that should display it."
+      ],
+      "solution": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n\nprint(first_even([3, 5, 8, 10]))\n",
+      "glossary": ["return", "function", "for-loop", "if-statement"]
+    },
+    {
+      "id": "predict-tuple-unpack",
+      "type": "predict_output",
+      "title": "Tuples, unpacking and a generator",
+      "topics": ["Data Structures", "Loops"],
+      "difficulty": "medium",
+      "prompt": "Type what this prints. Careful with the generator expression inside `sum(...)`.",
+      "starter_code": "pairs = [(x, x * x) for x in range(1, 4)]\nprint(pairs)\n\nfor number, square in pairs:\n    print(number, \"->\", square)\n\nprint(sum(square for _, square in pairs))\n",
+      "expected_output": "[(1, 1), (2, 4), (3, 9)]\n1 -> 1\n2 -> 4\n3 -> 9\n14",
+      "hints": [
+        "`range(1, 4)` gives 1, 2, 3.",
+        "A list comprehension of tuples builds `[(1, 1), (2, 4), (3, 9)]`.",
+        "Unpacking `number, square in pairs` gives each pair its own names.",
+        "The last line adds 1 + 4 + 9."
+      ],
+      "solution": "pairs = [(x, x * x) for x in range(1, 4)]\nprint(pairs)\n\nfor number, square in pairs:\n    print(number, \"->\", square)\n\nprint(sum(square for _, square in pairs))\n",
+      "glossary": ["tuple", "unpacking", "list-comprehension", "range", "sum"]
+    },
+    {
+      "id": "fill-sorted-key",
+      "type": "fill_in_blank",
+      "title": "Sort tuples by a field",
+      "topics": ["Data Structures", "Lists"],
+      "difficulty": "medium",
+      "prompt": "Fill the blank so the people are ordered by age (youngest first).\n\nExpected output: `[('Bo', 24), ('Ada', 36)]`",
+      "starter_code": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda person: ___)\n\nprint(ordered)\n",
+      "expected_output": "[('Bo', 24), ('Ada', 36)]",
+      "blanks": [
+        { "accepted": ["person[1]", "p[1]"], "hint": "Index 1 of the tuple is the age." }
+      ],
+      "hints": [
+        "`key` receives a function that turns each item into the value to sort by.",
+        "In `(\"Ada\", 36)` the name is index 0 and the age is index 1."
+      ],
+      "solution": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda person: person[1])\n\nprint(ordered)\n",
+      "glossary": ["sorting", "lambda", "tuple", "index"]
+    },
+    {
+      "id": "write-word-frequencies",
+      "type": "write_from_scratch",
+      "title": "Word frequencies, sorted",
+      "topics": ["Dictionaries", "Functions", "Data Structures"],
+      "difficulty": "hard",
+      "mode": "both",
+      "line_count": 12,
+      "prompt": "Write a function `frequencies(text)` that returns a dictionary of word → count, ignoring case and ignoring punctuation (`,` and `.`).\n\nThen print `frequencies(\"the cat and the hat. The end\")`.\n\nExpected output: `{'the': 3, 'cat': 1, 'and': 1, 'hat': 1, 'end': 1}`",
+      "hints": [
+        "Lower-case the text first: `text.lower()`.",
+        "Remove punctuation before splitting: `text.replace(\",\", \" \").replace(\".\", \" \")`.",
+        "`text.split()` splits on any whitespace and drops the empty pieces for you.",
+        "Count with `counts.get(word, 0) + 1` as usual.",
+        "Python 3.7+ dictionaries keep insertion order, so you do not need to sort anything.",
+        "Return the dictionary and print the call."
+      ],
+      "expected_output": "{'the': 3, 'cat': 1, 'and': 1, 'hat': 1, 'end': 1}",
+      "tests": "assert frequencies(\"a a b\") == {\"a\": 2, \"b\": 1}\nassert frequencies(\"Hi, hi!\".replace(\"!\", \"\")) == {\"hi\": 2}, \"case must be ignored\"\n",
+      "test_summary": "Checks simple counting and that upper/lower case words are merged.",
+      "solution": "def frequencies(text):\n    cleaned = text.lower().replace(\",\", \" \").replace(\".\", \" \")\n    counts = {}\n    for word in cleaned.split():\n        counts[word] = counts.get(word, 0) + 1\n    return counts\n\nprint(frequencies(\"the cat and the hat. The end\"))\n",
+      "glossary": ["dictionary", "method", "dictionary", "for-loop", "function"]
+    }
+  ]
+}

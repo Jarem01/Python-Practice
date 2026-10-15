@@ -1,0 +1,21 @@
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Test-only dependencies (npm install --no-save pyodide jsdom)
+node_modules/
+npm-debug.log*
+
+# Local .env files — never commit secrets
+.env
+.env.local

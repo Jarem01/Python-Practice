@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create an exercise — Python Practice</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>
+  try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="../index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <nav class="main">
+      <a href="../index.html">Home</a>
+      <a href="../teaching/index.html">Teaching</a>
+      <a href="index.html">Practice</a>
+      <a href="../glossary.html">Glossary</a>
+      <a href="../upload.html">Add material</a>
+      <a href="create.html" aria-current="page">Add exercise</a>
+    </nav>
+    <button id="theme-toggle" class="btn small ghost" type="button">☀</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <h1>Create an exercise</h1>
+  <ol class="small muted">
+    <li>Fill in the form — the JSON updates as you type and problems are listed before you save.</li>
+    <li><strong>Save draft</strong> keeps it in this browser only, so you can try it in <a href="index.html">the list</a> immediately.</li>
+    <li><strong>Download .json</strong> and put the file in the <code>problems/</code> folder of the repository.</li>
+    <li>Run <code>python3 tools/build_index.py</code> so the exercise becomes part of the committed bundle.</li>
+  </ol>
+
+  <div id="status"></div>
+
+  <div class="grid cols-2" style="align-items:start">
+    <section class="card">
+      <h2 style="margin-top:0">Exercise definition</h2>
+      <div id="form-fields"></div>
+      <label class="field">
+        <span class="lbl">Paste JSON to import (optional)</span>
+        <textarea id="import-json" rows="4" spellcheck="false" placeholder='{"type": "fix_the_code", …}'></textarea>
+      </label>
+      <div class="btn-row">
+        <button class="btn primary" id="save-draft" type="button">Save draft</button>
+        <button class="btn" id="download" type="button">Download .json</button>
+        <button class="btn" id="copy" type="button">Copy JSON</button>
+        <button class="btn ghost" id="import" type="button">Import pasted JSON</button>
+        <button class="btn ghost" id="preview-starter" type="button">Show blank markers</button>
+        <button class="btn ghost" id="clear" type="button">Clear form</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0">Preview</h2>
+      <pre><code id="preview"></code></pre>
+      <h3>Format notes</h3>
+      <ul class="small muted">
+        <li><code>prompt</code>, hints and definitions accept Markdown; glossary terms are linked automatically.</li>
+        <li><code>starter_code</code> for fill-in-the-blank uses <code>___</code> (three or more underscores) as the blank marker.</li>
+        <li><code>expected_output</code> is compared printing-by-printing, ignoring trailing spaces and blank lines.</li>
+        <li><code>tests</code> is Python appended after the learner's code: it must assert what you want to check.</li>
+        <li><code>setup</code> is Python that runs <em>before</em> the learner's code (sample data, imports, fixtures).</li>
+        <li>List extra packages in <code>packages</code> (for example <code>numpy</code>, <code>pandas</code>) to have them loaded on demand.</li>
+        <li>Use <code>glossary</code> slugs such as <code>for-loop</code>, <code>dictionary</code>, <code>axis</code> to link to the glossary page.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="card">
+    <div class="row-between">
+      <h2 style="margin:0">Drafts in this browser</h2>
+      <button class="btn small ghost" id="clear-drafts" type="button">Delete all drafts</button>
+    </div>
+    <div id="drafts"></div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap"><p>Drafts live in localStorage; the repository files stay the source of truth.</p></div>
+</footer>
+
+<script type="module" src="../assets/js/create.js"></script>
+<script type="module" src="../assets/js/theme.js"></script>
+</body>
+</html>

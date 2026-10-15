@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Python Practice</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <nav class="main">
+      <a href="index.html">Home</a>
+      <a href="teaching/index.html">Teaching</a>
+      <a href="practice/index.html">Practice</a>
+      <a href="glossary.html" aria-current="page">Glossary</a>
+      <a href="upload.html">Add material</a>
+      <a href="practice/create.html">Add exercise</a>
+    </nav>
+    <button id="theme-toggle" class="btn small ghost" type="button">☀</button>
+  </div>
+</header>
+
+<main class="wrap narrow" id="main">
+  <h1>Glossary</h1>
+  <p>
+    Every Python and data-analysis term the course uses, in one place. Terms inside an exercise link straight here,
+    and each entry lists the assignment and the exercises that put it to work.
+  </p>
+
+  <div class="filters">
+    <div class="group">
+      <span class="lbl">Search</span>
+      <input type="search" id="term-search" placeholder="Search terms, definitions and examples…" style="min-width:16em">
+    </div>
+    <div class="group">
+      <span class="lbl">Order</span>
+      <select id="term-sort">
+        <option value="alpha">A–Z (all terms)</option>
+        <option value="assignment">By assignment</option>
+      </select>
+    </div>
+    <span class="small muted" id="term-count"></span>
+  </div>
+
+  <div id="glossary"><p class="muted">Loading glossary…</p></div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Definitions live in <code>data/glossary.json</code> — edit that file to add your own terms, then reload.</p>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/glossary-page.js"></script>
+<script type="module" src="assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+{
+  "_generated": {
+    "by": "tools/generate_problems.mjs",
+    "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "notebook": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS",
+    "tasks": 6,
+    "auto_checked": 5,
+    "note": "Generated from the class notebooks. Regenerate with `node tools/generate_problems.mjs --predict-variants`; edit by hand only if you stop regenerating."
+  },
+  "problems": [
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-exercise-1",
+      "type": "write_from_scratch",
+      "title": "Exercise 1 · Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS\n\n#### Exercise 1\nYou are provided with the `skills` list below.\nIf `'Python'` is not in the `skills` list, print `'What a shame! Python is the best!'`.\nOtherwise, if the `skills` list contains exactly 5 items and `'Python'` is the last skill in the list, print `'Saved the best for last.'`\nFor any other case, print `'Very solid list of skills.'`.",
+      "hints": [],
+      "solution": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "list",
+        "len",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 1,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "expected_output": "Saved the best for last.",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-exercise-2",
+      "type": "write_from_scratch",
+      "title": "Exercise 2 · Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "#### Exercise 2\nThe `replace` method can be used on a string object to replace text with different text. Start typing `text = text.replace(` in the cell below and use the tool tip window to identify what is required to use the `replace` method. Then use the `replace` method to replace \"myname\" in the text below with your own name and print out the result.",
+      "hints": [],
+      "solution": "text = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "string",
+        "method",
+        "parameter",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n",
+      "expected_output": "Prof Lee is going to be a Python wizard by the end of the semester! Prof Lee will not give up!\nProf Lee is going to be a Python wizard by the end of the semester! myname will not give up!",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-iterate-through-the-jobs-list-using-",
+      "type": "write_from_scratch",
+      "title": "Iterate through the jobs list using a for loop and print each job with its respective sal… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "1. Iterate through the `jobs` list using a `for` loop and print each job with its respective salary in the format `job : salary`.",
+      "hints": [
+        "Iterate through the `jobs` list using a `for` loop and print each job with its respective salary in the format `job : salary`."
+      ],
+      "solution": "# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n",
+      "expected_output": "physician : 180000\nlawyer : 144500\nr&d manager : 142120\nsoftware development manager : 132000\npharmacy manager : 130000\nsoftware architect : 128250\nit manager : 120000\npharmacist : 118000\nfinance manager : 115000\nactuary : 115000\ntax manager : 110000",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-loop-to-compute-5-factor",
+      "type": "write_from_scratch",
+      "title": "Use a while loop to compute 5 factorial. Recall, the formula for 5 factorial is as follow… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Exercise 4\n\n1. Use a `while` loop to compute 5 factorial. Recall, the formula for 5 factorial is as follows:\n        5! = 5 x 4 x 3 x 2 x 1 = 120\n**NOTE:** This exercise is meant to stretch you!",
+      "hints": [
+        "Use a `while` loop to compute 5 factorial. Recall, the formula for 5 factorial is as follows:"
+      ],
+      "solution": "# 1\n\nfactorial = 1\ncurrent_number = 5\n\nwhile current_number > 0:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    \nprint(factorial)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "while-loop",
+        "loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n\n# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n",
+      "expected_output": "120",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-true-loop-to-repeat-the-",
+      "type": "write_from_scratch",
+      "title": "Use a while True loop to repeat the exercise (i.e., to compute 5 factorial). · Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 9,
+      "prompt": "2. Use a `while True` loop to repeat the exercise (i.e., to compute 5 factorial).",
+      "hints": [
+        "Use a `while True` loop to repeat the exercise (i.e., to compute 5 factorial)."
+      ],
+      "solution": "# 2\n\nfactorial = 1\ncurrent_number = 5\n\nwhile True:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    if current_number == 0:\n        break\n    \nprint(factorial)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "while-loop",
+        "loop",
+        "break",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 11,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n\n# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n\n# 1\n\nfactorial = 1\ncurrent_number = 5\n\nwhile current_number > 0:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    \nprint(factorial)\n",
+      "expected_output": "120",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    }
+  ]
+}

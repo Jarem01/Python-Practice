@@ -1,0 +1,15 @@
+{
+  "name": "python-practice",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static learning site: Jupyter notebooks as teaching content plus a browser-based Python practice engine.",
+  "scripts": {
+    "build": "python3 tools/build_index.py",
+    "check": "python3 tools/build_index.py --check",
+    "serve": "python3 -m http.server 8000",
+    "test": "npm run test:python && npm run test:node",
+    "test:node": "node --test \"tests/*.test.mjs\"",
+    "test:python": "python3 -m unittest discover -s tests -p 'test_*.py'"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "problems": [
+    {
+      "id": "fix-loop-sum-1-to-5",
+      "type": "fix_the_code",
+      "title": "The loop that stops one short",
+      "topics": ["Python Basics", "Loops"],
+      "difficulty": "easy",
+      "prompt": "This program should print the sum of the numbers 1 to 5 (which is 15), but it prints 10.\n\nWhy? `range(a, b)` stops *before* `b`. Fix the code so the output is `15`.",
+      "starter_code": "total = 0\nfor i in range(1, 5):\n    total = total + i\n\nprint(total)\n",
+      "expected_output": "15",
+      "hints": [
+        "Read the loop header carefully: which numbers does `range(1, 5)` actually give you?",
+        "Add a temporary `print(i)` inside the loop to see the numbers it visits.",
+        "The last number you need is 5, so the stop value has to be one more than that."
+      ],
+      "solution": "total = 0\nfor i in range(1, 6):\n    total = total + i\n\nprint(total)\n",
+      "glossary": ["range", "for-loop"]
+    },
+    {
+      "id": "predict-string-slice",
+      "type": "predict_output",
+      "title": "Slicing and string methods",
+      "topics": ["Python Basics", "Strings"],
+      "difficulty": "easy",
+      "prompt": "Type exactly what this program prints, line by line. Watch the slice — the end index is **excluded**.",
+      "starter_code": "word = \"python\"\nprint(word[1:4])\nprint(len(word))\nprint(word.upper())\n",
+      "expected_output": "yth\n6\nPYTHON",
+      "hints": [
+        "`word[1:4]` starts at index 1 (`y`) and stops *before* index 4.",
+        "`len(\"python\")` is the number of characters.",
+        "Order matters: the output is three separate lines."
+      ],
+      "solution": "word = \"python\"\nprint(word[1:4])   # yth\nprint(len(word))   # 6\nprint(word.upper())  # PYTHON\n",
+      "glossary": ["slice", "index", "len", "method"]
+    },
+    {
+      "id": "fill-even-filter",
+      "type": "fill_in_blank",
+      "title": "Keep only the even numbers",
+      "topics": ["Python Basics", "Data Structures"],
+      "difficulty": "medium",
+      "prompt": "Fill in the two blanks so the list comprehension keeps only the even numbers.\n\nExpected output: `[8, 12, 20]`",
+      "starter_code": "numbers = [3, 8, 5, 12, 7, 20]\nevens = [n ___ n in numbers if n ___ 2 == 0]\n\nprint(evens)\n",
+      "expected_output": "[8, 12, 20]",
+      "blanks": [
+        { "accepted": ["for"], "hint": "A list comprehension reads like a sentence: [expression FOR item in sequence IF condition]." },
+        { "accepted": ["%", "mod"], "hint": "Use the modulo operator, which gives the remainder of a division." }
+      ],
+      "hints": [
+        "A list comprehension has the shape `[<expression> for <item> in <sequence> if <condition>]`.",
+        "An even number gives remainder 0 when divided by 2."
+      ],
+      "solution": "numbers = [3, 8, 5, 12, 7, 20]\nevens = [n for n in numbers if n % 2 == 0]\n\nprint(evens)\n",
+      "glossary": ["list-comprehension", "modulo", "operator"]
+    },
+    {
+      "id": "write-count-vowels",
+      "type": "write_from_scratch",
+      "title": "Count the vowels",
+      "topics": ["Python Basics", "Functions", "Strings"],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 6,
+      "prompt": "Write a function `count_vowels(text)` that returns how many vowels (a, e, i, o, u — upper or lower case) are in `text`. Then print `count_vowels(\"Hello World\")`.\n\nExpected output: `3`",
+      "hints": [
+        "Start with a counter variable set to `0`.",
+        "Loop over the characters: `for ch in text:`",
+        "Compare against the vowels in lower case: `if ch.lower() in \"aeiou\":`",
+        "Increase the counter inside the `if`, then `return` it after the loop.",
+        "Finally print the call: `print(count_vowels(\"Hello World\"))`"
+      ],
+      "expected_output": "3",
+      "tests": "assert count_vowels(\"Hello World\") == 3, \"Hello World has 3 vowels\"\nassert count_vowels(\"PYTHON\") == 1, \"PYTHON has 1 vowel\"\nassert count_vowels(\"\") == 0, \"an empty string has no vowels\"\n",
+      "test_summary": "Checks count_vowels(\"Hello World\") == 3, count_vowels(\"PYTHON\") == 1 and count_vowels(\"\") == 0.",
+      "solution": "def count_vowels(text):\n    total = 0\n    for ch in text:\n        if ch.lower() in \"aeiou\":\n            total += 1\n    return total\n\nprint(count_vowels(\"Hello World\"))\n",
+      "glossary": ["def", "function", "return", "for-loop", "method"]
+    },
+    {
+      "id": "fix-fstring-greeting",
+      "type": "fix_the_code",
+      "title": "The greeting that prints variable names",
+      "topics": ["Python Basics", "Strings"],
+      "difficulty": "easy",
+      "prompt": "This should print `Hello, Ada! You are 36 years old.` but it prints the *names* of the variables instead of their values.\n\nFix it with an f-string.",
+      "starter_code": "name = \"Ada\"\nage = 36\n\nprint(\"Hello, name! You are age years old.\")\n",
+      "expected_output": "Hello, Ada! You are 36 years old.",
+      "hints": [
+        "Inside `\"...\"` everything is text — Python does not know `name` is a variable there.",
+        "Put an `f` in front of the opening quote and wrap each variable in braces."
+      ],
+      "solution": "name = \"Ada\"\nage = 36\n\nprint(f\"Hello, {name}! You are {age} years old.\")\n",
+      "glossary": ["f-string", "variable", "string"]
+    },
+    {
+      "id": "predict-while-counter",
+      "type": "predict_output",
+      "title": "What does the while loop leave behind?",
+      "topics": ["Python Basics", "Loops"],
+      "difficulty": "easy",
+      "prompt": "The `while` loop prints something *and* updates `count`. Type the complete output.",
+      "starter_code": "count = 0\nwhile count < 3:\n    count += 1\n    print(count)\n\nprint(\"done:\", count)\n",
+      "expected_output": "1\n2\n3\ndone: 3",
+      "hints": [
+        "`count += 1` runs *before* the `print` inside the loop.",
+        "The loop stops as soon as the condition `count < 3` is false, so the last printed value inside the loop is 3.",
+        "`print(\"done:\", count)` prints two arguments separated by a space."
+      ],
+      "solution": "count = 0\nwhile count < 3:\n    count += 1\n    print(count)\n\nprint(\"done:\", count)\n",
+      "glossary": ["while-loop", "loop", "print"]
+    },
+    {
+      "id": "fill-sum-args",
+      "type": "fill_in_blank",
+      "title": "A sum function that works for any count",
+      "topics": ["Functions", "Python Basics"],
+      "difficulty": "medium",
+      "prompt": "`total(*numbers)` should add up *any* number of arguments. Fill in the missing starting value and the return statement.\n\nExpected output: `10`",
+      "starter_code": "def total(*numbers):\n    result = ___\n    for n in numbers:\n        result += n\n    ___\n\nprint(total(1, 2, 3, 4))\n",
+      "expected_output": "10",
+      "blanks": [
+        { "accepted": ["0"], "hint": "An accumulator for a sum starts at the additive identity." },
+        { "accepted": ["return result", "return(result)", "return result ", "return(sum(numbers))", "return sum(numbers)"], "hint": "A function without a return value gives back None." }
+      ],
+      "hints": [
+        "`*numbers` collects all positional arguments into a tuple.",
+        "You need an accumulator variable *and* a `return` statement."
+      ],
+      "solution": "def total(*numbers):\n    result = 0\n    for n in numbers:\n        result += n\n    return result\n\nprint(total(1, 2, 3, 4))\n",
+      "glossary": ["function", "def", "return", "parameter", "tuple"]
+    },
+    {
+      "id": "write-celsius-to-fahrenheit",
+      "type": "write_from_scratch",
+      "title": "Celsius to Fahrenheit",
+      "topics": ["Python Basics", "Functions"],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "Write a function `celsius_to_fahrenheit(celsius)` that converts a temperature using `F = C * 9 / 5 + 32`. Then print the result for 100 °C.\n\nExpected output: `212.0`",
+      "hints": [
+        "Define the function with `def celsius_to_fahrenheit(celsius):`",
+        "Return the formula: `celsius * 9 / 5 + 32`.",
+        "Python 3 division `/` always produces a float, so `100 * 9 / 5 + 32` is `212.0`.",
+        "Print the call: `print(celsius_to_fahrenheit(100))`"
+      ],
+      "expected_output": "212.0",
+      "tests": "assert celsius_to_fahrenheit(0) == 32.0\nassert celsius_to_fahrenheit(37) == 98.6\n",
+      "test_summary": "Checks that 0 °C maps to 32.0 and 37 °C maps to 98.6.",
+      "solution": "def celsius_to_fahrenheit(celsius):\n    return celsius * 9 / 5 + 32\n\nprint(celsius_to_fahrenheit(100))\n",
+      "glossary": ["def", "function", "return", "operator"]
+    },
+    {
+      "id": "fix-syntax-indent",
+      "type": "fix_the_code",
+      "title": "Indentation matters",
+      "topics": ["Python Basics"],
+      "difficulty": "easy",
+      "prompt": "Run this and read the error message. Then fix the indentation so the program prints:\n\n```\npositive\nfinished\n```",
+      "starter_code": "value = 7\n\nif value > 0:\nprint(\"positive\")\n\nprint(\"finished\")\n",
+      "expected_output": "positive\nfinished",
+      "hints": [
+        "Python uses indentation to know what belongs *inside* the block.",
+        "Only the line that should run conditionally gets indented."
+      ],
+      "solution": "value = 7\n\nif value > 0:\n    print(\"positive\")\n\nprint(\"finished\")\n",
+      "glossary": ["indentation", "if-statement", "block"]
+    }
+  ]
+}

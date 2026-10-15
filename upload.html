@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upload course material — Python Practice</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <nav class="main">
+      <a href="index.html">Home</a>
+      <a href="teaching/index.html">Teaching</a>
+      <a href="practice/index.html">Practice</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="upload.html" aria-current="page">Add material</a>
+      <a href="practice/create.html">Add exercise</a>
+    </nav>
+    <button id="theme-toggle" class="btn small ghost" type="button">☀</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <h1>Upload course material</h1>
+  <p>
+    Drop in notebooks (<code>.ipynb</code>), scripts (<code>.py</code>) and their data files
+    (<code>.csv</code>, <code>.xlsx</code>, …). Everything is analyzed in your browser: titles, cell
+    counts, the exercises inside each notebook, and — for notebooks — the printed output of every
+    solution, which becomes an automatically checked practice exercise.
+  </p>
+  <p class="small">
+    Every uploaded file is stored under <code>materials/</code> in the repository, which is the single
+    folder that tracks all of the source study material — add to it as often as you like, in any
+    batch, and the teaching and practice pages pick the new files up as soon as the index is rebuilt.
+  </p>
+  <ol class="small muted">
+    <li><strong>Add files</strong> by dropping them below or picking them from your computer.</li>
+    <li><strong>Analyze</strong> to see what was detected and to build practice exercises.</li>
+    <li><strong>Save</strong> to GitHub (the source files land in <code>materials/</code>) or to this
+        browser, then keep browsing — uploads show up in the <a href="teaching/index.html">teaching</a>
+        and <a href="practice/index.html">practice</a> sections right away.</li>
+  </ol>
+
+  <div id="status"></div>
+  <p id="progress"></p>
+
+  <section class="card">
+    <h2 style="margin-top:0">1. Add files</h2>
+    <div id="drop" tabindex="0" role="button" aria-label="Drop files here or click to choose files"
+         style="border:2px dashed var(--border-strong);border-radius:var(--radius);padding:2rem 1rem;text-align:center;cursor:pointer">
+      <p style="margin:0 0 .3rem"><strong>Drop files here</strong> or click to choose</p>
+      <p class="small muted" style="margin:0">.ipynb · .py · .md · .txt · .csv · .tsv · .json · .xlsx · and anything else you want stored</p>
+    </div>
+    <input type="file" id="file-input" multiple class="hidden" accept=".ipynb,.py,.pyw,.md,.txt,.csv,.tsv,.json,.xlsx,.xls,.parquet,.zip,.png,.jpg,.jpeg,.gif,.pdf">
+    <div class="btn-row" style="margin-top:.6rem">
+      <button class="btn" id="pick" type="button">Choose files…</button>
+      <span class="small muted">or fetch from a URL:</span>
+      <input type="text" id="url-input" placeholder="https://raw.githubusercontent.com/…/lesson.ipynb" style="min-width:22em">
+      <button class="btn small" id="fetch-url" type="button">Fetch</button>
+    </div>
+
+    <div class="grid cols-3" style="margin-top:1rem">
+      <label class="field">
+        <span class="lbl">Folder in the repository</span>
+        <input type="text" id="folder" value="materials">
+        <span class="hint">Source material is stored here; new uploads never overwrite course files.</span>
+      </label>
+      <label class="field">
+        <span class="lbl">Subfolder / track (optional)</span>
+        <input type="text" id="subfolder" placeholder="Intro to Python (Part 5)">
+        <span class="hint">Groups the material under one track in the teaching index.</span>
+      </label>
+      <label class="field">
+        <span class="lbl">Options</span>
+        <span class="small"><input type="checkbox" id="generate" checked> Build practice exercises from notebooks</span><br>
+        <span class="small"><input type="checkbox" id="predict" checked> Also add “predict the output” versions</span><br>
+        <span class="small"><input type="checkbox" id="commit-exercises" checked> Save the checked exercises into <code>problems/generated/</code></span>
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0">2. Analyzed files</h2>
+    <div id="files"><p class="small muted">No files added yet.</p></div>
+    <div class="btn-row" style="margin-top:.8rem">
+      <button class="btn primary" id="analyze" type="button">Analyze files</button>
+      <button class="btn" id="save-browser" type="button">Save to this browser</button>
+      <button class="btn" id="save-github" type="button">Save to GitHub</button>
+      <button class="btn ghost" id="download-bundle" type="button">Download bundle for the importer</button>
+      <button class="btn ghost" id="clear" type="button">Clear list</button>
+    </div>
+    <p class="small muted" style="margin-top:.6rem" id="save-hint"></p>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0">3. Practice exercises built from the uploads</h2>
+    <div id="drafts"><p class="small muted">Exercises appear here after analyzing a notebook.</p></div>
+    <p class="small"><a href="practice/index.html">Open the exercise list</a> — every generated exercise is
+      saved as a draft in this browser and is playable immediately.</p>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0">GitHub settings</h2>
+    <p class="small">
+      Saving to GitHub commits each file to <code>materials/</code> with the GitHub API. The token stays in
+      this browser (localStorage) and is sent only to <code>api.github.com</code>. Use a
+      <em>fine-grained</em> token with <strong>Contents: Read and write</strong> for this repository, or a
+      classic token with the <code>repo</code> scope. Nothing is committed until you click
+      <strong>Save to GitHub</strong>.
+    </p>
+    <div class="grid cols-3">
+      <label class="field"><span class="lbl">Repository</span><input type="text" id="gh-repo" placeholder="owner/name"></label>
+      <label class="field"><span class="lbl">Branch</span><input type="text" id="gh-branch" placeholder="main"></label>
+      <label class="field"><span class="lbl">Token</span><input type="password" id="gh-token" placeholder="ghp_… or github_pat_…" autocomplete="off"></label>
+    </div>
+    <div class="btn-row">
+      <button class="btn small" id="gh-test" type="button">Test connection</button>
+      <button class="btn small ghost" id="gh-save" type="button">Save settings</button>
+      <button class="btn small ghost" id="gh-forget" type="button">Forget token</button>
+      <span class="small"><input type="checkbox" id="gh-remember" checked> keep the token in this browser</span>
+    </div>
+    <p class="small muted" id="gh-status"></p>
+
+    <details class="small" style="margin-top:.6rem">
+      <summary>No token? Use the bundle + importer instead</summary>
+      <p>Click <strong>Download bundle for the importer</strong>, then in your clone of the repository:</p>
+      <pre><code>python3 tools/import_materials.py ~/Downloads/materials-bundle.json
+python3 tools/build_index.py
+git add -A &amp;&amp; git commit -m "Add course material" &amp;&amp; git push</code></pre>
+    </details>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Uploads are analyzed locally; nothing is sent anywhere except the GitHub API when you ask for it.</p>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/upload.js"></script>
+<script type="module" src="assets/js/theme.js"></script>
+</body>
+</html>

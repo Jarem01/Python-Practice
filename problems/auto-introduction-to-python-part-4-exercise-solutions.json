@@ -1,0 +1,263 @@
+{
+  "_generated": {
+    "by": "tools/generate_problems.mjs",
+    "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "notebook": "Introduction to Python (Part 4) - EXERCISE SOLUTIONS",
+    "tasks": 6,
+    "auto_checked": 7,
+    "note": "Generated from the class notebooks. Regenerate with `node tools/generate_problems.mjs --predict-variants`; edit by hand only if you stop regenerating."
+  },
+  "problems": [
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-sentences-list-a",
+      "type": "write_from_scratch",
+      "title": "Iterate through the sentences list and use the countword function you created in Part 1 t… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 6,
+      "prompt": "2. Iterate through the `sentences` list and use the `count_word` function you created in Part 1 to print the following:\n            The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.'\n    Fill in the counts of the words `'class'` and `'semester'` for each sentence.",
+      "hints": [
+        "Iterate through the `sentences` list and use the `count_word` function you created in Part 1 to print the following:"
+      ],
+      "solution": "# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "function",
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n",
+      "expected_output": "The count of 'class' is 1, and the count of 'semester' is 1.\nThe count of 'class' is 0, and the count of 'semester' is 0.\nThe count of 'class' is 2, and the count of 'semester' is 1.\nThe count of 'class' is 3, and the count of 'semester' is 0.\nThe count of 'class' is 1, and the count of 'semester' is 0.\nThe count of 'class' is 1, and the count of 'semester' is 1.\nThe count of 'class' is 1, and the count of 'semester' is 0.",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o",
+      "type": "write_from_scratch",
+      "title": "The code below calculates the area of a circle with radius 5. Run the cell, read the exce… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 5,
+      "prompt": "Exercise 2\n\n1. The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code.",
+      "hints": [
+        "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
+      ],
+      "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "print",
+        "import",
+        "cell"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "expected_output": "78.53981633974483",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o-predict",
+      "type": "predict_output",
+      "title": "Predict the output: The code below calculates the area of a circle with radius 5. Run the cell, read the exce…",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "Exercise 2\n\n1. The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "expected_output": "78.53981633974483",
+      "hints": [
+        "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
+      ],
+      "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "print",
+        "import",
+        "cell"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th",
+      "type": "write_from_scratch",
+      "title": "Identify and correct the error in the code below. · Introduction to Python (Part 4)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "2. Identify and correct the error in the code below.",
+      "hints": [
+        "Identify and correct the error in the code below."
+      ],
+      "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "expected_output": "0 : 13\n1 : 22\n2 : 34\n3 : 48\n4 : 50",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Identify and correct the error in the code below.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Identify and correct the error in the code below.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "expected_output": "0 : 13\n1 : 22\n2 : 34\n3 : 48\n4 : 50",
+      "hints": [
+        "Identify and correct the error in the code below."
+      ],
+      "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-s-in-",
+      "type": "write_from_scratch",
+      "title": "Identify and correct the error(s) in the code below. · Introduction to Python (Part 4)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Exercise 3\n\n1. Identify and correct the error(s) in the code below.",
+      "hints": [
+        "Identify and correct the error(s) in the code below."
+      ],
+      "solution": "# 1\n\ndef get_value(name):\n    dict1 = {'Anna':1,'Andrew':2,'Daniel':3,'Jenna':4,'Matthew':5,'Lauren':6}\n    value = dict1.get(name, None)\n    return value\n    \nvalue = get_value('Andrew')\n\nprint(value)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "def",
+        "return",
+        "none",
+        "value"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n\n# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "expected_output": "2",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-numbers-list-div",
+      "type": "write_from_scratch",
+      "title": "Iterate through the numbers list, divide each element by 2 in the list, and print the res… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 8,
+      "prompt": "Exercise 4\n\n1. Iterate through the `numbers` list, divide each element by 2 in the list, and print the result. If Python returns an error, print the element in the list that caused the error along with the exception raised by Python.",
+      "hints": [
+        "Iterate through the `numbers` list, divide each element by 2 in the list, and print the result. If Python returns an error, print the element in the list that caused the error along with the exception raised by Python."
+      ],
+      "solution": "# 1\nnumbers = [1,2,3,'4',5,'6',7,8]\n\nfor number in numbers:\n    try:\n        number = number/2\n        print(number)\n    except Exception as e:\n        print(f'{number} : {e}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "list",
+        "print",
+        "exceptions"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 11,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n\n# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n\n# 1\n\ndef get_value(name):\n    dict1 = {'Anna':1,'Andrew':2,'Daniel':3,'Jenna':4,'Matthew':5,'Lauren':6}\n    value = dict1.get(name, None)\n    return value\n    \nvalue = get_value('Andrew')\n\nprint(value)\n",
+      "expected_output": "0.5\n1.0\n1.5\n4 : unsupported operand type(s) for /: 'str' and 'int'\n2.5\n6 : unsupported operand type(s) for /: 'str' and 'int'\n3.5\n4.0",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    }
+  ]
+}

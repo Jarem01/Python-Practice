@@ -1,0 +1,266 @@
+{
+  "_generated": {
+    "by": "tools/generate_problems.mjs",
+    "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "notebook": "Introduction to Python (Part 3) - EXERCISE SOLUTIONS",
+    "tasks": 9,
+    "auto_checked": 7,
+    "note": "Generated from the class notebooks. Regenerate with `node tools/generate_problems.mjs --predict-variants`; edit by hand only if you stop regenerating."
+  },
+  "problems": [
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not",
+      "type": "write_from_scratch",
+      "title": "In the byucoaches dictionary, you notice that 2007 is missing from the list of years that… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "1. In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.\n    - **Bonus points:** Update the list to be sorted in order from least to greatest.",
+      "hints": [
+        "In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.",
+        "**Bonus points:** Update the list to be sorted in order from least to greatest."
+      ],
+      "solution": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "dictionary",
+        "sorting",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n",
+      "expected_output": "{'Alvin Twitchell': [1922, 1923, 1924], 'C. J. Hart': [1925, 1926, 1927], 'G. Ott Romney': [1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936], 'Eddie Kimball': [1937, 1938, 1939, 1940, 1941], 'Floyd Millet': [1942], 'Chick Atkinson': [1949, 1950, 1951, 1952, 1953, 1954, 1955], 'Hal Kopp': [1956, 1957, 1958], 'Tally Stevens': [1959, 1960], 'Hal Mitchell': [1961, 1962, 1963], 'Tommy Hudspeth': [1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971], 'LaVell Edwards': [1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000], 'Gary Crowton': [2001, 2002, 2003, 2004], 'Bronco Mendenhall': [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], 'Kalani Sitake': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not-predict",
+      "type": "predict_output",
+      "title": "Predict the output: In the byucoaches dictionary, you notice that 2007 is missing from the list of years that…",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "1. In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.\n    - **Bonus points:** Update the list to be sorted in order from least to greatest.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "expected_output": "{'Alvin Twitchell': [1922, 1923, 1924], 'C. J. Hart': [1925, 1926, 1927], 'G. Ott Romney': [1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936], 'Eddie Kimball': [1937, 1938, 1939, 1940, 1941], 'Floyd Millet': [1942], 'Chick Atkinson': [1949, 1950, 1951, 1952, 1953, 1954, 1955], 'Hal Kopp': [1956, 1957, 1958], 'Tally Stevens': [1959, 1960], 'Hal Mitchell': [1961, 1962, 1963], 'Tommy Hudspeth': [1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971], 'LaVell Edwards': [1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000], 'Gary Crowton': [2001, 2002, 2003, 2004], 'Bronco Mendenhall': [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], 'Kalani Sitake': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}",
+      "hints": [
+        "In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.",
+        "**Bonus points:** Update the list to be sorted in order from least to greatest."
+      ],
+      "solution": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "dictionary",
+        "sorting",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo",
+      "type": "write_from_scratch",
+      "title": "Use the byucoaches dictionary to loop over the years in which Alvin Twitchell was the hea… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "2. Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one.",
+      "hints": [
+        "Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one."
+      ],
+      "solution": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "expected_output": "1922\n1923\n1924",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Use the byucoaches dictionary to loop over the years in which Alvin Twitchell was the hea…",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "expected_output": "1922\n1923\n1924",
+      "hints": [
+        "Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one."
+      ],
+      "solution": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary",
+      "type": "write_from_scratch",
+      "title": "Use the footballpositions dictionary to print the description of the 'Kicker' position. U… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "3. Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets.",
+      "hints": [
+        "Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets."
+      ],
+      "solution": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "expected_output": "Kicks field goals and extra points",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Use the footballpositions dictionary to print the description of the 'Kicker' position. U…",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "3. Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "expected_output": "Kicks field goals and extra points",
+      "hints": [
+        "Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets."
+      ],
+      "solution": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-create-a-dictionary-called-epsdict-w",
+      "type": "write_from_scratch",
+      "title": "Create a dictionary called epsdict with the tickers as keys and the earnings per share nu… · Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 8,
+      "prompt": "Exercise 2\nThe `tickers` and `earnings` lists below contain tickers and corresponding earnings per share data for each ticker.\n\n1. Create a dictionary called `eps_dict` with the tickers as keys and the earnings per share numbers as individual values for each key.",
+      "hints": [
+        "Create a dictionary called `eps_dict` with the tickers as keys and the earnings per share numbers as individual values for each key."
+      ],
+      "solution": "# 1\n\ntickers = ['AAPL','F','AMZN']\nearnings = [1.50,2.7,1.2]\n\neps_dict = {}\n\nfor t,ticker in enumerate(tickers):\n    eps = earnings[t]\n    eps_dict[ticker] = eps\n\nprint(eps_dict)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "dictionary",
+        "key",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n\n# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "expected_output": "{'AAPL': 1.5, 'F': 2.7, 'AMZN': 1.2}",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    }
+  ]
+}

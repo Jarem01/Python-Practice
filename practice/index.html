@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice — Python Practice</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script>
+  try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="../index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <nav class="main">
+      <a href="../index.html">Home</a>
+      <a href="../teaching/index.html">Teaching</a>
+      <a href="index.html" aria-current="page">Practice</a>
+      <a href="../glossary.html">Glossary</a>
+      <a href="../upload.html">Add material</a>
+      <a href="create.html">Add exercise</a>
+    </nav>
+    <button id="theme-toggle" class="btn small ghost" type="button">☀</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="row-between">
+    <h1>Practice exercises</h1>
+    <span class="badge" id="count-badge">…</span>
+  </div>
+  <p class="small muted">
+    Four exercise types, all checked in your browser: <strong>fix the code</strong>, <strong>fill in the blank</strong>,
+    <strong>predict the output</strong> and <strong>write from scratch</strong>. Your progress and drafts are stored
+    locally in this browser only.
+  </p>
+
+  <section class="card">
+    <div id="filters" class="filters"></div>
+    <div id="list-summary"></div>
+  </section>
+
+  <section class="card">
+    <div id="problem-list"></div>
+  </section>
+
+  <p class="small muted">
+    Want more? <a href="create.html">Create an exercise</a> or drop a JSON/Markdown file into <code>problems/</code> and run
+    <code>python3 tools/build_index.py</code>.
+  </p>
+</main>
+
+<footer class="site">
+  <div class="wrap"><p>Progress is stored in this browser's localStorage and never leaves your machine.</p></div>
+</footer>
+
+<script type="module" src="../assets/js/practice-list.js"></script>
+<script type="module" src="../assets/js/theme.js"></script>
+</body>
+</html>

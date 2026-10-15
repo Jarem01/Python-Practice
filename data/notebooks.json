@@ -1,0 +1,685 @@
+{
+  "generated_at": "2026-10-15T19:04:55+00:00",
+  "root": "5de7ac673820556d5eb2fdf4",
+  "totals": {
+    "notebooks": 10,
+    "scripts": 0,
+    "cells": 241,
+    "exercises": 35,
+    "problems": 74,
+    "topics": 11
+  },
+  "groups": [
+    {
+      "name": "Data Analysis",
+      "title": "Data Analysis",
+      "order": 1,
+      "notebooks": [
+        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ],
+      "scripts": []
+    },
+    {
+      "name": "Intro to Python",
+      "title": "Intro to Python",
+      "order": 1,
+      "notebooks": [
+        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ],
+      "scripts": []
+    },
+    {
+      "name": "Notebooks",
+      "title": "Notebooks",
+      "order": 100,
+      "notebooks": [],
+      "scripts": []
+    }
+  ],
+  "notebooks": [
+    {
+      "id": "data-analysis-part-1-class-exercise-solutions",
+      "path": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis (Part 1) - Introduction to Pandas - EXERCISE SOLUTIONS",
+      "group": "Data Analysis",
+      "group_order": 1,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 30,
+      "code_cell_count": 15,
+      "markdown_cell_count": 15,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 10,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 18,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        },
+        {
+          "index": 24,
+          "title": "Exercise 4",
+          "anchor": "exercise-4"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis",
+        "Strings",
+        "pandas"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures",
+        "Strings",
+        "pandas"
+      ],
+      "bytes": 8619
+    },
+    {
+      "id": "data-analysis-part-2-class-exercise-solutions",
+      "path": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis (Part 2) - Cleaning Data - Exercise Solutions",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 24,
+      "code_cell_count": 12,
+      "markdown_cell_count": 12,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 8,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 14,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        },
+        {
+          "index": 20,
+          "title": "Exercise 4",
+          "anchor": "exercise-4"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures"
+      ],
+      "bytes": 7598
+    },
+    {
+      "id": "data-analysis-part-3-class-exercise-solutions",
+      "path": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis (Part 3) - Sorting and Computing Summary Statistics - Exercise Solutions",
+      "group": "Data Analysis",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 23,
+      "code_cell_count": 12,
+      "markdown_cell_count": 11,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 8,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 16,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures",
+        "pandas"
+      ],
+      "bytes": 7444
+    },
+    {
+      "id": "data-analysis-part-4-class-exercise-solutions",
+      "path": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis (Part 4) - Concatenating and Merging DataFrames - Exercise Solutions",
+      "group": "Data Analysis",
+      "group_order": 4,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 30,
+      "code_cell_count": 15,
+      "markdown_cell_count": 15,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 11,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 18,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        },
+        {
+          "index": 24,
+          "title": "Exercise 4",
+          "anchor": "exercise-4"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures",
+        "pandas"
+      ],
+      "bytes": 11528
+    },
+    {
+      "id": "data-analysis-part-6-class-exercise-solutions",
+      "path": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis (Part 6) - Regression - CLASS EXERCISE SOLUTIONS",
+      "group": "Data Analysis",
+      "group_order": 6,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 28,
+      "code_cell_count": 14,
+      "markdown_cell_count": 14,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 10,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 16,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures",
+        "pandas"
+      ],
+      "bytes": 12750
+    },
+    {
+      "id": "data-analysis-part-5-class-exercise-solutions",
+      "path": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS",
+      "group": "Data Analysis",
+      "group_order": 5,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 23,
+      "code_cell_count": 12,
+      "markdown_cell_count": 11,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 3,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 9,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 17,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        }
+      ],
+      "inferred_topics": [
+        "Data Analysis"
+      ],
+      "matched_topics": [
+        "Data Analysis",
+        "Data Structures"
+      ],
+      "bytes": 8961
+    },
+    {
+      "id": "intro-to-python-part-1-class-exercise-solutions",
+      "path": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Introduction to Python (Part 1) - Class Exercise Solutions",
+      "group": "Intro to Python",
+      "group_order": 1,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 36,
+      "code_cell_count": 18,
+      "markdown_cell_count": 18,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 1,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 10,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 20,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        }
+      ],
+      "inferred_topics": [
+        "Intro to Python"
+      ],
+      "matched_topics": [
+        "Intro to Python",
+        "Python Basics"
+      ],
+      "bytes": 7340
+    },
+    {
+      "id": "intro-to-python-part-2-class-exercise-solutions",
+      "path": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS",
+      "group": "Intro to Python",
+      "group_order": 2,
+      "kernel": "Python 3 (ipykernel)",
+      "summary": "",
+      "cell_count": 13,
+      "code_cell_count": 6,
+      "markdown_cell_count": 7,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 1,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 5,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        },
+        {
+          "index": 9,
+          "title": "Exercise 4",
+          "anchor": "exercise-4"
+        }
+      ],
+      "inferred_topics": [
+        "Intro to Python",
+        "Lists"
+      ],
+      "matched_topics": [
+        "Intro to Python",
+        "Lists",
+        "Python Basics"
+      ],
+      "bytes": 5025
+    },
+    {
+      "id": "intro-to-python-part-3-class-exercise-solutions",
+      "path": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Introduction to Python (Part 3) - EXERCISE SOLUTIONS",
+      "group": "Intro to Python",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 21,
+      "code_cell_count": 11,
+      "markdown_cell_count": 10,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 1,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 9,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 11,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        }
+      ],
+      "inferred_topics": [
+        "Dictionaries",
+        "Intro to Python",
+        "Lists"
+      ],
+      "matched_topics": [
+        "Dictionaries",
+        "Intro to Python",
+        "Lists",
+        "Python Basics"
+      ],
+      "bytes": 9640
+    },
+    {
+      "id": "intro-to-python-part-4-class-exercise-solutions",
+      "path": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "filename": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "kind": "notebook",
+      "title": "Introduction to Python (Part 4) - EXERCISE SOLUTIONS",
+      "group": "Intro to Python",
+      "group_order": 4,
+      "kernel": "Python 3",
+      "summary": "",
+      "cell_count": 13,
+      "code_cell_count": 6,
+      "markdown_cell_count": 7,
+      "output_cell_count": 0,
+      "exercises": [
+        {
+          "index": 1,
+          "title": "Exercise 1",
+          "anchor": "exercise-1"
+        },
+        {
+          "index": 5,
+          "title": "Exercise 2",
+          "anchor": "exercise-2"
+        },
+        {
+          "index": 9,
+          "title": "Exercise 3",
+          "anchor": "exercise-3"
+        },
+        {
+          "index": 11,
+          "title": "Exercise 4",
+          "anchor": "exercise-4"
+        }
+      ],
+      "inferred_topics": [
+        "Intro to Python"
+      ],
+      "matched_topics": [
+        "Intro to Python",
+        "Python Basics"
+      ],
+      "bytes": 5643
+    }
+  ],
+  "scripts": [],
+  "topics": {
+    "Data Analysis": {
+      "problems": [
+        "auto-data-analysis-part-4-concatenating-and-merging-dataframes-exercise-solutions-you-are-",
+        "auto-data-analysis-part-4-concatenating-and-merging-dataframes-exercise-solutions-you-are--2",
+        "example-read-a-data-file",
+        "predict-numpy-mean-filter",
+        "fill-numpy-sum-axis",
+        "fix-pandas-hottest-city",
+        "fill-pandas-groupby",
+        "write-numpy-normalize",
+        "write-pandas-city-counts"
+      ],
+      "notebooks": [
+        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Data Structures": {
+      "problems": [
+        "fix-word-count-dict",
+        "predict-list-alias",
+        "fill-dict-comprehension",
+        "write-most-common",
+        "predict-tuple-unpack",
+        "fill-sorted-key",
+        "write-word-frequencies",
+        "fill-even-filter"
+      ],
+      "notebooks": [
+        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Dictionaries": {
+      "problems": [
+        "fix-word-count-dict",
+        "fill-dict-comprehension",
+        "write-most-common",
+        "write-word-frequencies"
+      ],
+      "notebooks": [
+        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Functions": {
+      "problems": [
+        "write-most-common",
+        "fix-first-even-return",
+        "write-word-frequencies",
+        "write-count-vowels",
+        "fill-sum-args",
+        "write-celsius-to-fahrenheit"
+      ],
+      "notebooks": []
+    },
+    "Intro to Python": {
+      "problems": [
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-8-s",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-8-s-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-cou",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-cou-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-statement-area-of-a-",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-statement-area-of-a--predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-5th-president-of-t",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-5th-president-of-t-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-7th-thro",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-7th-thro-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-first-fo",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-first-fo-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-last-thr",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-last-thr-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-replace-the-sixth-element-in-l",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-replace-the-sixth-element-in-l-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-index-location-of-",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-index-location-of--predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-append-10-to-list1",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-append-10-to-list1-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-delete-the-first-element-in-li",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-delete-the-first-element-in-li-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-count-the-occurences-of-2-in-l",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-count-the-occurences-of-2-in-l-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list2-be",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list2-be-predict",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list3-be",
+        "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list3-be-predict",
+        "auto-introduction-to-python-part-2-exercise-solutions-exercise-1",
+        "auto-introduction-to-python-part-2-exercise-solutions-exercise-2",
+        "auto-introduction-to-python-part-2-exercise-solutions-iterate-through-the-jobs-list-using-",
+        "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-loop-to-compute-5-factor",
+        "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-true-loop-to-repeat-the-",
+        "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not",
+        "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not-predict",
+        "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo",
+        "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo-predict",
+        "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary",
+        "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary-predict",
+        "auto-introduction-to-python-part-3-exercise-solutions-create-a-dictionary-called-epsdict-w",
+        "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-sentences-list-a",
+        "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o",
+        "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o-predict",
+        "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th",
+        "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th-predict",
+        "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-s-in-",
+        "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-numbers-list-div"
+      ],
+      "notebooks": [
+        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Lists": {
+      "problems": [
+        "predict-list-alias",
+        "fill-sorted-key"
+      ],
+      "notebooks": [
+        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Loops": {
+      "problems": [
+        "fix-first-even-return",
+        "predict-tuple-unpack",
+        "fix-loop-sum-1-to-5",
+        "predict-while-counter",
+        "fix-loop-off-by-one"
+      ],
+      "notebooks": []
+    },
+    "NumPy": {
+      "problems": [
+        "predict-numpy-mean-filter",
+        "fill-numpy-sum-axis",
+        "write-numpy-normalize"
+      ],
+      "notebooks": []
+    },
+    "Python Basics": {
+      "problems": [
+        "fix-loop-sum-1-to-5",
+        "predict-string-slice",
+        "fill-even-filter",
+        "write-count-vowels",
+        "fix-fstring-greeting",
+        "predict-while-counter",
+        "fill-sum-args",
+        "write-celsius-to-fahrenheit",
+        "fix-syntax-indent",
+        "fix-loop-off-by-one"
+      ],
+      "notebooks": [
+        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Strings": {
+      "problems": [
+        "predict-string-slice",
+        "write-count-vowels",
+        "fix-fstring-greeting"
+      ],
+      "notebooks": [
+        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "pandas": {
+      "problems": [
+        "example-read-a-data-file",
+        "fix-pandas-hottest-city",
+        "fill-pandas-groupby",
+        "write-pandas-city-counts"
+      ],
+      "notebooks": [
+        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    }
+  }
+}

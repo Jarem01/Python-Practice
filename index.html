@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Practice — notebook lessons and browser exercises</title>
+<meta name="description" content="A lightweight practice system for Python and data analysis: the existing Jupyter notebooks as teaching content, plus runnable exercises in the browser.">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  // Apply the saved theme before first paint to avoid a flash.
+  try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <nav class="main">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="teaching/index.html">Teaching</a>
+      <a href="practice/index.html">Practice</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="upload.html">Add material</a>
+      <a href="practice/create.html">Add exercise</a>
+    </nav>
+    <button id="theme-toggle" class="btn small ghost" type="button">☀</button>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section class="card">
+    <h1>Learn from the notebooks, then practice in the browser</h1>
+    <p>
+      Your existing Jupyter notebooks stay exactly as they are — this site indexes them, renders them in the
+      browser, and puts a practice engine on top. Every exercise runs real Python (via Pyodide/WebAssembly) and
+      is checked immediately: <strong>correct</strong>, <strong>incorrect</strong>, or a <strong>hint</strong>.
+    </p>
+    <div class="btn-row">
+      <a class="btn primary" href="practice/index.html">Start practicing</a>
+      <a class="btn" href="teaching/index.html">Browse the notebooks</a>
+      <a class="btn ghost" href="upload.html">Add course material</a>
+      <a class="btn ghost" href="practice/create.html">Add your own exercise</a>
+    </div>
+    <p class="small muted" style="margin-top:.6rem"><span id="problem-count">…</span> · nothing to install, nothing to build</p>
+  </section>
+
+  <div id="warnings"></div>
+
+  <section id="main-cards">
+    <h2>What is inside</h2>
+    <div id="stats" class="grid cols-3" style="margin-bottom:1rem"></div>
+    <div class="card" id="progress"></div>
+    <h3>Four ways to practice</h3>
+    <div id="type-cards" class="grid cols-3"></div>
+    <div class="card" style="margin-top:1rem">
+      <h3 style="margin-top:0">Suggested next step</h3>
+      <div id="recommended"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Teaching content</h2>
+    <p class="small muted">
+      Every notebook in the repository, grouped by part, with the exercises found inside each one. Click a notebook
+      to render it in the browser — code cells keep their saved outputs, including tracebacks.
+    </p>
+    <div id="notebooks"></div>
+  </section>
+
+  <section>
+    <h2>Extending the system</h2>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3 style="margin-top:0">Add course material</h3>
+        <p class="small">Drop notebooks (<code>.ipynb</code>), scripts (<code>.py</code>) and data files on the
+        <a href="upload.html">Add material</a> page: they are analyzed in your browser, stored in the
+        <code>materials/</code> folder of the repository, and turned into practice exercises automatically.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Add an exercise</h3>
+        <p class="small">Use the <a href="practice/create.html">creator form</a> to build one in the browser, then drop the
+        downloaded JSON into <code>problems/</code>. Drafts are kept in your browser so you can try them right away.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Add anything else</h3>
+        <p class="small">Copy files into the repository by hand and run <code>python3 tools/build_index.py</code>.
+        The index, the exercises list and the topic links are all regenerated from your files, whether they arrived
+        from this page or from Git.</p>
+      </div>
+    </div>
+    <p class="small"><a href="README.md">Read the README</a> for the full workflow, the problem format and how to publish on GitHub Pages.</p>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Static site: plain HTML, CSS and JavaScript, plus Pyodide for running Python in the browser.</p>
+    <p>Notebooks are displayed as-is and are never modified by this system.</p>
+  </div>
+</footer>
+
+<script type="module" src="assets/js/home.js"></script>
+<script type="module" src="assets/js/theme.js"></script>
+</body>
+</html>

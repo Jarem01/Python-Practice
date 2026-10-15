@@ -1,0 +1,83 @@
+name: Build index and publish
+
+# Everything the site reads is generated from the repository contents:
+#   data/notebooks.json   — the notebooks and scripts to teach from
+#   problems/index.json   — every practice exercise, hand-written and generated
+# So this workflow rebuilds those two files on every push, commits them back when
+# they changed (which is what happens after you upload material from the website),
+# and publishes the whole site to GitHub Pages.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild the manifests
+        run: python3 tools/build_index.py
+
+      - name: Validate the manifests
+        run: python3 tools/build_index.py --check
+
+      - name: Run the Python tests
+        run: python3 -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Commit the rebuilt manifests
+        run: |
+          if git diff --quiet -- data/notebooks.json problems/index.json data/curriculum.json; then
+            echo "The manifests are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/notebooks.json problems/index.json data/curriculum.json
+          git commit -m "Rebuild the site index [skip ci]"
+          git push
+          echo "Committed the rebuilt manifests."
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          cp -r assets data problems materials notebooks practice teaching _site/
+          cp index.html glossary.html upload.html .nojekyll _site/
+          # Course notebooks and scripts kept at the repository root are served too.
+          find . -maxdepth 1 -type f \( -name "*.ipynb" -o -name "*.py" \) -exec cp {} _site/ \;
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

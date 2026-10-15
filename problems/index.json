@@ -1,0 +1,2478 @@
+{
+  "generated_at": "2026-10-15T19:04:55+00:00",
+  "count": 74,
+  "by_type": {
+    "fix_the_code": 7,
+    "fill_in_blank": 6,
+    "predict_output": 24,
+    "write_from_scratch": 37
+  },
+  "topics": [
+    "Data Analysis",
+    "Data Structures",
+    "Dictionaries",
+    "Functions",
+    "Intro to Python",
+    "Lists",
+    "Loops",
+    "NumPy",
+    "Python Basics",
+    "Strings",
+    "pandas"
+  ],
+  "difficulties": {
+    "easy": 49,
+    "medium": 22,
+    "hard": 3
+  },
+  "problems": [
+    {
+      "id": "auto-data-analysis-part-4-concatenating-and-merging-dataframes-exercise-solutions-you-are-",
+      "type": "write_from_scratch",
+      "title": "You are provided with two DataFrames df1 and df2. Concatenate them together to form a sin\u2026 \u00b7 Data Analysis (Part 4)",
+      "topics": [
+        "Data Analysis"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 5,
+      "prompt": "Exercise 1\n\n1. You are provided with two DataFrames `df1` and `df2`. Concatenate them together to form a single DataFrame called `df`. Reset the index when concatenating.",
+      "hints": [
+        "You are provided with two DataFrames `df1` and `df2`. Concatenate them together to form a single DataFrame called `df`. Reset the index when concatenating."
+      ],
+      "solution": "df1 = pd.DataFrame({'ticker':['MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','AAPL','AAPL','AAPL','AAPL'],'year':[2012,2013,2014,2015,2017,2018,2019,2013,2014,2015,2016],'month':[12,6,9,12,12,9,3,3,6,12,3],'eps':[5.2,0.3,3.4,-1.6,1.4,-1.4,2,0.6,1.6,-1.9,0.9],'revenue':[6018,4075,2432,15830,15123,12677,13181,3843,4068,3920,1958]})\ndf2 = pd.DataFrame({'ticker':['T','T','T','T','F','F','F','F','F','F','F','F','AMZN','AMZN','AMZN','AMZN'],'year':[2012,2013,2014,2016,2012,2013,2014,2015,2016,2017,2018,2019,2014,2017,2018,2019],'month':[9,12,12,12,6,12,6,9,9,12,12,3,6,12,9,6],'eps':[2.2,1.7,0.7,-1.4,2.1,3.4,2.7,-0.2,-1.4,3.4,-1.4,-1.6,0.9,3.1,0.5,3.9],'revenue':[6312,9016,4823,16887,71,1771,14163,18874,1171,8067,11906,12510,15941,4340,2820,30000]})\n\n# 1\ndf = pd.concat([df1,df2], ignore_index=True)\ndf\n",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas"
+      ],
+      "glossary": [
+        "index",
+        "dataframe"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "import pandas as pd\nimport os\n\npd.options.display.float_format = '{:,.2f}'.format # Display option to include 2 decimal places on all floats\npd.set_option('display.max_columns', None) # Display option to show all columns\npd.set_option('display.max_rows', None) # Display option to show all rows\n",
+      "expected_output": "   ticker  year  month   eps  revenue\n0    MSFT  2012     12  5.20     6018\n1    MSFT  2013      6  0.30     4075\n2    MSFT  2014      9  3.40     2432\n3    MSFT  2015     12 -1.60    15830\n4    MSFT  2017     12  1.40    15123\n5    MSFT  2018      9 -1.40    12677\n6    MSFT  2019      3  2.00    13181\n7    AAPL  2013      3  0.60     3843\n8    AAPL  2014      6  1.60     4068\n9    AAPL  2015     12 -1.90     3920\n10   AAPL  2016      3  0.90     1958\n11      T  2012      9  2.20     6312\n12      T  2013     12  1.70     9016\n13      T  2014     12  0.70     4823\n14      T  2016     12 -1.40    16887\n15      F  2012      6  2.10       71\n16      F  2013     12  3.40     1771\n17      F  2014      6  2.70    14163\n18      F  2015      9 -0.20    18874\n19      F  2016      9 -1.40     1171\n20      F  2017     12  3.40     8067\n21      F  2018     12 -1.40    11906\n22      F  2019      3 -1.60    12510\n23   AMZN  2014      6  0.90    15941\n24   AMZN  2017     12  3.10     4340\n25   AMZN  2018      9  0.50     2820\n26   AMZN  2019      6  3.90    30000",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-data-analysis-part-4-concatenating-and-merging-dataframes-exercise-solutions-you-are--2",
+      "type": "write_from_scratch",
+      "title": "You are provided with two DataFrames data and data2. Merge them based on their common col\u2026 \u00b7 Data Analysis (Part 4)",
+      "topics": [
+        "Data Analysis"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 5,
+      "prompt": "2. You are provided with two DataFrames `data` and `data2`. Merge them based on their common columns to create a new DataFrame called `data`.",
+      "hints": [
+        "You are provided with two DataFrames `data` and `data2`. Merge them based on their common columns to create a new DataFrame called `data`."
+      ],
+      "solution": "data1 = pd.DataFrame({\"EmployeeID\": [101, 101, 102, 102, 103, 103, 104, 104],\"Quarter\": [\"Q1\", \"Q2\", \"Q1\", \"Q2\", \"Q1\", \"Q2\", \"Q1\", \"Q2\"],\"BaseSalary\": [15000, 15000, 18000, 18000, 17000, 17000, 16000, 16000],\"Department\": [\"HR\", \"HR\", \"IT\", \"IT\", \"Finance\", \"Finance\", \"Marketing\", \"Marketing\"]})\ndata2 = pd.DataFrame({\"EmployeeID\": [101, 101, 102, 103, 103, 105, 105],\"Quarter\": [\"Q1\", \"Q2\", \"Q1\", \"Q1\", \"Q2\", \"Q1\", \"Q2\"],\"PerformanceScore\": [4.5, 4.7, 3.9, 4.2, 4.3, 4.8, 4.6],\"Bonus\": [2000, 2500, 1500, 1800, 1900, 3000, 3200]})\n\n# 2\ndata = pd.merge(data1, data2, on=['EmployeeID','Quarter'])\ndata\n",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas"
+      ],
+      "glossary": [
+        "dataframe"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 6,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "import pandas as pd\nimport os\n\npd.options.display.float_format = '{:,.2f}'.format # Display option to include 2 decimal places on all floats\npd.set_option('display.max_columns', None) # Display option to show all columns\npd.set_option('display.max_rows', None) # Display option to show all rows\n\ndf1 = pd.DataFrame({'ticker':['MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','AAPL','AAPL','AAPL','AAPL'],'year':[2012,2013,2014,2015,2017,2018,2019,2013,2014,2015,2016],'month':[12,6,9,12,12,9,3,3,6,12,3],'eps':[5.2,0.3,3.4,-1.6,1.4,-1.4,2,0.6,1.6,-1.9,0.9],'revenue':[6018,4075,2432,15830,15123,12677,13181,3843,4068,3920,1958]})\ndf2 = pd.DataFrame({'ticker':['T','T','T','T','F','F','F','F','F','F','F','F','AMZN','AMZN','AMZN','AMZN'],'year':[2012,2013,2014,2016,2012,2013,2014,2015,2016,2017,2018,2019,2014,2017,2018,2019],'month':[9,12,12,12,6,12,6,9,9,12,12,3,6,12,9,6],'eps':[2.2,1.7,0.7,-1.4,2.1,3.4,2.7,-0.2,-1.4,3.4,-1.4,-1.6,0.9,3.1,0.5,3.9],'revenue':[6312,9016,4823,16887,71,1771,14163,18874,1171,8067,11906,12510,15941,4340,2820,30000]})\n\n# 1\ndf = pd.concat([df1,df2], ignore_index=True)\ndf\n",
+      "expected_output": "   EmployeeID Quarter  BaseSalary Department  PerformanceScore  Bonus\n0         101      Q1       15000         HR              4.50   2000\n1         101      Q2       15000         HR              4.70   2500\n2         102      Q1       18000         IT              3.90   1500\n3         103      Q1       17000    Finance              4.20   1800\n4         103      Q2       17000    Finance              4.30   1900",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-8-s",
+      "type": "write_from_scratch",
+      "title": "Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "Introduction to Python (Part 1) - Class Exercise Solutions\n\n#### Exercise 1\n\n1. Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000.",
+      "hints": [
+        "Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000."
+      ],
+      "solution": "# 1\nprint(8**3 >= 5000)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "boolean",
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 1,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "expected_output": "False",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-8-s-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "Introduction to Python (Part 1) - Class Exercise Solutions\n\n#### Exercise 1\n\n1. Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\nprint(8**3 >= 5000)\n",
+      "expected_output": "False",
+      "hints": [
+        "Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000."
+      ],
+      "solution": "# 1\nprint(8**3 >= 5000)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "boolean",
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 1,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-cou",
+      "type": "write_from_scratch",
+      "title": "Print the Boolean test for 'Cougar' in myvar. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "2. Print the Boolean test for `'Cougar'` in `myvar`.",
+      "hints": [
+        "Print the Boolean test for `'Cougar'` in `myvar`."
+      ],
+      "solution": "# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "boolean",
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n",
+      "expected_output": "True",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-boolean-test-for-cou-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Print the Boolean test for 'Cougar' in myvar.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Print the Boolean test for `'Cougar'` in `myvar`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n",
+      "expected_output": "True",
+      "hints": [
+        "Print the Boolean test for `'Cougar'` in `myvar`."
+      ],
+      "solution": "# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "boolean",
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-statement-area-of-a-",
+      "type": "write_from_scratch",
+      "title": "Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the rad\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "4. Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:\n    a. Use the `str` function.\n    b. Use an f-string.",
+      "hints": [
+        "Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:"
+      ],
+      "solution": "# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "string",
+        "f-string",
+        "function",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n",
+      "expected_output": "Area of a circle with radius 15 is equal to 706.85775.\nArea of a circle with radius 15 is equal to 706.85775.",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-print-the-statement-area-of-a--predict",
+      "type": "predict_output",
+      "title": "Predict the output: Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the rad\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "4. Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:\n    a. Use the `str` function.\n    b. Use an f-string.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n",
+      "expected_output": "Area of a circle with radius 15 is equal to 706.85775.\nArea of a circle with radius 15 is equal to 706.85775.",
+      "hints": [
+        "Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:"
+      ],
+      "solution": "# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "string",
+        "f-string",
+        "function",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-5th-president-of-t",
+      "type": "write_from_scratch",
+      "title": "Display the 5th president of the Church of Jesus Christ of Latter-day Saints. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "1. Display the 5th president of the Church of Jesus Christ of Latter-day Saints.",
+      "hints": [
+        "Display the 5th president of the Church of Jesus Christ of Latter-day Saints."
+      ],
+      "solution": "# 1.\npresidents[4]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 12,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n",
+      "expected_output": "Lorenzo Snow",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-5th-president-of-t-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Display the 5th president of the Church of Jesus Christ of Latter-day Saints.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "1. Display the 5th president of the Church of Jesus Christ of Latter-day Saints.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1.\npresidents[4]\n",
+      "expected_output": "Lorenzo Snow",
+      "hints": [
+        "Display the 5th president of the Church of Jesus Christ of Latter-day Saints."
+      ],
+      "solution": "# 1.\npresidents[4]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 12,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-7th-thro",
+      "type": "write_from_scratch",
+      "title": "Display a list of the 7th through 10th presidents of the Church. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "2. Display a list of the 7th through 10th presidents of the Church.",
+      "hints": [
+        "Display a list of the 7th through 10th presidents of the Church."
+      ],
+      "solution": "# 2.\npresidents[6:10]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 14,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n",
+      "expected_output": "['Heber J. Grant', 'George Albert Smith', 'David O. McKay', 'Joseph Fielding Smith']",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-7th-thro-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Display a list of the 7th through 10th presidents of the Church.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Display a list of the 7th through 10th presidents of the Church.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2.\npresidents[6:10]\n",
+      "expected_output": "['Heber J. Grant', 'George Albert Smith', 'David O. McKay', 'Joseph Fielding Smith']",
+      "hints": [
+        "Display a list of the 7th through 10th presidents of the Church."
+      ],
+      "solution": "# 2.\npresidents[6:10]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 14,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-first-fo",
+      "type": "write_from_scratch",
+      "title": "Display a list of the first four presidents of the Church. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "3. Display a list of the first four presidents of the Church.",
+      "hints": [
+        "Display a list of the first four presidents of the Church."
+      ],
+      "solution": "# 3.\npresidents[0:4]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 16,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n",
+      "expected_output": "['Joseph Smith', 'Brigham Young', 'John Taylor', 'Wilford Woodruff']",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-first-fo-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Display a list of the first four presidents of the Church.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "3. Display a list of the first four presidents of the Church.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 3.\npresidents[0:4]\n",
+      "expected_output": "['Joseph Smith', 'Brigham Young', 'John Taylor', 'Wilford Woodruff']",
+      "hints": [
+        "Display a list of the first four presidents of the Church."
+      ],
+      "solution": "# 3.\npresidents[0:4]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 16,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-last-thr",
+      "type": "write_from_scratch",
+      "title": "Display a list of the last three presidents of the Church. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "4. Display a list of the last three presidents of the Church.",
+      "hints": [
+        "Display a list of the last three presidents of the Church."
+      ],
+      "solution": "# 4.\npresidents[-3:]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 18,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n",
+      "expected_output": "['Thomas S. Monson', 'Russell M. Nelson', 'Dallin H. Oaks']",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-a-list-of-the-last-thr-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Display a list of the last three presidents of the Church.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "4. Display a list of the last three presidents of the Church.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 4.\npresidents[-3:]\n",
+      "expected_output": "['Thomas S. Monson', 'Russell M. Nelson', 'Dallin H. Oaks']",
+      "hints": [
+        "Display a list of the last three presidents of the Church."
+      ],
+      "solution": "# 4.\npresidents[-3:]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 18,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-replace-the-sixth-element-in-l",
+      "type": "write_from_scratch",
+      "title": "Replace the sixth element in list1 with 5. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "1. Replace the sixth element in `list1` with 5.",
+      "hints": [
+        "Replace the sixth element in `list1` with 5."
+      ],
+      "solution": "# 1\nlist1[5] = 5\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 22,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n",
+      "expected_output": "[8, 3, 2, 6, 3, 5, 1, 2]",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-replace-the-sixth-element-in-l-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Replace the sixth element in list1 with 5.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "1. Replace the sixth element in `list1` with 5.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\nlist1[5] = 5\nlist1\n",
+      "expected_output": "[8, 3, 2, 6, 3, 5, 1, 2]",
+      "hints": [
+        "Replace the sixth element in `list1` with 5."
+      ],
+      "solution": "# 1\nlist1[5] = 5\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 22,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-index-location-of-",
+      "type": "write_from_scratch",
+      "title": "Display the index location of the number 1 in list1. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "2. Display the index location of the number 1 in `list1`.",
+      "hints": [
+        "Display the index location of the number 1 in `list1`."
+      ],
+      "solution": "# 2\nlist1.index(1)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "index"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 24,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n",
+      "expected_output": "6",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-display-the-index-location-of--predict",
+      "type": "predict_output",
+      "title": "Predict the output: Display the index location of the number 1 in list1.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Display the index location of the number 1 in `list1`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\nlist1.index(1)\n",
+      "expected_output": "6",
+      "hints": [
+        "Display the index location of the number 1 in `list1`."
+      ],
+      "solution": "# 2\nlist1.index(1)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "index"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 24,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-append-10-to-list1",
+      "type": "write_from_scratch",
+      "title": "Append 10 to list1. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "3. Append 10 to `list1`.",
+      "hints": [
+        "Append 10 to `list1`."
+      ],
+      "solution": "# 3\nlist1.append(10)\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 26,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n",
+      "expected_output": "[8, 3, 2, 6, 3, 5, 1, 2, 10]",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-append-10-to-list1-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Append 10 to list1.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "3. Append 10 to `list1`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 3\nlist1.append(10)\nlist1\n",
+      "expected_output": "[8, 3, 2, 6, 3, 5, 1, 2, 10]",
+      "hints": [
+        "Append 10 to `list1`."
+      ],
+      "solution": "# 3\nlist1.append(10)\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 26,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-delete-the-first-element-in-li",
+      "type": "write_from_scratch",
+      "title": "Delete the first element in list1. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "4. Delete the first element in `list1`.",
+      "hints": [
+        "Delete the first element in `list1`."
+      ],
+      "solution": "# 4\ndel list1[0]\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 28,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n",
+      "expected_output": "[3, 2, 6, 3, 5, 1, 2, 10]",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-delete-the-first-element-in-li-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Delete the first element in list1.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "4. Delete the first element in `list1`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 4\ndel list1[0]\nlist1\n",
+      "expected_output": "[3, 2, 6, 3, 5, 1, 2, 10]",
+      "hints": [
+        "Delete the first element in `list1`."
+      ],
+      "solution": "# 4\ndel list1[0]\nlist1\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 28,
+        "exercise": 4,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-count-the-occurences-of-2-in-l",
+      "type": "write_from_scratch",
+      "title": "Count the occurences of 2 in list1. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 2,
+      "prompt": "5. Count the occurences of 2 in `list1`.",
+      "hints": [
+        "Count the occurences of 2 in `list1`."
+      ],
+      "solution": "# 5\nlist1.count(2)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 30,
+        "exercise": 5,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n",
+      "expected_output": "2",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-count-the-occurences-of-2-in-l-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Count the occurences of 2 in list1.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "5. Count the occurences of 2 in `list1`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 5\nlist1.count(2)\n",
+      "expected_output": "2",
+      "hints": [
+        "Count the occurences of 2 in `list1`."
+      ],
+      "solution": "# 5\nlist1.count(2)\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 30,
+        "exercise": 5,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list2-be",
+      "type": "write_from_scratch",
+      "title": "You are provided with list2 below. Display 'Mark' from the first list in list2. \u00b7 Introduction to Python (Part 1)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "6. You are provided with `list2` below. Display 'Mark' from the first list in `list2`.",
+      "hints": [
+        "You are provided with `list2` below. Display 'Mark' from the first list in `list2`."
+      ],
+      "solution": "# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 32,
+        "exercise": 6,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n",
+      "expected_output": "Mark",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list2-be-predict",
+      "type": "predict_output",
+      "title": "Predict the output: You are provided with list2 below. Display 'Mark' from the first list in list2.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "6. You are provided with `list2` below. Display 'Mark' from the first list in `list2`.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
+      "expected_output": "Mark",
+      "hints": [
+        "You are provided with `list2` below. Display 'Mark' from the first list in `list2`."
+      ],
+      "solution": "# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 32,
+        "exercise": 6,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list3-be",
+      "type": "write_from_scratch",
+      "title": "You are provided with list3 below. Print the elements in the list joined using a comma an\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "7. You are provided with `list3` below. Print the elements in the list joined using a comma and space.",
+      "hints": [
+        "You are provided with `list3` below. Print the elements in the list joined using a comma and space."
+      ],
+      "solution": "# 7\nlist3 = ['Laman','Lemuel','Sam','Nephi']\nprint(', '.join(list3))\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 34,
+        "exercise": 7,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n\n# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
+      "expected_output": "Laman, Lemuel, Sam, Nephi",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-1-class-exercise-solutions-you-are-provided-with-list3-be-predict",
+      "type": "predict_output",
+      "title": "Predict the output: You are provided with list3 below. Print the elements in the list joined using a comma an\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "7. You are provided with `list3` below. Print the elements in the list joined using a comma and space.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 7\nlist3 = ['Laman','Lemuel','Sam','Nephi']\nprint(', '.join(list3))\n",
+      "expected_output": "Laman, Lemuel, Sam, Nephi",
+      "hints": [
+        "You are provided with `list3` below. Print the elements in the list joined using a comma and space."
+      ],
+      "solution": "# 7\nlist3 = ['Laman','Lemuel','Sam','Nephi']\nprint(', '.join(list3))\n",
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n\n# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
+      "generated": {
+        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 34,
+        "exercise": 7,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-exercise-1",
+      "type": "write_from_scratch",
+      "title": "Exercise 1 \u00b7 Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS\n\n#### Exercise 1\nYou are provided with the `skills` list below.\nIf `'Python'` is not in the `skills` list, print `'What a shame! Python is the best!'`.\nOtherwise, if the `skills` list contains exactly 5 items and `'Python'` is the last skill in the list, print `'Saved the best for last.'`\nFor any other case, print `'Very solid list of skills.'`.",
+      "hints": [],
+      "solution": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "list",
+        "len",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 1,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "expected_output": "Saved the best for last.",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-exercise-2",
+      "type": "write_from_scratch",
+      "title": "Exercise 2 \u00b7 Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "#### Exercise 2\nThe `replace` method can be used on a string object to replace text with different text. Start typing `text = text.replace(` in the cell below and use the tool tip window to identify what is required to use the `replace` method. Then use the `replace` method to replace \"myname\" in the text below with your own name and print out the result.",
+      "hints": [],
+      "solution": "text = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "string",
+        "method",
+        "parameter",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n",
+      "expected_output": "Prof Lee is going to be a Python wizard by the end of the semester! Prof Lee will not give up!\nProf Lee is going to be a Python wizard by the end of the semester! myname will not give up!",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-iterate-through-the-jobs-list-using-",
+      "type": "write_from_scratch",
+      "title": "Iterate through the jobs list using a for loop and print each job with its respective sal\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "1. Iterate through the `jobs` list using a `for` loop and print each job with its respective salary in the format `job : salary`.",
+      "hints": [
+        "Iterate through the `jobs` list using a `for` loop and print each job with its respective salary in the format `job : salary`."
+      ],
+      "solution": "# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n",
+      "expected_output": "physician : 180000\nlawyer : 144500\nr&d manager : 142120\nsoftware development manager : 132000\npharmacy manager : 130000\nsoftware architect : 128250\nit manager : 120000\npharmacist : 118000\nfinance manager : 115000\nactuary : 115000\ntax manager : 110000",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-loop-to-compute-5-factor",
+      "type": "write_from_scratch",
+      "title": "Use a while loop to compute 5 factorial. Recall, the formula for 5 factorial is as follow\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Exercise 4\n\n1. Use a `while` loop to compute 5 factorial. Recall, the formula for 5 factorial is as follows:\n        5! = 5 x 4 x 3 x 2 x 1 = 120\n**NOTE:** This exercise is meant to stretch you!",
+      "hints": [
+        "Use a `while` loop to compute 5 factorial. Recall, the formula for 5 factorial is as follows:"
+      ],
+      "solution": "# 1\n\nfactorial = 1\ncurrent_number = 5\n\nwhile current_number > 0:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    \nprint(factorial)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "while-loop",
+        "loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n\n# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n",
+      "expected_output": "120",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-2-exercise-solutions-use-a-while-true-loop-to-repeat-the-",
+      "type": "write_from_scratch",
+      "title": "Use a while True loop to repeat the exercise (i.e., to compute 5 factorial). \u00b7 Introduction to Python (Part 2)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 9,
+      "prompt": "2. Use a `while True` loop to repeat the exercise (i.e., to compute 5 factorial).",
+      "hints": [
+        "Use a `while True` loop to repeat the exercise (i.e., to compute 5 factorial)."
+      ],
+      "solution": "# 2\n\nfactorial = 1\ncurrent_number = 5\n\nwhile True:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    if current_number == 0:\n        break\n    \nprint(factorial)\n",
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "while-loop",
+        "loop",
+        "break",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 11,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n\ntext = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n\njobs = ['physician','lawyer','r&d manager','software development manager','pharmacy manager','software architect','it manager','pharmacist','finance manager','actuary','tax manager']\nsalaries = [180000,144500,142120,132000,130000,128250,120000,118000,115000,115000,110000]\n\n# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n\n# 1\n\nfactorial = 1\ncurrent_number = 5\n\nwhile current_number > 0:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    \nprint(factorial)\n",
+      "expected_output": "120",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not",
+      "type": "write_from_scratch",
+      "title": "In the byucoaches dictionary, you notice that 2007 is missing from the list of years that\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "1. In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.\n    - **Bonus points:** Update the list to be sorted in order from least to greatest.",
+      "hints": [
+        "In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.",
+        "**Bonus points:** Update the list to be sorted in order from least to greatest."
+      ],
+      "solution": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "dictionary",
+        "sorting",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n",
+      "expected_output": "{'Alvin Twitchell': [1922, 1923, 1924], 'C. J. Hart': [1925, 1926, 1927], 'G. Ott Romney': [1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936], 'Eddie Kimball': [1937, 1938, 1939, 1940, 1941], 'Floyd Millet': [1942], 'Chick Atkinson': [1949, 1950, 1951, 1952, 1953, 1954, 1955], 'Hal Kopp': [1956, 1957, 1958], 'Tally Stevens': [1959, 1960], 'Hal Mitchell': [1961, 1962, 1963], 'Tommy Hudspeth': [1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971], 'LaVell Edwards': [1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000], 'Gary Crowton': [2001, 2002, 2003, 2004], 'Bronco Mendenhall': [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], 'Kalani Sitake': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-in-the-byucoaches-dictionary-you-not-predict",
+      "type": "predict_output",
+      "title": "Predict the output: In the byucoaches dictionary, you notice that 2007 is missing from the list of years that\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "1. In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.\n    - **Bonus points:** Update the list to be sorted in order from least to greatest.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "expected_output": "{'Alvin Twitchell': [1922, 1923, 1924], 'C. J. Hart': [1925, 1926, 1927], 'G. Ott Romney': [1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936], 'Eddie Kimball': [1937, 1938, 1939, 1940, 1941], 'Floyd Millet': [1942], 'Chick Atkinson': [1949, 1950, 1951, 1952, 1953, 1954, 1955], 'Hal Kopp': [1956, 1957, 1958], 'Tally Stevens': [1959, 1960], 'Hal Mitchell': [1961, 1962, 1963], 'Tommy Hudspeth': [1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971], 'LaVell Edwards': [1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000], 'Gary Crowton': [2001, 2002, 2003, 2004], 'Bronco Mendenhall': [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015], 'Kalani Sitake': [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]}",
+      "hints": [
+        "In the `byu_coaches` dictionary, you notice that 2007 is missing from the list of years that Bronco Mendenhall served as head coach. Add it to Bronco Mendenhall's list within the `byu_coaches` dictionary.",
+        "**Bonus points:** Update the list to be sorted in order from least to greatest."
+      ],
+      "solution": "# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "list",
+        "dictionary",
+        "sorting",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo",
+      "type": "write_from_scratch",
+      "title": "Use the byucoaches dictionary to loop over the years in which Alvin Twitchell was the hea\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "2. Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one.",
+      "hints": [
+        "Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one."
+      ],
+      "solution": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "expected_output": "1922\n1923\n1924",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-byucoaches-dictionary-to-loo-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Use the byucoaches dictionary to loop over the years in which Alvin Twitchell was the hea\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "expected_output": "1922\n1923\n1924",
+      "hints": [
+        "Use the `byu_coaches` dictionary to loop over the years in which Alvin Twitchell was the head coach and print them one by one."
+      ],
+      "solution": "# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "loop",
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary",
+      "type": "write_from_scratch",
+      "title": "Use the footballpositions dictionary to print the description of the 'Kicker' position. U\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 3,
+      "prompt": "3. Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets.",
+      "hints": [
+        "Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets."
+      ],
+      "solution": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "expected_output": "Kicks field goals and extra points",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-use-the-footballpositions-dictionary-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Use the footballpositions dictionary to print the description of the 'Kicker' position. U\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "3. Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "expected_output": "Kicks field goals and extra points",
+      "hints": [
+        "Use the `football_positions` dictionary to print the description of the `'Kicker'` position. Use `.get`, not square brackets."
+      ],
+      "solution": "# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "dictionary",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n",
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 3,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-3-exercise-solutions-create-a-dictionary-called-epsdict-w",
+      "type": "write_from_scratch",
+      "title": "Create a dictionary called epsdict with the tickers as keys and the earnings per share nu\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 8,
+      "prompt": "Exercise 2\nThe `tickers` and `earnings` lists below contain tickers and corresponding earnings per share data for each ticker.\n\n1. Create a dictionary called `eps_dict` with the tickers as keys and the earnings per share numbers as individual values for each key.",
+      "hints": [
+        "Create a dictionary called `eps_dict` with the tickers as keys and the earnings per share numbers as individual values for each key."
+      ],
+      "solution": "# 1\n\ntickers = ['AAPL','F','AMZN']\nearnings = [1.50,2.7,1.2]\n\neps_dict = {}\n\nfor t,ticker in enumerate(tickers):\n    eps = earnings[t]\n    eps_dict[ticker] = eps\n\nprint(eps_dict)\n",
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "dictionary",
+        "key",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "byu_coaches = {\n    'Alvin Twitchell': [1922,1923,1924],\n    'C. J. Hart': [1925,1926,1927],\n    'G. Ott Romney': [1928,1929,1930,1931,1932,1933,1934,1935,1936],\n    'Eddie Kimball':[1937,1938,1939,1940,1941],\n    'Floyd Millet': [1942],\n    'Chick Atkinson':[1949,1950,1951,1952,1953,1954,1955],\n    'Hal Kopp': [1956,1957,1958],\n    'Tally Stevens': [1959,1960],\n    'Hal Mitchell': [1961,1962,1963],\n    'Tommy Hudspeth': [1964,1965,1966,1967,1968,1969,1970,1971],\n    'LaVell Edwards': [1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000],\n    'Gary Crowton': [2001,2002,2003,2004],\n    'Bronco Mendenhall': [2005,2006,2008,2009,2010,2011,2012,2013,2014,2015],\n    'Kalani Sitake': [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026]\n}\n\nfootball_positions = {\n    'Offense': {\n        'Quarterback': 'Leads the offense, throws passes, and calls plays',\n        'Running Back': 'Carries the ball on runs and helps with pass protection',\n        'Wide Receiver': 'Runs routes and catches passes',\n        'Offensive Line': 'Protects the quarterback and creates running lanes'\n    },\n\n    'Defense': {\n        'Defensive Line': 'Pressures the quarterback and stops the run',\n        'Linebacker': 'Defends against both the run and the pass',\n        'Cornerback': 'Covers wide receivers and defends passes',\n        'Safety': 'Provides deep pass coverage and run support'\n    },\n\n    'Special Teams': {\n        'Kicker': 'Kicks field goals and extra points',\n        'Punter': 'Kicks the ball to change field position',\n        'Returner': 'Returns kickoffs and punts',\n        'Long Snapper': 'Snaps the ball for kicks and punts'\n    }\n}\n\n# 1\n\nbyu_coaches['Bronco Mendenhall'].append(2007)\nbyu_coaches['Bronco Mendenhall'].sort() # Bonus!\nprint(byu_coaches)\n\n# 2\n\nfor year in byu_coaches['Alvin Twitchell']:\n    print(year)\n\n# 3\n\nkicker = football_positions.get('Special Teams', {}).get('Kicker','')\nprint(kicker)\n",
+      "expected_output": "{'AAPL': 1.5, 'F': 2.7, 'AMZN': 1.2}",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-sentences-list-a",
+      "type": "write_from_scratch",
+      "title": "Iterate through the sentences list and use the countword function you created in Part 1 t\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 6,
+      "prompt": "2. Iterate through the `sentences` list and use the `count_word` function you created in Part 1 to print the following:\n            The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.'\n    Fill in the counts of the words `'class'` and `'semester'` for each sentence.",
+      "hints": [
+        "Iterate through the `sentences` list and use the `count_word` function you created in Part 1 to print the following:"
+      ],
+      "solution": "# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "function",
+        "list",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 3,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n",
+      "expected_output": "The count of 'class' is 1, and the count of 'semester' is 1.\nThe count of 'class' is 0, and the count of 'semester' is 0.\nThe count of 'class' is 2, and the count of 'semester' is 1.\nThe count of 'class' is 3, and the count of 'semester' is 0.\nThe count of 'class' is 1, and the count of 'semester' is 0.\nThe count of 'class' is 1, and the count of 'semester' is 1.\nThe count of 'class' is 1, and the count of 'semester' is 0.",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o",
+      "type": "write_from_scratch",
+      "title": "The code below calculates the area of a circle with radius 5. Run the cell, read the exce\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 5,
+      "prompt": "Exercise 2\n\n1. The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code.",
+      "hints": [
+        "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
+      ],
+      "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "print",
+        "import",
+        "cell"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "expected_output": "78.53981633974483",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-the-code-below-calculates-the-area-o-predict",
+      "type": "predict_output",
+      "title": "Predict the output: The code below calculates the area of a circle with radius 5. Run the cell, read the exce\u2026",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "Exercise 2\n\n1. The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "expected_output": "78.53981633974483",
+      "hints": [
+        "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
+      ],
+      "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "print",
+        "import",
+        "cell"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 5,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th",
+      "type": "write_from_scratch",
+      "title": "Identify and correct the error in the code below. \u00b7 Introduction to Python (Part 4)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "2. Identify and correct the error in the code below.",
+      "hints": [
+        "Identify and correct the error in the code below."
+      ],
+      "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "expected_output": "0 : 13\n1 : 22\n2 : 34\n3 : 48\n4 : 50",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-in-th-predict",
+      "type": "predict_output",
+      "title": "Predict the output: Identify and correct the error in the code below.",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "easy",
+      "prompt": "2. Identify and correct the error in the code below.\n\n**The code below is the notebook's solution. Type exactly what it prints.**",
+      "starter_code": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "expected_output": "0 : 13\n1 : 22\n2 : 34\n3 : 48\n4 : 50",
+      "hints": [
+        "Identify and correct the error in the code below."
+      ],
+      "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "print"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 7,
+        "exercise": 2,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "variant": "predict",
+        "selfCheck": "passed"
+      }
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-identify-and-correct-the-error-s-in-",
+      "type": "write_from_scratch",
+      "title": "Identify and correct the error(s) in the code below. \u00b7 Introduction to Python (Part 4)",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 7,
+      "prompt": "Exercise 3\n\n1. Identify and correct the error(s) in the code below.",
+      "hints": [
+        "Identify and correct the error(s) in the code below."
+      ],
+      "solution": "# 1\n\ndef get_value(name):\n    dict1 = {'Anna':1,'Andrew':2,'Daniel':3,'Jenna':4,'Matthew':5,'Lauren':6}\n    value = dict1.get(name, None)\n    return value\n    \nvalue = get_value('Andrew')\n\nprint(value)\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "def",
+        "return",
+        "none",
+        "value"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 9,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n\n# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
+      "expected_output": "2",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-numbers-list-div",
+      "type": "write_from_scratch",
+      "title": "Iterate through the numbers list, divide each element by 2 in the list, and print the res\u2026 \u00b7 Introduction to Python (Par",
+      "topics": [
+        "Intro to Python"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 8,
+      "prompt": "Exercise 4\n\n1. Iterate through the `numbers` list, divide each element by 2 in the list, and print the result. If Python returns an error, print the element in the list that caused the error along with the exception raised by Python.",
+      "hints": [
+        "Iterate through the `numbers` list, divide each element by 2 in the list, and print the result. If Python returns an error, print the element in the list that caused the error along with the exception raised by Python."
+      ],
+      "solution": "# 1\nnumbers = [1,2,3,'4',5,'6',7,8]\n\nfor number in numbers:\n    try:\n        number = number/2\n        print(number)\n    except Exception as e:\n        print(f'{number} : {e}')\n",
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [],
+      "glossary": [
+        "for-loop",
+        "list",
+        "print",
+        "exceptions"
+      ],
+      "draft": true,
+      "capture_last_expression": true,
+      "generated": {
+        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "cell": 11,
+        "exercise": 1,
+        "autoChecked": true,
+        "source": "tools/generate_problems.mjs",
+        "selfCheck": "passed"
+      },
+      "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n\n# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n\n# 1\n\ndef get_value(name):\n    dict1 = {'Anna':1,'Andrew':2,'Daniel':3,'Jenna':4,'Matthew':5,'Lauren':6}\n    value = dict1.get(name, None)\n    return value\n    \nvalue = get_value('Andrew')\n\nprint(value)\n",
+      "expected_output": "0.5\n1.0\n1.5\n4 : unsupported operand type(s) for /: 'str' and 'int'\n2.5\n6 : unsupported operand type(s) for /: 'str' and 'int'\n3.5\n4.0",
+      "test_summary": "Checks that your program prints the output the notebook solution produces."
+    },
+    {
+      "id": "example-read-a-data-file",
+      "type": "write_from_scratch",
+      "title": "Read a CSV straight from the repository",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 5,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "sales.csv": "materials/datasets/sales.csv"
+      },
+      "prompt": "This exercise shows how notebooks' data files work here.\n\nThe file `materials/datasets/sales.csv` is listed in the exercise's `data_files`, so it is copied into the sandbox and can be read with the plain file name `sales.csv`.\n\n**Your task:** read it into a pandas DataFrame called `df`, print the DataFrame's shape, and print the total number of units sold (the sum of the `units` column).\n\n```\ndf.shape      ->  (5, 3)\ntotal units   ->  36\n```",
+      "hints": [
+        "`import pandas as pd` at the top.",
+        "`pd.read_csv(\"sales.csv\")` reads the file that was placed in the working directory.",
+        "`.shape` gives (rows, columns); `.sum()` adds a column up.",
+        "Print both values \u2014 the printed order does not matter."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.read_csv(\"sales.csv\")\nprint(df.shape)\nprint(df[\"units\"].sum())\n",
+      "expected_output": "(5, 3)\n36",
+      "tests": "assert hasattr(df, \"shape\"), \"df must be a pandas DataFrame\"\nassert df.shape == (5, 3), f\"expected 5 rows and 3 columns, got {df.shape}\"\nassert list(df.columns) == [\"product\", \"units\", \"price\"], f\"unexpected columns: {list(df.columns)}\"\nassert int(df[\"units\"].sum()) == 36, \"the units column should add up to 36\"\n",
+      "test_summary": "Checks the DataFrame's shape and columns and that the units column adds up to 36.",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "method"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+    },
+    {
+      "id": "fix-word-count-dict",
+      "type": "fix_the_code",
+      "title": "Counting words with a dictionary",
+      "topics": [
+        "Data Structures",
+        "Dictionaries"
+      ],
+      "difficulty": "medium",
+      "prompt": "The program should count how often each word appears, but it crashes with a `KeyError` the first time it sees a word.\n\nFix the counting line so it works for new keys. Expected output:\n\n```\n{'hi': 3, 'there': 1, 'ok': 1}\n```",
+      "starter_code": "words = [\"hi\", \"there\", \"hi\", \"ok\", \"hi\"]\n\ncounts = {}\nfor word in words:\n    counts[word] = counts[word] + 1\n\nprint(counts)\n",
+      "expected_output": "{'hi': 3, 'there': 1, 'ok': 1}",
+      "hints": [
+        "`counts[word]` only works if the key is already in the dictionary.",
+        "`dict.get(key, default)` returns the default when the key is missing.",
+        "`counts[word] = counts.get(word, 0) + 1` is the classic one-liner."
+      ],
+      "solution": "words = [\"hi\", \"there\", \"hi\", \"ok\", \"hi\"]\n\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\n\nprint(counts)\n",
+      "glossary": [
+        "dictionary",
+        "key",
+        "method",
+        "for-loop"
+      ],
+      "packages": []
+    },
+    {
+      "id": "predict-list-alias",
+      "type": "predict_output",
+      "title": "Two names, one list",
+      "topics": [
+        "Data Structures",
+        "Lists"
+      ],
+      "difficulty": "medium",
+      "prompt": "`other = nums` does **not** copy the list. Type what this program prints.",
+      "starter_code": "nums = [1, 2, 3]\nother = nums\nother.append(4)\n\nprint(nums)\nprint(len(nums))\nprint(other is nums)\n",
+      "expected_output": "[1, 2, 3, 4]\n4\nTrue",
+      "hints": [
+        "Assignment binds a *name* to the same object.",
+        "`other.append(4)` mutates that single shared list.",
+        "`is` compares identity, so both names still point at the same object."
+      ],
+      "solution": "nums = [1, 2, 3]\nother = nums\nother.append(4)\n\nprint(nums)          # [1, 2, 3, 4] - same object!\nprint(len(nums))     # 4\nprint(other is nums) # True\n\n# Use nums.copy() or nums[:] to get an independent list.\n",
+      "glossary": [
+        "list",
+        "mutability",
+        "method",
+        "reference"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fill-dict-comprehension",
+      "type": "fill_in_blank",
+      "title": "Name lengths as a dictionary",
+      "topics": [
+        "Data Structures",
+        "Dictionaries"
+      ],
+      "difficulty": "medium",
+      "prompt": "Fill the blank so `lengths` maps each name to the number of characters in it.\n\nExpected output: `{'ana': 3, 'bo': 2}`",
+      "starter_code": "names = [\"ana\", \"bo\"]\nlengths = {name: ___ for name in names}\n\nprint(lengths)\n",
+      "expected_output": "{'ana': 3, 'bo': 2}",
+      "blanks": [
+        {
+          "accepted": [
+            "len(name)"
+          ],
+          "hint": "The built-in function for the length of a sequence."
+        }
+      ],
+      "hints": [
+        "A dict comprehension is `{key: value for item in sequence}`.",
+        "The value here depends on the loop variable `name`."
+      ],
+      "solution": "names = [\"ana\", \"bo\"]\nlengths = {name: len(name) for name in names}\n\nprint(lengths)\n",
+      "glossary": [
+        "dict-comprehension",
+        "dictionary",
+        "len",
+        "list-comprehension"
+      ],
+      "packages": []
+    },
+    {
+      "id": "write-most-common",
+      "type": "write_from_scratch",
+      "title": "Most common item",
+      "topics": [
+        "Data Structures",
+        "Dictionaries",
+        "Functions"
+      ],
+      "difficulty": "hard",
+      "mode": "both",
+      "line_count": 9,
+      "prompt": "Write a function `most_common(items)` that returns the item that occurs most often. If there is a tie, return the one that appeared **first** in the list.\n\nThen print `most_common([\"b\", \"a\", \"b\", \"c\", \"b\"])`.\n\nExpected output: `b`",
+      "hints": [
+        "Count the items with a dictionary, exactly like the earlier word-count exercise.",
+        "Remember to handle a first-time key: `counts.get(item, 0) + 1`.",
+        "Keep a `best` variable for the current winner and a `best_count` for its score.",
+        "Loop over the counts and replace `best` only when `count > best_count` \u2014 using `>` (not `>=`) keeps the first item on a tie.",
+        "Return `best` at the end."
+      ],
+      "expected_output": "b",
+      "tests": "assert most_common([\"b\", \"a\", \"b\", \"c\", \"b\"]) == \"b\"\nassert most_common([1, 2, 2, 3]) == 2\nassert most_common([\"x\", \"y\"]) == \"x\", \"on a tie the first item wins\"\n",
+      "test_summary": "Checks a clear winner, a numeric winner, and that ties return the earliest item.",
+      "solution": "def most_common(items):\n    counts = {}\n    for item in items:\n        counts[item] = counts.get(item, 0) + 1\n\n    best = None\n    best_count = 0\n    for item, count in counts.items():\n        if count > best_count:\n            best = item\n            best_count = count\n    return best\n\nprint(most_common([\"b\", \"a\", \"b\", \"c\", \"b\"]))\n",
+      "glossary": [
+        "dictionary",
+        "method",
+        "function",
+        "return",
+        "for-loop"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fix-first-even-return",
+      "type": "fix_the_code",
+      "title": "Return the first even number",
+      "topics": [
+        "Functions",
+        "Loops"
+      ],
+      "difficulty": "medium",
+      "prompt": "This should print `8` \u2014 the first even number in the list. Instead it prints a `None` at the end and keeps looking after it finds one.\n\nFix the function.",
+      "starter_code": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            print(n)\n\nprint(first_even([3, 5, 8, 10]))\n",
+      "expected_output": "8",
+      "hints": [
+        "`print(n)` shows the value, but the loop keeps going to the next number.",
+        "`return` leaves the function immediately \u2014 that is exactly what you want here.",
+        "If you return the value, the outer `print(...)` call is the one that should display it."
+      ],
+      "solution": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n    return None\n\nprint(first_even([3, 5, 8, 10]))\n",
+      "glossary": [
+        "return",
+        "function",
+        "for-loop",
+        "if-statement"
+      ],
+      "packages": []
+    },
+    {
+      "id": "predict-tuple-unpack",
+      "type": "predict_output",
+      "title": "Tuples, unpacking and a generator",
+      "topics": [
+        "Data Structures",
+        "Loops"
+      ],
+      "difficulty": "medium",
+      "prompt": "Type what this prints. Careful with the generator expression inside `sum(...)`.",
+      "starter_code": "pairs = [(x, x * x) for x in range(1, 4)]\nprint(pairs)\n\nfor number, square in pairs:\n    print(number, \"->\", square)\n\nprint(sum(square for _, square in pairs))\n",
+      "expected_output": "[(1, 1), (2, 4), (3, 9)]\n1 -> 1\n2 -> 4\n3 -> 9\n14",
+      "hints": [
+        "`range(1, 4)` gives 1, 2, 3.",
+        "A list comprehension of tuples builds `[(1, 1), (2, 4), (3, 9)]`.",
+        "Unpacking `number, square in pairs` gives each pair its own names.",
+        "The last line adds 1 + 4 + 9."
+      ],
+      "solution": "pairs = [(x, x * x) for x in range(1, 4)]\nprint(pairs)\n\nfor number, square in pairs:\n    print(number, \"->\", square)\n\nprint(sum(square for _, square in pairs))\n",
+      "glossary": [
+        "tuple",
+        "unpacking",
+        "list-comprehension",
+        "range",
+        "sum"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fill-sorted-key",
+      "type": "fill_in_blank",
+      "title": "Sort tuples by a field",
+      "topics": [
+        "Data Structures",
+        "Lists"
+      ],
+      "difficulty": "medium",
+      "prompt": "Fill the blank so the people are ordered by age (youngest first).\n\nExpected output: `[('Bo', 24), ('Ada', 36)]`",
+      "starter_code": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda person: ___)\n\nprint(ordered)\n",
+      "expected_output": "[('Bo', 24), ('Ada', 36)]",
+      "blanks": [
+        {
+          "accepted": [
+            "person[1]",
+            "p[1]"
+          ],
+          "hint": "Index 1 of the tuple is the age."
+        }
+      ],
+      "hints": [
+        "`key` receives a function that turns each item into the value to sort by.",
+        "In `(\"Ada\", 36)` the name is index 0 and the age is index 1."
+      ],
+      "solution": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda person: person[1])\n\nprint(ordered)\n",
+      "glossary": [
+        "sorting",
+        "lambda",
+        "tuple",
+        "index"
+      ],
+      "packages": []
+    },
+    {
+      "id": "write-word-frequencies",
+      "type": "write_from_scratch",
+      "title": "Word frequencies, sorted",
+      "topics": [
+        "Dictionaries",
+        "Functions",
+        "Data Structures"
+      ],
+      "difficulty": "hard",
+      "mode": "both",
+      "line_count": 12,
+      "prompt": "Write a function `frequencies(text)` that returns a dictionary of word \u2192 count, ignoring case and ignoring punctuation (`,` and `.`).\n\nThen print `frequencies(\"the cat and the hat. The end\")`.\n\nExpected output: `{'the': 3, 'cat': 1, 'and': 1, 'hat': 1, 'end': 1}`",
+      "hints": [
+        "Lower-case the text first: `text.lower()`.",
+        "Remove punctuation before splitting: `text.replace(\",\", \" \").replace(\".\", \" \")`.",
+        "`text.split()` splits on any whitespace and drops the empty pieces for you.",
+        "Count with `counts.get(word, 0) + 1` as usual.",
+        "Python 3.7+ dictionaries keep insertion order, so you do not need to sort anything.",
+        "Return the dictionary and print the call."
+      ],
+      "expected_output": "{'the': 3, 'cat': 1, 'and': 1, 'hat': 1, 'end': 1}",
+      "tests": "assert frequencies(\"a a b\") == {\"a\": 2, \"b\": 1}\nassert frequencies(\"Hi, hi!\".replace(\"!\", \"\")) == {\"hi\": 2}, \"case must be ignored\"\n",
+      "test_summary": "Checks simple counting and that upper/lower case words are merged.",
+      "solution": "def frequencies(text):\n    cleaned = text.lower().replace(\",\", \" \").replace(\".\", \" \")\n    counts = {}\n    for word in cleaned.split():\n        counts[word] = counts.get(word, 0) + 1\n    return counts\n\nprint(frequencies(\"the cat and the hat. The end\"))\n",
+      "glossary": [
+        "dictionary",
+        "method",
+        "dictionary",
+        "for-loop",
+        "function"
+      ],
+      "packages": []
+    },
+    {
+      "id": "predict-numpy-mean-filter",
+      "type": "predict_output",
+      "title": "NumPy mean and a boolean mask",
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "numpy"
+      ],
+      "prompt": "Type the output of this NumPy program. `a > 2` produces a boolean mask that selects elements.",
+      "starter_code": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a.mean())\nprint(a[a > 2])\n",
+      "expected_output": "2.5\n[3 4]",
+      "hints": [
+        "`mean()` is (1 + 2 + 3 + 4) / 4.",
+        "`a[a > 2]` keeps the elements greater than 2, and NumPy prints arrays without commas."
+      ],
+      "solution": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a.mean())      # 2.5\nprint(a[a > 2])      # [3 4]\n",
+      "glossary": [
+        "numpy",
+        "array",
+        "boolean-mask",
+        "axis"
+      ]
+    },
+    {
+      "id": "fill-numpy-sum-axis",
+      "type": "fill_in_blank",
+      "title": "Sum down the columns",
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "numpy"
+      ],
+      "prompt": "`a` is a 2\u00d73 matrix. Fill the blank so the sum is computed **per column** (i.e. down each column).\n\nExpected output: `[5 7 9]`",
+      "starter_code": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a)\nprint(a.sum(axis=___))\n",
+      "expected_output": "[[1 2 3]\n [4 5 6]]\n[5 7 9]",
+      "blanks": [
+        {
+          "accepted": [
+            "0"
+          ],
+          "hint": "axis 0 runs down the rows; axis 1 runs across the columns."
+        }
+      ],
+      "hints": [
+        "`reshape(2, 3)` gives two rows of three numbers.",
+        "`axis=0` collapses the row index, which adds 1+4, 2+5 and 3+6."
+      ],
+      "solution": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a)\nprint(a.sum(axis=0))   # [5 7 9]\n",
+      "glossary": [
+        "numpy",
+        "array",
+        "axis",
+        "shape"
+      ]
+    },
+    {
+      "id": "fix-pandas-hottest-city",
+      "type": "fix_the_code",
+      "title": "Pick the hottest row",
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "prompt": "The code below actually picks the **coldest** row. Fix it so `hottest` is the row with the highest temperature, and the printed line is `Bergen 8`.",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\n\nhottest = df.sort_values(\"temp\").iloc[0]\nprint(hottest[\"city\"], hottest[\"temp\"])\n",
+      "expected_output": "Bergen 8",
+      "tests": "assert hottest[\"city\"] == \"Bergen\", \"hottest should be the Bergen row\"\nassert int(hottest[\"temp\"]) == 8, \"hottest should have temp 8\"\n",
+      "test_summary": "Checks that `hottest` is the Bergen row with temp 8.",
+      "hints": [
+        "`sort_values` sorts ascending by default.",
+        "`iloc[0]` takes the first row of the sorted frame.",
+        "You can sort descending with `ascending=False` or take the last row."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\n\nhottest = df.sort_values(\"temp\", ascending=False).iloc[0]\nprint(hottest[\"city\"], hottest[\"temp\"])\n",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "series",
+        "method"
+      ]
+    },
+    {
+      "id": "fill-pandas-groupby",
+      "type": "fill_in_blank",
+      "title": "Average temperature per city",
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "prompt": "Fill the blank so we get the mean temperature **per city**.\n\nExpected output: `5.5`",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nmeans = df.groupby(\"___\")[\"temp\"].mean()\nprint(round(means[\"Oslo\"], 1))\n",
+      "expected_output": "5.5",
+      "blanks": [
+        {
+          "accepted": [
+            "city"
+          ],
+          "hint": "Group by the column you want one result per value of."
+        }
+      ],
+      "hints": [
+        "`groupby` takes the column name you want to group on.",
+        "Oslo appears twice (5 and 6), so the mean is 5.5."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nmeans = df.groupby(\"city\")[\"temp\"].mean()\nprint(round(means[\"Oslo\"], 1))\n",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "groupby",
+        "series"
+      ]
+    },
+    {
+      "id": "write-numpy-normalize",
+      "type": "write_from_scratch",
+      "title": "Min\u2013max normalisation with NumPy",
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
+      "difficulty": "hard",
+      "mode": "both",
+      "line_count": 6,
+      "packages": [
+        "numpy"
+      ],
+      "prompt": "Write a function `normalize(values)` that turns any list of numbers into a NumPy array scaled to the range 0\u20131 using min\u2013max normalisation:\n\n`(x - min) / (max - min)`\n\nThen print `normalize([2, 4, 6])`.",
+      "hints": [
+        "Import NumPy at the top: `import numpy as np`.",
+        "Turn the input into a float array: `a = np.asarray(values, dtype=float)`.",
+        "Vectorised arithmetic applies the formula element by element: `a - a.min()`.",
+        "Return `(a - a.min()) / (a.max() - a.min())`.",
+        "Finally print the call \u2014 NumPy prints the result as an array."
+      ],
+      "tests": "import numpy as np\nout = normalize([2, 4, 6])\nassert isinstance(out, np.ndarray), \"normalize must return a NumPy array\"\nassert np.allclose(out, [0.0, 0.5, 1.0]), \"min-max scaling of [2,4,6] is [0, 0.5, 1]\"\nassert np.allclose(normalize([10, 10, 10]), [0.0, 0.0, 0.0]), \"a constant array must not divide by zero\"\n",
+      "test_summary": "Checks the scaling of [2, 4, 6] and that a constant input does not crash.",
+      "solution": "import numpy as np\n\ndef normalize(values):\n    a = np.asarray(values, dtype=float)\n    span = a.max() - a.min()\n    if span == 0:\n        return a - a.min()\n    return (a - a.min()) / span\n\nprint(normalize([2, 4, 6]))\n",
+      "glossary": [
+        "numpy",
+        "array",
+        "vectorization",
+        "function"
+      ]
+    },
+    {
+      "id": "write-pandas-city-counts",
+      "type": "write_from_scratch",
+      "title": "Value counts as a plain dictionary",
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 5,
+      "packages": [
+        "pandas"
+      ],
+      "prompt": "Write a function `city_counts(df)` that takes a DataFrame with a `city` column and returns a **plain dictionary** mapping city \u2192 number of rows.\n\nFinally, print `city_counts(df)` for the sample frame.",
+      "hints": [
+        "`df[\"city\"].value_counts()` gives a Series of counts.",
+        "A Series has `.to_dict()` to convert it to a Python dictionary.",
+        "Remember to `return` the dictionary and print the call."
+      ],
+      "tests": "import pandas as pd\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"]})\nresult = city_counts(df)\nassert isinstance(result, dict), \"return a plain dict, not a Series\"\nassert result == {\"Oslo\": 2, \"Bergen\": 1}, \"counts should be Oslo: 2, Bergen: 1\"\n",
+      "test_summary": "Checks the returned dictionary for a three-row frame.",
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"]})\n\ndef city_counts(df):\n    return df[\"city\"].value_counts().to_dict()\n\nprint(city_counts(df))\n",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "series",
+        "dictionary",
+        "method"
+      ]
+    },
+    {
+      "id": "fix-loop-sum-1-to-5",
+      "type": "fix_the_code",
+      "title": "The loop that stops one short",
+      "topics": [
+        "Python Basics",
+        "Loops"
+      ],
+      "difficulty": "easy",
+      "prompt": "This program should print the sum of the numbers 1 to 5 (which is 15), but it prints 10.\n\nWhy? `range(a, b)` stops *before* `b`. Fix the code so the output is `15`.",
+      "starter_code": "total = 0\nfor i in range(1, 5):\n    total = total + i\n\nprint(total)\n",
+      "expected_output": "15",
+      "hints": [
+        "Read the loop header carefully: which numbers does `range(1, 5)` actually give you?",
+        "Add a temporary `print(i)` inside the loop to see the numbers it visits.",
+        "The last number you need is 5, so the stop value has to be one more than that."
+      ],
+      "solution": "total = 0\nfor i in range(1, 6):\n    total = total + i\n\nprint(total)\n",
+      "glossary": [
+        "range",
+        "for-loop"
+      ],
+      "packages": []
+    },
+    {
+      "id": "predict-string-slice",
+      "type": "predict_output",
+      "title": "Slicing and string methods",
+      "topics": [
+        "Python Basics",
+        "Strings"
+      ],
+      "difficulty": "easy",
+      "prompt": "Type exactly what this program prints, line by line. Watch the slice \u2014 the end index is **excluded**.",
+      "starter_code": "word = \"python\"\nprint(word[1:4])\nprint(len(word))\nprint(word.upper())\n",
+      "expected_output": "yth\n6\nPYTHON",
+      "hints": [
+        "`word[1:4]` starts at index 1 (`y`) and stops *before* index 4.",
+        "`len(\"python\")` is the number of characters.",
+        "Order matters: the output is three separate lines."
+      ],
+      "solution": "word = \"python\"\nprint(word[1:4])   # yth\nprint(len(word))   # 6\nprint(word.upper())  # PYTHON\n",
+      "glossary": [
+        "slice",
+        "index",
+        "len",
+        "method"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fill-even-filter",
+      "type": "fill_in_blank",
+      "title": "Keep only the even numbers",
+      "topics": [
+        "Python Basics",
+        "Data Structures"
+      ],
+      "difficulty": "medium",
+      "prompt": "Fill in the two blanks so the list comprehension keeps only the even numbers.\n\nExpected output: `[8, 12, 20]`",
+      "starter_code": "numbers = [3, 8, 5, 12, 7, 20]\nevens = [n ___ n in numbers if n ___ 2 == 0]\n\nprint(evens)\n",
+      "expected_output": "[8, 12, 20]",
+      "blanks": [
+        {
+          "accepted": [
+            "for"
+          ],
+          "hint": "A list comprehension reads like a sentence: [expression FOR item in sequence IF condition]."
+        },
+        {
+          "accepted": [
+            "%",
+            "mod"
+          ],
+          "hint": "Use the modulo operator, which gives the remainder of a division."
+        }
+      ],
+      "hints": [
+        "A list comprehension has the shape `[<expression> for <item> in <sequence> if <condition>]`.",
+        "An even number gives remainder 0 when divided by 2."
+      ],
+      "solution": "numbers = [3, 8, 5, 12, 7, 20]\nevens = [n for n in numbers if n % 2 == 0]\n\nprint(evens)\n",
+      "glossary": [
+        "list-comprehension",
+        "modulo",
+        "operator"
+      ],
+      "packages": []
+    },
+    {
+      "id": "write-count-vowels",
+      "type": "write_from_scratch",
+      "title": "Count the vowels",
+      "topics": [
+        "Python Basics",
+        "Functions",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "mode": "both",
+      "line_count": 6,
+      "prompt": "Write a function `count_vowels(text)` that returns how many vowels (a, e, i, o, u \u2014 upper or lower case) are in `text`. Then print `count_vowels(\"Hello World\")`.\n\nExpected output: `3`",
+      "hints": [
+        "Start with a counter variable set to `0`.",
+        "Loop over the characters: `for ch in text:`",
+        "Compare against the vowels in lower case: `if ch.lower() in \"aeiou\":`",
+        "Increase the counter inside the `if`, then `return` it after the loop.",
+        "Finally print the call: `print(count_vowels(\"Hello World\"))`"
+      ],
+      "expected_output": "3",
+      "tests": "assert count_vowels(\"Hello World\") == 3, \"Hello World has 3 vowels\"\nassert count_vowels(\"PYTHON\") == 1, \"PYTHON has 1 vowel\"\nassert count_vowels(\"\") == 0, \"an empty string has no vowels\"\n",
+      "test_summary": "Checks count_vowels(\"Hello World\") == 3, count_vowels(\"PYTHON\") == 1 and count_vowels(\"\") == 0.",
+      "solution": "def count_vowels(text):\n    total = 0\n    for ch in text:\n        if ch.lower() in \"aeiou\":\n            total += 1\n    return total\n\nprint(count_vowels(\"Hello World\"))\n",
+      "glossary": [
+        "def",
+        "function",
+        "return",
+        "for-loop",
+        "method"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fix-fstring-greeting",
+      "type": "fix_the_code",
+      "title": "The greeting that prints variable names",
+      "topics": [
+        "Python Basics",
+        "Strings"
+      ],
+      "difficulty": "easy",
+      "prompt": "This should print `Hello, Ada! You are 36 years old.` but it prints the *names* of the variables instead of their values.\n\nFix it with an f-string.",
+      "starter_code": "name = \"Ada\"\nage = 36\n\nprint(\"Hello, name! You are age years old.\")\n",
+      "expected_output": "Hello, Ada! You are 36 years old.",
+      "hints": [
+        "Inside `\"...\"` everything is text \u2014 Python does not know `name` is a variable there.",
+        "Put an `f` in front of the opening quote and wrap each variable in braces."
+      ],
+      "solution": "name = \"Ada\"\nage = 36\n\nprint(f\"Hello, {name}! You are {age} years old.\")\n",
+      "glossary": [
+        "f-string",
+        "variable",
+        "string"
+      ],
+      "packages": []
+    },
+    {
+      "id": "predict-while-counter",
+      "type": "predict_output",
+      "title": "What does the while loop leave behind?",
+      "topics": [
+        "Python Basics",
+        "Loops"
+      ],
+      "difficulty": "easy",
+      "prompt": "The `while` loop prints something *and* updates `count`. Type the complete output.",
+      "starter_code": "count = 0\nwhile count < 3:\n    count += 1\n    print(count)\n\nprint(\"done:\", count)\n",
+      "expected_output": "1\n2\n3\ndone: 3",
+      "hints": [
+        "`count += 1` runs *before* the `print` inside the loop.",
+        "The loop stops as soon as the condition `count < 3` is false, so the last printed value inside the loop is 3.",
+        "`print(\"done:\", count)` prints two arguments separated by a space."
+      ],
+      "solution": "count = 0\nwhile count < 3:\n    count += 1\n    print(count)\n\nprint(\"done:\", count)\n",
+      "glossary": [
+        "while-loop",
+        "loop",
+        "print"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fill-sum-args",
+      "type": "fill_in_blank",
+      "title": "A sum function that works for any count",
+      "topics": [
+        "Functions",
+        "Python Basics"
+      ],
+      "difficulty": "medium",
+      "prompt": "`total(*numbers)` should add up *any* number of arguments. Fill in the missing starting value and the return statement.\n\nExpected output: `10`",
+      "starter_code": "def total(*numbers):\n    result = ___\n    for n in numbers:\n        result += n\n    ___\n\nprint(total(1, 2, 3, 4))\n",
+      "expected_output": "10",
+      "blanks": [
+        {
+          "accepted": [
+            "0"
+          ],
+          "hint": "An accumulator for a sum starts at the additive identity."
+        },
+        {
+          "accepted": [
+            "return result",
+            "return(result)",
+            "return result ",
+            "return(sum(numbers))",
+            "return sum(numbers)"
+          ],
+          "hint": "A function without a return value gives back None."
+        }
+      ],
+      "hints": [
+        "`*numbers` collects all positional arguments into a tuple.",
+        "You need an accumulator variable *and* a `return` statement."
+      ],
+      "solution": "def total(*numbers):\n    result = 0\n    for n in numbers:\n        result += n\n    return result\n\nprint(total(1, 2, 3, 4))\n",
+      "glossary": [
+        "function",
+        "def",
+        "return",
+        "parameter",
+        "tuple"
+      ],
+      "packages": []
+    },
+    {
+      "id": "write-celsius-to-fahrenheit",
+      "type": "write_from_scratch",
+      "title": "Celsius to Fahrenheit",
+      "topics": [
+        "Python Basics",
+        "Functions"
+      ],
+      "difficulty": "easy",
+      "mode": "both",
+      "line_count": 4,
+      "prompt": "Write a function `celsius_to_fahrenheit(celsius)` that converts a temperature using `F = C * 9 / 5 + 32`. Then print the result for 100 \u00b0C.\n\nExpected output: `212.0`",
+      "hints": [
+        "Define the function with `def celsius_to_fahrenheit(celsius):`",
+        "Return the formula: `celsius * 9 / 5 + 32`.",
+        "Python 3 division `/` always produces a float, so `100 * 9 / 5 + 32` is `212.0`.",
+        "Print the call: `print(celsius_to_fahrenheit(100))`"
+      ],
+      "expected_output": "212.0",
+      "tests": "assert celsius_to_fahrenheit(0) == 32.0\nassert celsius_to_fahrenheit(37) == 98.6\n",
+      "test_summary": "Checks that 0 \u00b0C maps to 32.0 and 37 \u00b0C maps to 98.6.",
+      "solution": "def celsius_to_fahrenheit(celsius):\n    return celsius * 9 / 5 + 32\n\nprint(celsius_to_fahrenheit(100))\n",
+      "glossary": [
+        "def",
+        "function",
+        "return",
+        "operator"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fix-syntax-indent",
+      "type": "fix_the_code",
+      "title": "Indentation matters",
+      "topics": [
+        "Python Basics"
+      ],
+      "difficulty": "easy",
+      "prompt": "Run this and read the error message. Then fix the indentation so the program prints:\n\n```\npositive\nfinished\n```",
+      "starter_code": "value = 7\n\nif value > 0:\nprint(\"positive\")\n\nprint(\"finished\")\n",
+      "expected_output": "positive\nfinished",
+      "hints": [
+        "Python uses indentation to know what belongs *inside* the block.",
+        "Only the line that should run conditionally gets indented."
+      ],
+      "solution": "value = 7\n\nif value > 0:\n    print(\"positive\")\n\nprint(\"finished\")\n",
+      "glossary": [
+        "indentation",
+        "if-statement",
+        "block"
+      ],
+      "packages": []
+    },
+    {
+      "id": "fix-loop-off-by-one",
+      "type": "fix_the_code",
+      "title": "Off-by-one in a while loop",
+      "topics": [
+        "Python Basics",
+        "Loops"
+      ],
+      "difficulty": "easy",
+      "glossary": [
+        "while-loop",
+        "loop"
+      ],
+      "prompt": "This Markdown file **is** an exercise \u2014 it lives in `problems/` next to the JSON files and is\nread by `python3 tools/build_index.py`.\n\nThe loop below should print the numbers `1 2 3` and then `done`. Right now it runs forever and\nnever prints `done`. Fix the loop so it stops after 3.\n\nExpected output:\n\n```\n1\n2\n3\ndone\n```",
+      "starter_code": "counter = 0\n\nwhile counter <= 3:\n    print(counter)\n\nprint(\"done\")\n",
+      "solution": "counter = 0\n\nwhile counter < 3:\n    counter += 1\n    print(counter)\n\nprint(\"done\")\n",
+      "tests": "assert counter == 3, \"the loop should end with counter == 3\"\n",
+      "expected_output": "1\n2\n3\ndone",
+      "hints": [
+        "`while counter < 3` stops as soon as the condition becomes false.",
+        "Where is `counter` increased, and does it grow fast enough to ever reach 3?",
+        "Keep the `print(counter)` before the `counter += 1`, so the values printed are 1, 2, 3."
+      ],
+      "packages": []
+    }
+  ]
+}
