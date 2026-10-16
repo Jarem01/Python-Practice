@@ -33,6 +33,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      # pandas/openpyxl/statsmodels are what the numeric checks in
+      # tests/test_datasets.py need; without them those checks SKIP here, so the
+      # run would look green while proving less.
+      - name: Install the Python packages the tests need
+        run: python3 -m pip install -r requirements.txt
+
       - name: Rebuild the manifests
         run: python3 tools/build_index.py
 
