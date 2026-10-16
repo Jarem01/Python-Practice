@@ -21,17 +21,31 @@ JavaScript. Python comes from a CDN (Pyodide) and lives in an in-browser sandbox
 
 ---
 
-## Quick start
+## Use the site
 
-A local web server is required (browsers refuse to `fetch()` the manifests and notebooks from
-`file://`):
+Nothing to install and nothing to sign in to. The site is published on GitHub Pages:
+
+**https://jarem01.github.io/Python-Practice/**
+
+Open that link, or send it to a class, and it works: Python runs in the browser through Pyodide, so
+whoever uses it needs no server, no Python install and no account. Progress is kept per browser.
+
+---
+
+## Quick start (running the repository locally)
+
+This is only needed to **change** the site. A local web server is required, because browsers refuse
+to `fetch()` the manifests and notebooks from `file://` — double-clicking `index.html` will not
+work:
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000     # or: npm run serve
 # then open http://localhost:8000/
 ```
 
 Any static server works — `npx serve`, `php -S localhost:8000`, VS Code Live Server, …
+
+The pages (every one of them is on the deployed URL above as well):
 
 | Page | What it is |
 | --- | --- |
@@ -379,6 +393,9 @@ except progress and drafts, which stay in `localStorage` on the learner's machin
 
 ## Publishing on GitHub Pages
 
+Already live at **https://jarem01.github.io/Python-Practice/**. Pushing to `main` is the only step
+needed to update it — no build, no upload, no extra command.
+
 The included workflow does everything on every push to `main`:
 
 1. `python3 tools/build_index.py` rebuilds `data/notebooks.json` and `problems/index.json` from the
@@ -388,10 +405,14 @@ The included workflow does everything on every push to `main`:
    is uploaded from the website.
 4. The whole site is published.
 
-Set it up once:
+Done once for this repository; a fork needs the same two steps:
 
 1. Settings → Pages → Source: **GitHub Actions**.
 2. Push (or run the workflow by hand from the Actions tab).
+
+Pushing a change to a file under `.github/workflows/` needs a token with the `workflow` scope on
+top of `repo` (`Workflows: Read and write` for a fine-grained token), or GitHub rejects the push: a
+plain `repo` token cannot add or update a workflow file.
 
 The manifests are still committed to the repository, so the *Deploy from a branch* option also
 works: commit them and point Pages at `main` / `(root)`. `.nojekyll` is included, so Jekyll leaves
@@ -500,8 +521,9 @@ Pyodide, which is the check that matters.
   `setup` to supply data.
 * **Long computations are cut off** by the loop guard — raise `lineLimit` in `config.js` if a
   legitimate exercise needs more, or move the work into numpy.
-* **"Could not read problems/index.json"** — you opened the page from disk. Serve it over HTTP
-  and, if you just added files, re-run `python3 tools/build_index.py`.
+* **"Could not read problems/index.json"** — you opened the page from disk instead of the
+  published URL. Serve it over HTTP and, if you just added files, re-run
+  `python3 tools/build_index.py`. This cannot happen on the deployed site.
 * **Python never starts** — the CDN is blocked or offline; notice the status line under the
   exercise. Predict-the-output exercises still work.
 * **A notebook renders raw markdown** — the viewer implements a useful subset (headings, lists,

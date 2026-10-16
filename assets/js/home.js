@@ -135,7 +135,20 @@ function renderRecommendation(problems) {
     `<p class="small muted" style="margin:0">${escapeHtml((pick.topics || []).join(" · "))}</p>`;
 }
 
+/**
+ * The README is not one of the files the publishing workflow copies to the site
+ * (it ships the pages and the material, not the Markdown), so on the deployed
+ * site the relative link would 404. Point it at the rendered copy on GitHub
+ * instead; a checkout that has no repository configured keeps the local link.
+ */
+function pointReadmeLink() {
+  const link = document.getElementById("readme-link");
+  if (!link || !CONFIG.githubRepo) return;
+  link.href = `https://github.com/${CONFIG.githubRepo}#readme`;
+}
+
 async function main() {
+  pointReadmeLink();
   const problemsHost = document.getElementById("problem-count");
   let problems = [];
   let manifest = null;

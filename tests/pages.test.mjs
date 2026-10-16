@@ -187,6 +187,31 @@ test("index.html renders stats, type cards and the notebook overview", { skip },
   }
 });
 
+/** README.md is not part of the published site — the workflow copies the pages and
+ *  the material, not the Markdown — so a relative link to it 404s on the deployed
+ *  site. With a repository configured the link has to leave the site. */
+test("index.html points the README link at the rendered copy on GitHub", { skip }, async () => {
+  const { CONFIG } = await import(`${pathToFileURL(path.join(root, "assets/js/config.js")).href}?t=${pageCounter++}`);
+  const page = await loadPage("index.html", "assets/js/home.js");
+  try {
+    const link = page.document.getElementById("readme-link");
+    assert.ok(link, "the home page links the README");
+    assert.match(link.textContent, /README/, "the link says what it opens");
+    const href = link.getAttribute("href");
+    if (CONFIG.githubRepo) {
+      assert.equal(
+        href,
+        `https://github.com/${CONFIG.githubRepo}#readme`,
+        "the link must leave the site: README.md is not published with it",
+      );
+    } else {
+      assert.equal(href, "README.md", "without a repository the local file is still the best target");
+    }
+  } finally {
+    page.restore();
+  }
+});
+
 /** Every tile grid on the site is a grid, so a neighbor's caption cannot make
  *  one tile taller than the next — the first-tile-is-bigger bug. */
 test("no page keeps its tiles outside a grid", { skip }, async () => {
