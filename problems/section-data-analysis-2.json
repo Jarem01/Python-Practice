@@ -1,0 +1,214 @@
+{
+  "problems": [
+    {
+      "id": "da2-clean-penalty-strings",
+      "type": "write_from_scratch",
+      "title": "Turn '$45,000 ' into 45000.0",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 6,
+      "prompt": "Penalty amounts arrive as text: `'$45,000 '`, dollars sign, thousands separator and a trailing space. That is why `astype(float)` fails.\n\nThe Series `penalty` below holds three such values. Clean it into floats, store the result in `penalty` itself, and print the total.\n\n```\n100000.0\n```",
+      "starter_code": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \", \"$30,000 \", \"$25,000 \"])\n# your code here\nprint(penalty.sum())\n",
+      "hints": [
+        "`.str.strip()` removes the surrounding spaces.",
+        "`.str.replace('$', '')` and `.str.replace(',', '')` remove the decorations.",
+        "Only then call `.astype(float)`."
+      ],
+      "solution": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \", \"$30,000 \", \"$25,000 \"])\npenalty = penalty.str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\nprint(penalty.sum())\n",
+      "tests": "assert str(penalty.dtype) == \"float64\", f\"penalty should be float, got {penalty.dtype}\"\nassert float(penalty.sum()) == 100000.0\n",
+      "test_summary": "Checks the column really is float and adds up to 100,000.",
+      "glossary": [
+        "astype",
+        "str-methods",
+        "cleaning"
+      ],
+      "expected_output": "100000.0",
+      "mode": "both"
+    },
+    {
+      "id": "da2-np-where-overtime",
+      "type": "fill_in_blank",
+      "title": "Flag the overtime hours with np.where",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "NumPy"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "line_count": 8,
+      "prompt": "`np.where(condition, value_if_true, value_if_false)` is the vectorised if-statement the notebook uses to build indicator columns.\n\nFill in the blanks so `overtime` is 1 when someone worked more than 40 hours and 0 otherwise, then print the total overtime.",
+      "starter_code": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"hours_worked\": [42, 38, 50, 45, 30]})\ndf[\"overtime\"] = np.where(df[\"hours_worked\"] ___ 40, ___, 0)\n\nprint(df[\"overtime\"].sum())\n",
+      "blanks": [
+        {
+          "accepted": [
+            ">"
+          ],
+          "hint": "Overtime means strictly more than forty hours."
+        },
+        {
+          "accepted": [
+            "1"
+          ],
+          "hint": "The flag for overtime is 1."
+        }
+      ],
+      "hints": [
+        "`np.where` takes three arguments: a condition, the value when it is True and the value when it is False.",
+        "The comparison goes inside the call: `np.where(condition, 1, 0)`."
+      ],
+      "solution": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"hours_worked\": [42, 38, 50, 45, 30]})\ndf[\"overtime\"] = np.where(df[\"hours_worked\"] > 40, 1, 0)\n\nprint(df[\"overtime\"].sum())\n",
+      "tests": "assert list(df[\"overtime\"]) == [1, 0, 1, 1, 0], f\"unexpected flags: {list(df['overtime'])}\"\n",
+      "test_summary": "Checks the indicator column matches the 40-hour rule for all five employees.",
+      "glossary": [
+        "np-where",
+        "numpy",
+        "indicator-column"
+      ],
+      "expected_output": "3"
+    },
+    {
+      "id": "da2-np-where-performance",
+      "type": "write_from_scratch",
+      "title": "Three performance levels with np.where",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "NumPy"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "line_count": 10,
+      "prompt": "The company grades sales performance:\n\n- `sales >= 15000` is `'Excellent'`\n- sales between `8000` and `14999` are `'Good'`\n- anything lower is `'Needs improvement'`\n\nCreate the column `performance` in `df` with `np.where` (two nested calls) and print the number of rows marked `'Good'`.",
+      "hints": [
+        "The outer call handles the first rule, the inner call handles the rest: `np.where(a, 'Excellent', np.where(b, 'Good', 'Needs improvement'))`.",
+        "The middle rule is `sales >= 8000`.",
+        "Count with `(df['performance'] == 'Good').sum()`."
+      ],
+      "solution": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"sales\": [12000, 7000, 18000, 9000, 4000]})\ndf[\"performance\"] = np.where(df[\"sales\"] >= 15000, \"Excellent\", np.where(df[\"sales\"] >= 8000, \"Good\", \"Needs improvement\"))\nprint((df[\"performance\"] == \"Good\").sum())\n",
+      "tests": "assert list(df[\"performance\"]) == [\"Good\", \"Needs improvement\", \"Excellent\", \"Good\", \"Needs improvement\"], f\"unexpected grades: {list(df['performance'])}\"\n",
+      "test_summary": "Checks all five rows are graded by the three rules.",
+      "glossary": [
+        "np-where",
+        "numpy",
+        "cleaning"
+      ],
+      "expected_output": "2",
+      "mode": "both"
+    },
+    {
+      "id": "da2-sentence-column",
+      "type": "write_from_scratch",
+      "title": "Build a sentence column",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 8,
+      "prompt": "Add a column `height_feet` = `height_inches / 12` and a column `sentence` that reads `\"Robby is 5.8 feet tall.\"`, filling in each person's name and their height in feet.\n\nPrint the first sentence.",
+      "hints": [
+        "Adding a Series to a column name creates the column: `df['height_feet'] = df['height_inches'] / 12`.",
+        "Text joined with `+` across columns builds a Series of strings: `df['person'] + ' is ' + ...`.",
+        "Numeric columns must be cast: `.astype(str)`."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"person\": [\"Robby\", \"Karen\", \"Lydia\", \"Dan\"], \"height_inches\": [69.6, 66.0, 63.6, 72.0]})\ndf[\"height_feet\"] = df[\"height_inches\"] / 12\ndf[\"sentence\"] = df[\"person\"] + \" is \" + df[\"height_feet\"].astype(str) + \" feet tall.\"\n\nprint(df[\"sentence\"].iloc[0])\n",
+      "tests": "assert list(df.columns) == [\"person\", \"height_inches\", \"height_feet\", \"sentence\"]\nassert df[\"sentence\"].iloc[0] == \"Robby is 5.8 feet tall.\", f\"unexpected sentence: {df['sentence'].iloc[0]!r}\"\n",
+      "test_summary": "Checks both new columns and the exact wording of the first sentence.",
+      "glossary": [
+        "astype",
+        "dataframe",
+        "pandas"
+      ],
+      "expected_output": "Robby is 5.8 feet tall.",
+      "mode": "both"
+    },
+    {
+      "id": "da2-fix-penalty-cleanup",
+      "type": "fix_the_code",
+      "title": "The cleanup that forgets to strip",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 7,
+      "prompt": "This cell should turn `'$45,000 '` into `45000.0`, but it raises `ValueError: could not convert string to float: '$45,000 '`.\n\nFix the chain so it runs and prints `45000.0`.",
+      "starter_code": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \"])\npenalty = penalty.str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(penalty.iloc[0])\n",
+      "hints": [
+        "Read the error message — the value it cannot convert still has its trailing space.",
+        "`.str.strip()` before `.str.replace(...)` removes the surrounding whitespace."
+      ],
+      "solution": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \"])\npenalty = penalty.str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(penalty.iloc[0])\n",
+      "tests": "assert float(penalty.iloc[0]) == 45000.0, f\"expected 45000.0, got {penalty.iloc[0]}\"\n",
+      "test_summary": "Checks the cleaned value is 45000.0.",
+      "glossary": [
+        "str-methods",
+        "astype",
+        "cleaning"
+      ],
+      "expected_output": "45000.0"
+    },
+    {
+      "id": "da2-violations-penalty-total",
+      "type": "write_from_scratch",
+      "title": "Clean the real penalty column and total it",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 8,
+      "prompt": "Read the `penalty` column of `violations.csv` as text (`dtype={'penalty': str}`), strip the dollars sign, the commas and the spaces, convert it to floats (missing values may stay missing), then print the total **in billions of dollars**, rounded to two decimals:\n\n```python\nprint(round(data[\"penalty\"].sum() / 1e9, 2))\n```",
+      "hints": [
+        "`.str.strip()` then `.str.replace('$', '')` then `.str.replace(',', '')`.",
+        "Empty values become `NaN`, and `.sum()` skips `NaN` by default.",
+        "Divide by `1e9` to report billions."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", dtype={\"penalty\": str}, parse_dates=[\"date\"])\ndata[\"penalty\"] = data[\"penalty\"].str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(round(data[\"penalty\"].sum() / 1e9, 2))\n",
+      "tests": "assert str(data[\"penalty\"].dtype) == \"float64\", f\"penalty should be float, got {data['penalty'].dtype}\"\nassert len(data) == 68841\n",
+      "test_summary": "Checks the cleaned column is numeric and every row survived.",
+      "glossary": [
+        "cleaning",
+        "astype",
+        "pandas"
+      ],
+      "expected_output": "512.37",
+      "mode": "both"
+    }
+  ]
+}

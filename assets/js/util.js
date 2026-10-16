@@ -14,6 +14,13 @@ export function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (c) => ENTITIES[c]);
 }
 
+/** Terminal color escapes a notebook output may carry (pandas, tqdm, …). */
+const ANSI_RE = /\u001b\[[0-9;?]*[A-Za-z]|\u001b\][^\u0007]*\u0007/g;
+
+export function stripAnsi(text) {
+  return String(text ?? "").replace(ANSI_RE, "");
+}
+
 export function escapeRe(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -470,6 +477,50 @@ export function el(tag, attrs = {}, children = []) {
 
 export function pluralize(n, singular, plural = `${singular}s`) {
   return `${n} ${n === 1 ? singular : plural}`;
+}
+
+/* ------------------------------------------------------------ view mode --- */
+
+/** The two ways a list can be shown anywhere on the site. */
+export const VIEW_MODES = [
+  ["tiles", "Tiles"],
+  ["table", "Table"],
+];
+
+/** Remembered per list, so "table" stays table on every visit. */
+export function getViewMode(key, fallback = "tiles") {
+  const stored = lsGet(`view:${key}`, fallback);
+  return stored === "table" ? "table" : fallback;
+}
+
+export function setViewMode(key, value) {
+  lsSet(`view:${key}`, value === "table" ? "table" : "tiles");
+}
+
+/**
+ * The Tiles / Table switch shown above a list.
+ * @param {string} current  "tiles" or "table"
+ * @param {(value: string) => void} onPick
+ */
+export function viewToggle(current, onPick, { label = "Show as" } = {}) {
+  const wrap = el("span", { class: "group" });
+  wrap.append(el("span", { class: "lbl", text: label }));
+  const group = el("span", { class: "view-toggle", role: "group" });
+  for (const [value, text] of VIEW_MODES) {
+    const button = el("button", {
+      type: "button",
+      text,
+      "aria-pressed": String(current === value),
+      "data-value": value,
+    });
+    button.addEventListener("click", () => {
+      onPick(value);
+      for (const other of group.children) other.setAttribute("aria-pressed", String(other.dataset.value === value));
+    });
+    group.append(button);
+  }
+  wrap.append(group);
+  return wrap;
 }
 
 export const TYPE_LABELS = {

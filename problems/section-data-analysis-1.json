@@ -1,0 +1,182 @@
+{
+  "problems": [
+    {
+      "id": "da1-read-selected-columns",
+      "type": "write_from_scratch",
+      "title": "Load violations.csv with only three columns",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "The course dataset `violations.csv` is in the working directory (68,841 rows, 11 columns).\n\nRead it into a DataFrame called `data`, keeping only the columns `company`, `penalty` and `date` **by name**, then print `data.shape`.",
+      "hints": [
+        "`import pandas as pd` first.",
+        "`pd.read_csv(\"violations.csv\", usecols=[...])` keeps just the columns you list.",
+        "`.shape` prints `(rows, columns)`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", usecols=[\"company\", \"penalty\", \"date\"])\nprint(data.shape)\n",
+      "tests": "assert list(data.columns) == [\"company\", \"penalty\", \"date\"], f\"wrong columns: {list(data.columns)}\"\nassert len(data) == 68841, f\"expected every row, got {len(data)}\"\n",
+      "test_summary": "Checks the three columns and that all 68,841 rows were kept.",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "read-csv"
+      ],
+      "expected_output": "(68841, 3)",
+      "mode": "both"
+    },
+    {
+      "id": "da1-microsoft-rows",
+      "type": "write_from_scratch",
+      "title": "How many violations involve Microsoft?",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "Load `violations.csv` into `data` as the notebook does (`parse_dates=['date']`, `dtype={'gvkey': str, 'zip': str}`).\n\nFilter the rows where `company` is `'Microsoft'` into a DataFrame called `microsoft`, then print `len(microsoft)` — a single number.",
+      "hints": [
+        "A boolean mask like `data.company == 'Microsoft'` selects the rows.",
+        "`data[data.company == 'Microsoft']` gives the subset.",
+        "`len()` of that DataFrame is the row count."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", parse_dates=[\"date\"], dtype={\"gvkey\": str, \"zip\": str})\nmicrosoft = data[data.company == \"Microsoft\"]\nprint(len(microsoft))\n",
+      "tests": "assert isinstance(microsoft, pd.DataFrame), \"microsoft must be a DataFrame\"\nassert len(data) == 68841\n",
+      "test_summary": "Checks the filter produces a DataFrame and the whole file was loaded.",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "boolean-mask"
+      ],
+      "expected_output": "5",
+      "mode": "both"
+    },
+    {
+      "id": "da1-public-december",
+      "type": "write_from_scratch",
+      "title": "Publicly traded firms in December",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Boolean logic"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 5,
+      "prompt": "Load `violations.csv` into `data`.\n\nBuild `public12`: the rows whose `ownership structure` is `'publicly traded'` **and** whose `date` falls in December. Print `len(public12)`.\n\nTwo conditions on one DataFrame need parentheses around each one, joined with `&`.",
+      "hints": [
+        "`data.date.dt.month == 12` only works once `date` is a datetime — read it with `parse_dates=['date']`.",
+        "Combine masks with `&`, and wrap each in parentheses: `data[(a) & (b)]`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", parse_dates=[\"date\"], dtype={\"zip\": str})\npublic12 = data[(data[\"ownership structure\"] == \"publicly traded\") & (data.date.dt.month == 12)]\nprint(len(public12))\n",
+      "tests": "assert len(public12) == 3027, f\"expected 3,027 publicly traded December rows, got {len(public12)}\"\n",
+      "test_summary": "Checks the two-condition filter returns 3,027 rows.",
+      "glossary": [
+        "boolean-mask",
+        "pandas",
+        "dt-accessor"
+      ],
+      "expected_output": "3027",
+      "mode": "both"
+    },
+    {
+      "id": "da1-missing-zip-count",
+      "type": "write_from_scratch",
+      "title": "Count the missing zip codes",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Missing data"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "Load `violations.csv` into `data` (read `zip` as a string so the leading zeros survive).\n\nPrint `data['zip'].isna().sum()` — the number of rows with **no** zip code — and remember the file has 68,841 rows.",
+      "hints": [
+        "`.isna()` marks missing values; `.sum()` counts them.",
+        "`dtype={'zip': str}` keeps zip codes as text."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", dtype={\"zip\": str})\nprint(data[\"zip\"].isna().sum())\n",
+      "tests": "assert int(data[\"zip\"].isna().sum()) == 68841 - 25337, \"25,337 rows do have a zip code\"\n",
+      "test_summary": "Checks the missing-zip count against the documented 25,337 non-missing values.",
+      "glossary": [
+        "missing-values",
+        "pandas",
+        "isna"
+      ],
+      "expected_output": "43504",
+      "mode": "both"
+    },
+    {
+      "id": "da1-build-a-dataframe",
+      "type": "fill_in_blank",
+      "title": "Build a DataFrame by hand",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 5,
+      "prompt": "A DataFrame is a dictionary of columns. Fill in the two blanks so the frame has a `company` column with two names and a `penalty` column with two amounts, sorted by penalty from high to low.",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"company\": [\"Acme\", \"Globex\"], \"penalty\": [5000, 25000]})\ndf = df.___(by=\"penalty\", ascending=___)\n\nprint(df.iloc[0][\"company\"])\n",
+      "blanks": [
+        {
+          "accepted": [
+            "sort_values"
+          ],
+          "hint": "The DataFrame method that sorts rows by a column."
+        },
+        {
+          "accepted": [
+            "False"
+          ],
+          "hint": "You want the largest penalty first, so ascending has to be False."
+        }
+      ],
+      "hints": [
+        "`df.sort_values(by=..., ascending=...)` returns the sorted frame.",
+        "`ascending=True` puts the smallest first."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"company\": [\"Acme\", \"Globex\"], \"penalty\": [5000, 25000]})\ndf = df.sort_values(by=\"penalty\", ascending=False)\n\nprint(df.iloc[0][\"company\"])\n",
+      "glossary": [
+        "dataframe",
+        "pandas",
+        "sort-values"
+      ],
+      "expected_output": "Globex"
+    }
+  ]
+}

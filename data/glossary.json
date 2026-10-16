@@ -1,75 +1,1418 @@
 {
-  "title": "Python & Data Analysis Glossary",
-  "entries": [
-    { "term": "variable", "definition": "A name that refers to a value. In Python you create one by assigning: `x = 5`.", "example": "score = 0\nscore = score + 10\nprint(score)   # 10", "tags": ["Python Basics"], "see_also": ["assignment", "type"] },
-    { "term": "assignment", "definition": "Storing a value under a name with `=`. Python evaluates the right-hand side first, then binds the name.", "example": "a = 3\nb = a + 1\nprint(b)  # 4", "tags": ["Python Basics"], "see_also": ["variable", "augmented-assignment"] },
-    { "term": "augmented assignment", "aliases": ["+="], "definition": "Shorthand that combines an operator with assignment, e.g. `total += n` is `total = total + n`.", "example": "total = 0\nfor n in [1, 2, 3]:\n    total += n\nprint(total)  # 6", "tags": ["Python Basics"], "see_also": ["assignment", "operator"] },
-    { "term": "type", "aliases": ["data type"], "definition": "The kind of value a variable holds: `int`, `float`, `str`, `bool`, `list`, `dict`, `NoneType`… `type(x)` tells you which.", "example": "print(type(3))       # <class 'int'>\nprint(type(3.0))     # <class 'float'>\nprint(type(\"3\"))     # <class 'str'>", "tags": ["Python Basics"], "see_also": ["variable", "cast"] },
-    { "term": "cast", "aliases": ["type conversion"], "definition": "Converting between types with `int()`, `float()` or `str()`.", "example": "print(int(\"42\") + 1)   # 43\nprint(float(\"2.5\"))     # 2.5\nprint(str(7) + \"!\")     # 7!", "tags": ["Python Basics"], "see_also": ["type"] },
-    { "term": "string", "definition": "An immutable sequence of characters, written with single or double quotes.", "example": "greeting = \"hello\"\nprint(greeting[0])       # h\nprint(greeting + \"!\")    # hello!", "tags": ["Strings"], "see_also": ["f-string", "slice", "method"] },
-    { "term": "f-string", "aliases": ["formatted string literal"], "definition": "A string prefixed with `f` where `{expression}` is replaced by its value. The modern way to build text.", "example": "name = \"Ada\"\nage = 36\nprint(f\"{name} is {age} years old\")", "tags": ["Strings"], "see_also": ["string"] },
-    { "term": "index", "aliases": ["indexing"], "definition": "Position of an element, counted from `0`. Negative indices count from the end.", "example": "letters = [\"a\", \"b\", \"c\"]\nprint(letters[0])    # a\nprint(letters[-1])   # c", "tags": ["Python Basics"], "see_also": ["slice", "list", "key"] },
-    { "term": "slice", "definition": "A range of elements: `seq[start:stop:step]`. The `stop` index is **excluded**.", "example": "word = \"python\"\nprint(word[1:4])     # yth\nprint(word[::-1])    # nohtyp", "tags": ["Python Basics"], "see_also": ["index", "string", "list"] },
-    { "term": "method", "definition": "A function that belongs to a value, called with a dot: `\"abc\".upper()`. You cannot change a string, so string methods return new strings.", "example": "text = \"  Hello  \"\nprint(text.strip())          # Hello\nprint(\"abc\".upper())         # ABC", "tags": ["Python Basics"], "see_also": ["function", "string"] },
-    { "term": "operator", "definition": "A symbol that combines values: `+ - * / // % **` for numbers, `+` for sequences, and comparisons like `< == >`.", "example": "print(7 / 2)    # 3.5\nprint(7 // 2)   # 3\nprint(7 % 2)    # 1\nprint(2 ** 3)   # 8", "tags": ["Python Basics"], "see_also": ["modulo", "boolean"] },
-    { "term": "modulo", "aliases": ["%"], "definition": "The `%` operator returns the remainder of a division. `n % 2 == 0` tests whether a number is even.", "example": "print(10 % 3)     # 1\nprint(10 % 2 == 0)  # True", "tags": ["Python Basics"], "see_also": ["operator", "if-statement"] },
-    { "term": "boolean", "definition": "A value that is either `True` or `False`. Comparisons produce booleans; `and`, `or`, `not` combine them.", "example": "age = 20\nprint(age >= 18 and age < 65)   # True\nprint(not False)                # True", "tags": ["Python Basics"], "see_also": ["if-statement", "truthy"] },
-    { "term": "truthy", "aliases": ["falsy"], "definition": "In a condition, empty values are falsy: `0`, `0.0`, `\"\"`, `[]`, `{}`, `None` and `False`. Everything else is truthy.", "example": "items = []\nif not items:\n    print(\"the list is empty\")", "tags": ["Python Basics"], "see_also": ["boolean", "if-statement"] },
-    { "term": "if statement", "aliases": ["if", "conditional"], "definition": "Runs a block only when a condition is true. `elif` and `else` handle the other cases.", "example": "value = 7\nif value > 10:\n    print(\"big\")\nelif value > 0:\n    print(\"positive\")\nelse:\n    print(\"not positive\")", "tags": ["Control Flow"], "see_also": ["boolean", "block"] },
-    { "term": "block", "definition": "A group of lines that belong together, marked by indentation after a statement ending in `:`.", "example": "for i in range(2):\n    print(\"inside\")   # indented = part of the loop\nprint(\"outside\")", "tags": ["Python Basics"], "see_also": ["indentation", "for-loop"] },
-    { "term": "indentation", "aliases": ["whitespace"], "definition": "Leading spaces that define Python blocks. Use 4 spaces per level; mixing tabs and spaces causes errors.", "example": "if True:\n    print(\"indented\")  # required", "tags": ["Python Basics"], "see_also": ["block", "syntax-error"] },
-    { "term": "for loop", "aliases": ["for-loop", "for"], "definition": "Repeats a block once for every item of a sequence.", "example": "for letter in \"abc\":\n    print(letter)\nfor i in range(3):\n    print(i)   # 0 1 2", "tags": ["Control Flow"], "see_also": ["range", "while-loop", "loop", "break"] },
-    { "term": "while loop", "aliases": ["while", "while-loop"], "definition": "Repeats a block as long as a condition stays true. Make sure something inside changes the condition, otherwise the loop never ends.", "example": "count = 0\nwhile count < 3:\n    count += 1\nprint(count)   # 3", "tags": ["Control Flow"], "see_also": ["for-loop", "loop"] },
-    { "term": "loop", "definition": "Any repeated execution of a block: `for` over a sequence or `while` over a condition.", "example": "total = 0\nfor n in [1, 2, 3]:\n    total += n\nprint(total)  # 6", "tags": ["Control Flow"], "see_also": ["for-loop", "while-loop"] },
-    { "term": "range", "definition": "`range(stop)`, `range(start, stop)` and `range(start, stop, step)` generate numbers lazily. `stop` is **excluded**.", "example": "print(list(range(3)))         # [0, 1, 2]\nprint(list(range(1, 6)))      # [1, 2, 3, 4, 5]\nprint(list(range(0, 10, 2)))  # [0, 2, 4, 6, 8]", "tags": ["Control Flow"], "see_also": ["for-loop", "slice"] },
-    { "term": "break", "definition": "Leaves the innermost loop immediately.", "example": "for n in [1, 2, 3, 4]:\n    if n == 3:\n        break\n    print(n)   # 1 2", "tags": ["Control Flow"], "see_also": ["loop", "continue"] },
-    { "term": "continue", "definition": "Skips the rest of the current iteration and moves to the next one.", "example": "for n in [1, 2, 3]:\n    if n == 2:\n        continue\n    print(n)   # 1 3", "tags": ["Control Flow"], "see_also": ["loop", "break"] },
-    { "term": "function", "definition": "A reusable named block of code. Define it with `def`, call it with parentheses, and send results back with `return`.", "example": "def double(n):\n    return n * 2\n\nprint(double(21))   # 42", "tags": ["Functions"], "see_also": ["def", "return", "parameter", "argument"] },
-    { "term": "def", "aliases": ["function definition"], "definition": "The keyword that starts a function definition: `def name(parameters):`.", "example": "def greet(who):\n    print(f\"hi {who}\")\n\ngreet(\"Ada\")", "tags": ["Functions"], "see_also": ["function", "parameter"] },
-    { "term": "parameter", "aliases": ["parameter vs argument"], "definition": "A name in the function definition that receives a value when the function is called. The value you pass at the call site is the *argument*.", "example": "def add(a, b):     # a and b are parameters\n    return a + b\n\nadd(2, 3)          # 2 and 3 are arguments", "tags": ["Functions"], "see_also": ["function", "argument", "default-argument"] },
-    { "term": "argument", "definition": "A value you pass to a function when calling it. `*args` collects extra positional arguments into a tuple.", "example": "def total(*numbers):\n    return sum(numbers)\n\nprint(total(1, 2, 3))   # 6", "tags": ["Functions"], "see_also": ["parameter", "tuple"] },
-    { "term": "default argument", "aliases": ["default parameter"], "definition": "A parameter value used when the caller does not supply one: `def f(x, step=1)`.", "example": "def repeat(text, times=2):\n    return text * times\n\nprint(repeat(\"ab\"))       # abab\nprint(repeat(\"ab\", 3))    # ababab", "tags": ["Functions"], "see_also": ["parameter"] },
-    { "term": "return", "definition": "Ends a function and hands a value back to the caller. A function without `return` gives back `None`.", "example": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n\nprint(first_even([3, 5, 8]))   # 8", "tags": ["Functions"], "see_also": ["function", "none"] },
-    { "term": "None", "aliases": ["NoneType"], "definition": "The value that means \"no value\". It is what a function returns when it has no `return`, and what `dict.get` gives for a missing key when no default is provided.", "example": "def noop():\n    pass\n\nprint(noop())   # None", "tags": ["Python Basics"], "see_also": ["return", "dictionary"] },
-    { "term": "scope", "definition": "Where a name is visible. Assignments inside a function create local names; reading a name from outside uses the global one.", "example": "counter = 0\n\ndef bump():\n    global counter\n    counter += 1\n\nbump()\nprint(counter)   # 1", "tags": ["Functions"], "see_also": ["function", "variable"] },
-    { "term": "list", "definition": "An ordered, mutable sequence written with square brackets. Add with `append`, sort with `sort`, copy with `copy()` or `[:]`.", "example": "nums = [3, 1, 2]\nnums.append(4)\nnums.sort()\nprint(nums)      # [1, 2, 3, 4]", "tags": ["Data Structures"], "see_also": ["index", "slice", "mutation", "tuple"] },
-    { "term": "tuple", "definition": "An ordered, immutable sequence written with parentheses. Handy for fixed groups of values.", "example": "point = (3, 4)\nx, y = point      # unpacking\nprint(x, y)       # 3 4", "tags": ["Data Structures"], "see_also": ["unpacking", "list"] },
-    { "term": "unpacking", "definition": "Assigning several names at once from a sequence: `a, b = pair`.", "example": "name, age = (\"Ada\", 36)\nprint(name, age)\n\nfor number, square in [(1, 1), (2, 4)]:\n    print(number, square)", "tags": ["Data Structures"], "see_also": ["tuple", "list"] },
-    { "term": "dictionary", "aliases": ["dict"], "definition": "A mapping from keys to values, written `{key: value}`. Lookups are fast and keys must be hashable (strings, numbers, tuples).", "example": "scores = {\"ana\": 9, \"bo\": 7}\nprint(scores[\"ana\"])          # 9\nprint(scores.get(\"cai\", 0))   # 0", "tags": ["Data Structures"], "see_also": ["key", "value", "method"] },
-    { "term": "key", "definition": "The left-hand part of a dictionary entry used for lookup. Assigning to a missing key creates it; reading a missing key raises `KeyError`.", "example": "counts = {}\ncounts[\"a\"] = counts.get(\"a\", 0) + 1\nprint(counts)   # {'a': 1}", "tags": ["Data Structures"], "see_also": ["dictionary", "value"] },
-    { "term": "value", "definition": "The right-hand part of a dictionary entry — whatever the key maps to.", "example": "ages = {\"ada\": 36}\nprint(ages[\"ada\"])   # 36", "tags": ["Data Structures"], "see_also": ["dictionary", "key"] },
-    { "term": "mutation", "aliases": ["mutability", "mutable", "in place"], "definition": "Changing an object in place. Lists and dictionaries are mutable, strings and tuples are not. Two names can point at the same mutated object.", "example": "a = [1, 2]\nb = a          # same object!\nb.append(3)\nprint(a)       # [1, 2, 3]", "tags": ["Data Structures"], "see_also": ["reference", "list"] },
-    { "term": "reference", "definition": "Names point to objects; assignment copies the reference, not the data. Use `.copy()` for an independent shallow copy.", "example": "a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a, b)   # [1, 2] [1, 2, 3]", "tags": ["Data Structures"], "see_also": ["mutation", "list"] },
-    { "term": "list comprehension", "aliases": ["list-comprehension", "comprehension"], "definition": "Builds a list in one expression: `[expression for item in sequence if condition]`.", "example": "squares = [n * n for n in range(5)]\nprint(squares)                        # [0, 1, 4, 9, 16]\nevens = [n for n in squares if n % 2 == 0]\nprint(evens)                          # [0, 4, 16]", "tags": ["Data Structures"], "see_also": ["dictionary", "for-loop", "lambda"] },
-    { "term": "dict comprehension", "aliases": ["dictionary comprehension", "dict-comprehension"], "definition": "Builds a dictionary in one expression: `{key_expr: value_expr for item in sequence}`.", "example": "words = [\"hi\", \"there\"]\nlengths = {w: len(w) for w in words}\nprint(lengths)   # {'hi': 2, 'there': 5}", "tags": ["Data Structures"], "see_also": ["list-comprehension", "dictionary"] },
-    { "term": "lambda", "aliases": ["anonymous function"], "definition": "A short function written inline: `lambda x: x * 2`. Common as the `key` of `sorted` or `min`/`max`.", "example": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda p: p[1])\nprint(ordered)   # [('Bo', 24), ('Ada', 36)]", "tags": ["Functions"], "see_also": ["sorting", "function"] },
-    { "term": "sorting", "aliases": ["sorted", "sort"], "definition": "`sorted(seq)` returns a new sorted list; `list.sort()` sorts in place. Both accept `reverse=True` and a `key` function.", "example": "nums = [3, 1, 2]\nprint(sorted(nums))            # [1, 2, 3]\nprint(sorted(nums, reverse=True))  # [3, 2, 1]", "tags": ["Data Structures"], "see_also": ["lambda", "list"] },
-    { "term": "len", "definition": "`len(obj)` returns the number of items in a sequence, string, dictionary or array.", "example": "print(len(\"python\"))     # 6\nprint(len([1, 2, 3]))    # 3\nprint(len({\"a\": 1}))    # 1", "tags": ["Python Basics"], "see_also": ["index", "list"] },
-    { "term": "sum", "definition": "`sum(iterable)` adds the numbers; `sum(iterable, start)` begins from `start`.", "example": "print(sum([1, 2, 3]))        # 6\nprint(sum([1, 2], 10))       # 13", "tags": ["Python Basics"], "see_also": ["for-loop", "list-comprehension"] },
-    { "term": "print", "definition": "Writes values to standard output, separating arguments with a space. `print(a, b)` is not the same as `print(a + b)`.", "example": "print(\"total:\", 3)   # total: 3\nprint(\"total:\" + \" 3\")  # total: 3 (both are strings)", "tags": ["Python Basics"], "see_also": ["f-string"] },
-    { "term": "input", "definition": "Reads a line of text from the user and always returns a `str`. Convert it with `int()` or `float()` when you need a number.", "example": "text = input(\"how old are you? \")\nage = int(text)", "tags": ["Python Basics"], "see_also": ["cast", "string"] },
-    { "term": "exceptions", "aliases": ["try", "except", "error handling"], "definition": "Python reports problems by raising exceptions. Catch them with `try`/`except` to keep running.", "example": "try:\n    value = int(\"abc\")\nexcept ValueError as error:\n    print(\"that was not a number:\", error)", "tags": ["Python Basics"], "see_also": ["name-error", "type-error", "index-error"] },
-    { "term": "NameError", "aliases": ["name-error"], "definition": "Raised when you use a name that does not exist yet — usually a typo or a variable used before it is assigned.", "example": "print(score)   # NameError: name 'score' is not defined\nscore = 1", "tags": ["Errors"], "see_also": ["exceptions", "variable"] },
-    { "term": "TypeError", "aliases": ["type-error"], "definition": "Raised when an operation gets the wrong type, e.g. adding a string to a number.", "example": "print(\"3\" + 3)   # TypeError: can only concatenate str (not \"int\") to str\nprint(int(\"3\") + 3)   # 6", "tags": ["Errors"], "see_also": ["exceptions", "cast"] },
-    { "term": "IndexError", "aliases": ["index-error"], "definition": "Raised when an index is outside the sequence. Remember the last valid index is `len(seq) - 1`.", "example": "nums = [1, 2]\nprint(nums[2])   # IndexError: list index out of range", "tags": ["Errors"], "see_also": ["index", "slice"] },
-    { "term": "KeyError", "aliases": ["key-error"], "definition": "Raised when a dictionary does not contain the key you asked for. Use `dict.get(key, default)` to avoid it.", "example": "scores = {\"ana\": 9}\nprint(scores.get(\"bo\", 0))   # 0", "tags": ["Errors"], "see_also": ["dictionary", "key"] },
-    { "term": "syntax error", "aliases": ["SyntaxError", "syntax-error"], "definition": "Raised before the program runs, when the text is not valid Python: a missing colon, unbalanced brackets or bad indentation.", "example": "if True\n    print(\"oops\")   # SyntaxError: expected ':'", "tags": ["Errors"], "see_also": ["indentation", "exceptions"] },
-    { "term": "NumPy", "aliases": ["numpy", "np"], "definition": "The array library for numerical Python. Arrays are fixed-size and fast, and operations apply to every element at once.", "example": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a * 2)     # [2 4 6 8]\nprint(a.mean())  # 2.5", "tags": ["NumPy"], "see_also": ["array", "vectorization", "pandas"] },
-    { "term": "array", "definition": "A NumPy container of values of one type. `np.array(list)`, `np.arange(...)`, `np.zeros(...)` and friends create them.", "example": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a.shape)   # (2, 3)", "tags": ["NumPy"], "see_also": ["numpy", "shape"] },
-    { "term": "shape", "definition": "The dimensions of an array: `.shape` is a tuple like `(2, 3)`, and `.reshape(2, 3)` changes it.", "example": "import numpy as np\n\na = np.arange(6).reshape(2, 3)\nprint(a.shape)   # (2, 3)\nprint(a.ndim)    # 2", "tags": ["NumPy"], "see_also": ["array", "axis"] },
-    { "term": "axis", "definition": "Which direction an aggregation runs. `axis=0` collapses the rows (per-column result), `axis=1` collapses the columns (per-row result).", "example": "import numpy as np\n\na = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.sum(axis=0))   # [5 7 9]\nprint(a.sum(axis=1))   # [ 6 15]", "tags": ["NumPy", "pandas"], "see_also": ["array", "shape", "aggregation"] },
-    { "term": "vectorization", "definition": "Applying an operation to a whole array at once instead of writing a Python loop. Faster and shorter.", "example": "import numpy as np\n\na = np.array([1, 2, 3])\nprint((a - a.min()) / (a.max() - a.min()))", "tags": ["NumPy"], "see_also": ["numpy", "array"] },
-    { "term": "boolean mask", "aliases": ["boolean-mask", "filtering"], "definition": "A boolean array used to select elements: `a[a > 2]`. Combine conditions with `&` (and) and `|` (or).", "example": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a[a > 2])              # [3 4]\nprint(a[(a > 1) & (a < 4)])  # [2 3]", "tags": ["NumPy", "pandas"], "see_also": ["array", "truthy"] },
-    { "term": "aggregation", "definition": "Reducing many values to few: `sum`, `mean`, `min`, `max`, `count`. On arrays and DataFrames they take an `axis`.", "example": "import numpy as np\n\nprint(np.array([1, 2, 3]).mean())   # 2.0", "tags": ["NumPy", "pandas"], "see_also": ["axis", "numpy"] },
-    { "term": "pandas", "aliases": ["pd"], "definition": "The library for tabular data. Its two core types are `DataFrame` (a table) and `Series` (one column).", "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\"], \"temp\": [5, 8]})\nprint(df[\"temp\"].mean())   # 6.5", "tags": ["pandas"], "see_also": ["dataframe", "series", "numpy"] },
-    { "term": "DataFrame", "aliases": ["dataframe"], "definition": "A two-dimensional table with labelled columns and an index. Build one from a dictionary of lists or read it from a CSV.", "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\"], \"temp\": [5, 8]})\nprint(df.shape)          # (2, 2)\nprint(df[\"city\"].tolist())  # ['Oslo', 'Bergen']", "tags": ["pandas"], "see_also": ["series", "pandas"] },
-    { "term": "Series", "aliases": ["series"], "definition": "A one-dimensional labelled array — a single DataFrame column. `.value_counts()`, `.mean()` and `.to_dict()` are common methods.", "example": "import pandas as pd\n\ncities = pd.Series([\"Oslo\", \"Oslo\", \"Bergen\"])\nprint(cities.value_counts().to_dict())   # {'Oslo': 2, 'Bergen': 1}", "tags": ["pandas"], "see_also": ["dataframe", "method"] },
-    { "term": "groupby", "definition": "Splits rows into groups by a column and applies an aggregation to each group: `df.groupby(\"city\")[\"temp\"].mean()`.", "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nprint(df.groupby(\"city\")[\"temp\"].mean())", "tags": ["pandas"], "see_also": ["dataframe", "aggregation"] },
-    { "term": "import", "definition": "Makes another module available: `import numpy as np`. Imported names live in their own namespace.", "example": "import math\nfrom random import randint\n\nprint(math.sqrt(16))   # 4.0", "tags": ["Python Basics"], "see_also": ["module"] },
-    { "term": "module", "definition": "A `.py` file that can be imported to reuse its code. The standard library ships many; `numpy` and `pandas` are third-party ones.", "example": "# tools.py\n\ndef double(n):\n    return n * 2\n\n# main.py\n# from tools import double\n# print(double(21))", "tags": ["Python Basics"], "see_also": ["import", "function"] },
-    { "term": "docstring", "definition": "A string as the first statement of a function or module that documents it. `help(obj)` shows it.", "example": "def double(n):\n    \"\"\"Return n multiplied by two.\"\"\"\n    return n * 2\n\nprint(double.__doc__)", "tags": ["Functions"], "see_also": ["function"] },
-    { "term": "assert", "definition": "Checks that a condition is true and raises `AssertionError` if it is not. The standard way to write quick tests.", "example": "result = 2 + 2\nassert result == 4, \"two plus two is four\"", "tags": ["Testing"], "see_also": ["exceptions", "function"] },
-    { "term": "Jupyter Notebook", "aliases": ["notebook", ".ipynb"], "definition": "A document made of cells that combine Markdown text, runnable code and saved output. The `.ipynb` file is JSON.", "example": "# A notebook cell, run with Shift+Enter\nprint(\"hello from a cell\")", "tags": ["Tools"], "see_also": ["cell"] },
-    { "term": "cell", "definition": "One unit of a Jupyter notebook: either a Markdown cell (text) or a code cell (Python plus the output it produced).", "example": "# Markdown cell:\n# ## Exercise 1\n#\n# Code cell:\nprint(sum([1, 2, 3]))", "tags": ["Tools"], "see_also": ["jupyter-notebook"] }
-  ]
+ "entries": [
+  {
+   "aliases": [
+    "dt accessor",
+    "datetime accessor"
+   ],
+   "definition": "The `.dt` accessor exposes the date parts of a datetime column: `.dt.year`, `.dt.month`, `.dt.dayofweek`. It only exists after the column has been parsed as dates.",
+   "example": "data[data.date.dt.month == 12]",
+   "see_also": [
+    "read-csv",
+    "boolean-mask"
+   ],
+   "tags": [
+    "Data Analysis",
+    "pandas"
+   ],
+   "term": ".dt accessor"
+  },
+  {
+   "definition": "Reducing many values to few: `sum`, `mean`, `min`, `max`, `count`. On arrays and DataFrames they take an `axis`.",
+   "example": "import numpy as np\n\nprint(np.array([1, 2, 3]).mean())   # 2.0",
+   "see_also": [
+    "axis",
+    "numpy"
+   ],
+   "tags": [
+    "NumPy",
+    "pandas"
+   ],
+   "term": "aggregation"
+  },
+  {
+   "definition": "A value you pass to a function when calling it. `*args` collects extra positional arguments into a tuple.",
+   "example": "def total(*numbers):\n    return sum(numbers)\n\nprint(total(1, 2, 3))   # 6",
+   "see_also": [
+    "parameter",
+    "tuple"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "argument"
+  },
+  {
+   "definition": "A NumPy container of values of one type. `np.array(list)`, `np.arange(...)`, `np.zeros(...)` and friends create them.",
+   "example": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a.shape)   # (2, 3)",
+   "see_also": [
+    "numpy",
+    "shape"
+   ],
+   "tags": [
+    "NumPy"
+   ],
+   "term": "array"
+  },
+  {
+   "definition": "Checks that a condition is true and raises `AssertionError` if it is not. The standard way to write quick tests.",
+   "example": "result = 2 + 2\nassert result == 4, \"two plus two is four\"",
+   "see_also": [
+    "exceptions",
+    "function"
+   ],
+   "tags": [
+    "Testing"
+   ],
+   "term": "assert"
+  },
+  {
+   "definition": "Storing a value under a name with `=`. Python evaluates the right-hand side first, then binds the name.",
+   "example": "a = 3\nb = a + 1\nprint(b)  # 4",
+   "see_also": [
+    "variable",
+    "augmented-assignment"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "assignment"
+  },
+  {
+   "definition": "Convert a Series to another type: `s.astype(float)`. It fails loudly on the first value it cannot convert, which is why text columns are cleaned before the conversion.",
+   "example": "data['penalty'] = data['penalty'].astype(float)   # ValueError on '$45,000 '",
+   "see_also": [
+    "str-methods",
+    "cleaning",
+    "type"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Cleaning Data"
+   ],
+   "term": "astype"
+  },
+  {
+   "aliases": [
+    "+="
+   ],
+   "definition": "Shorthand that combines an operator with assignment, e.g. `total += n` is `total = total + n`.",
+   "example": "total = 0\nfor n in [1, 2, 3]:\n    total += n\nprint(total)  # 6",
+   "see_also": [
+    "assignment",
+    "operator"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "augmented assignment"
+  },
+  {
+   "definition": "Which direction an aggregation runs. `axis=0` collapses the rows (per-column result), `axis=1` collapses the columns (per-row result).",
+   "example": "import numpy as np\n\na = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.sum(axis=0))   # [5 7 9]\nprint(a.sum(axis=1))   # [ 6 15]",
+   "see_also": [
+    "array",
+    "shape",
+    "aggregation"
+   ],
+   "tags": [
+    "NumPy",
+    "pandas"
+   ],
+   "term": "axis"
+  },
+  {
+   "definition": "A group of lines that belong together, marked by indentation after a statement ending in `:`.",
+   "example": "for i in range(2):\n    print(\"inside\")   # indented = part of the loop\nprint(\"outside\")",
+   "see_also": [
+    "indentation",
+    "for-loop"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "block"
+  },
+  {
+   "definition": "A value that is either `True` or `False`. Comparisons produce booleans; `and`, `or`, `not` combine them.",
+   "example": "age = 20\nprint(age >= 18 and age < 65)   # True\nprint(not False)                # True",
+   "see_also": [
+    "if-statement",
+    "truthy"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "boolean"
+  },
+  {
+   "aliases": [
+    "boolean-mask",
+    "filtering"
+   ],
+   "definition": "A boolean array used to select elements: `a[a > 2]`. Combine conditions with `&` (and) and `|` (or).",
+   "example": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a[a > 2])              # [3 4]\nprint(a[(a > 1) & (a < 4)])  # [2 3]",
+   "see_also": [
+    "array",
+    "truthy"
+   ],
+   "tags": [
+    "NumPy",
+    "pandas"
+   ],
+   "term": "boolean mask"
+  },
+  {
+   "definition": "Leaves the innermost loop immediately.",
+   "example": "for n in [1, 2, 3, 4]:\n    if n == 3:\n        break\n    print(n)   # 1 2",
+   "see_also": [
+    "loop",
+    "continue"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "break"
+  },
+  {
+   "aliases": [
+    "type conversion"
+   ],
+   "definition": "Converting between types with `int()`, `float()` or `str()`.",
+   "example": "print(int(\"42\") + 1)   # 43\nprint(float(\"2.5\"))     # 2.5\nprint(str(7) + \"!\")     # 7!",
+   "see_also": [
+    "type"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "cast"
+  },
+  {
+   "definition": "One unit of a Jupyter notebook: either a Markdown cell (text) or a code cell (Python plus the output it produced).",
+   "example": "# Markdown cell:\n# ## Exercise 1\n#\n# Code cell:\nprint(sum([1, 2, 3]))",
+   "see_also": [
+    "jupyter-notebook"
+   ],
+   "tags": [
+    "Tools"
+   ],
+   "term": "cell"
+  },
+  {
+   "aliases": [
+    "data cleaning",
+    "munging"
+   ],
+   "definition": "Turning raw data into something analysis can use: fixing text columns, converting types, dealing with missing values and duplicates.",
+   "example": "data['penalty'] = data['penalty'].str.strip().str.replace('$', '').astype(float)",
+   "see_also": [
+    "astype",
+    "str-methods",
+    "missing-values"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Cleaning Data"
+   ],
+   "term": "cleaning"
+  },
+  {
+   "aliases": [
+    "concatenate",
+    "stacking DataFrames"
+   ],
+   "definition": "Stack DataFrames on top of each other (rows) or side by side (columns). `concatenate`/`concat` is how a folder of identical files becomes one table.",
+   "example": "df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)",
+   "see_also": [
+    "merge",
+    "dataframe"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Merging"
+   ],
+   "term": "concat"
+  },
+  {
+   "definition": "Skips the rest of the current iteration and moves to the next one.",
+   "example": "for n in [1, 2, 3]:\n    if n == 2:\n        continue\n    print(n)   # 1 3",
+   "see_also": [
+    "loop",
+    "break"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "continue"
+  },
+  {
+   "aliases": [
+    "dataframe"
+   ],
+   "definition": "A two-dimensional table with labelled columns and an index. Build one from a dictionary of lists or read it from a CSV.",
+   "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\"], \"temp\": [5, 8]})\nprint(df.shape)          # (2, 2)\nprint(df[\"city\"].tolist())  # ['Oslo', 'Bergen']",
+   "see_also": [
+    "series",
+    "pandas"
+   ],
+   "tags": [
+    "pandas"
+   ],
+   "term": "DataFrame"
+  },
+  {
+   "aliases": [
+    "function definition"
+   ],
+   "definition": "The keyword that starts a function definition: `def name(parameters):`.",
+   "example": "def greet(who):\n    print(f\"hi {who}\")\n\ngreet(\"Ada\")",
+   "see_also": [
+    "function",
+    "parameter"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "def"
+  },
+  {
+   "aliases": [
+    "default parameter"
+   ],
+   "definition": "A parameter value used when the caller does not supply one: `def f(x, step=1)`.",
+   "example": "def repeat(text, times=2):\n    return text * times\n\nprint(repeat(\"ab\"))       # abab\nprint(repeat(\"ab\", 3))    # ababab",
+   "see_also": [
+    "parameter"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "default argument"
+  },
+  {
+   "aliases": [
+    "dictionary comprehension",
+    "dict-comprehension"
+   ],
+   "definition": "Builds a dictionary in one expression: `{key_expr: value_expr for item in sequence}`.",
+   "example": "words = [\"hi\", \"there\"]\nlengths = {w: len(w) for w in words}\nprint(lengths)   # {'hi': 2, 'there': 5}",
+   "see_also": [
+    "list-comprehension",
+    "dictionary"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "dict comprehension"
+  },
+  {
+   "aliases": [
+    "dict"
+   ],
+   "definition": "A mapping from keys to values, written `{key: value}`. Lookups are fast and keys must be hashable (strings, numbers, tuples).",
+   "example": "scores = {\"ana\": 9, \"bo\": 7}\nprint(scores[\"ana\"])          # 9\nprint(scores.get(\"cai\", 0))   # 0",
+   "see_also": [
+    "key",
+    "value",
+    "method"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "dictionary"
+  },
+  {
+   "definition": "A string as the first statement of a function or module that documents it. `help(obj)` shows it.",
+   "example": "def double(n):\n    \"\"\"Return n multiplied by two.\"\"\"\n    return n * 2\n\nprint(double.__doc__)",
+   "see_also": [
+    "function"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "docstring"
+  },
+  {
+   "aliases": [
+    "try",
+    "except",
+    "error handling"
+   ],
+   "definition": "Python reports problems by raising exceptions. Catch them with `try`/`except` to keep running.",
+   "example": "try:\n    value = int(\"abc\")\nexcept ValueError as error:\n    print(\"that was not a number:\", error)",
+   "see_also": [
+    "name-error",
+    "type-error",
+    "index-error"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "exceptions"
+  },
+  {
+   "aliases": [
+    "formatted string literal"
+   ],
+   "definition": "A string prefixed with `f` where `{expression}` is replaced by its value. The modern way to build text.",
+   "example": "name = \"Ada\"\nage = 36\nprint(f\"{name} is {age} years old\")",
+   "see_also": [
+    "string"
+   ],
+   "tags": [
+    "Strings"
+   ],
+   "term": "f-string"
+  },
+  {
+   "aliases": [
+    "for-loop",
+    "for"
+   ],
+   "definition": "Repeats a block once for every item of a sequence.",
+   "example": "for letter in \"abc\":\n    print(letter)\nfor i in range(3):\n    print(i)   # 0 1 2",
+   "see_also": [
+    "range",
+    "while-loop",
+    "loop",
+    "break"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "for loop"
+  },
+  {
+   "definition": "A reusable named block of code. Define it with `def`, call it with parentheses, and send results back with `return`.",
+   "example": "def double(n):\n    return n * 2\n\nprint(double(21))   # 42",
+   "see_also": [
+    "def",
+    "return",
+    "parameter",
+    "argument"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "function"
+  },
+  {
+   "definition": "Splits rows into groups by a column and applies an aggregation to each group: `df.groupby(\"city\")[\"temp\"].mean()`.",
+   "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nprint(df.groupby(\"city\")[\"temp\"].mean())",
+   "see_also": [
+    "dataframe",
+    "aggregation"
+   ],
+   "tags": [
+    "pandas"
+   ],
+   "term": "groupby"
+  },
+  {
+   "aliases": [
+    "if",
+    "conditional"
+   ],
+   "definition": "Runs a block only when a condition is true. `elif` and `else` handle the other cases.",
+   "example": "value = 7\nif value > 10:\n    print(\"big\")\nelif value > 0:\n    print(\"positive\")\nelse:\n    print(\"not positive\")",
+   "see_also": [
+    "boolean",
+    "block"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "if statement"
+  },
+  {
+   "definition": "Makes another module available: `import numpy as np`. Imported names live in their own namespace.",
+   "example": "import math\nfrom random import randint\n\nprint(math.sqrt(16))   # 4.0",
+   "see_also": [
+    "module"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "import"
+  },
+  {
+   "aliases": [
+    "whitespace"
+   ],
+   "definition": "Leading spaces that define Python blocks. Use 4 spaces per level; mixing tabs and spaces causes errors.",
+   "example": "if True:\n    print(\"indented\")  # required",
+   "see_also": [
+    "block",
+    "syntax-error"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "indentation"
+  },
+  {
+   "aliases": [
+    "indexing"
+   ],
+   "definition": "Position of an element, counted from `0`. Negative indices count from the end.",
+   "example": "letters = [\"a\", \"b\", \"c\"]\nprint(letters[0])    # a\nprint(letters[-1])   # c",
+   "see_also": [
+    "slice",
+    "list",
+    "key"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "index"
+  },
+  {
+   "aliases": [
+    "index-error"
+   ],
+   "definition": "Raised when an index is outside the sequence. Remember the last valid index is `len(seq) - 1`.",
+   "example": "nums = [1, 2]\nprint(nums[2])   # IndexError: list index out of range",
+   "see_also": [
+    "index",
+    "slice"
+   ],
+   "tags": [
+    "Errors"
+   ],
+   "term": "IndexError"
+  },
+  {
+   "aliases": [
+    "dummy variable",
+    "dummy"
+   ],
+   "definition": "A 0/1 column that turns a yes/no fact into a number a model can use, built with `np.where`.",
+   "example": "df['smoke'] = np.where(df.smoker == 'yes', 1, 0)",
+   "see_also": [
+    "np-where",
+    "regression"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Regression"
+   ],
+   "term": "indicator column"
+  },
+  {
+   "definition": "Reads a line of text from the user and always returns a `str`. Convert it with `int()` or `float()` when you need a number.",
+   "example": "text = input(\"how old are you? \")\nage = int(text)",
+   "see_also": [
+    "cast",
+    "string"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "input"
+  },
+  {
+   "aliases": [
+    "isnull",
+    "notna"
+   ],
+   "definition": "The pandas test for missing values: `.isna()` is True wherever a value is missing, and `.notna()` is its opposite. Both work on a Series or a whole DataFrame.",
+   "example": "data[data['zip'].notna()].shape",
+   "see_also": [
+    "missing-values",
+    "cleaning"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Cleaning Data"
+   ],
+   "term": "isna"
+  },
+  {
+   "aliases": [
+    "notebook",
+    ".ipynb"
+   ],
+   "definition": "A document made of cells that combine Markdown text, runnable code and saved output. The `.ipynb` file is JSON.",
+   "example": "# A notebook cell, run with Shift+Enter\nprint(\"hello from a cell\")",
+   "see_also": [
+    "cell"
+   ],
+   "tags": [
+    "Tools"
+   ],
+   "term": "Jupyter Notebook"
+  },
+  {
+   "definition": "The left-hand part of a dictionary entry used for lookup. Assigning to a missing key creates it; reading a missing key raises `KeyError`.",
+   "example": "counts = {}\ncounts[\"a\"] = counts.get(\"a\", 0) + 1\nprint(counts)   # {'a': 1}",
+   "see_also": [
+    "dictionary",
+    "value"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "key"
+  },
+  {
+   "aliases": [
+    "key-error"
+   ],
+   "definition": "Raised when a dictionary does not contain the key you asked for. Use `dict.get(key, default)` to avoid it.",
+   "example": "scores = {\"ana\": 9}\nprint(scores.get(\"bo\", 0))   # 0",
+   "see_also": [
+    "dictionary",
+    "key"
+   ],
+   "tags": [
+    "Errors"
+   ],
+   "term": "KeyError"
+  },
+  {
+   "aliases": [
+    "anonymous function"
+   ],
+   "definition": "A short function written inline: `lambda x: x * 2`. Common as the `key` of `sorted` or `min`/`max`.",
+   "example": "people = [(\"Ada\", 36), (\"Bo\", 24)]\nordered = sorted(people, key=lambda p: p[1])\nprint(ordered)   # [('Bo', 24), ('Ada', 36)]",
+   "see_also": [
+    "sorting",
+    "function"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "lambda"
+  },
+  {
+   "definition": "The rule behind OLS: pick the coefficients that make the sum of squared residuals as small as possible. `numpy.linalg.lstsq(X, y, rcond=None)` solves it in one call.",
+   "example": "coefficients, *_ = np.linalg.lstsq(X, y, rcond=None)",
+   "see_also": [
+    "regression",
+    "residual",
+    "numpy"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Regression",
+    "NumPy"
+   ],
+   "term": "least squares"
+  },
+  {
+   "definition": "A merge that keeps every row of the left DataFrame, filling in NaN wherever the right frame has no matching key.",
+   "example": "sales.merge(spend, on=['product_id', 'month'], how='left')",
+   "see_also": [
+    "merge",
+    "missing-values"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Merging"
+   ],
+   "term": "left join"
+  },
+  {
+   "definition": "`len(obj)` returns the number of items in a sequence, string, dictionary or array.",
+   "example": "print(len(\"python\"))     # 6\nprint(len([1, 2, 3]))    # 3\nprint(len({\"a\": 1}))    # 1",
+   "see_also": [
+    "index",
+    "list"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "len"
+  },
+  {
+   "definition": "An ordered, mutable sequence written with square brackets. Add with `append`, sort with `sort`, copy with `copy()` or `[:]`.",
+   "example": "nums = [3, 1, 2]\nnums.append(4)\nnums.sort()\nprint(nums)      # [1, 2, 3, 4]",
+   "see_also": [
+    "index",
+    "slice",
+    "mutation",
+    "tuple"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "list"
+  },
+  {
+   "aliases": [
+    "list-comprehension",
+    "comprehension"
+   ],
+   "definition": "Builds a list in one expression: `[expression for item in sequence if condition]`.",
+   "example": "squares = [n * n for n in range(5)]\nprint(squares)                        # [0, 1, 4, 9, 16]\nevens = [n for n in squares if n % 2 == 0]\nprint(evens)                          # [0, 4, 16]",
+   "see_also": [
+    "dictionary",
+    "for-loop",
+    "lambda"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "list comprehension"
+  },
+  {
+   "definition": "Any repeated execution of a block: `for` over a sequence or `while` over a condition.",
+   "example": "total = 0\nfor n in [1, 2, 3]:\n    total += n\nprint(total)  # 6",
+   "see_also": [
+    "for-loop",
+    "while-loop"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "loop"
+  },
+  {
+   "definition": "The arithmetic average: add the values up and divide by how many there are. A few extreme observations pull the mean towards them.",
+   "example": "df['charges'].mean()   # 13270.42",
+   "see_also": [
+    "median",
+    "outlier",
+    "summary-statistics"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Summary Statistics"
+   ],
+   "term": "mean"
+  },
+  {
+   "definition": "The middle value once a column is sorted, so half the observations sit below it. Unlike the mean it hardly moves when a few extremes appear.",
+   "example": "df['charges'].median()   # 9382.03",
+   "see_also": [
+    "mean",
+    "percentile",
+    "outlier"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Summary Statistics"
+   ],
+   "term": "median"
+  },
+  {
+   "aliases": [
+    "join"
+   ],
+   "definition": "Combine two DataFrames on a shared key: `pd.merge(a, b, on='ticker')`. Use `how='left'` to keep every row of the left frame, `how='right'` for the right one, and `indicator=True` to see which rows matched.",
+   "example": "data = pd.merge(earnings, exchange, on='ticker')",
+   "see_also": [
+    "left-join",
+    "concat",
+    "dataframe"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Merging"
+   ],
+   "term": "merge"
+  },
+  {
+   "definition": "A function that belongs to a value, called with a dot: `\"abc\".upper()`. You cannot change a string, so string methods return new strings.",
+   "example": "text = \"  Hello  \"\nprint(text.strip())          # Hello\nprint(\"abc\".upper())         # ABC",
+   "see_also": [
+    "function",
+    "string"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "method"
+  },
+  {
+   "aliases": [
+    "NaN",
+    "null"
+   ],
+   "definition": "Empty cells read in from a file. Pandas represents them as `NaN`, and they spread through arithmetic: find them with `.isna()`, remove or replace them with `.dropna()` and `.fillna()`.",
+   "example": "data['zip'].isna().sum()   # 43,504",
+   "see_also": [
+    "isna",
+    "cleaning"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Cleaning Data"
+   ],
+   "term": "missing values"
+  },
+  {
+   "definition": "A `.py` file that can be imported to reuse its code. The standard library ships many; `numpy` and `pandas` are third-party ones.",
+   "example": "# tools.py\n\ndef double(n):\n    return n * 2\n\n# main.py\n# from tools import double\n# print(double(21))",
+   "see_also": [
+    "import",
+    "function"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "module"
+  },
+  {
+   "aliases": [
+    "%"
+   ],
+   "definition": "The `%` operator returns the remainder of a division. `n % 2 == 0` tests whether a number is even.",
+   "example": "print(10 % 3)     # 1\nprint(10 % 2 == 0)  # True",
+   "see_also": [
+    "operator",
+    "if-statement"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "modulo"
+  },
+  {
+   "aliases": [
+    "mutability",
+    "mutable",
+    "in place"
+   ],
+   "definition": "Changing an object in place. Lists and dictionaries are mutable, strings and tuples are not. Two names can point at the same mutated object.",
+   "example": "a = [1, 2]\nb = a          # same object!\nb.append(3)\nprint(a)       # [1, 2, 3]",
+   "see_also": [
+    "reference",
+    "list"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "mutation"
+  },
+  {
+   "aliases": [
+    "name-error"
+   ],
+   "definition": "Raised when you use a name that does not exist yet — usually a typo or a variable used before it is assigned.",
+   "example": "print(score)   # NameError: name 'score' is not defined\nscore = 1",
+   "see_also": [
+    "exceptions",
+    "variable"
+   ],
+   "tags": [
+    "Errors"
+   ],
+   "term": "NameError"
+  },
+  {
+   "aliases": [
+    "NoneType"
+   ],
+   "definition": "The value that means \"no value\". It is what a function returns when it has no `return`, and what `dict.get` gives for a missing key when no default is provided.",
+   "example": "def noop():\n    pass\n\nprint(noop())   # None",
+   "see_also": [
+    "return",
+    "dictionary"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "None"
+  },
+  {
+   "aliases": [
+    "np.where()",
+    "where"
+   ],
+   "definition": "NumPy's vectorised if-statement: `np.where(condition, value_if_true, value_if_false)` builds a new array element by element. Nest the calls to express more than two outcomes.",
+   "example": "df['overtime'] = np.where(df['hours_worked'] > 40, 1, 0)",
+   "see_also": [
+    "numpy",
+    "indicator-column",
+    "vectorization"
+   ],
+   "tags": [
+    "Data Analysis",
+    "NumPy",
+    "Cleaning Data"
+   ],
+   "term": "np.where"
+  },
+  {
+   "aliases": [
+    "numpy",
+    "np"
+   ],
+   "definition": "The array library for numerical Python. Arrays are fixed-size and fast, and operations apply to every element at once.",
+   "example": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a * 2)     # [2 4 6 8]\nprint(a.mean())  # 2.5",
+   "see_also": [
+    "array",
+    "vectorization",
+    "pandas"
+   ],
+   "tags": [
+    "NumPy"
+   ],
+   "term": "NumPy"
+  },
+  {
+   "definition": "A symbol that combines values: `+ - * / // % **` for numbers, `+` for sequences, and comparisons like `< == >`.",
+   "example": "print(7 / 2)    # 3.5\nprint(7 // 2)   # 3\nprint(7 % 2)    # 1\nprint(2 ** 3)   # 8",
+   "see_also": [
+    "modulo",
+    "boolean"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "operator"
+  },
+  {
+   "definition": "An observation far away from the rest of the distribution. Outliers drag means and standard deviations around, so they are usually capped, dropped, or studied on their own.",
+   "example": "df['mktcap'].max() > 20 * df['mktcap'].quantile(0.99)   # a very long tail",
+   "see_also": [
+    "winsorize",
+    "truncate",
+    "median"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Outliers"
+   ],
+   "term": "outlier"
+  },
+  {
+   "aliases": [
+    "pd"
+   ],
+   "definition": "The library for tabular data. Its two core types are `DataFrame` (a table) and `Series` (one column).",
+   "example": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\"], \"temp\": [5, 8]})\nprint(df[\"temp\"].mean())   # 6.5",
+   "see_also": [
+    "dataframe",
+    "series",
+    "numpy"
+   ],
+   "tags": [
+    "pandas"
+   ],
+   "term": "pandas"
+  },
+  {
+   "aliases": [
+    "parameter vs argument"
+   ],
+   "definition": "A name in the function definition that receives a value when the function is called. The value you pass at the call site is the *argument*.",
+   "example": "def add(a, b):     # a and b are parameters\n    return a + b\n\nadd(2, 3)          # 2 and 3 are arguments",
+   "see_also": [
+    "function",
+    "argument",
+    "default-argument"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "parameter"
+  },
+  {
+   "aliases": [
+    "quantile"
+   ],
+   "definition": "The value below which a given share of the data falls. The 95th percentile is the number that 95% of the observations sit beneath.",
+   "example": "df['mktcap'].quantile(0.95)",
+   "see_also": [
+    "median",
+    "winsorize",
+    "summary-statistics"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Summary Statistics"
+   ],
+   "term": "percentile"
+  },
+  {
+   "definition": "Writes values to standard output, separating arguments with a space. `print(a, b)` is not the same as `print(a + b)`.",
+   "example": "print(\"total:\", 3)   # total: 3\nprint(\"total:\" + \" 3\")  # total: 3 (both are strings)",
+   "see_also": [
+    "f-string"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "print"
+  },
+  {
+   "definition": "`range(stop)`, `range(start, stop)` and `range(start, stop, step)` generate numbers lazily. `stop` is **excluded**.",
+   "example": "print(list(range(3)))         # [0, 1, 2]\nprint(list(range(1, 6)))      # [1, 2, 3, 4, 5]\nprint(list(range(0, 10, 2)))  # [0, 2, 4, 6, 8]",
+   "see_also": [
+    "for-loop",
+    "slice"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "range"
+  },
+  {
+   "aliases": [
+    "pd.read_csv"
+   ],
+   "definition": "Read a delimited text file into a DataFrame. The options you will use most: `usecols` for a subset of columns, `parse_dates` for date columns, `dtype` to force a column's type and `sep` for a non-comma delimiter.",
+   "example": "data = pd.read_csv('violations.csv', usecols=['company', 'penalty'], parse_dates=['date'])",
+   "see_also": [
+    "to-csv",
+    "dataframe",
+    "pandas"
+   ],
+   "tags": [
+    "Data Analysis",
+    "pandas",
+    "Files"
+   ],
+   "term": "read_csv"
+  },
+  {
+   "aliases": [
+    "pd.read_excel",
+    "read excel"
+   ],
+   "definition": "Read a spreadsheet (`.xlsx`) into a DataFrame. Pandas uses openpyxl behind the scenes, so the sandbox loads that package too.",
+   "example": "data = pd.read_excel('invoices.xlsx')",
+   "see_also": [
+    "read-csv",
+    "dataframe"
+   ],
+   "tags": [
+    "Data Analysis",
+    "pandas",
+    "Excel"
+   ],
+   "term": "read_excel"
+  },
+  {
+   "definition": "Names point to objects; assignment copies the reference, not the data. Use `.copy()` for an independent shallow copy.",
+   "example": "a = [1, 2]\nb = a.copy()\nb.append(3)\nprint(a, b)   # [1, 2] [1, 2, 3]",
+   "see_also": [
+    "mutation",
+    "list"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "reference"
+  },
+  {
+   "aliases": [
+    "OLS",
+    "ordinary least squares"
+   ],
+   "definition": "Fitting a line (or a plane) through the data: `charges = b0 + b1*age + b2*bmi + ... + error`. Each coefficient is the change in the outcome for a one-unit change in that variable, holding the others constant.",
+   "example": "model = sm.OLS(y, sm.add_constant(X)).fit()",
+   "see_also": [
+    "least-squares",
+    "residual",
+    "train-test-split"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Regression"
+   ],
+   "term": "regression"
+  },
+  {
+   "definition": "Change column or index labels: `df.rename(columns={'tic': 'ticker'})`. It returns a new frame unless you also pass `inplace=True`.",
+   "example": "company = company.rename(columns={'tic': 'ticker'})",
+   "see_also": [
+    "dataframe",
+    "merge"
+   ],
+   "tags": [
+    "Data Analysis",
+    "pandas"
+   ],
+   "term": "rename"
+  },
+  {
+   "aliases": [
+    "error term"
+   ],
+   "definition": "What the model missed: `residual = actual - predicted`. In a fitted OLS model the residuals always average to zero.",
+   "example": "df['excess_charges'] = df['charges'] - df['charges_hat']",
+   "see_also": [
+    "regression",
+    "least-squares"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Regression"
+   ],
+   "term": "residual"
+  },
+  {
+   "definition": "Ends a function and hands a value back to the caller. A function without `return` gives back `None`.",
+   "example": "def first_even(numbers):\n    for n in numbers:\n        if n % 2 == 0:\n            return n\n\nprint(first_even([3, 5, 8]))   # 8",
+   "see_also": [
+    "function",
+    "none"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "return"
+  },
+  {
+   "definition": "Where a name is visible. Assignments inside a function create local names; reading a name from outside uses the global one.",
+   "example": "counter = 0\n\ndef bump():\n    global counter\n    counter += 1\n\nbump()\nprint(counter)   # 1",
+   "see_also": [
+    "function",
+    "variable"
+   ],
+   "tags": [
+    "Functions"
+   ],
+   "term": "scope"
+  },
+  {
+   "aliases": [
+    "series"
+   ],
+   "definition": "A one-dimensional labelled array — a single DataFrame column. `.value_counts()`, `.mean()` and `.to_dict()` are common methods.",
+   "example": "import pandas as pd\n\ncities = pd.Series([\"Oslo\", \"Oslo\", \"Bergen\"])\nprint(cities.value_counts().to_dict())   # {'Oslo': 2, 'Bergen': 1}",
+   "see_also": [
+    "dataframe",
+    "method"
+   ],
+   "tags": [
+    "pandas"
+   ],
+   "term": "Series"
+  },
+  {
+   "definition": "The dimensions of an array: `.shape` is a tuple like `(2, 3)`, and `.reshape(2, 3)` changes it.",
+   "example": "import numpy as np\n\na = np.arange(6).reshape(2, 3)\nprint(a.shape)   # (2, 3)\nprint(a.ndim)    # 2",
+   "see_also": [
+    "array",
+    "axis"
+   ],
+   "tags": [
+    "NumPy"
+   ],
+   "term": "shape"
+  },
+  {
+   "definition": "A range of elements: `seq[start:stop:step]`. The `stop` index is **excluded**.",
+   "example": "word = \"python\"\nprint(word[1:4])     # yth\nprint(word[::-1])    # nohtyp",
+   "see_also": [
+    "index",
+    "string",
+    "list"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "slice"
+  },
+  {
+   "aliases": [
+    "sorting a DataFrame"
+   ],
+   "definition": "Sort a DataFrame's rows by one or more columns: `df.sort_values(by='Amount', ascending=False)` puts the largest amounts first.",
+   "example": "data.sort_values(by=['InvoiceID', 'Amount'], ascending=[True, False]).head()",
+   "see_also": [
+    "dataframe",
+    "pandas"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Sorting"
+   ],
+   "term": "sort_values"
+  },
+  {
+   "aliases": [
+    "sorted",
+    "sort"
+   ],
+   "definition": "`sorted(seq)` returns a new sorted list; `list.sort()` sorts in place. Both accept `reverse=True` and a `key` function.",
+   "example": "nums = [3, 1, 2]\nprint(sorted(nums))            # [1, 2, 3]\nprint(sorted(nums, reverse=True))  # [3, 2, 1]",
+   "see_also": [
+    "lambda",
+    "list"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "sorting"
+  },
+  {
+   "aliases": [
+    "str accessor",
+    ".str"
+   ],
+   "definition": "Pandas' string toolkit, applied element by element: `.str.strip()`, `.str.replace()`, `.str.lower()`, `.str.contains()`.",
+   "example": "data['company'].str.strip().str.upper()",
+   "see_also": [
+    "cleaning",
+    "astype",
+    "method"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Cleaning Data",
+    "Strings"
+   ],
+   "term": "str methods"
+  },
+  {
+   "definition": "An immutable sequence of characters, written with single or double quotes.",
+   "example": "greeting = \"hello\"\nprint(greeting[0])       # h\nprint(greeting + \"!\")    # hello!",
+   "see_also": [
+    "f-string",
+    "slice",
+    "method"
+   ],
+   "tags": [
+    "Strings"
+   ],
+   "term": "string"
+  },
+  {
+   "definition": "`sum(iterable)` adds the numbers; `sum(iterable, start)` begins from `start`.",
+   "example": "print(sum([1, 2, 3]))        # 6\nprint(sum([1, 2], 10))       # 13",
+   "see_also": [
+    "for-loop",
+    "list-comprehension"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "sum"
+  },
+  {
+   "aliases": [
+    "descriptive statistics"
+   ],
+   "definition": "The numbers that describe a column: `count`, `mean`, `std`, `min`, the quartiles, `median` and `max`. `describe()` prints them all at once.",
+   "example": "data[['Amount', 'Quantity']].describe().transpose()",
+   "see_also": [
+    "mean",
+    "median",
+    "percentile"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Summary Statistics"
+   ],
+   "term": "summary statistics"
+  },
+  {
+   "aliases": [
+    "SyntaxError",
+    "syntax-error"
+   ],
+   "definition": "Raised before the program runs, when the text is not valid Python: a missing colon, unbalanced brackets or bad indentation.",
+   "example": "if True\n    print(\"oops\")   # SyntaxError: expected ':'",
+   "see_also": [
+    "indentation",
+    "exceptions"
+   ],
+   "tags": [
+    "Errors"
+   ],
+   "term": "syntax error"
+  },
+  {
+   "aliases": [
+    ".to_csv"
+   ],
+   "definition": "Write a DataFrame to a text file. `sep` sets the delimiter and `index=False` stops pandas writing the row numbers.",
+   "example": "df.to_csv('mydata.txt', sep='|', index=False)",
+   "see_also": [
+    "read-csv",
+    "dataframe"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Files"
+   ],
+   "term": "to_csv"
+  },
+  {
+   "aliases": [
+    "train test split",
+    "hold-out sample"
+   ],
+   "definition": "Fit the model on one part of the data (the training sample) and judge it on rows it has never seen (the test sample), so the fit is not flattered by the data it learned from.",
+   "example": "train = df.sample(frac=0.7, random_state=73723)\ntest = df.drop(train.index)",
+   "see_also": [
+    "regression",
+    "overfitting"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Regression"
+   ],
+   "term": "train/test split"
+  },
+  {
+   "definition": "Drop the observations outside two percentiles instead of capping them, so the result is shorter than the input.",
+   "example": "df['mktcap_t'] = truncate(df['mktcap'], lower_percentile=0.05, upper_percentile=0.95)",
+   "see_also": [
+    "winsorize",
+    "outlier",
+    "missing-values"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Outliers"
+   ],
+   "term": "truncate"
+  },
+  {
+   "aliases": [
+    "falsy"
+   ],
+   "definition": "In a condition, empty values are falsy: `0`, `0.0`, `\"\"`, `[]`, `{}`, `None` and `False`. Everything else is truthy.",
+   "example": "items = []\nif not items:\n    print(\"the list is empty\")",
+   "see_also": [
+    "boolean",
+    "if-statement"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "truthy"
+  },
+  {
+   "definition": "An ordered, immutable sequence written with parentheses. Handy for fixed groups of values.",
+   "example": "point = (3, 4)\nx, y = point      # unpacking\nprint(x, y)       # 3 4",
+   "see_also": [
+    "unpacking",
+    "list"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "tuple"
+  },
+  {
+   "aliases": [
+    "data type"
+   ],
+   "definition": "The kind of value a variable holds: `int`, `float`, `str`, `bool`, `list`, `dict`, `NoneType`… `type(x)` tells you which.",
+   "example": "print(type(3))       # <class 'int'>\nprint(type(3.0))     # <class 'float'>\nprint(type(\"3\"))     # <class 'str'>",
+   "see_also": [
+    "variable",
+    "cast"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "type"
+  },
+  {
+   "aliases": [
+    "type-error"
+   ],
+   "definition": "Raised when an operation gets the wrong type, e.g. adding a string to a number.",
+   "example": "print(\"3\" + 3)   # TypeError: can only concatenate str (not \"int\") to str\nprint(int(\"3\") + 3)   # 6",
+   "see_also": [
+    "exceptions",
+    "cast"
+   ],
+   "tags": [
+    "Errors"
+   ],
+   "term": "TypeError"
+  },
+  {
+   "definition": "Assigning several names at once from a sequence: `a, b = pair`.",
+   "example": "name, age = (\"Ada\", 36)\nprint(name, age)\n\nfor number, square in [(1, 1), (2, 4)]:\n    print(number, square)",
+   "see_also": [
+    "tuple",
+    "list"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "unpacking"
+  },
+  {
+   "definition": "The right-hand part of a dictionary entry — whatever the key maps to.",
+   "example": "ages = {\"ada\": 36}\nprint(ages[\"ada\"])   # 36",
+   "see_also": [
+    "dictionary",
+    "key"
+   ],
+   "tags": [
+    "Data Structures"
+   ],
+   "term": "value"
+  },
+  {
+   "definition": "Count how often each distinct value appears in a column, sorted from most to least common — the fastest way to see what a categorical column really contains.",
+   "example": "data.PartName.value_counts().head()",
+   "see_also": [
+    "groupby",
+    "summary-statistics"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Summary Statistics"
+   ],
+   "term": "value_counts"
+  },
+  {
+   "definition": "A name that refers to a value. In Python you create one by assigning: `x = 5`.",
+   "example": "score = 0\nscore = score + 10\nprint(score)   # 10",
+   "see_also": [
+    "assignment",
+    "type"
+   ],
+   "tags": [
+    "Python Basics"
+   ],
+   "term": "variable"
+  },
+  {
+   "definition": "Applying an operation to a whole array at once instead of writing a Python loop. Faster and shorter.",
+   "example": "import numpy as np\n\na = np.array([1, 2, 3])\nprint((a - a.min()) / (a.max() - a.min()))",
+   "see_also": [
+    "numpy",
+    "array"
+   ],
+   "tags": [
+    "NumPy"
+   ],
+   "term": "vectorization"
+  },
+  {
+   "aliases": [
+    "while",
+    "while-loop"
+   ],
+   "definition": "Repeats a block as long as a condition stays true. Make sure something inside changes the condition, otherwise the loop never ends.",
+   "example": "count = 0\nwhile count < 3:\n    count += 1\nprint(count)   # 3",
+   "see_also": [
+    "for-loop",
+    "loop"
+   ],
+   "tags": [
+    "Control Flow"
+   ],
+   "term": "while loop"
+  },
+  {
+   "definition": "Cap the tails of a column at two percentiles while keeping every observation: values below the 5th percentile become the 5th percentile, values above the 95th become the 95th.",
+   "example": "df['mktcap_w'] = winsorize(df['mktcap'], lower_percentile=0.05, upper_percentile=0.95)",
+   "see_also": [
+    "truncate",
+    "outlier",
+    "percentile"
+   ],
+   "tags": [
+    "Data Analysis",
+    "Outliers"
+   ],
+   "term": "winsorize"
+  }
+ ],
+ "title": "Python & Data Analysis Glossary"
 }

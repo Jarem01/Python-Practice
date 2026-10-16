@@ -7,16 +7,41 @@
  * with Pyodide's JS-side stream redirects.
  *
  * `__fb_exec(spec)` takes a JSON string and returns a JSON string:
- *   spec  = { code, tests, setup, stdin, lineLimit, captureLast, files }
- *   reply = { ok, stdout, stderr, setup_stdout, error: {type,message,line,source,where,traceback}|null, steps }
+ *   spec  = { code, tests, setup, stdin, lineLimit, captureLast, files,
+ *             persist, resetKernel }
+ *   reply = { ok, stdout, stderr, setup_stdout, images,
+ *             error: {type,message,line,source,where,traceback}|null, steps }
+ *
+ * `persist: true` keeps one namespace between calls, which is what makes the
+ * notebooks in the Learning section behave like a real Jupyter kernel: the next
+ * cell still sees the variables the previous cell defined. `resetKernel: true`
+ * throws that namespace away ("Restart kernel").
+ *
+ * Notebook conveniences are provided too: `display()` shows an object the way
+ * Jupyter does, and a figure a cell leaves open comes back as a base64 PNG in
+ * `images`, so plots appear under the cell that drew them.
  */
 
 export const HARNESS_SOURCE = String.raw`
-import io, json, sys, traceback, contextlib
+import io, json, os, sys, traceback, contextlib
+
+# Matplotlib defaults to a browser backend that needs a real DOM. Capture the
+# figures ourselves instead (see __fb_capture_figures), which also means the
+# same notebook code produces the same result in Node and in the browser.
+os.environ.setdefault("MPLBACKEND", "Agg")
+
+import warnings
+
+# A notebook cell says plt.show(); the chart is inlined for it either way, so the
+# "FigureCanvasAgg is non-interactive" warning would only confuse a learner.
+warnings.filterwarnings("ignore", message="FigureCanvasAgg is non-interactive.*")
 
 __FB_FILE = "<your code>"
 __FB_TESTS = "<tests>"
 __FB_SETUP = "<setup>"
+
+#: The shared namespace of a running notebook, kept between cells.
+__FB_KERNEL = None
 
 
 def __fb_clean_traceback(exc):
@@ -42,6 +67,10 @@ def __fb_prepare_files(files):
 
     A value may be a string (written as UTF-8 text) or {"base64": ...} for
     binary formats such as .xlsx.
+
+    Rewriting a helper module (analyticskit.py, say) must take effect on the
+    next import: an already-imported module would otherwise stay cached in
+    sys.modules and shadow the new file.
     """
     import base64
     import os
@@ -55,6 +84,9 @@ def __fb_prepare_files(files):
         else:
             with open(name, "w", encoding="utf-8") as handle:
                 handle.write(str(content))
+        if name.endswith(".py"):
+            module_name = os.path.basename(name)[:-3]
+            sys.modules.pop(module_name, None)
 
 
 def __fb_compile(code, capture_last):
@@ -93,7 +125,37 @@ def __fb_compile(code, capture_last):
     return compile(tree, __FB_FILE, "exec")
 
 
+def __fb_capture_figures():
+    """Inline the figures a cell left open, then close them.
+
+    This is what the %matplotlib inline magic does in a real notebook, so a
+    plotting cell shows its chart instead of a repr of an Axes object.
+    """
+    pyplot = sys.modules.get("matplotlib.pyplot")
+    if pyplot is None:
+        return []
+    import base64
+    images = []
+    try:
+        numbers = pyplot.get_fignums()
+    except Exception:
+        return []
+    for number in numbers:
+        try:
+            buffer = io.BytesIO()
+            pyplot.figure(number).savefig(buffer, format="png", bbox_inches="tight", dpi=110)
+            images.append(base64.b64encode(buffer.getvalue()).decode("ascii"))
+        except Exception:
+            pass
+    try:
+        pyplot.close("all")
+    except Exception:
+        pass
+    return images
+
+
 def __fb_exec(spec):
+    global __FB_KERNEL
     if isinstance(spec, str):
         spec = json.loads(spec)
     user_code = spec.get("code") or ""
@@ -105,7 +167,15 @@ def __fb_exec(spec):
 
     out = io.StringIO()
     err = io.StringIO()
-    namespace = {"__name__": "__main__", "__file__": __FB_FILE}
+    if spec.get("resetKernel"):
+        __FB_KERNEL = None
+    if spec.get("persist"):
+        # One dictionary, reused: cell 2 sees everything cell 1 defined.
+        if __FB_KERNEL is None:
+            __FB_KERNEL = {"__name__": "__main__", "__file__": __FB_FILE}
+        namespace = __FB_KERNEL
+    else:
+        namespace = {"__name__": "__main__", "__file__": __FB_FILE}
 
     inputs = list(stdin_text.splitlines())
     cursor = {"pos": 0}
@@ -120,6 +190,14 @@ def __fb_exec(spec):
         return value
 
     namespace["input"] = _input
+
+    def _display(*objects, **_options):
+        """Jupyter's display(): show the object as its interpreter repr."""
+        for item in objects:
+            out.write(repr(item) + "\n")
+
+    namespace["display"] = _display
+    namespace["get_ipython"] = lambda: None
 
     counter = {"steps": 0, "tripped": False}
     counted_files = (__FB_FILE, __FB_TESTS, __FB_SETUP)
@@ -195,5 +273,6 @@ def __fb_exec(spec):
     result["stdout"] = out.getvalue()
     result["stderr"] = err.getvalue()
     result["setup_stdout"] = setup_out.getvalue()
+    result["images"] = __fb_capture_figures()
     return json.dumps(result)
 `;

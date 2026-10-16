@@ -1,0 +1,196 @@
+{
+  "problems": [
+    {
+      "id": "da6-region-average-charges",
+      "type": "write_from_scratch",
+      "title": "Which region pays the most?",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 6,
+      "prompt": "`insurance.csv` holds medical costs for 1,338 people (`age`, `sex`, `bmi`, `children`, `smoker`, `region`, `charges`).\n\nGroup by `region`, take the mean of `charges`, and print the region with the highest average.",
+      "hints": [
+        "`data.groupby('region')['charges'].mean()` gives one number per region.",
+        "`.idxmax()` returns the name of the largest."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"insurance.csv\")\nby_region = data.groupby(\"region\")[\"charges\"].mean()\n\nprint(by_region.idxmax())\n",
+      "tests": "assert len(by_region) == 4, f\"four regions, got {len(by_region)}\"\nassert by_region.idxmax() == \"southeast\", f\"expected southeast, got {by_region.idxmax()}\"\n",
+      "test_summary": "Checks all four regions are present and the southeast pays the most.",
+      "glossary": [
+        "groupby",
+        "mean",
+        "pandas"
+      ],
+      "expected_output": "southeast",
+      "mode": "both"
+    },
+    {
+      "id": "da6-ols-age-coefficient",
+      "type": "write_from_scratch",
+      "title": "Estimate the age coefficient yourself",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "NumPy"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 14,
+      "prompt": "The notebook fits `charges` on `age`, `bmi`, `children`, `male` and `smoke` with statsmodels. Ordinary least squares has a closed form, so you can do it with NumPy:\n\n1. Build the design matrix `X`: a column of ones, then `age`, `bmi`, `children`, `male`, `smoke`.\n2. Solve `numpy.linalg.lstsq(X, y, rcond=None)`.\n3. Print the coefficient on `age`, rounded to two decimals (`257.74` — each extra year of age costs about $258).",
+      "hints": [
+        "`np.where(df.sex == 'male', 1, 0)` builds the `male` indicator, and `df.smoke = np.where(df.smoker == 'yes', 1, 0)` the smoking one.",
+        "`np.column_stack([np.ones(len(df)), df[['age','bmi','children','male','smoke']].to_numpy()])` builds X.",
+        "`coefficients, *_ = np.linalg.lstsq(X, y, rcond=None)` — the first value is the list of coefficients, in the same order as the columns of X."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nfeatures = [\"age\", \"bmi\", \"children\", \"male\", \"smoke\"]\nX = np.column_stack([np.ones(len(df)), df[features].to_numpy()])\ny = df[\"charges\"].to_numpy()\n\ncoefficients, *_ = np.linalg.lstsq(X, y, rcond=None)\nprint(round(coefficients[1], 2))\n",
+      "tests": "assert abs(coefficients[0] - -12052.46) < 400, f\"the intercept should be about -12,052, got {coefficients[0]}\"\nassert abs(coefficients[5] - 23823) < 500, \"smoking is the big cost driver\"\nassert len(coefficients) == 6\n",
+      "test_summary": "Checks all six coefficients and that the smoking indicator dwarfs the others.",
+      "glossary": [
+        "regression",
+        "least-squares",
+        "numpy"
+      ],
+      "expected_output": "257.73",
+      "mode": "both"
+    },
+    {
+      "id": "da6-smoke-indicator",
+      "type": "fill_in_blank",
+      "title": "Build the regression indicators",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "NumPy"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 8,
+      "prompt": "Categorical text has to become numbers before it can go into a regression. Fill in the blanks so `male` is 1 for men and `smoke` is 1 for smokers, then print how many smokers there are.\n\n`numpy` is already imported as `np`.",
+      "starter_code": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, ___)\ndf[\"smoke\"] = np.where(df.smoker == ___, 1, 0)\n\nprint(df[\"smoke\"].sum())\n",
+      "blanks": [
+        {
+          "accepted": [
+            "0"
+          ],
+          "hint": "The other value of a 0/1 indicator is 0."
+        },
+        {
+          "accepted": [
+            "\"yes\"",
+            "'yes'"
+          ],
+          "hint": "The smoker column holds 'yes' and 'no'."
+        }
+      ],
+      "hints": [
+        "`np.where(condition, value_if_true, value_if_false)`.",
+        "The smoker column contains the strings 'yes' and 'no'."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nprint(df[\"smoke\"].sum())\n",
+      "tests": "assert int(df[\"smoke\"].sum()) == 274, f\"274 of the 1,338 people smoke, got {int(df['smoke'].sum())}\"\nassert abs(df[\"male\"].mean() - 0.505) < 0.01\n",
+      "test_summary": "Checks 274 smokers and a male share of about 50.5%.",
+      "glossary": [
+        "np-where",
+        "regression",
+        "indicator-column"
+      ],
+      "expected_output": "274"
+    },
+    {
+      "id": "da6-train-test-split",
+      "type": "write_from_scratch",
+      "title": "Split the sample the way the notebook does",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 7,
+      "prompt": "The notebook draws a 70% training sample with `df.sample(frac=0.7, random_state=73723)` and puts everything else in `test`.\n\nDo exactly that and print the number of rows in `train` — a single number. The seed makes it reproducible.",
+      "hints": [
+        "`train = df.sample(frac=0.7, random_state=73723)`.",
+        "`test = df.drop(train.index)` keeps the rows the sample did not take.",
+        "Print `len(train)`."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ntrain = df.sample(frac=0.7, random_state=73723)\ntest = df.drop(train.index)\n\nprint(len(train))\n",
+      "tests": "assert len(train) + len(test) == len(df), \"the two samples must cover every row\"\nassert abs(len(train) / len(df) - 0.7) < 0.01\n",
+      "test_summary": "Checks the split is about 70/30 and the two parts cover the whole file.",
+      "glossary": [
+        "train-test-split",
+        "regression",
+        "pandas"
+      ],
+      "expected_output": "937",
+      "mode": "both"
+    },
+    {
+      "id": "da6-lowest-excess-charges",
+      "type": "write_from_scratch",
+      "title": "Which region is cheapest once you adjust?",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 14,
+      "prompt": "Fit the model with NumPy (column of ones, then `age`, `bmi`, `children`, `male`, `smoke`), predict `charges_hat`, and add a column `excess_charges = charges - charges_hat`.\n\nGroup by `region` and print the region with the **lowest** average excess charge — the region that pays less than its risk factors suggest.",
+      "hints": [
+        "`df['charges_hat'] = X @ coefficients` applies the fitted model.",
+        "`df['excess_charges'] = df['charges'] - df['charges_hat']`.",
+        "`df.groupby('region')['excess_charges'].mean().idxmin()` gives the cheapest region."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nfeatures = [\"age\", \"bmi\", \"children\", \"male\", \"smoke\"]\nX = np.column_stack([np.ones(len(df)), df[features].to_numpy()])\ncoefficients, *_ = np.linalg.lstsq(X, df[\"charges\"].to_numpy(), rcond=None)\n\ndf[\"charges_hat\"] = X @ coefficients\ndf[\"excess_charges\"] = df[\"charges\"] - df[\"charges_hat\"]\n\nprint(df.groupby(\"region\")[\"excess_charges\"].mean().idxmin())\n",
+      "tests": "assert abs(df[\"excess_charges\"].mean()) < 1e-6, \"the residual should average to zero\"\nassert df.groupby(\"region\")[\"excess_charges\"].mean().idxmin() == \"southeast\", \"the southeast pays the least once risk factors are held constant\"\n",
+      "test_summary": "Checks the residuals average to zero and the southwest has the lowest average excess charge.",
+      "glossary": [
+        "regression",
+        "residual",
+        "groupby"
+      ],
+      "expected_output": "southeast",
+      "mode": "both"
+    }
+  ]
+}

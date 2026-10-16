@@ -58,7 +58,7 @@ jobs:
       - name: Assemble the site
         run: |
           mkdir -p _site
-          cp -r assets data problems materials notebooks practice teaching _site/
+          cp -r assets data problems materials practice learning _site/
           cp index.html glossary.html upload.html .nojekyll _site/
           # Course notebooks and scripts kept at the repository root are served too.
           find . -maxdepth 1 -type f \( -name "*.ipynb" -o -name "*.py" \) -exec cp {} _site/ \;

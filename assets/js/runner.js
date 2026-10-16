@@ -99,6 +99,8 @@ export async function runPython(code, options = {}) {
     packages = [],
     captureLast = false,
     files = null,
+    persist = false,
+    resetKernel = false,
     lineLimit = CONFIG.lineLimit,
   } = options;
 
@@ -123,7 +125,7 @@ export async function runPython(code, options = {}) {
     };
   }
 
-  const spec = { code, tests, setup, stdin, lineLimit, captureLast, files };
+  const spec = { code, tests, setup, stdin, lineLimit, captureLast, files, persist, resetKernel };
   try {
     instance.globals.set("__fb_spec", JSON.stringify(spec));
     const raw = await instance.runPythonAsync("__fb_exec(__fb_spec)");

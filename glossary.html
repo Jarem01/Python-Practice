@@ -17,7 +17,7 @@
     <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
     <nav class="main">
       <a href="index.html">Home</a>
-      <a href="teaching/index.html">Teaching</a>
+      <a href="learning/index.html">Learning</a>
       <a href="practice/index.html">Practice</a>
       <a href="glossary.html" aria-current="page">Glossary</a>
       <a href="upload.html">Add material</a>
@@ -31,7 +31,9 @@
   <h1>Glossary</h1>
   <p>
     Every Python and data-analysis term the course uses, in one place. Terms inside an exercise link straight here,
-    and each entry lists the assignment and the exercises that put it to work.
+    and each entry lists the section and the exercises that put it to work. Pick a single section
+    (for example <strong>Data Analysis 3</strong> or <strong>Intro 2</strong>) to see just the terms that section
+    covers, and switch between cards and a table with the buttons above.
   </p>
 
   <div class="filters">
@@ -40,12 +42,19 @@
       <input type="search" id="term-search" placeholder="Search terms, definitions and examples…" style="min-width:16em">
     </div>
     <div class="group">
+      <span class="lbl">Section</span>
+      <select id="term-section">
+        <option value="">all sections</option>
+      </select>
+    </div>
+    <div class="group">
       <span class="lbl">Order</span>
       <select id="term-sort">
         <option value="alpha">A–Z (all terms)</option>
-        <option value="assignment">By assignment</option>
+        <option value="assignment">By section</option>
       </select>
     </div>
+    <div class="filters" id="view-bar"></div>
     <span class="small muted" id="term-count"></span>
   </div>
 

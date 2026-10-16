@@ -8,12 +8,24 @@
  */
 
 import { assignmentForProblem, assignmentsForProblems, groupProblems, loadAssignments } from "./assignments.js";
-import { el, escapeHtml, param, TYPE_LABELS, TYPE_ORDER } from "./util.js";
+import {
+  el,
+  escapeHtml,
+  getViewMode,
+  param,
+  setViewMode,
+  TYPE_LABELS,
+  TYPE_ORDER,
+  viewToggle,
+} from "./util.js";
 import { filterProblems, loadProblems, problemStats, problemStatus, uniqueValues } from "./problems.js";
+
+const VIEW_KEY = "practice";
 
 const state = {
   problems: [],
   assignments: [],
+  view: getViewMode(VIEW_KEY),
   filters: { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated" },
 };
 
@@ -159,6 +171,15 @@ function renderFilters(container) {
     ]),
   );
 
+  // Cards or a table — the same exercises either way.
+  container.append(
+    viewToggle(state.view, (value) => {
+      state.view = value;
+      setViewMode(VIEW_KEY, value);
+      renderList();
+    }),
+  );
+
   const sort = el("select");
   for (const [value, label] of [
     ["curated", "assignment order"],
@@ -219,35 +240,70 @@ function sortedProblems(problems) {
   }
 }
 
-function problemItem(problem) {
+function problemHref(problem) {
+  return `exercise.html?id=${encodeURIComponent(problem.id)}`;
+}
+
+function problemBadges(problem) {
   const status = problemStatus(problem);
-  const item = el("li");
-  const link = el("a", { class: "pitem", href: `exercise.html?id=${encodeURIComponent(problem.id)}` });
-  const left = el("div");
-  left.append(el("div", { class: "ptitle", html: `${escapeHtml(problem.title)}${problem.draft ? ' <span class="badge">draft</span>' : ""}` }));
-
-  const bits = [
-    (problem.topics || []).join(" · "),
-    (problem.hints || []).length ? `${problem.hints.length} hints` : "",
-  ].filter(Boolean);
-  if (state.filters.group !== "assignment") bits.push(assignmentForProblem(problem).label);
-  left.append(el("div", { class: "tiny muted", text: bits.join(" · ") }));
-  link.append(left);
-
-  const meta = el("div", { class: "pmeta" });
+  const meta = el("div", { class: "pill-row" });
   meta.append(el("span", { class: `badge type-${problem.type}`, text: TYPE_LABELS[problem.type] || problem.type }));
   meta.append(el("span", { class: "badge", text: problem.difficulty || "easy" }));
   if (status !== "new") meta.append(el("span", { class: `badge ${status}`, text: status }));
-  link.append(meta);
-
-  item.append(link);
-  return item;
+  return meta;
 }
 
-function problemListElement(problems) {
-  const list = el("ul", { class: "problem-list" });
-  for (const problem of problems) list.append(problemItem(problem));
-  return list;
+function problemFacts(problem) {
+  const bits = [(problem.topics || []).join(" · ")];
+  if (state.filters.group !== "assignment") bits.push(assignmentForProblem(problem).label);
+  if ((problem.hints || []).length) bits.push(`${problem.hints.length} hints`);
+  return bits.filter(Boolean).join(" · ");
+}
+
+/** One exercise as a card, for the tile view. */
+function problemTile(problem) {
+  const tile = el("a", { class: "tile", href: problemHref(problem) });
+  tile.append(el("h3", { html: `${escapeHtml(problem.title)}${problem.draft ? ' <span class="badge">draft</span>' : ""}` }));
+  tile.append(el("p", { class: "tiny muted", text: problemFacts(problem) }));
+  const foot = el("div", { class: "tile-foot" });
+  foot.append(problemBadges(problem));
+  tile.append(foot);
+  return tile;
+}
+
+function tileGridElement(problems) {
+  const grid = el("div", { class: "grid cols-3" });
+  for (const problem of problems) grid.append(problemTile(problem));
+  return grid;
+}
+
+function tableElement(problems) {
+  const wrap = el("div");
+  const table = el("table", { class: "data-table" });
+  table.innerHTML =
+    "<thead><tr><th>Exercise</th><th>Assignment</th><th>Topic</th><th>Type</th><th>Level</th><th>Status</th></tr></thead>";
+  const body = el("tbody");
+  for (const problem of problems) {
+    const status = problemStatus(problem);
+    const row = el("tr");
+    row.append(
+      el("td", { class: "t-title", html: `<a href="${problemHref(problem)}">${escapeHtml(problem.title)}</a>${problem.draft ? ' <span class="badge">draft</span>' : ""}` }),
+    );
+    row.append(el("td", { text: assignmentForProblem(problem).label }));
+    row.append(el("td", { text: (problem.topics || []).join(", ") }));
+    row.append(el("td", { text: TYPE_LABELS[problem.type] || problem.type }));
+    row.append(el("td", { text: problem.difficulty || "easy" }));
+    row.append(el("td", { text: status }));
+    body.append(row);
+  }
+  table.append(body);
+  wrap.append(table);
+  return wrap;
+}
+
+/** The chosen view of a set of exercises. */
+function problemsView(problems) {
+  return state.view === "table" ? tableElement(problems) : tileGridElement(problems);
 }
 
 function renderList() {
@@ -268,7 +324,7 @@ function renderList() {
   }
 
   if (state.filters.group === "none") {
-    container.append(problemListElement(filtered));
+    container.append(problemsView(filtered));
     return;
   }
 
@@ -291,7 +347,7 @@ function renderList() {
             (a, b) => (a.topics || []).join().localeCompare((b.topics || []).join()) || a.title.localeCompare(b.title),
           )
         : bucket.problems;
-    container.append(problemListElement(ordered));
+    container.append(problemsView(ordered));
   }
 }
 

@@ -1,0 +1,69 @@
+tic,conm,cusip,sic
+AAPL,Apple Inc,409370738,1
+MSFT,Microsoft Corp,116775157,1
+AMZN,Amazon.com Inc,657919554,1
+GOOGL,Alphabet Inc,797245694,1
+META,Meta Platforms Inc,130953955,2
+TSLA,Tesla Inc,060107230,2
+NVDA,NVIDIA Corp,745547365,2
+INTC,Intel Corp,628775845,2
+ORCL,Oracle Corp,515620481,3
+IBM,International Business Machines,183913254,3
+CRM,Salesforce Inc,952965683,3
+ADBE,Adobe Inc,210738228,3
+JPM,JPMorgan Chase & Co,146557941,4
+BAC,Bank of America Corp,483534462,4
+WFC,Wells Fargo & Co,513931211,4
+C,Citigroup Inc,373659555,4
+GS,Goldman Sachs Group,890756271,5
+MS,Morgan Stanley,204619889,5
+AXP,American Express Co,769793181,5
+BLK,BlackRock Inc,760219555,5
+JNJ,Johnson & Johnson,409370676,6
+PFE,Pfizer Inc,854109871,6
+MRK,Merck & Co,303024196,6
+ABBV,AbbVie Inc,297201321,6
+LLY,Eli Lilly & Co,785168593,7
+AMGN,Amgen Inc,202015140,7
+TMO,Thermo Fisher Scientific,780352594,7
+MDT,Medtronic PLC,690088695,7
+BA,Boeing Co,935963353,8
+LMT,Lockheed Martin Corp,750951062,8
+RTX,RTX Corp,058301229,8
+GD,General Dynamics Corp,145337470,8
+HON,Honeywell International,746446363,9
+CAT,Caterpillar Inc,243172819,9
+DE,Deere & Co,921346783,9
+GE,General Electric Co,565219704,9
+GM,General Motors Co,972484671,10
+F,Ford Motor Co,378480384,10
+WMT,Walmart Inc,342727213,10
+TGT,Target Corp,988207002,10
+COST,Costco Wholesale Corp,572181955,11
+HD,Home Depot Inc,789152119,11
+LOW,Lowe's Companies Inc,149770167,11
+CVX,Chevron Corp,401848058,11
+XOM,Exxon Mobil Corp,864418875,12
+COP,ConocoPhillips,295162943,12
+DUK,Duke Energy Corp,795262426,12
+SO,Southern Co,344197788,12
+DAL,Delta Air Lines Inc,334166184,13
+UAL,United Airlines Holdings,115218890,13
+FDX,FedEx Corp,570824206,13
+UPS,United Parcel Service,582618379,13
+UNP,Union Pacific Corp,581772606,14
+T,AT&T Inc,016481177,14
+VZ,Verizon Communications,019717100,14
+TMUS,T-Mobile US Inc,004294499,14
+CMCSA,Comcast Corp,553762288,15
+DIS,Walt Disney Co,640701265,15
+NFLX,Netflix Inc,840374082,15
+SBUX,Starbucks Corp,042219338,15
+MCD,McDonald's Corp,545522953,16
+PG,Procter & Gamble Co,398026552,16
+KO,Coca-Cola Co,230358315,16
+PEP,PepsiCo Inc,691091671,16
+NKE,Nike Inc,074610744,17
+MMM,3M Co,224711853,17
+DOW,Dow Inc,664447204,17
+FCX,Freeport-McMoRan Inc,107565905,17

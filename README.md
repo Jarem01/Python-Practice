@@ -2,7 +2,7 @@
 
 A lightweight learning system for a Python / data-analysis course.
 
-The Jupyter notebooks in this repository stay **exactly as they are** and become the teaching
+The Jupyter notebooks in this repository stay **exactly as they are** and become the learning
 material. On top of them sits a small practice engine that runs real Python in the browser
 (Pyodide / WebAssembly) and checks four kinds of exercises immediately.
 
@@ -36,8 +36,8 @@ Any static server works — `npx serve`, `php -S localhost:8000`, VS Code Live S
 | Page | What it is |
 | --- | --- |
 | `index.html` | Landing page: stats, progress, the notebook overview, a suggested next exercise |
-| `teaching/index.html` | All notebooks grouped by part, with the exercises found inside each one |
-| `teaching/view.html?nb=…` | Renders one `.ipynb` in the browser (markdown, code, outputs, tracebacks, TOC) |
+| `learning/index.html` | All notebooks grouped by part, with the exercises found inside each one |
+| `learning/view.html?nb=…` | Renders one `.ipynb` in the browser (markdown, code, outputs, tracebacks, TOC) |
 | `practice/index.html` | All exercises, grouped by the assignment they came from and by topic, with search and filters |
 | `practice/exercise.html?id=…` | The exercise engine (all four types, with the run output and a colored comparison) |
 | `practice/create.html` | Form to author a new exercise, save it as a local draft, download JSON |
@@ -51,15 +51,15 @@ Any static server works — `npx serve`, `php -S localhost:8000`, VS Code Live S
 ```
 index.html                 landing page
 glossary.html              glossary page
-teaching/index.html        notebook index
-teaching/view.html         notebook viewer
+learning/index.html        notebook index
+learning/view.html         notebook viewer
 practice/index.html        exercise list
 practice/exercise.html     exercise engine
 practice/create.html       exercise creator
 upload.html                add course material (and generate exercises from it)
 assets/css/style.css       the only stylesheet (light + dark)
 assets/js/                 ES modules, no build step (see "Extending the JavaScript")
-data/notebooks.json        GENERATED — notebook index for the teaching section
+data/notebooks.json        GENERATED — notebook index for the learning section
 data/glossary.json         HAND-WRITTEN — glossary terms
 data/curriculum.json       OPTIONAL — manual grouping/ordering overrides
 materials/                 everything uploaded from the website (source study material)
@@ -68,6 +68,9 @@ problems/generated/*.json  Uploaded/generated exercises, one file each
 problems/index.json        GENERATED — the bundle the practice app fetches
 *.ipynb                    the class notebooks (any folder works)
 tools/build_index.py       regenerates both manifests
+tools/run_notebooks.py     executes the notebooks and saves their outputs
+tools/check_notebooks.py   runs the notebooks against the bundled data
+tools/make_datasets.py     builds materials/datasets/ (the files the notebooks open)
 tools/generate_problems.mjs turns notebooks into exercises with real Python
 tools/import_materials.py  applies a bundle downloaded from the website
 .github/workflows/         rebuild the index + publish to GitHub Pages on every push
@@ -85,6 +88,36 @@ Run it after adding or editing notebooks and problems.
 
 ---
 
+## The notebooks' outputs
+
+Every notebook in the Learning section opens the same way: as a live notebook. Each code cell is an
+editor with a Run button, the cells share one Python kernel, `Run all cells` / `Restart kernel` work
+the way Jupyter's do, and the exercises inside the notebook are boxed and grouped — the list in the
+page header and the contents sidebar jump straight to them. There is no separate read-only view.
+
+Each cell shows the output the notebook was saved with until you run it yourself, so the notebooks
+keep their outputs. They are written by:
+
+```bash
+python3 tools/run_notebooks.py            # run every notebook, save its outputs
+python3 tools/run_notebooks.py --check    # report only, change nothing
+python3 tools/run_notebooks.py --nb "Data Analysis (Part 3)*"
+```
+
+It runs each notebook top to bottom in one namespace, in a folder holding exactly the data files
+the notebook declares (`data/curriculum.json` → `data_files`), and records what Jupyter records:
+stream output, the value of a trailing expression, inline matplotlib figures and tracebacks. Then
+run `python3 tools/build_index.py` so the pages pick the new cell counts up.
+
+Run mode and this tool agree because both execute the same code in Pyodide —
+`tests/notebooks.test.mjs` runs every notebook's cells through the real harness and fails if a
+cell stops working. Only the packages Pyodide ships can be used; `data/curriculum.json` lists them
+per notebook (`pandas`, `matplotlib`, `statsmodels`, `scipy`, `python-calamine`). There is no
+`openpyxl`, which is why `analyticskit.read_excel()` picks the engine that is installed and
+`analyticskit.to_excel()` writes the workbook itself.
+
+---
+
 ## Adding notebooks
 
 1. Put your `.ipynb` files anywhere in the repository (they can live in the root, in
@@ -94,7 +127,7 @@ Run it after adding or editing notebooks and problems.
    * its title (first `#` heading) and a one-line summary,
    * cell counts, code-cell count and how many cells have saved output,
    * every heading that looks like an exercise (`Exercise 3`, `Übung 2`, `练习 1`, …) with a
-     stable anchor, so **index.html** and **teaching/index.html** can list "notebooks and their
+     stable anchor, so **index.html** and **learning/index.html** can list "notebooks and their
      exercises",
    * the topics it covers, matched against the topics used by your exercises.
 
@@ -129,7 +162,7 @@ jupyterLiteUrl: "https://your-user.github.io/your-jupyterlite/lab/index.html",
 rawBaseUrl: "https://raw.githubusercontent.com/you/Python-Practice/main",
 ```
 
-Without that, the built-in viewer (`teaching/view.html`) remains the way to read notebooks.
+Without that, the built-in runnable view (`learning/view.html`) remains the way to open notebooks.
 
 ---
 
@@ -148,7 +181,9 @@ want stored — then:
 3. **Save** the result:
 
    * **Save to this browser** — the files and exercises live in `localStorage` and appear in the
-     teaching and practice sections immediately (private to that browser). Handy for a quick look.
+     learning and practice sections immediately (private to that browser, marked “in this browser”).
+     An uploaded notebook can be opened and run there straight away: the page reads the data files
+     and Python packages its code needs out of the code itself. Handy for a quick look.
    * **Save to GitHub** — commits each source file into `materials/<track>/` and each automatically
      checked exercise into `problems/generated/<id>.json`, straight into the repository, with a
      fine-grained token that has **Contents: Read and write**. The push triggers the workflow, which
@@ -388,7 +423,7 @@ Everything is an ES module; no bundler, no dependencies at runtime.
 | `analyze.js` | Notebook/script analysis and turning a task into a draft exercise (shared with the tools) |
 | `uploads.js`, `datasets.js` | Browser-stored uploads and the data files an exercise needs |
 | `github.js` | Committing uploaded material with the GitHub REST API |
-| `home.js`, `practice-list.js`, `teaching-index.js`, `teaching-view.js`, `glossary-page.js`, `create.js`, `upload.js` | Page controllers |
+| `home.js`, `practice-list.js`, `learning-index.js`, `learning-view.js`, `glossary-page.js`, `create.js`, `upload.js` | Page controllers |
 
 To add a fifth exercise type: add it to `TYPE_LABELS`/`TYPE_ORDER` in `util.js`, add a grading
 rule in `grade.js`, a renderer + check path in `exercise.js`, and allow the type in
@@ -396,12 +431,41 @@ rule in `grade.js`, a renderer + check path in `exercise.js`, and allow the type
 
 ---
 
+## The datasets
+
+The class notebooks open their data by bare file name (`violations.csv`, `invoices.xlsx`,
+`insurance.csv`, `compustat.csv`, `avocados.txt`, …). Those files live in `materials/datasets/`
+and — because the browser runs the notebooks too — are copied into the Python sandbox for the
+notebook or exercise that declares them.
+
+They are generated, deterministically, by:
+
+```bash
+tools/make_datasets.py --verify   # check the committed files
+python3 tools/make_datasets.py    # rebuild them (same seed, same bytes)
+```
+
+The size is the point: `violations.csv` has 68,841 rows, `invoices.xlsx` 5,000 invoices,
+`compustat.csv` 10,647 firms over 30 industries, plus `insurance.csv` (the public 1,338-row
+medical-cost dataset), `earnings.csv`, `store_sales.csv` and the small lookup tables the merge
+exercises join on. The generator also writes `materials/analyticskit.py`, the helper module Data
+Analysis 5 imports — keep the two in step by editing the constant in `tools/make_datasets.py` or,
+better, re-syncing it from the file the way the tool does now.
+
+---
+
 ## Tests
 
 ```bash
 npm install --no-save pyodide jsdom   # dev-only, for the integration tests
+pip install -r requirements.txt       # pandas, numpy, matplotlib, statsmodels, python-calamine
 npm test                              # or: python3 -m unittest discover -s tests && node --test tests/
 ```
+
+`requirements.txt` is deliberately the same set the browser kernel ships, so a notebook that runs
+here runs in the browser as well. `tools/run_notebooks.py` runs the notebooks through plain CPython
+and needs `statsmodels` for Data Analysis 6; `tests/notebooks.test.mjs` does the same thing through
+Pyodide, which is the check that matters.
 
 * `tests/test_build.py` — slug parity with the JS, Markdown problem parsing, validation errors,
   notebook scanning, and `build_index.py --check`.
@@ -413,11 +477,17 @@ npm test                              # or: python3 -m unittest discover -s test
   what the program really prints).
 * `tests/pages.test.mjs` — loads each real HTML file in jsdom, runs its real module and asserts
   the rendered DOM: filtering and grouping the exercise list, grading a typed answer (including the
-  green/red output comparison), sorting the glossary by assignment, and saving a draft.
+  green/red output comparison), the glossary's search / section filter / order switch, sorting the
+  glossary by section, saving a draft, that every notebook ships saved outputs, that every tile
+  on the site sits in a grid (so one tile can never be taller than the one beside it), and that every
+  list — the type cards, both notebook lists, the exercise list and the glossary — really swaps its
+  markup when you choose Tiles or Table.
 * `tests/upload-page.test.mjs` — drives the upload page end to end in jsdom: fetch a notebook,
   analyze it, store it in the browser, re-save without duplicating.
 * `tests/test_import.py` — the bundle importer: path safety (absolute paths and `..` are refused),
   binary files, idempotent re-imports, and skipping exercises that nothing can check.
+* `tests/notebooks.test.mjs` — runs **every notebook's cells** in Pyodide with the data files the
+  page provides, in one kernel per notebook: this is the check that "Run all cells" works.
 * `tests/writing.test.mjs` — the whole site's copy is American English.
 
 ---

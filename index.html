@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Python Practice — notebook lessons and browser exercises</title>
-<meta name="description" content="A lightweight practice system for Python and data analysis: the existing Jupyter notebooks as teaching content, plus runnable exercises in the browser.">
+<meta name="description" content="A lightweight practice system for Python and data analysis: the existing Jupyter notebooks as learning content, plus runnable exercises in the browser.">
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
   // Apply the saved theme before first paint to avoid a flash.
@@ -19,7 +19,7 @@
     <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
     <nav class="main">
       <a href="index.html" aria-current="page">Home</a>
-      <a href="teaching/index.html">Teaching</a>
+      <a href="learning/index.html">Learning</a>
       <a href="practice/index.html">Practice</a>
       <a href="glossary.html">Glossary</a>
       <a href="upload.html">Add material</a>
@@ -33,13 +33,13 @@
   <section class="card">
     <h1>Learn from the notebooks, then practice in the browser</h1>
     <p>
-      Your existing Jupyter notebooks stay exactly as they are — this site indexes them, renders them in the
-      browser, and puts a practice engine on top. Every exercise runs real Python (via Pyodide/WebAssembly) and
-      is checked immediately: <strong>correct</strong>, <strong>incorrect</strong>, or a <strong>hint</strong>.
+      The class notebooks become an interactive study site: read them, run the cells in your browser, and work
+      through practice exercises for every section. Everything runs real Python (via Pyodide/WebAssembly) and is
+      checked immediately — you always see the output your code produced next to the expected output.
     </p>
     <div class="btn-row">
       <a class="btn primary" href="practice/index.html">Start practicing</a>
-      <a class="btn" href="teaching/index.html">Browse the notebooks</a>
+      <a class="btn" href="learning/index.html">Browse the notebooks</a>
       <a class="btn ghost" href="upload.html">Add course material</a>
       <a class="btn ghost" href="practice/create.html">Add your own exercise</a>
     </div>
@@ -51,8 +51,11 @@
   <section id="main-cards">
     <h2>What is inside</h2>
     <div id="stats" class="grid cols-3" style="margin-bottom:1rem"></div>
+    <div class="card" id="coverage"></div>
     <div class="card" id="progress"></div>
-    <h3>Four ways to practice</h3>
+    <div class="filters" id="type-view-bar" style="margin-top:1rem">
+      <h3 style="margin:0">Four ways to practice</h3>
+    </div>
     <div id="type-cards" class="grid cols-3"></div>
     <div class="card" style="margin-top:1rem">
       <h3 style="margin-top:0">Suggested next step</h3>
@@ -61,11 +64,13 @@
   </section>
 
   <section>
-    <h2>Teaching content</h2>
+    <h2>Learning content</h2>
     <p class="small muted">
-      Every notebook in the repository, grouped by part, with the exercises found inside each one. Click a notebook
-      to render it in the browser — code cells keep their saved outputs, including tracebacks.
+      The course in order — Intro 1–4, then Data Analysis 1–6 — with the exercises found inside each section.
+      <strong>Run</strong> opens a notebook as a live, editable notebook in the browser (like Jupyter), with every
+      exercise inside it boxed so you can jump straight to the one you want.
     </p>
+    <div class="filters" id="view-bar"></div>
     <div id="notebooks"></div>
   </section>
 

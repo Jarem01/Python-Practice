@@ -177,9 +177,63 @@ footer.site p { margin: .2em 0; }
 }
 .card + .card { margin-top: 1rem; }
 .card h3:first-child, .card h2:first-child { margin-top: 0; }
-.grid { display: grid; gap: 1rem; }
+/* Every tile in a row is exactly as tall as its tallest neighbor: the grid
+   stretches its items and the tiles themselves fill that height, so a tile with
+   a two-line label can never be taller than the one next to it. */
+.grid { display: grid; gap: 1rem; align-items: stretch; }
 .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+/* Inside a grid every tile is a grid item: the "card after card" spacing would
+   shrink all but the first one and make the first tile look taller than the
+   rest. Grids align their own rows, so drop that margin there. */
+.grid > .card + .card, .grid > .card + .tile, .grid > .tile + .card, .grid > .tile + .tile { margin-top: 0; }
+.grid > * { margin-top: 0; }
+
+/* Tiles: equal-height cards that fill their row, with or without a link. */
+.tile {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  color: inherit;
+  min-width: 0;
+  height: 100%;
+}
+a.tile { text-decoration: none; }
+a.tile:hover { border-color: var(--accent); text-decoration: none; }
+/* The number-and-label tiles are the same size whatever their caption says. */
+.tile.stat { text-align: center; align-items: center; justify-content: center; min-height: 7.5rem; }
+.tile .tile-value { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+.tile .tile-label { font-size: .88rem; color: var(--fg-muted); }
+.tile h3 { margin: 0; font-size: 1.02rem; }
+.tile .tile-foot { margin-top: auto; display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+.tile ul { margin: .3rem 0 0; padding-left: 1.1rem; }
+
+/* The tile/table switch that sits above every list. */
+.view-toggle { display: inline-flex; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; }
+.view-toggle button {
+  font: inherit;
+  font-size: .84rem;
+  padding: .2rem .6rem;
+  border: 0;
+  background: var(--bg-alt);
+  color: var(--fg-muted);
+  cursor: pointer;
+}
+.view-toggle button + button { border-left: 1px solid var(--border-strong); }
+.view-toggle button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+/* Table view of the same lists (problems, notebooks, glossary terms). */
+.data-table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0; }
+.data-table th, .data-table td { border: 1px solid var(--border); padding: .4em .7em; text-align: left; vertical-align: top; }
+.data-table th { background: var(--accent-soft); color: var(--accent); font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; }
+.data-table tbody tr:nth-child(even) { background: var(--zebra); }
+.data-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table .t-title { font-weight: 550; }
 
 .btn, button.btn {
   display: inline-flex;
@@ -430,6 +484,49 @@ input.blank.bad { border-bottom-color: var(--bad); background: var(--bad-soft); 
   margin: 1rem 0;
   font-size: .92rem;
 }
+
+/* ------------------------------------------------- runnable notebook ----- */
+
+/* Every cell of one exercise sits in its own group, so the borders show where a
+   task starts and ends instead of it looking like one long notebook. */
+.exercise-group {
+  border-left: 3px solid var(--accent-soft);
+  padding-left: .85rem;
+  margin: 0 0 1.1rem -.85rem;
+}
+.exercise-group > .cell:first-child { margin-top: 0; }
+.exercise-group > .cell:last-child { margin-bottom: 0; }
+.nb-toc .toc-exercise a { color: var(--accent); font-weight: 550; }
+
+.notebook-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .6rem .8rem;
+  margin-bottom: 1.2rem;
+  position: sticky;
+  top: 3.4rem;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}.cell.code.runnable {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-alt);
+  padding: .5rem .7rem .7rem;
+}
+.cell-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+.cell-head .cell-tag { margin-bottom: 0; }
+.cell.code.runnable .editor { margin: .4rem 0 0; }
+.cell-outputs { margin-top: .5rem; }
+.cell-outputs .out { margin: 0 0 .4rem; }
+.cell.out .out-stream, .cell.out.stderr pre { border-left-color: var(--fg-muted); }
+.cell.out.error pre { background: var(--bad-soft); border-left-color: var(--bad-border); }
+.bad-text { color: var(--bad); }
+.cell.code.runnable .out pre { max-height: 26em; }
 
 /* -------------------------------------------------------------- glossary -- */
 

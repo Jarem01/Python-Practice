@@ -21,11 +21,12 @@ from pathlib import Path
 PAGES = [
     "index.html",
     "glossary.html",
-    "teaching/index.html",
-    "teaching/view.html",
+    "learning/index.html",
+    "learning/view.html",
     "practice/index.html",
     "practice/exercise.html",
     "practice/create.html",
+    "upload.html",
 ]
 
 MANIFESTS = ["data/notebooks.json", "problems/index.json", "data/glossary.json"]

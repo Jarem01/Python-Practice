@@ -1,29 +1,38 @@
 {
-  "generated_at": "2026-10-15T19:04:55+00:00",
-  "count": 74,
+  "generated_at": "2026-10-16T00:49:00+00:00",
+  "count": 106,
   "by_type": {
-    "fix_the_code": 7,
-    "fill_in_blank": 6,
+    "fix_the_code": 8,
+    "fill_in_blank": 12,
     "predict_output": 24,
-    "write_from_scratch": 37
+    "write_from_scratch": 62
   },
   "topics": [
+    "Boolean logic",
+    "Cleaning Data",
     "Data Analysis",
     "Data Structures",
     "Dictionaries",
+    "Excel",
+    "Files",
     "Functions",
     "Intro to Python",
     "Lists",
     "Loops",
+    "Merging",
+    "Missing data",
     "NumPy",
+    "Outliers",
     "Python Basics",
+    "Regression",
     "Strings",
+    "Summary Statistics",
     "pandas"
   ],
   "difficulties": {
-    "easy": 49,
-    "medium": 22,
-    "hard": 3
+    "easy": 58,
+    "medium": 38,
+    "hard": 10
   },
   "problems": [
     {
@@ -1775,6 +1784,7 @@
         "method",
         "for-loop"
       ],
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1801,6 +1811,7 @@
         "method",
         "reference"
       ],
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1834,6 +1845,7 @@
         "len",
         "list-comprehension"
       ],
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1867,6 +1879,7 @@
         "return",
         "for-loop"
       ],
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1893,6 +1906,7 @@
         "for-loop",
         "if-statement"
       ],
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1921,6 +1935,7 @@
         "range",
         "sum"
       ],
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1955,6 +1970,7 @@
         "tuple",
         "index"
       ],
+      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -1989,6 +2005,7 @@
         "for-loop",
         "function"
       ],
+      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2016,7 +2033,8 @@
         "array",
         "boolean-mask",
         "axis"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-numpy-sum-axis",
@@ -2051,7 +2069,8 @@
         "array",
         "axis",
         "shape"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-pandas-hottest-city",
@@ -2081,7 +2100,8 @@
         "dataframe",
         "series",
         "method"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-pandas-groupby",
@@ -2116,7 +2136,8 @@
         "dataframe",
         "groupby",
         "series"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-numpy-normalize",
@@ -2148,7 +2169,8 @@
         "array",
         "vectorization",
         "function"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-pandas-city-counts",
@@ -2179,7 +2201,8 @@
         "series",
         "dictionary",
         "method"
-      ]
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-loop-sum-1-to-5",
@@ -2203,6 +2226,7 @@
         "range",
         "for-loop"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2229,6 +2253,7 @@
         "len",
         "method"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2268,6 +2293,7 @@
         "modulo",
         "operator"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2301,6 +2327,7 @@
         "for-loop",
         "method"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2325,6 +2352,7 @@
         "variable",
         "string"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2350,6 +2378,7 @@
         "loop",
         "print"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2394,6 +2423,7 @@
         "parameter",
         "tuple"
       ],
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2424,6 +2454,7 @@
         "return",
         "operator"
       ],
+      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
     },
     {
@@ -2447,7 +2478,1189 @@
         "if-statement",
         "block"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": []
+    },
+    {
+      "id": "da1-read-selected-columns",
+      "type": "write_from_scratch",
+      "title": "Load violations.csv with only three columns",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "The course dataset `violations.csv` is in the working directory (68,841 rows, 11 columns).\n\nRead it into a DataFrame called `data`, keeping only the columns `company`, `penalty` and `date` **by name**, then print `data.shape`.",
+      "hints": [
+        "`import pandas as pd` first.",
+        "`pd.read_csv(\"violations.csv\", usecols=[...])` keeps just the columns you list.",
+        "`.shape` prints `(rows, columns)`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", usecols=[\"company\", \"penalty\", \"date\"])\nprint(data.shape)\n",
+      "tests": "assert list(data.columns) == [\"company\", \"penalty\", \"date\"], f\"wrong columns: {list(data.columns)}\"\nassert len(data) == 68841, f\"expected every row, got {len(data)}\"\n",
+      "test_summary": "Checks the three columns and that all 68,841 rows were kept.",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "read-csv"
+      ],
+      "expected_output": "(68841, 3)",
+      "mode": "both"
+    },
+    {
+      "id": "da1-microsoft-rows",
+      "type": "write_from_scratch",
+      "title": "How many violations involve Microsoft?",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "Load `violations.csv` into `data` as the notebook does (`parse_dates=['date']`, `dtype={'gvkey': str, 'zip': str}`).\n\nFilter the rows where `company` is `'Microsoft'` into a DataFrame called `microsoft`, then print `len(microsoft)` \u2014 a single number.",
+      "hints": [
+        "A boolean mask like `data.company == 'Microsoft'` selects the rows.",
+        "`data[data.company == 'Microsoft']` gives the subset.",
+        "`len()` of that DataFrame is the row count."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", parse_dates=[\"date\"], dtype={\"gvkey\": str, \"zip\": str})\nmicrosoft = data[data.company == \"Microsoft\"]\nprint(len(microsoft))\n",
+      "tests": "assert isinstance(microsoft, pd.DataFrame), \"microsoft must be a DataFrame\"\nassert len(data) == 68841\n",
+      "test_summary": "Checks the filter produces a DataFrame and the whole file was loaded.",
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "boolean-mask"
+      ],
+      "expected_output": "5",
+      "mode": "both"
+    },
+    {
+      "id": "da1-public-december",
+      "type": "write_from_scratch",
+      "title": "Publicly traded firms in December",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Boolean logic"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 5,
+      "prompt": "Load `violations.csv` into `data`.\n\nBuild `public12`: the rows whose `ownership structure` is `'publicly traded'` **and** whose `date` falls in December. Print `len(public12)`.\n\nTwo conditions on one DataFrame need parentheses around each one, joined with `&`.",
+      "hints": [
+        "`data.date.dt.month == 12` only works once `date` is a datetime \u2014 read it with `parse_dates=['date']`.",
+        "Combine masks with `&`, and wrap each in parentheses: `data[(a) & (b)]`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", parse_dates=[\"date\"], dtype={\"zip\": str})\npublic12 = data[(data[\"ownership structure\"] == \"publicly traded\") & (data.date.dt.month == 12)]\nprint(len(public12))\n",
+      "tests": "assert len(public12) == 3027, f\"expected 3,027 publicly traded December rows, got {len(public12)}\"\n",
+      "test_summary": "Checks the two-condition filter returns 3,027 rows.",
+      "glossary": [
+        "boolean-mask",
+        "pandas",
+        "dt-accessor"
+      ],
+      "expected_output": "3027",
+      "mode": "both"
+    },
+    {
+      "id": "da1-missing-zip-count",
+      "type": "write_from_scratch",
+      "title": "Count the missing zip codes",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Missing data"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 4,
+      "prompt": "Load `violations.csv` into `data` (read `zip` as a string so the leading zeros survive).\n\nPrint `data['zip'].isna().sum()` \u2014 the number of rows with **no** zip code \u2014 and remember the file has 68,841 rows.",
+      "hints": [
+        "`.isna()` marks missing values; `.sum()` counts them.",
+        "`dtype={'zip': str}` keeps zip codes as text."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", dtype={\"zip\": str})\nprint(data[\"zip\"].isna().sum())\n",
+      "tests": "assert int(data[\"zip\"].isna().sum()) == 68841 - 25337, \"25,337 rows do have a zip code\"\n",
+      "test_summary": "Checks the missing-zip count against the documented 25,337 non-missing values.",
+      "glossary": [
+        "missing-values",
+        "pandas",
+        "isna"
+      ],
+      "expected_output": "43504",
+      "mode": "both"
+    },
+    {
+      "id": "da1-build-a-dataframe",
+      "type": "fill_in_blank",
+      "title": "Build a DataFrame by hand",
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 5,
+      "prompt": "A DataFrame is a dictionary of columns. Fill in the two blanks so the frame has a `company` column with two names and a `penalty` column with two amounts, sorted by penalty from high to low.",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"company\": [\"Acme\", \"Globex\"], \"penalty\": [5000, 25000]})\ndf = df.___(by=\"penalty\", ascending=___)\n\nprint(df.iloc[0][\"company\"])\n",
+      "blanks": [
+        {
+          "accepted": [
+            "sort_values"
+          ],
+          "hint": "The DataFrame method that sorts rows by a column."
+        },
+        {
+          "accepted": [
+            "False"
+          ],
+          "hint": "You want the largest penalty first, so ascending has to be False."
+        }
+      ],
+      "hints": [
+        "`df.sort_values(by=..., ascending=...)` returns the sorted frame.",
+        "`ascending=True` puts the smallest first."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"company\": [\"Acme\", \"Globex\"], \"penalty\": [5000, 25000]})\ndf = df.sort_values(by=\"penalty\", ascending=False)\n\nprint(df.iloc[0][\"company\"])\n",
+      "glossary": [
+        "dataframe",
+        "pandas",
+        "sort-values"
+      ],
+      "expected_output": "Globex"
+    },
+    {
+      "id": "da2-clean-penalty-strings",
+      "type": "write_from_scratch",
+      "title": "Turn '$45,000 ' into 45000.0",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 6,
+      "prompt": "Penalty amounts arrive as text: `'$45,000 '`, dollars sign, thousands separator and a trailing space. That is why `astype(float)` fails.\n\nThe Series `penalty` below holds three such values. Clean it into floats, store the result in `penalty` itself, and print the total.\n\n```\n100000.0\n```",
+      "starter_code": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \", \"$30,000 \", \"$25,000 \"])\n# your code here\nprint(penalty.sum())\n",
+      "hints": [
+        "`.str.strip()` removes the surrounding spaces.",
+        "`.str.replace('$', '')` and `.str.replace(',', '')` remove the decorations.",
+        "Only then call `.astype(float)`."
+      ],
+      "solution": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \", \"$30,000 \", \"$25,000 \"])\npenalty = penalty.str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\nprint(penalty.sum())\n",
+      "tests": "assert str(penalty.dtype) == \"float64\", f\"penalty should be float, got {penalty.dtype}\"\nassert float(penalty.sum()) == 100000.0\n",
+      "test_summary": "Checks the column really is float and adds up to 100,000.",
+      "glossary": [
+        "astype",
+        "str-methods",
+        "cleaning"
+      ],
+      "expected_output": "100000.0",
+      "mode": "both"
+    },
+    {
+      "id": "da2-np-where-overtime",
+      "type": "fill_in_blank",
+      "title": "Flag the overtime hours with np.where",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "NumPy"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "line_count": 8,
+      "prompt": "`np.where(condition, value_if_true, value_if_false)` is the vectorised if-statement the notebook uses to build indicator columns.\n\nFill in the blanks so `overtime` is 1 when someone worked more than 40 hours and 0 otherwise, then print the total overtime.",
+      "starter_code": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"hours_worked\": [42, 38, 50, 45, 30]})\ndf[\"overtime\"] = np.where(df[\"hours_worked\"] ___ 40, ___, 0)\n\nprint(df[\"overtime\"].sum())\n",
+      "blanks": [
+        {
+          "accepted": [
+            ">"
+          ],
+          "hint": "Overtime means strictly more than forty hours."
+        },
+        {
+          "accepted": [
+            "1"
+          ],
+          "hint": "The flag for overtime is 1."
+        }
+      ],
+      "hints": [
+        "`np.where` takes three arguments: a condition, the value when it is True and the value when it is False.",
+        "The comparison goes inside the call: `np.where(condition, 1, 0)`."
+      ],
+      "solution": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"hours_worked\": [42, 38, 50, 45, 30]})\ndf[\"overtime\"] = np.where(df[\"hours_worked\"] > 40, 1, 0)\n\nprint(df[\"overtime\"].sum())\n",
+      "tests": "assert list(df[\"overtime\"]) == [1, 0, 1, 1, 0], f\"unexpected flags: {list(df['overtime'])}\"\n",
+      "test_summary": "Checks the indicator column matches the 40-hour rule for all five employees.",
+      "glossary": [
+        "np-where",
+        "numpy",
+        "indicator-column"
+      ],
+      "expected_output": "3"
+    },
+    {
+      "id": "da2-np-where-performance",
+      "type": "write_from_scratch",
+      "title": "Three performance levels with np.where",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "NumPy"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "line_count": 10,
+      "prompt": "The company grades sales performance:\n\n- `sales >= 15000` is `'Excellent'`\n- sales between `8000` and `14999` are `'Good'`\n- anything lower is `'Needs improvement'`\n\nCreate the column `performance` in `df` with `np.where` (two nested calls) and print the number of rows marked `'Good'`.",
+      "hints": [
+        "The outer call handles the first rule, the inner call handles the rest: `np.where(a, 'Excellent', np.where(b, 'Good', 'Needs improvement'))`.",
+        "The middle rule is `sales >= 8000`.",
+        "Count with `(df['performance'] == 'Good').sum()`."
+      ],
+      "solution": "import pandas as pd\nimport numpy as np\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\", \"Chris\", \"Dana\", \"Evan\"], \"sales\": [12000, 7000, 18000, 9000, 4000]})\ndf[\"performance\"] = np.where(df[\"sales\"] >= 15000, \"Excellent\", np.where(df[\"sales\"] >= 8000, \"Good\", \"Needs improvement\"))\nprint((df[\"performance\"] == \"Good\").sum())\n",
+      "tests": "assert list(df[\"performance\"]) == [\"Good\", \"Needs improvement\", \"Excellent\", \"Good\", \"Needs improvement\"], f\"unexpected grades: {list(df['performance'])}\"\n",
+      "test_summary": "Checks all five rows are graded by the three rules.",
+      "glossary": [
+        "np-where",
+        "numpy",
+        "cleaning"
+      ],
+      "expected_output": "2",
+      "mode": "both"
+    },
+    {
+      "id": "da2-sentence-column",
+      "type": "write_from_scratch",
+      "title": "Build a sentence column",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 8,
+      "prompt": "Add a column `height_feet` = `height_inches / 12` and a column `sentence` that reads `\"Robby is 5.8 feet tall.\"`, filling in each person's name and their height in feet.\n\nPrint the first sentence.",
+      "hints": [
+        "Adding a Series to a column name creates the column: `df['height_feet'] = df['height_inches'] / 12`.",
+        "Text joined with `+` across columns builds a Series of strings: `df['person'] + ' is ' + ...`.",
+        "Numeric columns must be cast: `.astype(str)`."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"person\": [\"Robby\", \"Karen\", \"Lydia\", \"Dan\"], \"height_inches\": [69.6, 66.0, 63.6, 72.0]})\ndf[\"height_feet\"] = df[\"height_inches\"] / 12\ndf[\"sentence\"] = df[\"person\"] + \" is \" + df[\"height_feet\"].astype(str) + \" feet tall.\"\n\nprint(df[\"sentence\"].iloc[0])\n",
+      "tests": "assert list(df.columns) == [\"person\", \"height_inches\", \"height_feet\", \"sentence\"]\nassert df[\"sentence\"].iloc[0] == \"Robby is 5.8 feet tall.\", f\"unexpected sentence: {df['sentence'].iloc[0]!r}\"\n",
+      "test_summary": "Checks both new columns and the exact wording of the first sentence.",
+      "glossary": [
+        "astype",
+        "dataframe",
+        "pandas"
+      ],
+      "expected_output": "Robby is 5.8 feet tall.",
+      "mode": "both"
+    },
+    {
+      "id": "da2-fix-penalty-cleanup",
+      "type": "fix_the_code",
+      "title": "The cleanup that forgets to strip",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "Strings"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 7,
+      "prompt": "This cell should turn `'$45,000 '` into `45000.0`, but it raises `ValueError: could not convert string to float: '$45,000 '`.\n\nFix the chain so it runs and prints `45000.0`.",
+      "starter_code": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \"])\npenalty = penalty.str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(penalty.iloc[0])\n",
+      "hints": [
+        "Read the error message \u2014 the value it cannot convert still has its trailing space.",
+        "`.str.strip()` before `.str.replace(...)` removes the surrounding whitespace."
+      ],
+      "solution": "import pandas as pd\n\npenalty = pd.Series([\"$45,000 \"])\npenalty = penalty.str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(penalty.iloc[0])\n",
+      "tests": "assert float(penalty.iloc[0]) == 45000.0, f\"expected 45000.0, got {penalty.iloc[0]}\"\n",
+      "test_summary": "Checks the cleaned value is 45000.0.",
+      "glossary": [
+        "str-methods",
+        "astype",
+        "cleaning"
+      ],
+      "expected_output": "45000.0"
+    },
+    {
+      "id": "da2-violations-penalty-total",
+      "type": "write_from_scratch",
+      "title": "Clean the real penalty column and total it",
+      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Cleaning Data",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "line_count": 8,
+      "prompt": "Read the `penalty` column of `violations.csv` as text (`dtype={'penalty': str}`), strip the dollars sign, the commas and the spaces, convert it to floats (missing values may stay missing), then print the total **in billions of dollars**, rounded to two decimals:\n\n```python\nprint(round(data[\"penalty\"].sum() / 1e9, 2))\n```",
+      "hints": [
+        "`.str.strip()` then `.str.replace('$', '')` then `.str.replace(',', '')`.",
+        "Empty values become `NaN`, and `.sum()` skips `NaN` by default.",
+        "Divide by `1e9` to report billions."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"violations.csv\", dtype={\"penalty\": str}, parse_dates=[\"date\"])\ndata[\"penalty\"] = data[\"penalty\"].str.strip().str.replace(\"$\", \"\").str.replace(\",\", \"\").astype(float)\n\nprint(round(data[\"penalty\"].sum() / 1e9, 2))\n",
+      "tests": "assert str(data[\"penalty\"].dtype) == \"float64\", f\"penalty should be float, got {data['penalty'].dtype}\"\nassert len(data) == 68841\n",
+      "test_summary": "Checks the cleaned column is numeric and every row survived.",
+      "glossary": [
+        "cleaning",
+        "astype",
+        "pandas"
+      ],
+      "expected_output": "512.37",
+      "mode": "both"
+    },
+    {
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "easy",
+      "expected_output": "(5000, 8)",
+      "glossary": [
+        "read-excel",
+        "pandas",
+        "dataframe"
+      ],
+      "hints": [
+        "`read_excel(\"invoices.xlsx\")` (from analyticskit) picks an engine the browser has \u2014 pandas' own `pd.read_excel` would ask for openpyxl.",
+        "`.shape` is `(rows, columns)`."
+      ],
+      "id": "da3-load-invoices",
+      "line_count": 4,
+      "mode": "both",
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "`invoices.xlsx` is a workbook, not a CSV: it needs a spreadsheet reader: `read_excel` from `analyticskit`, which is imported for you (the in-browser Python reads .xlsx with python-calamine, not openpyxl).\n\nRead it into `data` and print `data.shape`.",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nprint(data.shape)\n",
+      "test_summary": "Checks the eight columns and that all 5,000 invoices loaded.",
+      "tests": "assert list(data.columns) == [\"InvoiceID\", \"Date\", \"PartName\", \"Model\", \"Quantity\", \"Price\", \"Amount\", \"High Price\"], f\"unexpected columns: {list(data.columns)}\"\nassert len(data) == 5000\n",
+      "title": "Open the invoices workbook",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Excel"
+      ],
+      "type": "write_from_scratch"
+    },
+    {
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "easy",
+      "expected_output": "1949.87",
+      "glossary": [
+        "median",
+        "summary-statistics",
+        "pandas"
+      ],
+      "hints": [
+        "`.median()` and `.mean()` are both Series methods.",
+        "`round(data['Amount'].median(), 2)` prints a tidy number."
+      ],
+      "id": "da3-median-amount",
+      "line_count": 4,
+      "mode": "both",
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "Load `invoices.xlsx` into `data` and print the **median** of the `Amount` column, rounded to two decimals.\n\nCompare it with `.mean()`: which one does the maximum pull away?",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nprint(round(data[\"Amount\"].median(), 2))\n",
+      "test_summary": "Checks the median is $1,949.87 and the maximum really is an outlier.",
+      "tests": "assert round(float(data[\"Amount\"].median()), 2) == 1949.87, f\"median should be 1949.87, got {data['Amount'].median()}\"\nassert data[\"Amount\"].max() > 1_000_000, \"the maximum is an outlier\"\n",
+      "title": "The median invoice is bigger than you think",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "type": "write_from_scratch"
+    },
+    {
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "easy",
+      "expected_output": "Mouse",
+      "glossary": [
+        "value-counts",
+        "summary-statistics",
+        "pandas"
+      ],
+      "hints": [
+        "`data.PartName.value_counts()` sorts the counts from high to low.",
+        "The first entry is the winner: `counts.index[0]`."
+      ],
+      "id": "da3-most-common-part",
+      "line_count": 5,
+      "mode": "both",
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "Load `invoices.xlsx` into `data`.\n\nUse `value_counts()` on `PartName` to find the part that appears most often, store that table in `counts`, and print the name of the top part.",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ncounts = data.PartName.value_counts()\nprint(counts.index[0])\n",
+      "test_summary": "Checks the most common part is Mouse and that it beats the runner-up.",
+      "tests": "assert counts.index[0] == \"Mouse\", f\"expected Mouse, got {counts.index[0]}\"\nassert counts.iloc[0] > counts.iloc[1], \"the winner must beat the runner-up\"\n",
+      "title": "Which part do people buy most?",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "type": "write_from_scratch"
+    },
+    {
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "medium",
+      "expected_output": "7",
+      "glossary": [
+        "groupby",
+        "dt-accessor",
+        "pandas"
+      ],
+      "hints": [
+        "`data['Date'].dt.month` gives the month number for every row.",
+        "`data.groupby('month')['Amount'].max()` gives one number per month.",
+        "`.idxmax()` returns the label with the largest value."
+      ],
+      "id": "da3-monthly-spike",
+      "line_count": 7,
+      "mode": "both",
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "Load `invoices.xlsx` into `data`.\n\nAdd a `month` column (`data.Date.dt.month`), group by it and take the maximum `Amount` per month. Print the month number whose maximum is the largest.",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ndata[\"month\"] = data.Date.dt.month\nmonthly = data.groupby(\"month\")[\"Amount\"].max()\nprint(monthly.idxmax())\n",
+      "test_summary": "Checks the grouped maximum points at July.",
+      "tests": "assert int(data[\"month\"].max()) <= 12\nassert int(monthly.idxmax()) == 7, f\"July has the spike, got {monthly.idxmax()}\"\n",
+      "title": "Find the month with the biggest invoice",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "type": "write_from_scratch"
+    },
+    {
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "hard",
+      "expected_output": "T13839563",
+      "glossary": [
+        "boolean-mask",
+        "value-counts",
+        "pandas"
+      ],
+      "hints": [
+        "Two conditions again: `data[(data.month == 7) & (data.Amount > 10000)]`.",
+        "`value_counts()` on an id column counts how many line items each invoice has."
+      ],
+      "id": "da3-july-bulk-order",
+      "line_count": 8,
+      "mode": "both",
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "Load `invoices.xlsx` into `data`, add the `month` column, and keep the July rows whose `Amount` is above `10,000` in a DataFrame called `july`.\n\nPrint `july['InvoiceID'].value_counts().index[0]` \u2014 the invoice number that stands out.\n\nThen look at its quantities: are they plausible for a single order?",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ndata[\"month\"] = data.Date.dt.month\njuly = data[(data.month == 7) & (data.Amount > 10000)]\n\nprint(july[\"InvoiceID\"].value_counts().index[0])\n",
+      "test_summary": "Checks the July filter and that the flagged invoice has several large line items.",
+      "tests": "assert len(july) > 0\nassert july[\"Amount\"].min() > 10000\nassert july[\"InvoiceID\"].value_counts().iloc[0] >= 4, \"the odd invoice has several line items\"\n",
+      "title": "Investigate the July bulk order",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "type": "write_from_scratch"
+    },
+    {
+      "blanks": [
+        {
+          "accepted": [
+            "mean",
+            "mean()"
+          ],
+          "hint": "For a 0/1 column, the average *is* the share."
+        }
+      ],
+      "data_files": {
+        "analyticskit.py": "materials/analyticskit.py",
+        "invoices.xlsx": "materials/datasets/invoices.xlsx"
+      },
+      "difficulty": "medium",
+      "expected_output": "18.00%",
+      "glossary": [
+        "mean",
+        "summary-statistics",
+        "pandas"
+      ],
+      "hints": [
+        "The mean of a column of zeros and ones is the proportion of ones.",
+        "`.mean()` ignores nothing here \u2014 every row has a value."
+      ],
+      "id": "da3-high-price-share",
+      "line_count": 5,
+      "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ],
+      "prompt": "`High Price` is a 0/1 column. Fill in the blanks so the cell prints the share of rows that are high price, formatted as a percentage with two decimals (`18.00%`).",
+      "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nshare = data[\"High Price\"].mean()\nprint(f\"{share:.2%}\")\n",
+      "starter_code": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nshare = data[\"High Price\"].___(0.18)\nprint(f\"{share:.2%}\")\n",
+      "test_summary": "Checks the high-price share is 18%.",
+      "tests": "assert abs(float(data[\"High Price\"].mean()) - 0.18) < 0.001, \"about 18% of invoices are high price\"\n",
+      "title": "What share of invoices are high price?",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "type": "fill_in_blank"
+    },
+    {
+      "id": "da4-read-and-merge-files",
+      "type": "write_from_scratch",
+      "title": "Merge three CSV files on the ticker",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "earnings.csv": "materials/datasets/earnings.csv",
+        "exchange.csv": "materials/datasets/exchange.csv",
+        "company_names.csv": "materials/datasets/company_names.csv"
+      },
+      "line_count": 8,
+      "prompt": "Three files sit in the working directory: `earnings.csv` (ticker, fpe, eps, revenue), `exchange.csv` (ticker, exchg, exchange, country) and `company_names.csv` (tic, conm, cusip, sic).\n\nMerge them into a single DataFrame `data`: `earnings` with `exchange` on `ticker`, then with `company_names` **after renaming its `tic` column to `ticker`**. Print `data.shape`.",
+      "hints": [
+        "`pd.read_csv('earnings.csv', parse_dates=['fpe'])` reads the first file.",
+        "`pd.merge(left, right, on='ticker')` joins two frames.",
+        "`company = company.rename(columns={'tic': 'ticker'})` makes the third key match."
+      ],
+      "solution": "import pandas as pd\n\nearnings = pd.read_csv(\"earnings.csv\", parse_dates=[\"fpe\"])\nexchange = pd.read_csv(\"exchange.csv\")\ncompany = pd.read_csv(\"company_names.csv\").rename(columns={\"tic\": \"ticker\"})\n\ndata = pd.merge(earnings, exchange, on=\"ticker\")\ndata = pd.merge(data, company, on=\"ticker\")\nprint(data.shape)\n",
+      "tests": "assert len(data) == len(earnings), \"every earnings row must find its exchange and name\"\nassert \"conm\" in data.columns and \"exchange\" in data.columns\n",
+      "test_summary": "Checks the two merges keep every earnings row and add both extra columns.",
+      "glossary": [
+        "merge",
+        "rename",
+        "pandas"
+      ],
+      "expected_output": "(544, 10)",
+      "mode": "both"
+    },
+    {
+      "id": "da4-concat-degrees",
+      "type": "write_from_scratch",
+      "title": "Concatenate every degrees file",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "Files"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv"
+      },
+      "line_count": 9,
+      "prompt": "The working directory holds several files whose names start with `degrees-that-pay-back`.\n\nCollect *all* of them with `glob.glob('degrees-that-pay-back*.csv')`, read each one, concatenate them into `df` with a fresh index, and print `df.shape`.",
+      "hints": [
+        "`import glob` then `glob.glob('degrees-that-pay-back*.csv')` lists the matching files.",
+        "A list comprehension reads them: `[pd.read_csv(f) for f in files]`.",
+        "`pd.concat(frames, ignore_index=True)` stacks them with a clean index."
+      ],
+      "solution": "import glob\nimport pandas as pd\n\nfiles = glob.glob(\"degrees-that-pay-back*.csv\")\nframes = [pd.read_csv(path) for path in files]\ndf = pd.concat(frames, ignore_index=True)\n\nprint(df.shape)\n",
+      "tests": "assert len(files) >= 2, \"both degrees files must be found\"\nassert list(df.index) == list(range(len(df))), \"ignore_index=True gives a fresh index\"\nassert \"Major\" in df.columns\n",
+      "test_summary": "Checks every matching file was found, stacked with a fresh index and readable columns.",
+      "glossary": [
+        "concat",
+        "pandas",
+        "dataframe"
+      ],
+      "expected_output": "(40, 6)",
+      "mode": "both"
+    },
+    {
+      "id": "da4-left-join-spend",
+      "type": "write_from_scratch",
+      "title": "A left join that keeps the sales rows",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 10,
+      "prompt": "`sales` and `spend` are given below. Merge them on **both** `product_id` and `month` with `how='left'` so that every sales row is kept, even where no spend was recorded.\n\nPrint how many rows have a missing `spend`.",
+      "hints": [
+        "`pd.merge(sales, spend, on=['product_id', 'month'], how='left')`.",
+        "A missing value after a left join appears as `NaN`, found with `.isna()`."
+      ],
+      "solution": "import pandas as pd\n\nsales = pd.DataFrame({\"product_id\": [1, 2, 1, 3, 3], \"month\": [\"2025-01\", \"2025-01\", \"2025-02\", \"2025-02\", \"2025-03\"], \"sales\": [500, 300, 700, 400, 200]})\nspend = pd.DataFrame({\"product_id\": [1, 2, 1, 3, 2], \"month\": [\"2025-01\", \"2025-01\", \"2025-02\", \"2025-02\", \"2025-03\"], \"spend\": [100, 50, 120, 80, 60]})\n\ndf = pd.merge(sales, spend, on=[\"product_id\", \"month\"], how=\"left\")\nprint(df[\"spend\"].isna().sum())\n",
+      "tests": "assert len(df) == len(sales), f\"a left join keeps {len(sales)} rows, got {len(df)}\"\nassert int(df[\"spend\"].isna().sum()) == 1, f\"one row has no spend, got {int(df['spend'].isna().sum())}\"\n",
+      "test_summary": "Checks the left join keeps every sales row and leaves exactly one spend missing.",
+      "glossary": [
+        "merge",
+        "left-join",
+        "missing-values"
+      ],
+      "expected_output": "1",
+      "mode": "both"
+    },
+    {
+      "id": "da4-export-to-delimited",
+      "type": "fill_in_blank",
+      "title": "Export with a pipe delimiter",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Files",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 6,
+      "prompt": "Fill in the blanks so the DataFrame is written to `mydata.txt` with `|` as the separator and no index column, then read back with `pd.read_csv` using the same separator.\n\nPrint the column names of the file you just wrote.",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\"], \"sales\": [12000, 7000]})\ndf.to_csv(\"mydata.txt\", sep=___, index=___)\nback = pd.read_csv(\"mydata.txt\", sep=\"|\")\n\nprint(list(back.columns))\n",
+      "blanks": [
+        {
+          "accepted": [
+            "'|'",
+            "\"|\""
+          ],
+          "hint": "The separator is a pipe character."
+        },
+        {
+          "accepted": [
+            "False",
+            "None"
+          ],
+          "hint": "The index should not be written."
+        }
+      ],
+      "hints": [
+        "`sep` takes the character between fields.",
+        "`index=False` stops pandas writing the row numbers."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\"], \"sales\": [12000, 7000]})\ndf.to_csv(\"mydata.txt\", sep=\"|\", index=False)\nback = pd.read_csv(\"mydata.txt\", sep=\"|\")\n\nprint(list(back.columns))\n",
+      "glossary": [
+        "to-csv",
+        "read-csv",
+        "pandas"
+      ],
+      "expected_output": "['employee', 'sales']"
+    },
+    {
+      "id": "da5-load-and-merge-industry",
+      "type": "write_from_scratch",
+      "title": "Attach industry names to compustat",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 6,
+      "prompt": "`compustat.csv` has firm fundamentals keyed by `sic` (industry code). `sic_indnames.csv` maps each `sic` to an `industry` name.\n\nRead both, merge them with a **left** join on `sic`, and print the number of distinct industries.",
+      "hints": [
+        "`pd.read_csv('compustat.csv', parse_dates=['datadate'])` for the first file.",
+        "`pd.merge(data, sic_indnames, on='sic', how='left')`.",
+        "`data['industry'].nunique()` counts the distinct names."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\nsic_indnames = pd.read_csv(\"sic_indnames.csv\")\ndata = pd.merge(data, sic_indnames, on=\"sic\", how=\"left\")\n\nprint(data[\"industry\"].nunique())\n",
+      "tests": "assert data[\"industry\"].notna().all(), \"every row should find its industry name\"\nassert data[\"industry\"].nunique() > 5\n",
+      "test_summary": "Checks every row got an industry name and that several industries are present.",
+      "glossary": [
+        "merge",
+        "pandas",
+        "left-join"
+      ],
+      "expected_output": "30",
+      "mode": "both"
+    },
+    {
+      "id": "da5-computers-leverage",
+      "type": "write_from_scratch",
+      "title": "Leverage in the Computers industry",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Summary Statistics"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 8,
+      "prompt": "A firm's **leverage** is its liabilities (`lt`) divided by its assets (`at`).\n\nThe Computers industry has `sic == 3571`. Build the leverage column for those firms and print the **median leverage**, rounded to three decimals.",
+      "hints": [
+        "Filter first: `computers = data[data.sic == 3571]`.",
+        "Creating a column is arithmetic on two Series: `computers['leverage'] = computers['lt'] / computers['at']`.",
+        "`round(computers['leverage'].median(), 3)` prints the answer."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ncomputers = data[data.sic == 3571]\ncomputers[\"leverage\"] = computers[\"lt\"] / computers[\"at\"]\n\nprint(round(computers[\"leverage\"].median(), 3))\n",
+      "tests": "assert len(computers) > 0, \"the Computers industry must have rows\"\nassert (computers[\"leverage\"] > 0).all() and (computers[\"leverage\"] < 1).all(), \"leverage should sit between 0 and 1\"\n",
+      "test_summary": "Checks the filtered frame is non-empty and leverage lies between 0 and 1.",
+      "glossary": [
+        "summary-statistics",
+        "median",
+        "pandas"
+      ],
+      "expected_output": "0.498",
+      "mode": "both"
+    },
+    {
+      "id": "da5-banks-most-leveraged",
+      "type": "write_from_scratch",
+      "title": "Which industry is the most leveraged?",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Summary Statistics"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 9,
+      "prompt": "Merge `compustat.csv` with `sic_indnames.csv` on `sic`, keep the rows whose `sic` is in `[6020, 4924, 3571, 1040, 5812, 3760, 5411]`, and add a `leverage` column (`lt / at`).\n\nGroup by `industry`, take the median leverage, and print the industry with the highest median.",
+      "hints": [
+        "`data['sic'].isin([...])` keeps a list of codes.",
+        "`industry_medians = subset.groupby('industry')['leverage'].median()`.",
+        "`.idxmax()` picks the largest, `.sort_values()` shows the order."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\nsic_indnames = pd.read_csv(\"sic_indnames.csv\")\ndata = pd.merge(data, sic_indnames, on=\"sic\", how=\"left\")\n\nsubset = data[data[\"sic\"].isin([6020, 4924, 3571, 1040, 5812, 3760, 5411])].copy()\nsubset[\"leverage\"] = subset[\"lt\"] / subset[\"at\"]\nmedians = subset.groupby(\"industry\")[\"leverage\"].median()\n\nprint(medians.idxmax())\n",
+      "tests": "assert len(medians) == 7, f\"seven industries are in the list, got {len(medians)}\"\nassert medians.idxmax() == \"Banks\", f\"banks borrow the most, got {medians.idxmax()}\"\n",
+      "test_summary": "Checks all seven industries are measured and Banks has the highest median leverage.",
+      "glossary": [
+        "groupby",
+        "median",
+        "pandas"
+      ],
+      "expected_output": "Banks",
+      "mode": "both"
+    },
+    {
+      "id": "da5-winsorize-mktcap",
+      "type": "write_from_scratch",
+      "title": "Winsorize market capitalization",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Outliers",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "line_count": 8,
+      "prompt": "`analyticskit.py` is in the working directory and defines `winsorize(values, lower_percentile, upper_percentile)`, which **caps** the tails while keeping every observation.\n\nWinsorize `mktcap` at the 5th and 95th percentiles into `mktcap_w` and print the maximum of the winsorized column, rounded to two decimals. Compare it with the raw maximum.",
+      "hints": [
+        "`from analyticskit import winsorize` \u2014 the notebook uses `from analyticskit import *`.",
+        "`data['mktcap_w'] = winsorize(data['mktcap'], lower_percentile=0.05, upper_percentile=0.95)`.",
+        "The winsorized maximum equals the 95th percentile of the raw column."
+      ],
+      "solution": "import pandas as pd\nfrom analyticskit import winsorize\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ndata[\"mktcap_w\"] = winsorize(data[\"mktcap\"], lower_percentile=0.05, upper_percentile=0.95)\n\nprint(round(data[\"mktcap_w\"].max(), 2))\n",
+      "tests": "assert len(data) == 10647, \"winsorizing keeps every row\"\nassert data[\"mktcap_w\"].max() < data[\"mktcap\"].max(), \"the tail must be capped\"\nassert round(float(data[\"mktcap_w\"].max()), 2) == round(float(data[\"mktcap\"].quantile(0.95)), 2)\n",
+      "test_summary": "Checks no row was dropped, the cap is the 95th percentile and the tail shrank.",
+      "glossary": [
+        "outlier",
+        "percentile",
+        "winsorize"
+      ],
+      "expected_output": "24206.51",
+      "mode": "both"
+    },
+    {
+      "id": "da5-truncate-rows",
+      "type": "write_from_scratch",
+      "title": "Truncate instead of winsorize",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Outliers",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "line_count": 8,
+      "prompt": "`truncate()` in `analyticskit.py` **drops** the observations outside two percentiles instead of capping them.\n\nTruncate `mktcap` at the 5th and 95th percentiles into `mktcap_t` and print how many rows are left.",
+      "hints": [
+        "`from analyticskit import truncate`.",
+        "`data['mktcap_t'] = truncate(data['mktcap'], lower_percentile=0.05, upper_percentile=0.95)` leaves NaN for the dropped rows.",
+        "Count what survived with `data['mktcap_t'].notna().sum()`."
+      ],
+      "solution": "import pandas as pd\nfrom analyticskit import truncate\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ndata[\"mktcap_t\"] = truncate(data[\"mktcap\"], lower_percentile=0.05, upper_percentile=0.95)\n\nprint(data[\"mktcap_t\"].notna().sum())\n",
+      "tests": "assert data[\"mktcap_t\"].notna().sum() < len(data), \"truncating removes observations\"\nassert data[\"mktcap_t\"].notna().sum() > len(data) * 0.8, \"only the tails should go\"\n",
+      "test_summary": "Checks truncation removes the tails but keeps the bulk of the sample.",
+      "glossary": [
+        "outlier",
+        "truncate",
+        "missing-values"
+      ],
+      "expected_output": "9581",
+      "mode": "both"
+    },
+    {
+      "id": "da5-mktcap-percentiles",
+      "type": "fill_in_blank",
+      "title": "Describe the tails of market cap",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv"
+      },
+      "line_count": 6,
+      "prompt": "Fill in the blanks so the cell prints the 99th percentile of `mktcap`, rounded to the nearest thousand.\n\nCompare it with the maximum you get from `.max()` \u2014 this gap is why the notebook winsorizes.",
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\")\np99 = data[\"mktcap\"].___(0.99)\nprint(round(p99 / 1000) * ___)\n",
+      "blanks": [
+        {
+          "accepted": [
+            "quantile"
+          ],
+          "hint": "The Series method that returns a percentile of the data."
+        },
+        {
+          "accepted": [
+            "1000"
+          ],
+          "hint": "To round to the nearest thousand, undo the division with the same number."
+        }
+      ],
+      "hints": [
+        "`.quantile(0.99)` is the 99th percentile of the column.",
+        "Rounding to a thousand is `round(value / 1000) * 1000`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\")\np99 = data[\"mktcap\"].quantile(0.99)\nprint(round(p99 / 1000) * 1000)\n",
+      "glossary": [
+        "percentile",
+        "quantile",
+        "summary-statistics"
+      ],
+      "expected_output": "125000"
+    },
+    {
+      "id": "da6-region-average-charges",
+      "type": "write_from_scratch",
+      "title": "Which region pays the most?",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 6,
+      "prompt": "`insurance.csv` holds medical costs for 1,338 people (`age`, `sex`, `bmi`, `children`, `smoker`, `region`, `charges`).\n\nGroup by `region`, take the mean of `charges`, and print the region with the highest average.",
+      "hints": [
+        "`data.groupby('region')['charges'].mean()` gives one number per region.",
+        "`.idxmax()` returns the name of the largest."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"insurance.csv\")\nby_region = data.groupby(\"region\")[\"charges\"].mean()\n\nprint(by_region.idxmax())\n",
+      "tests": "assert len(by_region) == 4, f\"four regions, got {len(by_region)}\"\nassert by_region.idxmax() == \"southeast\", f\"expected southeast, got {by_region.idxmax()}\"\n",
+      "test_summary": "Checks all four regions are present and the southeast pays the most.",
+      "glossary": [
+        "groupby",
+        "mean",
+        "pandas"
+      ],
+      "expected_output": "southeast",
+      "mode": "both"
+    },
+    {
+      "id": "da6-ols-age-coefficient",
+      "type": "write_from_scratch",
+      "title": "Estimate the age coefficient yourself",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "NumPy"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 14,
+      "prompt": "The notebook fits `charges` on `age`, `bmi`, `children`, `male` and `smoke` with statsmodels. Ordinary least squares has a closed form, so you can do it with NumPy:\n\n1. Build the design matrix `X`: a column of ones, then `age`, `bmi`, `children`, `male`, `smoke`.\n2. Solve `numpy.linalg.lstsq(X, y, rcond=None)`.\n3. Print the coefficient on `age`, rounded to two decimals (`257.74` \u2014 each extra year of age costs about $258).",
+      "hints": [
+        "`np.where(df.sex == 'male', 1, 0)` builds the `male` indicator, and `df.smoke = np.where(df.smoker == 'yes', 1, 0)` the smoking one.",
+        "`np.column_stack([np.ones(len(df)), df[['age','bmi','children','male','smoke']].to_numpy()])` builds X.",
+        "`coefficients, *_ = np.linalg.lstsq(X, y, rcond=None)` \u2014 the first value is the list of coefficients, in the same order as the columns of X."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nfeatures = [\"age\", \"bmi\", \"children\", \"male\", \"smoke\"]\nX = np.column_stack([np.ones(len(df)), df[features].to_numpy()])\ny = df[\"charges\"].to_numpy()\n\ncoefficients, *_ = np.linalg.lstsq(X, y, rcond=None)\nprint(round(coefficients[1], 2))\n",
+      "tests": "assert abs(coefficients[0] - -12052.46) < 400, f\"the intercept should be about -12,052, got {coefficients[0]}\"\nassert abs(coefficients[5] - 23823) < 500, \"smoking is the big cost driver\"\nassert len(coefficients) == 6\n",
+      "test_summary": "Checks all six coefficients and that the smoking indicator dwarfs the others.",
+      "glossary": [
+        "regression",
+        "least-squares",
+        "numpy"
+      ],
+      "expected_output": "257.73",
+      "mode": "both"
+    },
+    {
+      "id": "da6-smoke-indicator",
+      "type": "fill_in_blank",
+      "title": "Build the regression indicators",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "NumPy"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 8,
+      "prompt": "Categorical text has to become numbers before it can go into a regression. Fill in the blanks so `male` is 1 for men and `smoke` is 1 for smokers, then print how many smokers there are.\n\n`numpy` is already imported as `np`.",
+      "starter_code": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, ___)\ndf[\"smoke\"] = np.where(df.smoker == ___, 1, 0)\n\nprint(df[\"smoke\"].sum())\n",
+      "blanks": [
+        {
+          "accepted": [
+            "0"
+          ],
+          "hint": "The other value of a 0/1 indicator is 0."
+        },
+        {
+          "accepted": [
+            "\"yes\"",
+            "'yes'"
+          ],
+          "hint": "The smoker column holds 'yes' and 'no'."
+        }
+      ],
+      "hints": [
+        "`np.where(condition, value_if_true, value_if_false)`.",
+        "The smoker column contains the strings 'yes' and 'no'."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nprint(df[\"smoke\"].sum())\n",
+      "tests": "assert int(df[\"smoke\"].sum()) == 274, f\"274 of the 1,338 people smoke, got {int(df['smoke'].sum())}\"\nassert abs(df[\"male\"].mean() - 0.505) < 0.01\n",
+      "test_summary": "Checks 274 smokers and a male share of about 50.5%.",
+      "glossary": [
+        "np-where",
+        "regression",
+        "indicator-column"
+      ],
+      "expected_output": "274"
+    },
+    {
+      "id": "da6-train-test-split",
+      "type": "write_from_scratch",
+      "title": "Split the sample the way the notebook does",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 7,
+      "prompt": "The notebook draws a 70% training sample with `df.sample(frac=0.7, random_state=73723)` and puts everything else in `test`.\n\nDo exactly that and print the number of rows in `train` \u2014 a single number. The seed makes it reproducible.",
+      "hints": [
+        "`train = df.sample(frac=0.7, random_state=73723)`.",
+        "`test = df.drop(train.index)` keeps the rows the sample did not take.",
+        "Print `len(train)`."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ntrain = df.sample(frac=0.7, random_state=73723)\ntest = df.drop(train.index)\n\nprint(len(train))\n",
+      "tests": "assert len(train) + len(test) == len(df), \"the two samples must cover every row\"\nassert abs(len(train) / len(df) - 0.7) < 0.01\n",
+      "test_summary": "Checks the split is about 70/30 and the two parts cover the whole file.",
+      "glossary": [
+        "train-test-split",
+        "regression",
+        "pandas"
+      ],
+      "expected_output": "937",
+      "mode": "both"
+    },
+    {
+      "id": "da6-lowest-excess-charges",
+      "type": "write_from_scratch",
+      "title": "Which region is cheapest once you adjust?",
+      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas",
+        "numpy"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "line_count": 14,
+      "prompt": "Fit the model with NumPy (column of ones, then `age`, `bmi`, `children`, `male`, `smoke`), predict `charges_hat`, and add a column `excess_charges = charges - charges_hat`.\n\nGroup by `region` and print the region with the **lowest** average excess charge \u2014 the region that pays less than its risk factors suggest.",
+      "hints": [
+        "`df['charges_hat'] = X @ coefficients` applies the fitted model.",
+        "`df['excess_charges'] = df['charges'] - df['charges_hat']`.",
+        "`df.groupby('region')['excess_charges'].mean().idxmin()` gives the cheapest region."
+      ],
+      "solution": "import numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"insurance.csv\")\ndf[\"male\"] = np.where(df.sex == \"male\", 1, 0)\ndf[\"smoke\"] = np.where(df.smoker == \"yes\", 1, 0)\n\nfeatures = [\"age\", \"bmi\", \"children\", \"male\", \"smoke\"]\nX = np.column_stack([np.ones(len(df)), df[features].to_numpy()])\ncoefficients, *_ = np.linalg.lstsq(X, df[\"charges\"].to_numpy(), rcond=None)\n\ndf[\"charges_hat\"] = X @ coefficients\ndf[\"excess_charges\"] = df[\"charges\"] - df[\"charges_hat\"]\n\nprint(df.groupby(\"region\")[\"excess_charges\"].mean().idxmin())\n",
+      "tests": "assert abs(df[\"excess_charges\"].mean()) < 1e-6, \"the residual should average to zero\"\nassert df.groupby(\"region\")[\"excess_charges\"].mean().idxmin() == \"southeast\", \"the southeast pays the least once risk factors are held constant\"\n",
+      "test_summary": "Checks the residuals average to zero and the southwest has the lowest average excess charge.",
+      "glossary": [
+        "regression",
+        "residual",
+        "groupby"
+      ],
+      "expected_output": "southeast",
+      "mode": "both"
     },
     {
       "id": "fix-loop-off-by-one",
@@ -2462,6 +3675,7 @@
         "while-loop",
         "loop"
       ],
+      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "prompt": "This Markdown file **is** an exercise \u2014 it lives in `problems/` next to the JSON files and is\nread by `python3 tools/build_index.py`.\n\nThe loop below should print the numbers `1 2 3` and then `done`. Right now it runs forever and\nnever prints `done`. Fix the loop so it stops after 3.\n\nExpected output:\n\n```\n1\n2\n3\ndone\n```",
       "starter_code": "counter = 0\n\nwhile counter <= 3:\n    print(counter)\n\nprint(\"done\")\n",
       "solution": "counter = 0\n\nwhile counter < 3:\n    counter += 1\n    print(counter)\n\nprint(\"done\")\n",

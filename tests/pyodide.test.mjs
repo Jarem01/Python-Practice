@@ -173,6 +173,33 @@ for (const problem of bundle.problems) {
   });
 }
 
+test("a persistent kernel keeps variables between cells, like Jupyter", { skip }, async () => {
+  // This is what the runnable notebooks in the Learning section rely on: cell 2
+  // sees what cell 1 defined, and "Restart kernel" wipes it again.
+  const instance = await runtime([]);
+  const cell = async (code, options = {}) => {
+    instance.globals.set(
+      "__fb_spec",
+      JSON.stringify({ code, tests: "", setup: "", stdin: "", lineLimit: 200000, persist: true, ...options }),
+    );
+    return JSON.parse(await instance.runPythonAsync("__fb_exec(__fb_spec)"));
+  };
+
+  const first = await cell("numbers = [1, 2, 3]\ntotal = sum(numbers)\nprint(total)", { resetKernel: true });
+  assert.equal(first.stdout, "6\n");
+
+  const second = await cell("print(numbers[0], total * 2)");
+  assert.equal(second.error, null, `the second cell must see the first cell's variables: ${second.error && second.error.message}`);
+  assert.equal(second.stdout, "1 12\n");
+
+  const restarted = await cell("print('name' in dir())", { resetKernel: true });
+  assert.equal(restarted.stdout, "False\n", "restarting the kernel forgets the variables");
+
+  // A cell that is not marked persistent must not leak into the shared kernel.
+  const isolated = await run({ code: "print('leak' in dir())", tests: "", setup: "", stdin: "", lineLimit: 200000 });
+  assert.equal(isolated.stdout, "False\n");
+});
+
 test("a broken starter that is not fixed is graded as incorrect", { skip }, async () => {
   const problem = bundle.problems.find((p) => p.id === "fix-loop-sum-1-to-5");
   assert.ok(problem, "the sample problem set must be present");

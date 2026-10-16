@@ -1,0 +1,230 @@
+{
+ "problems": [
+  {
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "easy",
+   "expected_output": "(5000, 8)",
+   "glossary": [
+    "read-excel",
+    "pandas",
+    "dataframe"
+   ],
+   "hints": [
+    "`read_excel(\"invoices.xlsx\")` (from analyticskit) picks an engine the browser has — pandas' own `pd.read_excel` would ask for openpyxl.",
+    "`.shape` is `(rows, columns)`."
+   ],
+   "id": "da3-load-invoices",
+   "line_count": 4,
+   "mode": "both",
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "`invoices.xlsx` is a workbook, not a CSV: it needs a spreadsheet reader: `read_excel` from `analyticskit`, which is imported for you (the in-browser Python reads .xlsx with python-calamine, not openpyxl).\n\nRead it into `data` and print `data.shape`.",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nprint(data.shape)\n",
+   "test_summary": "Checks the eight columns and that all 5,000 invoices loaded.",
+   "tests": "assert list(data.columns) == [\"InvoiceID\", \"Date\", \"PartName\", \"Model\", \"Quantity\", \"Price\", \"Amount\", \"High Price\"], f\"unexpected columns: {list(data.columns)}\"\nassert len(data) == 5000\n",
+   "title": "Open the invoices workbook",
+   "topics": [
+    "Data Analysis",
+    "pandas",
+    "Excel"
+   ],
+   "type": "write_from_scratch"
+  },
+  {
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "easy",
+   "expected_output": "1949.87",
+   "glossary": [
+    "median",
+    "summary-statistics",
+    "pandas"
+   ],
+   "hints": [
+    "`.median()` and `.mean()` are both Series methods.",
+    "`round(data['Amount'].median(), 2)` prints a tidy number."
+   ],
+   "id": "da3-median-amount",
+   "line_count": 4,
+   "mode": "both",
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "Load `invoices.xlsx` into `data` and print the **median** of the `Amount` column, rounded to two decimals.\n\nCompare it with `.mean()`: which one does the maximum pull away?",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nprint(round(data[\"Amount\"].median(), 2))\n",
+   "test_summary": "Checks the median is $1,949.87 and the maximum really is an outlier.",
+   "tests": "assert round(float(data[\"Amount\"].median()), 2) == 1949.87, f\"median should be 1949.87, got {data['Amount'].median()}\"\nassert data[\"Amount\"].max() > 1_000_000, \"the maximum is an outlier\"\n",
+   "title": "The median invoice is bigger than you think",
+   "topics": [
+    "Data Analysis",
+    "Summary Statistics",
+    "pandas"
+   ],
+   "type": "write_from_scratch"
+  },
+  {
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "easy",
+   "expected_output": "Mouse",
+   "glossary": [
+    "value-counts",
+    "summary-statistics",
+    "pandas"
+   ],
+   "hints": [
+    "`data.PartName.value_counts()` sorts the counts from high to low.",
+    "The first entry is the winner: `counts.index[0]`."
+   ],
+   "id": "da3-most-common-part",
+   "line_count": 5,
+   "mode": "both",
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "Load `invoices.xlsx` into `data`.\n\nUse `value_counts()` on `PartName` to find the part that appears most often, store that table in `counts`, and print the name of the top part.",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ncounts = data.PartName.value_counts()\nprint(counts.index[0])\n",
+   "test_summary": "Checks the most common part is Mouse and that it beats the runner-up.",
+   "tests": "assert counts.index[0] == \"Mouse\", f\"expected Mouse, got {counts.index[0]}\"\nassert counts.iloc[0] > counts.iloc[1], \"the winner must beat the runner-up\"\n",
+   "title": "Which part do people buy most?",
+   "topics": [
+    "Data Analysis",
+    "Summary Statistics",
+    "pandas"
+   ],
+   "type": "write_from_scratch"
+  },
+  {
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "medium",
+   "expected_output": "7",
+   "glossary": [
+    "groupby",
+    "dt-accessor",
+    "pandas"
+   ],
+   "hints": [
+    "`data['Date'].dt.month` gives the month number for every row.",
+    "`data.groupby('month')['Amount'].max()` gives one number per month.",
+    "`.idxmax()` returns the label with the largest value."
+   ],
+   "id": "da3-monthly-spike",
+   "line_count": 7,
+   "mode": "both",
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "Load `invoices.xlsx` into `data`.\n\nAdd a `month` column (`data.Date.dt.month`), group by it and take the maximum `Amount` per month. Print the month number whose maximum is the largest.",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ndata[\"month\"] = data.Date.dt.month\nmonthly = data.groupby(\"month\")[\"Amount\"].max()\nprint(monthly.idxmax())\n",
+   "test_summary": "Checks the grouped maximum points at July.",
+   "tests": "assert int(data[\"month\"].max()) <= 12\nassert int(monthly.idxmax()) == 7, f\"July has the spike, got {monthly.idxmax()}\"\n",
+   "title": "Find the month with the biggest invoice",
+   "topics": [
+    "Data Analysis",
+    "Summary Statistics",
+    "pandas"
+   ],
+   "type": "write_from_scratch"
+  },
+  {
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "hard",
+   "expected_output": "T13839563",
+   "glossary": [
+    "boolean-mask",
+    "value-counts",
+    "pandas"
+   ],
+   "hints": [
+    "Two conditions again: `data[(data.month == 7) & (data.Amount > 10000)]`.",
+    "`value_counts()` on an id column counts how many line items each invoice has."
+   ],
+   "id": "da3-july-bulk-order",
+   "line_count": 8,
+   "mode": "both",
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "Load `invoices.xlsx` into `data`, add the `month` column, and keep the July rows whose `Amount` is above `10,000` in a DataFrame called `july`.\n\nPrint `july['InvoiceID'].value_counts().index[0]` — the invoice number that stands out.\n\nThen look at its quantities: are they plausible for a single order?",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\ndata[\"month\"] = data.Date.dt.month\njuly = data[(data.month == 7) & (data.Amount > 10000)]\n\nprint(july[\"InvoiceID\"].value_counts().index[0])\n",
+   "test_summary": "Checks the July filter and that the flagged invoice has several large line items.",
+   "tests": "assert len(july) > 0\nassert july[\"Amount\"].min() > 10000\nassert july[\"InvoiceID\"].value_counts().iloc[0] >= 4, \"the odd invoice has several line items\"\n",
+   "title": "Investigate the July bulk order",
+   "topics": [
+    "Data Analysis",
+    "Summary Statistics",
+    "pandas"
+   ],
+   "type": "write_from_scratch"
+  },
+  {
+   "blanks": [
+    {
+     "accepted": [
+      "mean",
+      "mean()"
+     ],
+     "hint": "For a 0/1 column, the average *is* the share."
+    }
+   ],
+   "data_files": {
+    "analyticskit.py": "materials/analyticskit.py",
+    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+   },
+   "difficulty": "medium",
+   "expected_output": "18.00%",
+   "glossary": [
+    "mean",
+    "summary-statistics",
+    "pandas"
+   ],
+   "hints": [
+    "The mean of a column of zeros and ones is the proportion of ones.",
+    "`.mean()` ignores nothing here — every row has a value."
+   ],
+   "id": "da3-high-price-share",
+   "line_count": 5,
+   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "packages": [
+    "pandas",
+    "python-calamine"
+   ],
+   "prompt": "`High Price` is a 0/1 column. Fill in the blanks so the cell prints the share of rows that are high price, formatted as a percentage with two decimals (`18.00%`).",
+   "solution": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nshare = data[\"High Price\"].mean()\nprint(f\"{share:.2%}\")\n",
+   "starter_code": "import pandas as pd\nfrom analyticskit import read_excel\n\ndata = read_excel(\"invoices.xlsx\")\nshare = data[\"High Price\"].___(0.18)\nprint(f\"{share:.2%}\")\n",
+   "test_summary": "Checks the high-price share is 18%.",
+   "tests": "assert abs(float(data[\"High Price\"].mean()) - 0.18) < 0.001, \"about 18% of invoices are high price\"\n",
+   "title": "What share of invoices are high price?",
+   "topics": [
+    "Data Analysis",
+    "Summary Statistics",
+    "pandas"
+   ],
+   "type": "fill_in_blank"
+  }
+ ]
+}

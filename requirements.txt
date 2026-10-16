@@ -1,0 +1,24 @@
+# Python packages the tools, the notebooks and the tests need on a laptop.
+#
+# Everything except openpyxl is also what the in-browser Python (Pyodide) ships,
+# so a notebook that runs here runs in the browser too:
+#   * pandas, numpy, matplotlib  — used all over the course notebooks
+#   * statsmodels                — Data Analysis 6 (sm.OLS / sm.add_constant)
+#   * python-calamine            — pandas' engine for .xlsx; the browser has this
+#                                  one and not openpyxl, so materials/analyticskit.py
+#                                  picks whichever engine is installed
+#   * openpyxl                   — laptop-only, and only for building the material:
+#                                  tools/make_datasets.py writes invoices.xlsx with it
+#                                  and tests/test_datasets.py reads the workbook back.
+#                                  Nothing the site serves imports it.
+#
+# A notebook or exercise that needs a package outside this list will fail in the
+# browser even when it passes locally; declare it under "packages" in
+# data/curriculum.json and check whether Pyodide actually ships it.
+
+pandas
+numpy
+matplotlib
+statsmodels
+python-calamine
+openpyxl

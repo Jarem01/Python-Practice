@@ -1,0 +1,69 @@
+ticker,exchg,exchange,country
+AAPL,NASDAQ,Nasdaq Stock Market,CA
+MSFT,NYSE,New York Stock Exchange,US
+AMZN,AMEX,NYSE American,US
+GOOGL,NASDAQ,Nasdaq Stock Market,US
+META,NYSE,New York Stock Exchange,US
+TSLA,AMEX,NYSE American,CA
+NVDA,NASDAQ,Nasdaq Stock Market,US
+INTC,NYSE,New York Stock Exchange,US
+ORCL,AMEX,NYSE American,US
+IBM,NASDAQ,Nasdaq Stock Market,US
+CRM,NYSE,New York Stock Exchange,CA
+ADBE,AMEX,NYSE American,US
+JPM,NASDAQ,Nasdaq Stock Market,CA
+BAC,NYSE,New York Stock Exchange,US
+WFC,AMEX,NYSE American,US
+C,NASDAQ,Nasdaq Stock Market,CA
+GS,NYSE,New York Stock Exchange,US
+MS,AMEX,NYSE American,US
+AXP,NASDAQ,Nasdaq Stock Market,CA
+BLK,NYSE,New York Stock Exchange,CA
+JNJ,AMEX,NYSE American,US
+PFE,NASDAQ,Nasdaq Stock Market,US
+MRK,NYSE,New York Stock Exchange,US
+ABBV,AMEX,NYSE American,CA
+LLY,NASDAQ,Nasdaq Stock Market,US
+AMGN,NYSE,New York Stock Exchange,US
+TMO,AMEX,NYSE American,US
+MDT,NASDAQ,Nasdaq Stock Market,US
+BA,NYSE,New York Stock Exchange,US
+LMT,AMEX,NYSE American,US
+RTX,NASDAQ,Nasdaq Stock Market,US
+GD,NYSE,New York Stock Exchange,US
+HON,AMEX,NYSE American,CA
+CAT,NASDAQ,Nasdaq Stock Market,US
+DE,NYSE,New York Stock Exchange,US
+GE,AMEX,NYSE American,US
+GM,NASDAQ,Nasdaq Stock Market,US
+F,NYSE,New York Stock Exchange,CA
+WMT,AMEX,NYSE American,US
+TGT,NASDAQ,Nasdaq Stock Market,US
+COST,NYSE,New York Stock Exchange,US
+HD,AMEX,NYSE American,US
+LOW,NASDAQ,Nasdaq Stock Market,US
+CVX,NYSE,New York Stock Exchange,US
+XOM,AMEX,NYSE American,US
+COP,NASDAQ,Nasdaq Stock Market,US
+DUK,NYSE,New York Stock Exchange,US
+SO,AMEX,NYSE American,US
+DAL,NASDAQ,Nasdaq Stock Market,US
+UAL,NYSE,New York Stock Exchange,US
+FDX,AMEX,NYSE American,US
+UPS,NASDAQ,Nasdaq Stock Market,US
+UNP,NYSE,New York Stock Exchange,US
+T,AMEX,NYSE American,US
+VZ,NASDAQ,Nasdaq Stock Market,US
+TMUS,NYSE,New York Stock Exchange,US
+CMCSA,AMEX,NYSE American,US
+DIS,NASDAQ,Nasdaq Stock Market,US
+NFLX,NYSE,New York Stock Exchange,US
+SBUX,AMEX,NYSE American,US
+MCD,NASDAQ,Nasdaq Stock Market,US
+PG,NYSE,New York Stock Exchange,CA
+KO,AMEX,NYSE American,US
+PEP,NASDAQ,Nasdaq Stock Market,US
+NKE,NYSE,New York Stock Exchange,CA
+MMM,AMEX,NYSE American,US
+DOW,NASDAQ,Nasdaq Stock Market,US
+FCX,NYSE,New York Stock Exchange,US

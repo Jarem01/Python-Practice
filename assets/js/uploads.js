@@ -2,7 +2,7 @@
  * Uploaded course material, kept in this browser until it is committed to the
  * repository (see github.js / tools/import_materials.py).
  *
- * Uploads are visible in the teaching section immediately: the notebook viewer
+ * Uploads are visible in the learning section immediately: the notebook viewer
  * and the index read from here first, so material can be reviewed before it is
  * pushed. Everything is stored as text, so notebooks, scripts and CSV files all
  * work; very large files are refused with a clear message.
@@ -78,7 +78,7 @@ export function clearUploads() {
   lsSet(KEY, []);
 }
 
-/** Entries shaped like data/notebooks.json entries, for the teaching section. */
+/** Entries shaped like data/notebooks.json entries, for the learning section. */
 export function uploadsAsEntries() {
   return listUploads().map((upload) => ({
     ...upload.entry,
@@ -88,9 +88,17 @@ export function uploadsAsEntries() {
   }));
 }
 
-/** A manifest-shaped fragment so renderNotebookList can show pending uploads. */
-export function uploadsGroup(manifestTopics = {}) {
-  const entries = uploadsAsEntries();
+/**
+ * A manifest-shaped fragment so the learning pages can show what was saved in
+ * this browser but is not in the repository yet.
+ *
+ * @param {string[]} knownPaths  entries the built manifest already describes;
+ *   they are skipped, because the repository is the source of truth once a file
+ *   has been pushed.
+ */
+export function uploadsGroup(knownPaths = []) {
+  const known = new Set(knownPaths);
+  const entries = uploadsAsEntries().filter((entry) => !known.has(entry.path));
   if (!entries.length) return null;
   const byGroup = new Map();
   for (const entry of entries) {
@@ -102,7 +110,6 @@ export function uploadsGroup(manifestTopics = {}) {
   }
   return {
     entries,
-    topics: manifestTopics,
     groups: [...byGroup.values()].map((group) => ({
       name: group.name,
       title: group.name === "Your uploads" ? "Uploaded in this browser" : `${group.name} (uploaded)`,

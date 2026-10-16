@@ -1,165 +1,71 @@
 /**
- * Teaching section: reads the generated notebook manifest (data/notebooks.json),
- * fetches the raw .ipynb files and renders them in the browser. The original
- * notebooks are never modified — this only displays them.
+ * Learning section: reads the generated notebook manifest (data/notebooks.json)
+ * and fetches the raw .ipynb files. A notebook is opened by
+ * assets/js/notebook-runner.js, which turns every cell into a runnable one; the
+ * original .ipynb files are never modified.
  */
 
 import { PATHS, siteUrl } from "./config.js";
-import { el, escapeHtml, mdToHtml, pluralize, slugify } from "./util.js";
-
-const EXERCISE_WORDS =
-  /\b(exercise|exercises|task|tasks|assignment|practice|challenge|aufgabe|übung|opgave|oppgave|ödev|练习|习题|練習|問題|課題|연습)\b/i;
-
-const ANSI_RE = /\u001b\[[0-9;?]*[A-Za-z]|\u001b\][^\u0007]*\u0007/g;
-
-export function stripAnsi(text) {
-  return String(text ?? "").replace(ANSI_RE, "");
-}
+import { getUpload, uploadsGroup } from "./uploads.js";
+import { el, escapeHtml, pluralize, slugify } from "./util.js";
 
 let manifestCache = null;
 
+/**
+ * Add the material saved in this browser (upload.html → “Save to this browser”)
+ * to the generated manifest, so a notebook can be opened and run before it has
+ * been pushed to the repository. The generated entries win: once a file is in
+ * the repository, the built index is the source of truth for it.
+ */
+function withBrowserUploads(manifest) {
+  const fragment = uploadsGroup((manifest.notebooks || []).map((entry) => entry.path));
+  if (!fragment) return manifest;
+  const totals = manifest.totals || {};
+  return {
+    ...manifest,
+    notebooks: [...(manifest.notebooks || []), ...fragment.entries],
+    groups: [...fragment.groups, ...(manifest.groups || [])],
+    totals: { ...totals, notebooks: (totals.notebooks || 0) + fragment.entries.length },
+  };
+}
+
 export async function loadNotebookManifest({ force = false } = {}) {
-  if (manifestCache && !force) return manifestCache;
-  const response = await fetch(PATHS.notebooks, { cache: force ? "reload" : "no-cache" });
-  if (!response.ok) {
-    throw new Error(
-      `Could not read ${PATHS.notebooks} (HTTP ${response.status}). ` +
-        `Run "python3 tools/build_index.py" and serve the folder over HTTP.`,
-    );
+  if (!manifestCache || force) {
+    const response = await fetch(PATHS.notebooks, { cache: force ? "reload" : "no-cache" });
+    if (!response.ok) {
+      throw new Error(
+        `Could not read ${PATHS.notebooks} (HTTP ${response.status}). ` +
+          `Run "python3 tools/build_index.py" and serve the folder over HTTP.`,
+      );
+    }
+    manifestCache = await response.json();
   }
-  manifestCache = await response.json();
-  return manifestCache;
+  // Only the built index is cached: what this browser has uploaded can change
+  // while the page is open, so it is merged on every read.
+  return withBrowserUploads(manifestCache);
 }
 
 export async function loadNotebookFile(path) {
-  const response = await fetch(siteUrl(path), { cache: "no-cache" });
-  if (!response.ok) throw new Error(`Could not read ${path} (HTTP ${response.status})`);
-  return response.json();
+  try {
+    const response = await fetch(siteUrl(path), { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Could not read ${path} (HTTP ${response.status})`);
+    return await response.json();
+  } catch (error) {
+    // A notebook uploaded in this browser has no file in the repository yet.
+    const upload = getUpload(path);
+    if (upload && upload.text) return JSON.parse(upload.text);
+    throw error;
+  }
 }
 
 /* ------------------------------------------------------------ rendering --- */
 
-function injectHeadingIds(html, usedIds) {
-  const headings = [];
-  const out = html.replace(/<h([1-6])>([\s\S]*?)<\/h\1>/g, (_match, level, inner) => {
-    const text = inner.replace(/<[^>]+>/g, "").trim();
-    let id = slugify(text);
-    if (usedIds.has(id)) {
-      let n = 2;
-      while (usedIds.has(`${id}-${n}`)) n++;
-      id = `${id}-${n}`;
-    }
-    usedIds.add(id);
-    headings.push({ level: Number(level), text, id });
-    return `<h${level} id="${id}">${inner}</h${level}>`;
-  });
-  return { html: out, headings };
-}
-
-function sourceOf(cell) {
-  const source = cell.source ?? "";
-  return Array.isArray(source) ? source.join("") : String(source);
-}
-
-function imageOutput(data) {
-  const raw = data["image/png"] ?? data["image/jpeg"];
-  const mime = data["image/png"] ? "image/png" : "image/jpeg";
-  const base64 = Array.isArray(raw) ? raw.join("") : String(raw ?? "");
-  if (!base64) return null;
-  return `data:${mime};base64,${base64.replace(/\n/g, "")}`;
-}
-
-function renderOutputs(cell, container) {
-  for (const output of cell.outputs || []) {
-    const kind = output.output_type;
-    if (kind === "stream") {
-      const text = Array.isArray(output.text) ? output.text.join("") : String(output.text ?? "");
-      container.append(el("pre", { class: "out-stream", html: `<code>${escapeHtml(stripAnsi(text).replace(/\n$/, ""))}</code>` }));
-      continue;
-    }
-    if (kind === "execute_result" || kind === "display_data") {
-      const data = output.data || {};
-      const image = imageOutput(data);
-      if (data["text/plain"]) {
-        const text = Array.isArray(data["text/plain"]) ? data["text/plain"].join("") : String(data["text/plain"]);
-        container.append(el("pre", { html: `<code>${escapeHtml(stripAnsi(text).replace(/\n$/, ""))}</code>` }));
-      } else if (image) {
-        container.append(el("img", { class: "out-img", src: image, alt: "cell output" }));
-      } else if (data["text/html"]) {
-        container.append(el("div", { class: "small muted", text: "HTML output (shown as an image-free placeholder)" }));
-      }
-      continue;
-    }
-    if (kind === "error") {
-      const trace = stripAnsi((output.traceback || []).join("\n") || `${output.ename}: ${output.evalue}`);
-      container.append(el("pre", { class: "out-error", html: `<code>${escapeHtml(trace)}</code>` }));
-    }
-  }
-}
-
 /**
- * Render a parsed .ipynb document.
- * @returns {{element: HTMLElement, headings: Array, exerciseAnchors: Array}}
+ * Where a notebook opens. There is one view, and it is the runnable one; the
+ * `anchor` jumps straight to an exercise inside it.
  */
-export function renderNotebook(notebook, { glossaryBase = "glossary.html" } = {}) {
-  const root = el("div", { class: "notebook" });
-  const usedIds = new Set();
-  const headings = [];
-  const exerciseAnchors = [];
-  let cellIndex = 0;
-  let executionCount = 0;
-
-  for (const cell of notebook.cells || []) {
-    if (cell.cell_type === "markdown") {
-      const source = sourceOf(cell);
-      if (!source.trim()) {
-        cellIndex++;
-        continue;
-      }
-      const rendered = mdToHtml(source, { glossaryBase, headingIds: false });
-      const withIds = injectHeadingIds(rendered.html, usedIds);
-      headings.push(...withIds.headings);
-
-      const firstHeading = withIds.headings[0];
-      const isExercise = firstHeading && EXERCISE_WORDS.test(firstHeading.text);
-      if (isExercise) exerciseAnchors.push({ id: firstHeading.id, title: firstHeading.text });
-
-      const wrapper = el("div", { class: `cell md${isExercise ? " exercise-callout" : ""}` });
-      wrapper.append(el("div", { html: withIds.html }));
-      root.append(wrapper);
-      cellIndex++;
-      continue;
-    }
-
-    if (cell.cell_type === "code") {
-      executionCount += 1;
-      const code = sourceOf(cell).replace(/\n$/, "");
-      const label = cell.execution_count ? `In [${cell.execution_count}]` : `In [ ]`;
-      const cellEl = el("div", { class: "cell code" });
-      cellEl.append(el("div", { class: "cell-tag", text: label }));
-      cellEl.append(el("pre", { html: `<code>${escapeHtml(code)}</code>` }));
-      const outputs = el("div", { class: "cell out" });
-      renderOutputs(cell, outputs);
-      if (outputs.childNodes.length) cellEl.append(outputs);
-      root.append(cellEl);
-      cellIndex++;
-      continue;
-    }
-
-    // raw cells are shown as plain text so nothing is silently dropped
-    const raw = sourceOf(cell);
-    if (raw.trim()) root.append(el("pre", { html: `<code>${escapeHtml(raw)}</code>` }));
-    cellIndex++;
-  }
-
-  if (!root.childNodes.length) {
-    root.append(el("p", { class: "muted", text: "This notebook is empty." }));
-  }
-  return { element: root, headings, exerciseAnchors, cells: executionCount };
-}
-
 export function notebookUrl(path, { base = "", anchor = "" } = {}) {
-  const url = `${base}teaching/view.html?nb=${encodeURIComponent(path)}`;
+  const url = `${base}learning/view.html?nb=${encodeURIComponent(path)}`;
   return anchor ? `${url}#${anchor}` : url;
 }
 
@@ -169,20 +75,158 @@ export function jupyterLiteUrl(path, { jupyterLiteUrl = "", rawBaseUrl = "" } = 
   return `${jupyterLiteUrl}${jupyterLiteUrl.includes("?") ? "&" : "?"}fromURL=${encodeURIComponent(raw)}`;
 }
 
+/** The short course label ("Intro 2") — falls back to the group name. */
+function labelOf(notebook) {
+  return notebook.label || notebook.group || "";
+}
+
+/** The badges that say which course a notebook belongs to and where it lives. */
+function notebookBadges(notebook) {
+  const wrap = el("span", { class: "pill-row" });
+  wrap.append(el("span", { class: "badge", text: labelOf(notebook) }));
+  if (notebook.pending) {
+    wrap.append(
+      el("span", {
+        class: "badge",
+        text: "in this browser",
+        title: "Uploaded and kept in this browser — push it to the repository to keep it",
+      }),
+    );
+  }
+  return wrap;
+}
+
+/** How many practice exercises came from this notebook. */
+function practiceCount(notebook, problems) {
+  return problems.filter((problem) => problem.notebook === notebook.path).length;
+}
+
+function dataFileCount(notebook) {
+  return Object.keys(notebook.data_files || {}).length;
+}
+
+function notebookActions(notebook, { base, config, compact }) {
+  const actions = el("div", { class: "btn-row small" });
+  actions.append(
+    el("a", {
+      class: "btn small primary",
+      href: notebookUrl(notebook.path, { base }),
+      text: "Run",
+      title: "Open it as a runnable notebook",
+    }),
+  );
+  // A notebook that only exists in this browser has no file to link to, so the
+  // raw-file and JupyterLite buttons would be dead ends.
+  const lite = notebook.pending ? "" : jupyterLiteUrl(notebook.path, config);
+  if (lite) {
+    actions.append(el("a", { class: "btn small ghost", href: lite, text: "JupyterLite", target: "_blank", rel: "noopener noreferrer" }));
+  }
+  if (!compact && !notebook.pending) {
+    actions.append(el("a", { class: "btn small ghost", href: siteUrl(notebook.path), text: ".ipynb", target: "_blank", rel: "noopener noreferrer" }));
+  }
+  return actions;
+}
+
+function practiceLine(notebook, problems, base, { compact = false } = {}) {
+  const related = problems.filter((problem) => problem.notebook === notebook.path);
+  if (!related.length) {
+    return el("p", {
+      class: "tiny muted",
+      html: `No practice exercises for this section yet — <a href="${base}practice/index.html">browse the others</a>.`,
+    });
+  }
+  const shown = related.slice(0, compact ? 3 : 4);
+  return el("p", {
+    class: "small",
+    html:
+      `<span class="muted">Practice: </span>` +
+      shown.map((p) => `<a href="${base}practice/exercise.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.title)}</a>`).join(" · ") +
+      (related.length > shown.length
+        ? ` · <a href="${base}practice/index.html?assignment=${encodeURIComponent(notebook.path)}">more…</a>`
+        : ""),
+  });
+}
+
+/** One equal-height card, used in the grid layouts. */
+function notebookTile(notebook, { base, problems, config, compact }) {
+  const card = el("article", { class: "tile" });
+
+  const head = el("div", { class: "row-between" });
+  head.append(notebookBadges(notebook));
+  const count = practiceCount(notebook, problems);
+  head.append(
+    el("span", {
+      class: `badge${count ? " solved" : ""}`,
+      text: count ? `${count} exercise${count === 1 ? "" : "s"}` : "no exercises",
+    }),
+  );
+  card.append(head);
+
+  card.append(el("h3", {}, [el("a", { href: notebookUrl(notebook.path, { base }), text: notebook.title })]));
+
+  const metaBits = [
+    pluralize(notebook.cell_count, "cell"),
+    `${notebook.code_cell_count} code`,
+    notebook.exercises?.length ? pluralize(notebook.exercises.length, "exercise") : "",
+  ].filter(Boolean);
+  card.append(el("p", { class: "tiny muted", text: metaBits.join(" · ") }));
+
+  if (notebook.summary && !compact) card.append(el("p", { class: "small", text: notebook.summary }));
+
+  if (notebook.exercises?.length) {
+    card.append(
+      el("ul", {
+        class: "small",
+        html: notebook.exercises
+          .map(
+            (exercise) =>
+              `<li><a href="${notebookUrl(notebook.path, { base, anchor: exercise.anchor })}">${escapeHtml(exercise.title)}</a></li>`,
+          )
+          .join(""),
+      }),
+    );
+  }
+
+  card.append(practiceLine(notebook, problems, base, { compact }));
+  const foot = el("div", { class: "tile-foot" });
+  foot.append(notebookActions(notebook, { base, config, compact }));
+  card.append(foot);
+  return card;
+}
+
+/** The same list as a table, for scanning many notebooks at once. */
+function notebookTable(members, { base, problems, config }) {
+  const wrap = el("div");
+  const table = el("table", { class: "data-table" });
+  table.innerHTML =
+    "<thead><tr><th>Assignment</th><th>Notebook</th><th>Cells</th><th>Exercises</th><th>Practice</th><th>Data files</th><th>Open</th></tr></thead>";
+  const body = el("tbody");
+  for (const notebook of members) {
+    const count = practiceCount(notebook, problems);
+    const row = el("tr");
+    row.append(el("td", {}, [notebookBadges(notebook)]));
+    row.append(el("td", { class: "t-title" }, [el("a", { href: notebookUrl(notebook.path, { base }), text: notebook.title })]));
+    row.append(el("td", { class: "num", text: `${notebook.cell_count} (${notebook.code_cell_count} code)` }));
+    row.append(el("td", { class: "num", text: String(notebook.exercises?.length || 0) }));
+    row.append(el("td", { class: count ? "" : "muted", text: count ? String(count) : "none yet" }));
+    row.append(el("td", { class: "num", text: String(dataFileCount(notebook)) }));
+    const actions = el("td");
+    actions.append(notebookActions(notebook, { base, config, compact: true }));
+    row.append(actions);
+    body.append(row);
+  }
+  table.append(body);
+  wrap.append(table);
+  return wrap;
+}
+
 /**
  * List every notebook with the exercises found inside it, grouped by part.
- * Used by both index.html and teaching/index.html.
+ * Used by index.html and learning/index.html. `view` is "tiles" or "table".
  */
 export function renderNotebookList(container, manifest, options = {}) {
-  const {
-    base = "",
-    problems = [],
-    config = {},
-    emptyMessage = null,
-    compact = false,
-  } = options;
+  const { base = "", problems = [], config = {}, emptyMessage = null, compact = false, view = "tiles" } = options;
 
-  const problemsByIdMap = new Map(problems.map((p) => [p.id, p]));
   container.innerHTML = "";
 
   if (!manifest.notebooks?.length) {
@@ -192,7 +236,7 @@ export function renderNotebookList(container, manifest, options = {}) {
       `then run:</p><pre><code>python3 tools/build_index.py</code></pre>` +
       `<p class="small">This page reads the generated file <code>data/notebooks.json</code>. ` +
       `Any <code>.ipynb</code> anywhere in the repository is picked up, including files you drop in ` +
-      `through the <a href="upload.html">Add material</a> page.</p>`;
+      `through the <a href="${base}upload.html">Add material</a> page.</p>`;
     if (emptyMessage) notice.querySelector("p").textContent = emptyMessage;
     container.append(notice);
     return;
@@ -205,82 +249,28 @@ export function renderNotebookList(container, manifest, options = {}) {
     if (!members.length) continue;
 
     const section = el("section", { class: "stack" });
-    section.append(el("h2", { text: group.title || group.name }));
+    const heading = el("div", { class: "list-group" });
+    heading.append(el("h2", { text: group.title || group.name, style: "border:0;margin:0;padding:0;font-size:1.35rem" }));
+    heading.append(el("span", { class: "small muted", text: pluralize(members.length, "section") }));
+    section.append(heading);
 
-    const grid = el("div", { class: "grid cols-2" });
-    for (const notebook of members) {
-      const card = el("article", { class: "card" });
-
-      const titleLink = el("a", { href: notebookUrl(notebook.path, { base }), text: notebook.title });
-      card.append(el("h3", {}, [titleLink]));
-
-      const metaBits = [
-        pluralize(notebook.cell_count, "cell"),
-        `${notebook.code_cell_count} code`,
-        notebook.exercises?.length ? pluralize(notebook.exercises.length, "exercise") : "no exercises found",
-      ];
-      if (notebook.kernel) metaBits.push(notebook.kernel);
-      card.append(el("p", { class: "tiny muted", text: metaBits.join(" · ") }));
-
-      if (notebook.summary && !compact) {
-        card.append(el("p", { class: "small", text: notebook.summary }));
-      }
-
-      if (notebook.exercises?.length) {
-        const list = el("ul", { class: "small", html: notebook.exercises
-          .map(
-            (exercise) =>
-              `<li><a href="${notebookUrl(notebook.path, { base, anchor: exercise.anchor })}">${escapeHtml(exercise.title)}</a></li>`,
-          )
-          .join("") });
-        card.append(list);
-      }
-
-      const topics = notebook.matched_topics || [];
-      const related = [];
-      for (const topic of topics) {
-        for (const id of manifest.topics?.[topic]?.problems || []) {
-          const problem = problemsByIdMap.get(id);
-          if (problem) related.push(problem);
-        }
-      }
-      const uniqueRelated = [...new Map(related.map((p) => [p.id, p])).values()];
-
-      const actions = el("div", { class: "btn-row small" });
-      actions.append(el("a", { class: "btn small", href: notebookUrl(notebook.path, { base }), text: "Read" }));
-      const lite = jupyterLiteUrl(notebook.path, config);
-      if (lite) {
-        actions.append(el("a", { class: "btn small", href: lite, text: "JupyterLite", target: "_blank", rel: "noopener noreferrer" }));
-      }
-      actions.append(el("a", { class: "btn small ghost", href: siteUrl(notebook.path), text: ".ipynb", target: "_blank", rel: "noopener noreferrer" }));
-      card.append(actions);
-
-      if (uniqueRelated.length) {
-        card.append(
-          el("p", {
-            class: "small",
-            html:
-              `<span class="muted">Practice ${escapeHtml(topics.join(", "))}: </span>` +
-              uniqueRelated
-                .slice(0, 4)
-                .map((p) => `<a href="${base}practice/exercise.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.title)}</a>`)
-                .join(" · ") +
-              (uniqueRelated.length > 4
-                ? ` · <a href="${base}practice/index.html?topic=${encodeURIComponent(topics[0] || "")}">more…</a>`
-                : ""),
-          }),
-        );
-      }
-
-      grid.append(card);
+    if (view === "table") {
+      section.append(notebookTable(members, { base, problems, config }));
+    } else {
+      const grid = el("div", { class: "grid cols-3" });
+      for (const notebook of members) grid.append(notebookTile(notebook, { base, problems, config, compact }));
+      section.append(grid);
     }
-    section.append(grid);
     container.append(section);
   }
 }
 
-/** Fill the table of contents for a rendered notebook. */
-export function renderToc(container, headings, { base = "" } = {}) {
+/**
+ * Fill the table of contents for a rendered notebook. Exercise headings are
+ * marked, so the contents sidebar doubles as the exercise list.
+ * @param {Array<{index:number,title:string,anchor:string}>} exercises
+ */
+export function renderToc(container, headings, { exercises = [] } = {}) {
   container.innerHTML = "";
   // The class notebooks label each task with "#### Exercise 3", so level 4 has to
   // be in the contents or a notebook shows a single entry.
@@ -289,10 +279,14 @@ export function renderToc(container, headings, { base = "" } = {}) {
     container.append(el("p", { class: "tiny muted", text: "No headings in this notebook." }));
     return;
   }
+  const exerciseIds = new Set([...exercises.map((e) => e.anchor), ...exercises.map((e) => slugify(e.title))]);
   const list = el("ul");
   for (const heading of relevant) {
+    // The heading id may carry a suffix (the exercise anchor is taken by the
+    // group that holds the exercise), so the heading's own text is checked too.
+    const isExercise = exerciseIds.has(heading.id) || exerciseIds.has(slugify(heading.text));
     list.append(
-      el("li", { class: `lvl-${heading.level}` }, [
+      el("li", { class: `lvl-${heading.level}${isExercise ? " toc-exercise" : ""}` }, [
         el("a", { href: `#${heading.id}`, text: heading.text }),
       ]),
     );

@@ -68,16 +68,15 @@ export function renderTermChips(glossary, slugs, { base = "glossary.html" } = {}
   return chips ? `<div class="pill-row">${chips}</div>` : "";
 }
 
-/* ----------------------------------------------------------- page render -- */
-
 /**
  * Render the whole glossary into `container`.
  * @param {HTMLElement} container
  * @param {{entries: Array}} glossary
  * @param {Array} problems   used for "where is this used?" links
+ * @param {{groupBy?: "alpha"|"assignment", view?: "tiles"|"table", assignmentFor?: Function}} options
  */
 export function renderGlossaryPage(container, glossary, problems = [], options = {}) {
-  const { groupBy = "alpha", assignmentFor = null } = options;
+  const { groupBy = "alpha", view = "tiles", assignmentFor = null } = options;
   const { bySlug, aliasToSlug } = buildIndex(glossary.entries);
   const usage = new Map();
   // Which assignment(s) use each term: with this, the glossary can be read in
@@ -112,7 +111,7 @@ export function renderGlossaryPage(container, glossary, problems = [], options =
     return heading;
   };
 
-  if (groupBy !== "assignment") {
+  if (groupBy !== "assignment" && view !== "table") {
     // A–Z index
     const letters = [...new Set(glossary.entries.map((e) => e.term[0].toUpperCase()))].sort();
     const index = el("div", { class: "glossary-index" });
@@ -124,16 +123,8 @@ export function renderGlossaryPage(container, glossary, problems = [], options =
     container.append(index);
   }
 
-  const list = el("div", { class: "stack" });
-  let currentGroup = null;
-  for (const entry of glossary.entries) {
-    if (groupBy === "assignment") {
-      const group = termGroup(entry);
-      if (group.key !== currentGroup) {
-        currentGroup = group.key;
-        list.append(groupHeading(group));
-      }
-    }
+  /** One term as a card (tile view). */
+  const termCard = (entry) => {
     const card = el("section", { class: "card term-entry", id: entry.slug });
     const head = el("div", { class: "row-between" }, [
       el("h3", { html: escapeHtml(entry.term) }),
@@ -181,12 +172,66 @@ export function renderGlossaryPage(container, glossary, problems = [], options =
       );
     }
     card.append(links);
-    list.append(card);
+    return card;
+  };
+
+  /** One term as a table row (table view). */
+  const termRow = (entry) => {
+    const used = usage.get(entry.slug) || [];
+    const assignments = usedIn(entry);
+    const row = el("tr", { class: "term-entry term-row", id: entry.slug });
+    row.append(el("td", { class: "t-title", html: escapeHtml(entry.term) }));
+    row.append(el("td", { html: (entry.tags || []).map((t) => `<span class="badge">${escapeHtml(t)}</span>`).join(" ") }));
+    row.append(el("td", { html: md(entry.definition) }));
+    row.append(el("td", { text: assignments.map((a) => a.label).join(", ") }));
+    row.append(
+      el("td", {
+        html: used.length
+          ? used
+              .slice(0, 3)
+              .map((p) => `<a href="practice/exercise.html?id=${encodeURIComponent(p.id)}">${escapeHtml(p.title)}</a>`)
+              .join("<br>")
+          : '<span class="muted">—</span>',
+      }),
+    );
+    return row;
+  };
+
+  const list = el("div", { class: "stack" });
+  let currentGroup = null;
+  let table = null;
+  let tableBody = null;
+
+  const openTable = () => {
+    table = el("table", { class: "data-table" });
+    table.innerHTML =
+      "<thead><tr><th>Term</th><th>Tags</th><th>Definition</th><th>Used in</th><th>Practice</th></tr></thead>";
+    tableBody = el("tbody");
+    table.append(tableBody);
+    list.append(table);
+  };
+
+  for (const entry of glossary.entries) {
+    if (groupBy === "assignment") {
+      const group = termGroup(entry);
+      if (group.key !== currentGroup) {
+        currentGroup = group.key;
+        table = null;
+        list.append(groupHeading(group));
+      }
+    }
+    if (view === "table") {
+      if (!table) openTable();
+      tableBody.append(termRow(entry));
+    } else {
+      list.append(termCard(entry));
+    }
   }
   container.append(list);
 
   return { bySlug, aliasToSlug };
 }
+
 
 /** Scroll to a term, following alias links such as #mutability. */
 export function focusHash(container, glossary, hash = location.hash) {

@@ -1,12 +1,47 @@
 /**
- * teaching/view.html — renders one `.ipynb` file in the browser.
- * The notebook itself is never modified; this only displays it.
+ * learning/view.html — opens one `.ipynb` file as a runnable notebook in the
+ * browser (assets/js/notebook-runner.js). The file on disk is never modified.
  */
 
+import { dataFileHints, packageHints } from "./analyze.js";
 import { CONFIG, siteUrl } from "./config.js";
-import { loadNotebookFile, loadNotebookManifest, jupyterLiteUrl, renderNotebook, renderToc } from "./notebooks.js";
+import { loadNotebookFile, loadNotebookManifest, jupyterLiteUrl, renderToc } from "./notebooks.js";
+import { renderRunnableNotebook } from "./notebook-runner.js";
 import { loadProblems } from "./problems.js";
+import { listUploads } from "./uploads.js";
 import { el, escapeHtml, param, pluralize } from "./util.js";
+
+/** "2 data files", or nothing when the notebook needs no data. */
+function dataFileCount(entry) {
+  const count = Object.keys(entry.data_files || {}).length;
+  return count ? pluralize(count, "data file") : "";
+}
+
+/** Every cell's source, joined — what the notebook's code refers to. */
+function notebookSource(notebook) {
+  return (notebook.cells || [])
+    .map((cell) => {
+      const source = cell.source ?? "";
+      return Array.isArray(source) ? source.join("") : String(source);
+    })
+    .join("\n");
+}
+
+/**
+ * A notebook that only exists in this browser has no generated index entry, so
+ * what its code needs is read out of the code itself: the data files by the name
+ * the notebook opens them (matched against the uploads), and the Python packages
+ * by their imports.
+ */
+function dataFilesFromUploads(notebook) {
+  const wanted = new Set(dataFileHints(notebookSource(notebook)));
+  const files = {};
+  for (const upload of listUploads()) {
+    if (upload.kind === "notebook" || upload.kind === "script") continue;
+    if (wanted.has(upload.name)) files[upload.name] = upload.path;
+  }
+  return files;
+}
 
 async function main() {
   const host = document.getElementById("notebook");
@@ -63,20 +98,32 @@ async function main() {
     `${entry.code_cell_count} code`,
     entry.kernel,
     entry.exercises?.length ? pluralize(entry.exercises.length, "exercise") : "no exercises detected",
+    dataFileCount(entry),
   ].filter(Boolean);
   headerHost.append(el("p", { class: "small muted", text: meta.join(" · ") }));
   if (entry.summary) headerHost.append(el("p", { class: "small", text: entry.summary }));
 
+  if (entry.pending) {
+    headerHost.append(
+      el("div", {
+        class: "notice warn small",
+        html: "<p>This notebook was saved in this browser and is not in the repository yet. Its edits, outputs and exercises are kept here until you push it from the <a href=\"../upload.html\">Add material</a> page.</p>",
+      }),
+    );
+  }
+
   const actions = el("div", { class: "btn-row", style: "margin-top:.6rem" });
-  actions.append(el("a", { class: "btn small ghost", href: siteUrl(entry.path), text: "Open the raw .ipynb", target: "_blank", rel: "noopener noreferrer" }));
-  const lite = jupyterLiteUrl(entry.path, CONFIG);
+  if (!entry.pending) {
+    actions.append(el("a", { class: "btn small ghost", href: siteUrl(entry.path), text: "Open the raw .ipynb", target: "_blank", rel: "noopener noreferrer" }));
+  }
+  const lite = entry.pending ? "" : jupyterLiteUrl(entry.path, CONFIG);
   if (lite) {
     actions.append(el("a", { class: "btn small", href: lite, text: "Open in JupyterLite", target: "_blank", rel: "noopener noreferrer" }));
-  } else {
+  } else if (!entry.pending) {
     actions.append(
       el("span", {
         class: "tiny muted",
-        html: 'Set <code>jupyterLiteUrl</code> and <code>rawBaseUrl</code> in <code>assets/js/config.js</code> to add a “run this in the browser” button.',
+        html: 'Set <code>jupyterLiteUrl</code> and <code>rawBaseUrl</code> in <code>assets/js/config.js</code> to offer this notebook in JupyterLite as well.',
       }),
     );
   }
@@ -115,14 +162,20 @@ async function main() {
   } catch (error) {
     host.innerHTML =
       `<div class="notice bad"><p>${escapeHtml(error.message)}</p>` +
-      `<p class="small">Notebook files can only be fetched over HTTP. Start a local server in the repository root, e.g. <code>python3 -m http.server 8000</code>, then open <code>http://localhost:8000/teaching/view.html?nb=${encodeURIComponent(entry.path)}</code>.</p></div>`;
+      `<p class="small">Notebook files can only be fetched over HTTP. Start a local server in the repository root, e.g. <code>python3 -m http.server 8000</code>, then open <code>http://localhost:8000/learning/view.html?nb=${encodeURIComponent(entry.path)}</code>.</p></div>`;
     return;
   }
 
-  const rendered = renderNotebook(notebook, { glossaryBase: siteUrl("glossary.html") });
-  host.innerHTML = "";
-  host.append(rendered.element);
-  renderToc(tocHost, rendered.headings);
+  // There is one way to read a notebook here: the way it runs. Every cell is an
+  // editor with a Run button, and the exercises inside it are boxed and grouped.
+  const runner = renderRunnableNotebook(host, notebook, {
+    path: entry.path,
+    dataFiles: entry.data_files || (entry.pending ? dataFilesFromUploads(notebook) : {}),
+    packages: entry.packages || (entry.pending ? packageHints(notebookSource(notebook)) : []),
+    exercises: entry.exercises || [],
+    glossaryBase: siteUrl("glossary.html"),
+  });
+  renderToc(tocHost, runner.headings, { exercises: entry.exercises || [] });
 
   const nav = el("div", { class: "row-between", style: "margin-top:2rem" });
   const left = el("div", { class: "btn-row" });

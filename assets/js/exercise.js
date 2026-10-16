@@ -563,7 +563,7 @@ function renderPrompt(problem) {
   if ((problem.topics || []).length) bits.push(problem.topics.join(" · "));
   if (problem.notebook) {
     bits.push(
-      `<a href="${siteUrl("teaching/view.html")}?nb=${encodeURIComponent(problem.notebook)}">from ${escapeHtml(assignmentForProblem(problem).label)}</a>`,
+      `<a href="${siteUrl("learning/view.html")}?nb=${encodeURIComponent(problem.notebook)}">from ${escapeHtml(assignmentForProblem(problem).label)}</a>`,
     );
   } else {
     bits.push("general practice");

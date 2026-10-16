@@ -37,13 +37,18 @@ export async function loadAssignments() {
   }
   for (const notebook of manifest.notebooks || []) {
     const title = plainText(notebook.title || notebook.path);
+    // Course order, not alphabetical: Intro 1–4 first, then Data Analysis 1–6.
+    // group_order holds the track (Intro = 1, Data Analysis = 2) and `part` the
+    // section number inside it, so multiplying keeps the tracks apart.
+    const track = Number(notebook.group_order ?? 900);
+    const part = Number(notebook.part ?? 999);
     cache.byPath.set(notebook.path, {
       key: notebook.path,
       path: notebook.path,
       group: notebook.group || "Notebooks",
-      order: notebook.group_order ?? 999,
+      order: track * 1000 + part,
       title,
-      label: shortLabel({ title, group: notebook.group, path: notebook.path }),
+      label: notebook.label || shortLabel({ title, group: notebook.group, path: notebook.path }),
       kind: notebook.kind || "notebook",
       exercises: (notebook.exercises || []).length,
     });
@@ -62,7 +67,7 @@ export function assignmentForPath(path) {
     key: String(path),
     path: String(path),
     group: "Other material",
-    order: 900,
+    order: 900000,
     title: name,
     label: name.replace(/\.ipynb$/i, "").slice(0, 60),
     kind: "unknown",
@@ -76,7 +81,7 @@ export function generalAssignment() {
     key: GENERAL_KEY,
     path: null,
     group: "Site exercises",
-    order: 950,
+    order: 950000,
     title: "Not from a notebook",
     label: "General exercises",
     kind: "general",
@@ -89,7 +94,7 @@ export function assignmentForProblem(problem) {
   return assignmentForPath(problem && problem.notebook);
 }
 
-/** Every assignment that the given exercises belong to, in teaching order. */
+/** Every assignment that the given exercises belong to, in course order. */
 export function assignmentsForProblems(problems) {
   const seen = new Map();
   for (const problem of problems) {
@@ -114,7 +119,7 @@ export function groupProblems(problems, mode = "assignment") {
     return assignmentForProblem(problem).key;
   };
   const metaOf = (problem) => {
-    if (mode === "topic") return { key: keyOf(problem), label: keyOf(problem), order: 500, group: "Topic" };
+    if (mode === "topic") return { key: keyOf(problem), label: keyOf(problem), order: 500000, group: "Topic" };
     return assignmentForProblem(problem);
   };
 

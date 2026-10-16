@@ -1,0 +1,153 @@
+{
+  "problems": [
+    {
+      "id": "da4-read-and-merge-files",
+      "type": "write_from_scratch",
+      "title": "Merge three CSV files on the ticker",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "earnings.csv": "materials/datasets/earnings.csv",
+        "exchange.csv": "materials/datasets/exchange.csv",
+        "company_names.csv": "materials/datasets/company_names.csv"
+      },
+      "line_count": 8,
+      "prompt": "Three files sit in the working directory: `earnings.csv` (ticker, fpe, eps, revenue), `exchange.csv` (ticker, exchg, exchange, country) and `company_names.csv` (tic, conm, cusip, sic).\n\nMerge them into a single DataFrame `data`: `earnings` with `exchange` on `ticker`, then with `company_names` **after renaming its `tic` column to `ticker`**. Print `data.shape`.",
+      "hints": [
+        "`pd.read_csv('earnings.csv', parse_dates=['fpe'])` reads the first file.",
+        "`pd.merge(left, right, on='ticker')` joins two frames.",
+        "`company = company.rename(columns={'tic': 'ticker'})` makes the third key match."
+      ],
+      "solution": "import pandas as pd\n\nearnings = pd.read_csv(\"earnings.csv\", parse_dates=[\"fpe\"])\nexchange = pd.read_csv(\"exchange.csv\")\ncompany = pd.read_csv(\"company_names.csv\").rename(columns={\"tic\": \"ticker\"})\n\ndata = pd.merge(earnings, exchange, on=\"ticker\")\ndata = pd.merge(data, company, on=\"ticker\")\nprint(data.shape)\n",
+      "tests": "assert len(data) == len(earnings), \"every earnings row must find its exchange and name\"\nassert \"conm\" in data.columns and \"exchange\" in data.columns\n",
+      "test_summary": "Checks the two merges keep every earnings row and add both extra columns.",
+      "glossary": [
+        "merge",
+        "rename",
+        "pandas"
+      ],
+      "expected_output": "(544, 10)",
+      "mode": "both"
+    },
+    {
+      "id": "da4-concat-degrees",
+      "type": "write_from_scratch",
+      "title": "Concatenate every degrees file",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "Files"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv"
+      },
+      "line_count": 9,
+      "prompt": "The working directory holds several files whose names start with `degrees-that-pay-back`.\n\nCollect *all* of them with `glob.glob('degrees-that-pay-back*.csv')`, read each one, concatenate them into `df` with a fresh index, and print `df.shape`.",
+      "hints": [
+        "`import glob` then `glob.glob('degrees-that-pay-back*.csv')` lists the matching files.",
+        "A list comprehension reads them: `[pd.read_csv(f) for f in files]`.",
+        "`pd.concat(frames, ignore_index=True)` stacks them with a clean index."
+      ],
+      "solution": "import glob\nimport pandas as pd\n\nfiles = glob.glob(\"degrees-that-pay-back*.csv\")\nframes = [pd.read_csv(path) for path in files]\ndf = pd.concat(frames, ignore_index=True)\n\nprint(df.shape)\n",
+      "tests": "assert len(files) >= 2, \"both degrees files must be found\"\nassert list(df.index) == list(range(len(df))), \"ignore_index=True gives a fresh index\"\nassert \"Major\" in df.columns\n",
+      "test_summary": "Checks every matching file was found, stacked with a fresh index and readable columns.",
+      "glossary": [
+        "concat",
+        "pandas",
+        "dataframe"
+      ],
+      "expected_output": "(40, 6)",
+      "mode": "both"
+    },
+    {
+      "id": "da4-left-join-spend",
+      "type": "write_from_scratch",
+      "title": "A left join that keeps the sales rows",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 10,
+      "prompt": "`sales` and `spend` are given below. Merge them on **both** `product_id` and `month` with `how='left'` so that every sales row is kept, even where no spend was recorded.\n\nPrint how many rows have a missing `spend`.",
+      "hints": [
+        "`pd.merge(sales, spend, on=['product_id', 'month'], how='left')`.",
+        "A missing value after a left join appears as `NaN`, found with `.isna()`."
+      ],
+      "solution": "import pandas as pd\n\nsales = pd.DataFrame({\"product_id\": [1, 2, 1, 3, 3], \"month\": [\"2025-01\", \"2025-01\", \"2025-02\", \"2025-02\", \"2025-03\"], \"sales\": [500, 300, 700, 400, 200]})\nspend = pd.DataFrame({\"product_id\": [1, 2, 1, 3, 2], \"month\": [\"2025-01\", \"2025-01\", \"2025-02\", \"2025-02\", \"2025-03\"], \"spend\": [100, 50, 120, 80, 60]})\n\ndf = pd.merge(sales, spend, on=[\"product_id\", \"month\"], how=\"left\")\nprint(df[\"spend\"].isna().sum())\n",
+      "tests": "assert len(df) == len(sales), f\"a left join keeps {len(sales)} rows, got {len(df)}\"\nassert int(df[\"spend\"].isna().sum()) == 1, f\"one row has no spend, got {int(df['spend'].isna().sum())}\"\n",
+      "test_summary": "Checks the left join keeps every sales row and leaves exactly one spend missing.",
+      "glossary": [
+        "merge",
+        "left-join",
+        "missing-values"
+      ],
+      "expected_output": "1",
+      "mode": "both"
+    },
+    {
+      "id": "da4-export-to-delimited",
+      "type": "fill_in_blank",
+      "title": "Export with a pipe delimiter",
+      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Files",
+        "pandas"
+      ],
+      "difficulty": "easy",
+      "packages": [
+        "pandas"
+      ],
+      "line_count": 6,
+      "prompt": "Fill in the blanks so the DataFrame is written to `mydata.txt` with `|` as the separator and no index column, then read back with `pd.read_csv` using the same separator.\n\nPrint the column names of the file you just wrote.",
+      "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\"], \"sales\": [12000, 7000]})\ndf.to_csv(\"mydata.txt\", sep=___, index=___)\nback = pd.read_csv(\"mydata.txt\", sep=\"|\")\n\nprint(list(back.columns))\n",
+      "blanks": [
+        {
+          "accepted": [
+            "'|'",
+            "\"|\""
+          ],
+          "hint": "The separator is a pipe character."
+        },
+        {
+          "accepted": [
+            "False",
+            "None"
+          ],
+          "hint": "The index should not be written."
+        }
+      ],
+      "hints": [
+        "`sep` takes the character between fields.",
+        "`index=False` stops pandas writing the row numbers."
+      ],
+      "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"employee\": [\"Alice\", \"Bob\"], \"sales\": [12000, 7000]})\ndf.to_csv(\"mydata.txt\", sep=\"|\", index=False)\nback = pd.read_csv(\"mydata.txt\", sep=\"|\")\n\nprint(list(back.columns))\n",
+      "glossary": [
+        "to-csv",
+        "read-csv",
+        "pandas"
+      ],
+      "expected_output": "['employee', 'sales']"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Teaching content — Python Practice</title>
+<title>Learning — Python Practice</title>
 <link rel="stylesheet" href="../assets/css/style.css">
 <script>
   try { const t = localStorage.getItem("pypractice:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -17,7 +17,7 @@
     <a class="brand" href="../index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
     <nav class="main">
       <a href="../index.html">Home</a>
-      <a href="index.html" aria-current="page">Teaching</a>
+      <a href="index.html" aria-current="page">Learning</a>
       <a href="../practice/index.html">Practice</a>
       <a href="../glossary.html">Glossary</a>
       <a href="../upload.html">Add material</a>
@@ -28,13 +28,16 @@
 </header>
 
 <main class="wrap" id="main">
-  <h1>Teaching content</h1>
+  <h1>Learning content</h1>
   <p>
-    The notebooks in this repository, organized by part. Nothing here is rewritten: the pages render the raw
-    <code>.ipynb</code> files in the browser, keeping markdown, code and the saved outputs.
+    The course in order: <strong>Intro 1–4</strong> first, then <strong>Data Analysis 1–6</strong>. Every notebook
+    opens as a live notebook: each cell can be edited and run in your browser, exactly like Jupyter, and the
+    exercises inside it are boxed so you can find them.
   </p>
 
-  <div id="teaching-summary"></div>
+  <div id="learning-summary"></div>
+
+  <div class="filters" id="view-bar"></div>
 
   <div id="notebooks"></div>
 
@@ -43,19 +46,19 @@
     <div id="topics"></div>
     <p class="small muted">
       A notebook is matched to a topic when the topic name (or a word of it) appears in the notebook's title, path or
-      markdown. Override any notebook's title, group or topics in <code>data/curriculum.json</code>, then re-run
-      <code>python3 tools/build_index.py</code>.
+      markdown. Override any notebook's title, label, group, order, topics or data files in
+      <code>data/curriculum.json</code>, then re-run <code>python3 tools/build_index.py</code>.
     </p>
   </section>
 </main>
 
 <footer class="site">
   <div class="wrap">
-    <p>Notebooks come straight from the repository and are displayed read-only.</p>
+    <p>Notebooks come straight from the repository. Running one never changes the file; your edits stay in this browser only.</p>
   </div>
 </footer>
 
-<script type="module" src="../assets/js/teaching-index.js"></script>
+<script type="module" src="../assets/js/learning-index.js"></script>
 <script type="module" src="../assets/js/theme.js"></script>
 </body>
 </html>

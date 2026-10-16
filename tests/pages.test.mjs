@@ -25,7 +25,7 @@ const root = path.resolve(here, "..");
 const bundle = JSON.parse(await readFile(path.join(root, "problems", "index.json"), "utf8"));
 const glossary = JSON.parse(await readFile(path.join(root, "data", "glossary.json"), "utf8"));
 const manifest = JSON.parse(await readFile(path.join(root, "data", "notebooks.json"), "utf8"));
-// The class notebooks are the teaching content now; tests use the first one.
+// The class notebooks are the learning content now; tests use the first one.
 const part1 = manifest.notebooks.find((n) => n.path.includes("Intro to Python (Part 1)"));
 const skip = JSDOM ? false : "jsdom is not installed (npm install --no-save jsdom)";
 
@@ -56,7 +56,13 @@ async function fetchFromDisk(url) {
   }
 }
 
-async function loadPage(htmlPath, modulePath, search = "") {
+/**
+ * Load one page in a fresh window and run its real module against it.
+ * @param {string} search    query string for the page URL
+ * @param {Function} [seed]  runs with the fresh window before the page module is
+ *   imported, for state the page expects to find in localStorage
+ */
+async function loadPage(htmlPath, modulePath, search = "", seed = null) {
   const html = await readFile(path.join(root, htmlPath), "utf8");
   const dom = new JSDOM(html, {
     url: `http://localhost/${htmlPath}${search}`,
@@ -64,6 +70,7 @@ async function loadPage(htmlPath, modulePath, search = "") {
     runScripts: "outside-only",
   });
   const { window } = dom;
+  if (seed) seed(window);
   window.Element.prototype.scrollIntoView = function scrollIntoView() {};
   window.scrollTo = () => {};
   if (!window.matchMedia) {
@@ -117,37 +124,186 @@ function type(window, element, value) {
 test("index.html renders stats, type cards and the notebook overview", { skip }, async () => {
   const page = await loadPage("index.html", "assets/js/home.js");
   try {
-    const stats = await waitFor(() => document.querySelectorAll("#stats .card").length && document.getElementById("stats"));
-    assert.ok(stats, "the stats cards should render");
-    const numbers = [...page.document.querySelectorAll("#stats .card div")]
+    const stats = await waitFor(() => document.querySelectorAll("#stats .tile").length && document.getElementById("stats"));
+    assert.ok(stats, "the stats tiles should render");
+    const numbers = [...page.document.querySelectorAll("#stats .tile-value")]
       .filter((n) => /^\d+$/.test(n.textContent))
       .map((n) => Number(n.textContent));
     assert.ok(numbers.includes(bundle.count), `problem count ${bundle.count} should appear in the stats`);
     assert.ok(numbers.includes(glossary.entries.length), "the glossary term count should appear");
 
-    assert.equal(page.document.querySelectorAll("#type-cards .card").length, 4, "one card per exercise type");
+    assert.equal(page.document.querySelectorAll("#type-cards .tile").length, 4, "one card per exercise type");
     assert.match(page.document.getElementById("recommended").textContent, /Start here|Continue where you left off|Revisit/);
+
+    // Practice coverage: one row per class section, in course order.
+    const coverage = page.document.getElementById("coverage");
+    const rows = [...coverage.querySelectorAll("tbody tr")];
+    assert.equal(rows.length, manifest.notebooks.length, "every section is listed in the coverage table");
+    assert.match(rows[0].textContent, /Intro 1/, "Intro comes first");
+    assert.match(rows[rows.length - 1].textContent, /Data Analysis 6/, "Data Analysis comes last");
+    assert.ok(
+      rows.every((row) => !/none yet/.test(row.textContent)),
+      "every section has practice exercises",
+    );
 
     const notebooks = page.document.getElementById("notebooks");
     assert.ok(part1, "the class notebooks are indexed");
-    assert.match(notebooks.textContent, /Introduction to Python \(Part 1\)/, "notebooks are listed by title");
+    assert.match(notebooks.textContent, /Intro 1 — Values, strings and lists/, "notebooks are listed by title");
+    assert.match(notebooks.textContent, /Intro 4/, "the Intro sections are labeled 1–4");
+    assert.match(notebooks.textContent, /Data Analysis 6/, "the Data Analysis sections are labeled too");
+    assert.ok(
+      notebooks.textContent.indexOf("Intro 1") < notebooks.textContent.indexOf("Data Analysis 1"),
+      "Intro is listed before Data Analysis",
+    );
     assert.match(
       notebooks.innerHTML,
-      new RegExp(`teaching/view\\.html\\?nb=${encodeURIComponent(part1.path).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`),
+      new RegExp(`learning/view\\.html\\?nb=${encodeURIComponent(part1.path).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`),
       "each notebook links to the in-browser viewer",
     );
     assert.ok(notebooks.textContent.includes(part1.exercises[0].title), "the notebook's exercises are listed");
     assert.match(notebooks.innerHTML, new RegExp(`#${part1.exercises[0].anchor}`), "links jump to the exercise anchor");
+
+    // Tiles or table — the learner picks, and the choice sticks.
+    const tableButton = [...page.document.querySelectorAll("#view-bar .view-toggle button")].find((b) => b.textContent === "Table");
+    assert.ok(tableButton, "the tile/table switch is offered");
+    click(page.window, tableButton);
+    assert.ok(page.document.querySelector("#notebooks .data-table"), "the table view renders a table");
+    assert.equal(page.document.querySelectorAll("#notebooks .tile").length, 0, "the tiles are replaced by the table");
+    assert.equal(page.window.localStorage.getItem("pypractice:view:learning"), "\"table\"");
+    const tileButton = [...page.document.querySelectorAll("#view-bar .view-toggle button")].find((b) => b.textContent === "Tiles");
+    click(page.window, tileButton);
+    assert.ok(page.document.querySelector("#notebooks .tile"), "switching back restores the tiles");
+
+    // The four exercise types are a tile grid too, with the same choice.
+    const typeTableButton = [...page.document.querySelectorAll("#type-view-bar .view-toggle button")].find((b) => b.textContent === "Table");
+    assert.ok(typeTableButton, "the type cards offer a table view as well");
+    click(page.window, typeTableButton);
+    const typeTable = page.document.querySelector("#type-cards .data-table");
+    assert.ok(typeTable, "the type table renders");
+    assert.equal(typeTable.querySelectorAll("tbody tr").length, 4, "one row per exercise type");
+    assert.equal(page.document.querySelectorAll("#type-cards .tile").length, 0, "the tiles are replaced");
   } finally {
     page.restore();
   }
 });
 
-test("teaching/index.html lists notebooks with their exercises and the topic map", { skip }, async () => {
-  const page = await loadPage("teaching/index.html", "assets/js/teaching-index.js");
+/** Every tile grid on the site is a grid, so a neighbor's caption cannot make
+ *  one tile taller than the next — the first-tile-is-bigger bug. */
+test("no page keeps its tiles outside a grid", { skip }, async () => {
+  const pages = [
+    ["index.html", "assets/js/home.js", "#stats .tile"],
+    ["index.html", "assets/js/home.js", "#type-cards .tile"],
+    ["index.html", "assets/js/home.js", "#notebooks .tile"],
+    ["learning/index.html", "assets/js/learning-index.js", "#notebooks .tile"],
+    ["practice/index.html", "assets/js/practice-list.js", "#problem-list .tile"],
+  ];
+  for (const [html, modulePath, selector] of pages) {
+    const page = await loadPage(html, modulePath);
+    try {
+      await waitFor(() => page.document.querySelector(selector), { timeout: 3000 });
+      const tiles = [...page.document.querySelectorAll(selector)];
+      assert.ok(tiles.length, `${selector} should render on ${html}`);
+      for (const tile of tiles) {
+        assert.ok(
+          tile.parentElement.classList.contains("grid"),
+          `every tile in ${selector} on ${html} must be a grid item, so they share one row height`,
+        );
+      }
+    } finally {
+      page.restore();
+    }
+  }
+});
+
+/** Every list can be read as tiles or as a table. The switch has to be on the
+ *  page, and it has to really swap the markup — not just remember a setting. */
+test("every list switches between tiles and a table", { skip }, async () => {
+  const surfaces = [
+    { html: "index.html", module: "assets/js/home.js", list: "#type-cards", bar: "#type-view-bar", card: ".tile" },
+    { html: "index.html", module: "assets/js/home.js", list: "#notebooks", bar: "#view-bar", card: ".tile" },
+    { html: "learning/index.html", module: "assets/js/learning-index.js", list: "#notebooks", bar: "#view-bar", card: ".tile" },
+    { html: "practice/index.html", module: "assets/js/practice-list.js", list: "#problem-list", bar: "#filters", card: ".tile" },
+    // A term's table row also carries .term-entry, on purpose: #slug links must keep
+    // working in both views, so the card is the <section> and the row is the <tr>.
+    { html: "glossary.html", module: "assets/js/glossary-page.js", list: "#glossary", bar: "#view-bar", card: "section.term-entry" },
+  ];
+
+  for (const surface of surfaces) {
+    const { html, module: modulePath, list, bar, card } = surface;
+    const where = `${list} on ${html}`;
+    const page = await loadPage(html, modulePath);
+    try {
+      const host = await waitFor(() => {
+        const node = page.document.querySelector(list);
+        return node && node.querySelector(card) ? node : null;
+      });
+      assert.ok(host, `${where} should show ${card} cards to begin with`);
+
+      const button = (value) => {
+        const found = page.document.querySelector(`${bar} .view-toggle button[data-value="${value}"]`);
+        assert.ok(found, `a "${value}" switch must be offered for ${where}`);
+        return found;
+      };
+
+      click(page.window, button("table"));
+      const table = await waitFor(() => host.querySelector(".data-table"));
+      assert.ok(table, `${where} should show a table after choosing Table`);
+      assert.ok(table.querySelectorAll("tbody tr").length > 0, `the table for ${where} must have rows`);
+      assert.equal(host.querySelectorAll(card).length, 0, `${where} must not still show cards in table view`);
+      assert.equal(button("table").getAttribute("aria-pressed"), "true", `the Table switch should read as selected on ${where}`);
+      assert.equal(button("tiles").getAttribute("aria-pressed"), "false", `the Tiles switch should read as unselected on ${where}`);
+
+      click(page.window, button("tiles"));
+      assert.ok(await waitFor(() => host.querySelector(card)), `${where} should go back to cards`);
+      assert.equal(host.querySelectorAll(".data-table").length, 0, `${where} must not still show a table in tiles view`);
+      assert.equal(button("tiles").getAttribute("aria-pressed"), "true", `the Tiles switch should read as selected on ${where}`);
+    } finally {
+      page.restore();
+    }
+  }
+});
+
+/** The notebooks are the lesson: a code cell with no saved output can only ever
+ *  show the code, which is the "it is just commented lines" problem. */
+test("every notebook ships with saved outputs for its cells", { skip }, async () => {
+  for (const entry of manifest.notebooks) {
+    const notebook = JSON.parse(await readFile(path.join(root, entry.path), "utf8"));
+    const code = (notebook.cells || []).filter((c) => c.cell_type === "code" && String(c.source || "").trim());
+    const withOutput = code.filter((c) => (c.outputs || []).length);
+    assert.ok(
+      withOutput.length >= 4,
+      `${entry.label} has only ${withOutput.length} cells with saved output of ${code.length}`,
+    );
+    assert.ok(
+      code.every((c) => c.execution_count != null),
+      `${entry.label}: every code cell must record when it ran`,
+    );
+  }
+});
+
+test("a notebook's saved plots are shown under their cells in the run view", { skip }, async () => {
+  const entry = manifest.notebooks.find((n) => (n.label || "").startsWith("Data Analysis 5"));
+  assert.ok(entry, "Data Analysis 5 is indexed");
+  const page = await loadPage("learning/view.html", "assets/js/learning-view.js", `?nb=${encodeURIComponent(entry.path)}`);
+  try {
+    await waitFor(() => page.document.querySelector("#notebook .cell.out"), { timeout: 5000 });
+    const image = page.document.querySelector("#notebook .cell.out img.out-img");
+    assert.ok(image, "the figure a plotting cell produced is inlined");
+    assert.match(image.getAttribute("src"), /^data:image\/png;base64,/);
+    assert.ok(
+      page.document.querySelectorAll("#notebook .cell.out").length >= 4,
+      "the saved stream and result outputs are shown under their cells",
+    );
+  } finally {
+    page.restore();
+  }
+});
+
+test("learning/index.html lists notebooks with their exercises and the topic map", { skip }, async () => {
+  const page = await loadPage("learning/index.html", "assets/js/learning-index.js");
   try {
     await waitFor(() => page.document.getElementById("notebooks").textContent.includes("Intro to Python"), { timeout: 3000 });
-    const summary = page.document.getElementById("teaching-summary").textContent;
+    const summary = page.document.getElementById("learning-summary").textContent;
     assert.match(summary, new RegExp(String(manifest.notebooks.length)), "every notebook is counted");
     const listed = page.document.getElementById("notebooks").textContent;
     assert.match(listed, /Data Analysis/);
@@ -160,17 +316,37 @@ test("teaching/index.html lists notebooks with their exercises and the topic map
   }
 });
 
-test("teaching/view.html renders a class notebook, its headings and the inline HTML", { skip }, async () => {
-  const page = await loadPage("teaching/view.html", "assets/js/teaching-view.js", `?nb=${encodeURIComponent(part1.path)}`);
+test("learning/view.html opens a class notebook ready to run, exercises included", { skip }, async () => {
+  const page = await loadPage("learning/view.html", "assets/js/learning-view.js", `?nb=${encodeURIComponent(part1.path)}`);
+  const document = page.document;
   try {
-    await waitFor(() => page.document.querySelector("#notebook .cell.md"), { timeout: 5000 });
-    const notebook = page.document.getElementById("notebook");
+    await waitFor(() => document.querySelector("#notebook .cell.code.runnable"), { timeout: 5000 });
+    const notebook = document.getElementById("notebook");
+
+    // There is one view of a notebook, and it is the runnable one: no read-only
+    // cells and no Read/Run switch are left.
+    assert.equal(document.querySelectorAll("#notebook .cell.code").length, part1.code_cell_count, "every code cell is rendered");
     assert.equal(
-      page.document.querySelectorAll("#notebook .cell.code").length,
+      document.querySelectorAll("#notebook .cell.code.runnable").length,
       part1.code_cell_count,
-      "every code cell is rendered",
+      "every code cell is runnable",
     );
+    assert.equal(document.querySelectorAll("#notebook .cell.code:not(.runnable)").length, 0, "nothing renders read-only");
+    assert.equal(
+      document.querySelectorAll("#notebook .cell.code.runnable textarea").length,
+      part1.code_cell_count,
+      "each runnable cell has an editor",
+    );
+    assert.equal(document.getElementById("mode-bar"), null, "the Read/Run switch is gone");
+    const bar = document.querySelector(".notebook-bar");
+    assert.match(bar.textContent, /Run all cells/);
+    assert.match(bar.textContent, /Restart kernel/);
+
+    // The notebook's own title cell is rendered as written; the page header uses
+    // the course label from data/curriculum.json.
     assert.match(notebook.querySelector("h1").textContent, /Introduction to Python \(Part 1\)/i);
+    const header = document.getElementById("notebook-header");
+    assert.match(header.textContent, /Intro 1 — Values, strings and lists/);
     assert.ok(!notebook.textContent.includes("\u001b["), "ANSI escapes are stripped from outputs");
 
     // The notebook writes `8<sup>3</sup>` in its markdown: it must render as a
@@ -180,22 +356,141 @@ test("teaching/view.html renders a class notebook, its headings and the inline H
     assert.equal(sup.textContent, "3");
     assert.ok(!notebook.textContent.includes("<sup>"), "raw markup never leaks into the page");
 
-    assert.match(page.document.getElementById("notebook-header").textContent, /Exercises in this notebook/);
-    const tocLinks = [...page.document.querySelectorAll("#toc a")].map((a) => a.getAttribute("href"));
-    assert.ok(tocLinks.length >= 2, "the table of contents lists the headings");
-    const callouts = page.document.querySelectorAll("#notebook .exercise-callout");
-    assert.ok(callouts.length >= 1, "exercise sections are highlighted in the notebook view");
-    assert.match(callouts[0].textContent, /Exercise/, "the highlighted section is an exercise");
+    // Every exercise is boxed, grouped with the cells that belong to it, and
+    // reachable from the list in the header.
+    assert.match(header.textContent, /Exercises in this notebook/);
+    const callouts = [...document.querySelectorAll("#notebook .exercise-callout")];
+    assert.equal(callouts.length, part1.exercises.length, "each exercise heading is boxed");
+    assert.match(callouts[0].textContent, /Exercise/, "the boxed section is an exercise");
+    assert.equal(
+      notebook.querySelector(".cell.md h1").closest(".exercise-callout"),
+      null,
+      "the notebook title is not boxed as an exercise",
+    );
+    const groups = [...document.querySelectorAll("#notebook .exercise-group")];
+    assert.equal(groups.length, part1.exercises.length, "each exercise has its own group");
+    assert.deepEqual(
+      groups.map((group) => group.id),
+      part1.exercises.map((exercise) => exercise.anchor),
+      "each group carries its exercise anchor",
+    );
+    for (const group of groups) {
+      assert.ok(group.querySelector(".cell.code.runnable"), "an exercise group holds the cells that belong to it");
+    }
+
+    const links = [...header.querySelectorAll('a[href^="#"]')];
+    assert.equal(links.length, part1.exercises.length, "the header lists every exercise");
+    for (const link of links) {
+      assert.ok(document.getElementById(link.getAttribute("href").slice(1)), `${link.getAttribute("href")} resolves`);
+    }
+    assert.ok(document.querySelectorAll("#toc a").length >= 2, "the table of contents lists the headings");
+    assert.equal(
+      document.querySelectorAll("#toc .toc-exercise").length,
+      part1.exercises.length,
+      "the contents marks the exercises",
+    );
+
+    // Edits are kept per notebook, in this browser.
+    const textarea = document.querySelector("#notebook .cell.code.runnable textarea");
+    type(page.window, textarea, "print('edited')");
+    const saved = JSON.parse(page.window.localStorage.getItem("pypractice:notebook-edit"));
+    assert.ok(Object.values(saved[part1.path]).includes("print('edited')"), "the edited cell is remembered");
   } finally {
     page.restore();
+  }
+});
+
+/**
+ * The upload page promises that material saved in this browser shows up in the
+ * learning section right away. This drives that whole path: the record the
+ * upload page stores, the learning index that lists it, and the viewer that opens
+ * it — with the data files and packages its code needs read out of the code.
+ */
+test("a notebook saved in this browser is listed and opens ready to run", { skip }, async () => {
+  const { analyzeNotebook } = await import("../assets/js/analyze.js");
+  const uploadPath = "materials/Uploaded track/pending-lesson.ipynb";
+  const csvPath = "materials/Uploaded track/insurance.csv";
+  const notebook = {
+    metadata: { kernelspec: { display_name: "Python 3" } },
+    cells: [
+      { cell_type: "markdown", source: "# A lesson I uploaded\n\n#### Exercise 1\n\nRead the file and show its first rows." },
+      {
+        cell_type: "code",
+        source: 'import pandas as pd\ndata = pd.read_csv("insurance.csv")\ndata.head()',
+        execution_count: 1,
+        outputs: [],
+      },
+    ],
+  };
+  const text = JSON.stringify(notebook);
+  const records = [
+    {
+      path: uploadPath,
+      name: "pending-lesson.ipynb",
+      kind: "notebook",
+      text,
+      entry: analyzeNotebook(notebook, uploadPath),
+      size: text.length,
+      addedAt: "2026-01-01T00:00:00.000Z",
+      source: "browser",
+    },
+    {
+      path: csvPath,
+      name: "insurance.csv",
+      kind: "text",
+      text: "age,charges\n18,16884\n",
+      entry: { path: csvPath, title: "insurance.csv" },
+      size: 21,
+      addedAt: "2026-01-01T00:00:00.000Z",
+      source: "browser",
+    },
+  ];
+  const seed = (window) => window.localStorage.setItem("pypractice:uploads", JSON.stringify(records));
+
+  const index = await loadPage("learning/index.html", "assets/js/learning-index.js", "", seed);
+  try {
+    await waitFor(() => index.document.getElementById("notebooks").textContent.includes("A lesson I uploaded"), { timeout: 3000 });
+    const listed = index.document.getElementById("notebooks");
+    assert.match(listed.textContent, /A lesson I uploaded/, "the upload is listed with the generated notebooks");
+    assert.match(listed.textContent, /in this browser/, "the upload is marked as stored here, not in the repository");
+    assert.match(listed.innerHTML, /Uploaded track \(uploaded\)/, "the upload gets its own group");
+    assert.match(
+      listed.innerHTML,
+      new RegExp(encodeURIComponent(uploadPath).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+      "its Run link points at the viewer",
+    );
+    assert.match(listed.textContent, /Intro 1/, "the repository notebooks are still listed");
+  } finally {
+    index.restore();
+  }
+
+  const view = await loadPage("learning/view.html", "assets/js/learning-view.js", `?nb=${encodeURIComponent(uploadPath)}`, seed);
+  try {
+    await waitFor(() => view.document.querySelector("#notebook .cell.code.runnable"), { timeout: 5000 });
+    assert.match(
+      view.document.getElementById("notebook-header").textContent,
+      /saved in this browser and is not in the repository yet/,
+      "the page says where the notebook lives",
+    );
+    assert.ok(view.document.querySelector("#notebook .exercise-callout"), "its exercise is boxed in the run view");
+    assert.equal(
+      view.document.querySelectorAll('#notebook-header a[target="_blank"]').length,
+      0,
+      "there is no repository file to link to yet",
+    );
+    const bar = view.document.querySelector(".notebook-bar").textContent;
+    assert.match(bar, /insurance.csv/, "the data file its code opens is found among the uploads");
+    assert.match(bar, /pandas/, "the packages its imports need are loaded");
+  } finally {
+    view.restore();
   }
 });
 
 test("practice/index.html lists every exercise and the filters work", { skip }, async () => {
   const page = await loadPage("practice/index.html", "assets/js/practice-list.js");
   try {
-    await waitFor(() => page.document.querySelectorAll("#problem-list li").length, { timeout: 3000 });
-    const items = () => [...page.document.querySelectorAll("#problem-list li")];
+    await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
+    const items = () => [...page.document.querySelectorAll("#problem-list .tile")];
     assert.equal(items().length, bundle.count);
 
     const typePill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "Fix the code");
@@ -222,9 +517,22 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
     click(page.window, page.document.querySelector("#filters .btn.ghost"));
     const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
     assert.ok(headings.length >= 2, `exercises are grouped by assignment (got ${headings.length} groups)`);
-    assert.ok(headings.some((h) => /Part \d/.test(h)), "the group labels name the part");
+    assert.ok(headings.some((h) => /Intro \d/.test(h)), "the group labels name the section");
     const assignmentSelect = [...page.document.querySelectorAll("#filters select")][0];
     assert.ok(assignmentSelect.options.length > 2, "the assignment filter lists the assignments");
+
+    // The same exercises are available as a table, and the order follows the course.
+    const tableButton = [...page.document.querySelectorAll("#filters .view-toggle button")].find((b) => b.textContent === "Table");
+    click(page.window, tableButton);
+    const tables = [...page.document.querySelectorAll("#problem-list .data-table")];
+    assert.ok(tables.length, "the table view renders tables");
+    const rowCount = tables.reduce((total, table) => total + table.querySelectorAll("tbody tr").length, 0);
+    assert.equal(rowCount, bundle.count, "every exercise is a row");
+    const firstRow = tables[0].querySelector("tbody tr").textContent;
+    assert.match(firstRow, /Intro 1/, `the table starts with the first Intro section (got "${firstRow}")`);
+    const tilesButton = [...page.document.querySelectorAll("#filters .view-toggle button")].find((b) => b.textContent === "Tiles");
+    click(page.window, tilesButton);
+    assert.equal(items().length, bundle.count, "switching back restores the tiles");
 
     // "by topic" groups the same exercises the other way round.
     const topicPill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "by topic");
@@ -240,8 +548,8 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
 test("practice/index.html honours ?type= deep links", { skip }, async () => {
   const page = await loadPage("practice/index.html", "assets/js/practice-list.js", "?type=predict_output");
   try {
-    await waitFor(() => page.document.querySelectorAll("#problem-list li").length, { timeout: 3000 });
-    assert.equal(page.document.querySelectorAll("#problem-list li").length, bundle.by_type.predict_output);
+    await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
+    assert.equal(page.document.querySelectorAll("#problem-list .tile").length, bundle.by_type.predict_output);
   } finally {
     page.restore();
   }
@@ -384,25 +692,47 @@ test("glossary.html lists terms, links exercises and filters", { skip }, async (
     assert.match(page.document.getElementById("for-loop").textContent, /for loop/);
     assert.match(page.document.querySelector("#dictionary").innerHTML, /practice\/exercise\.html\?id=/);
 
+    const termEntries = () => [...page.document.querySelectorAll("#glossary .term-entry")];
     const search = page.document.getElementById("term-search");
     type(page.window, search, "list comprehension");
-    const visible = [...entries].filter((e) => !e.classList.contains("hidden"));
+    const visible = termEntries().filter((e) => !e.classList.contains("hidden"));
     assert.ok(visible.length >= 1 && visible.length < entries.length);
     assert.ok(visible.some((e) => e.id === "list-comprehension"));
     assert.equal(page.document.querySelectorAll("#glossary .list-group").length, 0, "no groups in A–Z order");
 
-    // Sorting by assignment groups the terms under the notebook that uses them,
-    // and each entry says which assignment it belongs to.
+    // Sorting by section groups the terms under the notebook that uses them,
+    // and each entry says which section it belongs to.
     type(page.window, search, "");
     const sort = page.document.getElementById("term-sort");
     type(page.window, sort, "assignment");
     const groupHeadings = [...page.document.querySelectorAll("#glossary .list-group h3")].map((h) => h.textContent);
-    assert.ok(groupHeadings.length >= 2, `terms are grouped by assignment (got ${groupHeadings.length})`);
-    assert.ok(groupHeadings.some((h) => /Part \d/.test(h)), "the groups name the course part");
+    assert.ok(groupHeadings.length >= 2, `terms are grouped by section (got ${groupHeadings.length})`);
+    assert.ok(groupHeadings.some((h) => /Intro \d|Data Analysis \d/.test(h)), "the groups name the course section");
     assert.ok(groupHeadings.includes("Not used in an exercise yet"), "unused terms are listed last");
     assert.equal(page.document.querySelectorAll("#glossary .glossary-index").length, 0, "the A–Z index is only for A–Z order");
     assert.equal(page.document.querySelectorAll("#glossary .term-entry").length, entries.length, "every term is still listed");
-    assert.match(page.document.getElementById("glossary").textContent, /Used in: /, "each term names its assignment");
+    assert.match(page.document.getElementById("glossary").textContent, /Used in: /, "each term names its section");
+
+    // One section at a time: pick "Data Analysis 1" and only its terms remain.
+    type(page.window, sort, "alpha");
+    const section = page.document.getElementById("term-section");
+    assert.ok(section.options.length > 5, "the section filter lists every course section");
+    const option = [...section.options].find((o) => /^Data Analysis 1/.test(o.textContent));
+    assert.ok(option, "Data Analysis 1 is offered as a section");
+    type(page.window, section, option.value);
+    const inSection = termEntries().filter((e) => !e.classList.contains("hidden"));
+    assert.ok(inSection.length > 0, "the section filter keeps the terms that section uses");
+    assert.ok(inSection.length < entries.length, `and hides the rest (kept ${inSection.length})`);
+    assert.match(page.document.getElementById("term-count").textContent, /in Data Analysis 1/);
+    type(page.window, section, "");
+    assert.equal(termEntries().filter((e) => !e.classList.contains("hidden")).length, entries.length);
+
+    // Table view lists the same terms as rows.
+    const tableButton = [...page.document.querySelectorAll("#view-bar .view-toggle button")].find((b) => b.textContent === "Table");
+    click(page.window, tableButton);
+    const table = page.document.querySelector("#glossary .data-table");
+    assert.ok(table, "the table view renders a table");
+    assert.equal(table.querySelectorAll("tbody tr").length, entries.length, "every term is a row");
   } finally {
     page.restore();
   }

@@ -1,0 +1,230 @@
+{
+  "problems": [
+    {
+      "id": "da5-load-and-merge-industry",
+      "type": "write_from_scratch",
+      "title": "Attach industry names to compustat",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Merging",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 6,
+      "prompt": "`compustat.csv` has firm fundamentals keyed by `sic` (industry code). `sic_indnames.csv` maps each `sic` to an `industry` name.\n\nRead both, merge them with a **left** join on `sic`, and print the number of distinct industries.",
+      "hints": [
+        "`pd.read_csv('compustat.csv', parse_dates=['datadate'])` for the first file.",
+        "`pd.merge(data, sic_indnames, on='sic', how='left')`.",
+        "`data['industry'].nunique()` counts the distinct names."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\nsic_indnames = pd.read_csv(\"sic_indnames.csv\")\ndata = pd.merge(data, sic_indnames, on=\"sic\", how=\"left\")\n\nprint(data[\"industry\"].nunique())\n",
+      "tests": "assert data[\"industry\"].notna().all(), \"every row should find its industry name\"\nassert data[\"industry\"].nunique() > 5\n",
+      "test_summary": "Checks every row got an industry name and that several industries are present.",
+      "glossary": [
+        "merge",
+        "pandas",
+        "left-join"
+      ],
+      "expected_output": "30",
+      "mode": "both"
+    },
+    {
+      "id": "da5-computers-leverage",
+      "type": "write_from_scratch",
+      "title": "Leverage in the Computers industry",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Summary Statistics"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 8,
+      "prompt": "A firm's **leverage** is its liabilities (`lt`) divided by its assets (`at`).\n\nThe Computers industry has `sic == 3571`. Build the leverage column for those firms and print the **median leverage**, rounded to three decimals.",
+      "hints": [
+        "Filter first: `computers = data[data.sic == 3571]`.",
+        "Creating a column is arithmetic on two Series: `computers['leverage'] = computers['lt'] / computers['at']`.",
+        "`round(computers['leverage'].median(), 3)` prints the answer."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ncomputers = data[data.sic == 3571]\ncomputers[\"leverage\"] = computers[\"lt\"] / computers[\"at\"]\n\nprint(round(computers[\"leverage\"].median(), 3))\n",
+      "tests": "assert len(computers) > 0, \"the Computers industry must have rows\"\nassert (computers[\"leverage\"] > 0).all() and (computers[\"leverage\"] < 1).all(), \"leverage should sit between 0 and 1\"\n",
+      "test_summary": "Checks the filtered frame is non-empty and leverage lies between 0 and 1.",
+      "glossary": [
+        "summary-statistics",
+        "median",
+        "pandas"
+      ],
+      "expected_output": "0.498",
+      "mode": "both"
+    },
+    {
+      "id": "da5-banks-most-leveraged",
+      "type": "write_from_scratch",
+      "title": "Which industry is the most leveraged?",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Summary Statistics"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+      },
+      "line_count": 9,
+      "prompt": "Merge `compustat.csv` with `sic_indnames.csv` on `sic`, keep the rows whose `sic` is in `[6020, 4924, 3571, 1040, 5812, 3760, 5411]`, and add a `leverage` column (`lt / at`).\n\nGroup by `industry`, take the median leverage, and print the industry with the highest median.",
+      "hints": [
+        "`data['sic'].isin([...])` keeps a list of codes.",
+        "`industry_medians = subset.groupby('industry')['leverage'].median()`.",
+        "`.idxmax()` picks the largest, `.sort_values()` shows the order."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\nsic_indnames = pd.read_csv(\"sic_indnames.csv\")\ndata = pd.merge(data, sic_indnames, on=\"sic\", how=\"left\")\n\nsubset = data[data[\"sic\"].isin([6020, 4924, 3571, 1040, 5812, 3760, 5411])].copy()\nsubset[\"leverage\"] = subset[\"lt\"] / subset[\"at\"]\nmedians = subset.groupby(\"industry\")[\"leverage\"].median()\n\nprint(medians.idxmax())\n",
+      "tests": "assert len(medians) == 7, f\"seven industries are in the list, got {len(medians)}\"\nassert medians.idxmax() == \"Banks\", f\"banks borrow the most, got {medians.idxmax()}\"\n",
+      "test_summary": "Checks all seven industries are measured and Banks has the highest median leverage.",
+      "glossary": [
+        "groupby",
+        "median",
+        "pandas"
+      ],
+      "expected_output": "Banks",
+      "mode": "both"
+    },
+    {
+      "id": "da5-winsorize-mktcap",
+      "type": "write_from_scratch",
+      "title": "Winsorize market capitalization",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Outliers",
+        "pandas"
+      ],
+      "difficulty": "hard",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "line_count": 8,
+      "prompt": "`analyticskit.py` is in the working directory and defines `winsorize(values, lower_percentile, upper_percentile)`, which **caps** the tails while keeping every observation.\n\nWinsorize `mktcap` at the 5th and 95th percentiles into `mktcap_w` and print the maximum of the winsorized column, rounded to two decimals. Compare it with the raw maximum.",
+      "hints": [
+        "`from analyticskit import winsorize` — the notebook uses `from analyticskit import *`.",
+        "`data['mktcap_w'] = winsorize(data['mktcap'], lower_percentile=0.05, upper_percentile=0.95)`.",
+        "The winsorized maximum equals the 95th percentile of the raw column."
+      ],
+      "solution": "import pandas as pd\nfrom analyticskit import winsorize\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ndata[\"mktcap_w\"] = winsorize(data[\"mktcap\"], lower_percentile=0.05, upper_percentile=0.95)\n\nprint(round(data[\"mktcap_w\"].max(), 2))\n",
+      "tests": "assert len(data) == 10647, \"winsorizing keeps every row\"\nassert data[\"mktcap_w\"].max() < data[\"mktcap\"].max(), \"the tail must be capped\"\nassert round(float(data[\"mktcap_w\"].max()), 2) == round(float(data[\"mktcap\"].quantile(0.95)), 2)\n",
+      "test_summary": "Checks no row was dropped, the cap is the 95th percentile and the tail shrank.",
+      "glossary": [
+        "outlier",
+        "percentile",
+        "winsorize"
+      ],
+      "expected_output": "24206.51",
+      "mode": "both"
+    },
+    {
+      "id": "da5-truncate-rows",
+      "type": "write_from_scratch",
+      "title": "Truncate instead of winsorize",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Outliers",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "line_count": 8,
+      "prompt": "`truncate()` in `analyticskit.py` **drops** the observations outside two percentiles instead of capping them.\n\nTruncate `mktcap` at the 5th and 95th percentiles into `mktcap_t` and print how many rows are left.",
+      "hints": [
+        "`from analyticskit import truncate`.",
+        "`data['mktcap_t'] = truncate(data['mktcap'], lower_percentile=0.05, upper_percentile=0.95)` leaves NaN for the dropped rows.",
+        "Count what survived with `data['mktcap_t'].notna().sum()`."
+      ],
+      "solution": "import pandas as pd\nfrom analyticskit import truncate\n\ndata = pd.read_csv(\"compustat.csv\", parse_dates=[\"datadate\"])\ndata[\"mktcap_t\"] = truncate(data[\"mktcap\"], lower_percentile=0.05, upper_percentile=0.95)\n\nprint(data[\"mktcap_t\"].notna().sum())\n",
+      "tests": "assert data[\"mktcap_t\"].notna().sum() < len(data), \"truncating removes observations\"\nassert data[\"mktcap_t\"].notna().sum() > len(data) * 0.8, \"only the tails should go\"\n",
+      "test_summary": "Checks truncation removes the tails but keeps the bulk of the sample.",
+      "glossary": [
+        "outlier",
+        "truncate",
+        "missing-values"
+      ],
+      "expected_output": "9581",
+      "mode": "both"
+    },
+    {
+      "id": "da5-mktcap-percentiles",
+      "type": "fill_in_blank",
+      "title": "Describe the tails of market cap",
+      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "topics": [
+        "Data Analysis",
+        "Summary Statistics",
+        "pandas"
+      ],
+      "difficulty": "medium",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv"
+      },
+      "line_count": 6,
+      "prompt": "Fill in the blanks so the cell prints the 99th percentile of `mktcap`, rounded to the nearest thousand.\n\nCompare it with the maximum you get from `.max()` — this gap is why the notebook winsorizes.",
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\")\np99 = data[\"mktcap\"].___(0.99)\nprint(round(p99 / 1000) * ___)\n",
+      "blanks": [
+        {
+          "accepted": [
+            "quantile"
+          ],
+          "hint": "The Series method that returns a percentile of the data."
+        },
+        {
+          "accepted": [
+            "1000"
+          ],
+          "hint": "To round to the nearest thousand, undo the division with the same number."
+        }
+      ],
+      "hints": [
+        "`.quantile(0.99)` is the 99th percentile of the column.",
+        "Rounding to a thousand is `round(value / 1000) * 1000`."
+      ],
+      "solution": "import pandas as pd\n\ndata = pd.read_csv(\"compustat.csv\")\np99 = data[\"mktcap\"].quantile(0.99)\nprint(round(p99 / 1000) * 1000)\n",
+      "glossary": [
+        "percentile",
+        "quantile",
+        "summary-statistics"
+      ],
+      "expected_output": "125000"
+    }
+  ]
+}

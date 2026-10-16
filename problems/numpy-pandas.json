@@ -4,9 +4,14 @@
       "id": "predict-numpy-mean-filter",
       "type": "predict_output",
       "title": "NumPy mean and a boolean mask",
-      "topics": ["NumPy", "Data Analysis"],
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
       "difficulty": "medium",
-      "packages": ["numpy"],
+      "packages": [
+        "numpy"
+      ],
       "prompt": "Type the output of this NumPy program. `a > 2` produces a boolean mask that selects elements.",
       "starter_code": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a.mean())\nprint(a[a > 2])\n",
       "expected_output": "2.5\n[3 4]",
@@ -15,35 +20,62 @@
         "`a[a > 2]` keeps the elements greater than 2, and NumPy prints arrays without commas."
       ],
       "solution": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nprint(a.mean())      # 2.5\nprint(a[a > 2])      # [3 4]\n",
-      "glossary": ["numpy", "array", "boolean-mask", "axis"]
+      "glossary": [
+        "numpy",
+        "array",
+        "boolean-mask",
+        "axis"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-numpy-sum-axis",
       "type": "fill_in_blank",
       "title": "Sum down the columns",
-      "topics": ["NumPy", "Data Analysis"],
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
       "difficulty": "medium",
-      "packages": ["numpy"],
+      "packages": [
+        "numpy"
+      ],
       "prompt": "`a` is a 2×3 matrix. Fill the blank so the sum is computed **per column** (i.e. down each column).\n\nExpected output: `[5 7 9]`",
       "starter_code": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a)\nprint(a.sum(axis=___))\n",
       "expected_output": "[[1 2 3]\n [4 5 6]]\n[5 7 9]",
       "blanks": [
-        { "accepted": ["0"], "hint": "axis 0 runs down the rows; axis 1 runs across the columns." }
+        {
+          "accepted": [
+            "0"
+          ],
+          "hint": "axis 0 runs down the rows; axis 1 runs across the columns."
+        }
       ],
       "hints": [
         "`reshape(2, 3)` gives two rows of three numbers.",
         "`axis=0` collapses the row index, which adds 1+4, 2+5 and 3+6."
       ],
       "solution": "import numpy as np\n\na = np.arange(1, 7).reshape(2, 3)\nprint(a)\nprint(a.sum(axis=0))   # [5 7 9]\n",
-      "glossary": ["numpy", "array", "axis", "shape"]
+      "glossary": [
+        "numpy",
+        "array",
+        "axis",
+        "shape"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-pandas-hottest-city",
       "type": "fix_the_code",
       "title": "Pick the hottest row",
-      "topics": ["pandas", "Data Analysis"],
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
       "difficulty": "medium",
-      "packages": ["pandas"],
+      "packages": [
+        "pandas"
+      ],
       "prompt": "The code below actually picks the **coldest** row. Fix it so `hottest` is the row with the highest temperature, and the printed line is `Bergen 8`.",
       "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\n\nhottest = df.sort_values(\"temp\").iloc[0]\nprint(hottest[\"city\"], hottest[\"temp\"])\n",
       "expected_output": "Bergen 8",
@@ -55,37 +87,64 @@
         "You can sort descending with `ascending=False` or take the last row."
       ],
       "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\n\nhottest = df.sort_values(\"temp\", ascending=False).iloc[0]\nprint(hottest[\"city\"], hottest[\"temp\"])\n",
-      "glossary": ["pandas", "dataframe", "series", "method"]
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "series",
+        "method"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-pandas-groupby",
       "type": "fill_in_blank",
       "title": "Average temperature per city",
-      "topics": ["pandas", "Data Analysis"],
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
       "difficulty": "medium",
-      "packages": ["pandas"],
+      "packages": [
+        "pandas"
+      ],
       "prompt": "Fill the blank so we get the mean temperature **per city**.\n\nExpected output: `5.5`",
       "starter_code": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nmeans = df.groupby(\"___\")[\"temp\"].mean()\nprint(round(means[\"Oslo\"], 1))\n",
       "expected_output": "5.5",
       "blanks": [
-        { "accepted": ["city"], "hint": "Group by the column you want one result per value of." }
+        {
+          "accepted": [
+            "city"
+          ],
+          "hint": "Group by the column you want one result per value of."
+        }
       ],
       "hints": [
         "`groupby` takes the column name you want to group on.",
         "Oslo appears twice (5 and 6), so the mean is 5.5."
       ],
       "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"], \"temp\": [5, 8, 6]})\nmeans = df.groupby(\"city\")[\"temp\"].mean()\nprint(round(means[\"Oslo\"], 1))\n",
-      "glossary": ["pandas", "dataframe", "groupby", "series"]
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "groupby",
+        "series"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-numpy-normalize",
       "type": "write_from_scratch",
       "title": "Min–max normalisation with NumPy",
-      "topics": ["NumPy", "Data Analysis"],
+      "topics": [
+        "NumPy",
+        "Data Analysis"
+      ],
       "difficulty": "hard",
       "mode": "both",
       "line_count": 6,
-      "packages": ["numpy"],
+      "packages": [
+        "numpy"
+      ],
       "prompt": "Write a function `normalize(values)` that turns any list of numbers into a NumPy array scaled to the range 0–1 using min–max normalisation:\n\n`(x - min) / (max - min)`\n\nThen print `normalize([2, 4, 6])`.",
       "hints": [
         "Import NumPy at the top: `import numpy as np`.",
@@ -97,17 +156,28 @@
       "tests": "import numpy as np\nout = normalize([2, 4, 6])\nassert isinstance(out, np.ndarray), \"normalize must return a NumPy array\"\nassert np.allclose(out, [0.0, 0.5, 1.0]), \"min-max scaling of [2,4,6] is [0, 0.5, 1]\"\nassert np.allclose(normalize([10, 10, 10]), [0.0, 0.0, 0.0]), \"a constant array must not divide by zero\"\n",
       "test_summary": "Checks the scaling of [2, 4, 6] and that a constant input does not crash.",
       "solution": "import numpy as np\n\ndef normalize(values):\n    a = np.asarray(values, dtype=float)\n    span = a.max() - a.min()\n    if span == 0:\n        return a - a.min()\n    return (a - a.min()) / span\n\nprint(normalize([2, 4, 6]))\n",
-      "glossary": ["numpy", "array", "vectorization", "function"]
+      "glossary": [
+        "numpy",
+        "array",
+        "vectorization",
+        "function"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-pandas-city-counts",
       "type": "write_from_scratch",
       "title": "Value counts as a plain dictionary",
-      "topics": ["pandas", "Data Analysis"],
+      "topics": [
+        "pandas",
+        "Data Analysis"
+      ],
       "difficulty": "medium",
       "mode": "both",
       "line_count": 5,
-      "packages": ["pandas"],
+      "packages": [
+        "pandas"
+      ],
       "prompt": "Write a function `city_counts(df)` that takes a DataFrame with a `city` column and returns a **plain dictionary** mapping city → number of rows.\n\nFinally, print `city_counts(df)` for the sample frame.",
       "hints": [
         "`df[\"city\"].value_counts()` gives a Series of counts.",
@@ -117,7 +187,14 @@
       "tests": "import pandas as pd\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"]})\nresult = city_counts(df)\nassert isinstance(result, dict), \"return a plain dict, not a Series\"\nassert result == {\"Oslo\": 2, \"Bergen\": 1}, \"counts should be Oslo: 2, Bergen: 1\"\n",
       "test_summary": "Checks the returned dictionary for a three-row frame.",
       "solution": "import pandas as pd\n\ndf = pd.DataFrame({\"city\": [\"Oslo\", \"Bergen\", \"Oslo\"]})\n\ndef city_counts(df):\n    return df[\"city\"].value_counts().to_dict()\n\nprint(city_counts(df))\n",
-      "glossary": ["pandas", "dataframe", "series", "dictionary", "method"]
+      "glossary": [
+        "pandas",
+        "dataframe",
+        "series",
+        "dictionary",
+        "method"
+      ],
+      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     }
   ]
 }

@@ -1,65 +1,191 @@
 {
-  "_comment": "Optional manual overrides for the generated index. Re-run tools/build_index.py after editing.",
+  "_comment": "Manual overrides for the generated index. 'label' is the short course name (Intro 1, Data Analysis 3, …), 'order' is the part number used for sorting inside a group, 'data_files' maps the name the notebook's code opens to the file in materials/ that the site copies into the sandbox, and 'packages' lists the Pyodide packages the in-browser Python must load before the notebook runs. Keep 'packages' to what Pyodide actually ships: pandas, numpy, matplotlib, scipy, statsmodels, python-calamine (used by pandas' read_excel for .xlsx). Re-run tools/build_index.py after editing.",
   "group_titles": {
-    "Data Analysis": "Data Analysis",
     "Intro to Python": "Intro to Python",
+    "Data Analysis": "Data Analysis",
     "Notebooks": "Notebooks"
   },
   "group_order": {
-    "Data Analysis": 1,
     "Intro to Python": 1,
+    "Data Analysis": 2,
     "Notebooks": 999
   },
   "notebook_overrides": {
-    "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis (Part 1) - Introduction to Pandas - EXERCISE SOLUTIONS",
-      "group": "Data Analysis",
-      "group_order": 1
-    },
-    "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis (Part 2) - Cleaning Data - Exercise Solutions",
-      "group": "Data Analysis",
-      "group_order": 2
-    },
-    "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis (Part 3) - Sorting and Computing Summary Statistics - Exercise Solutions",
-      "group": "Data Analysis",
-      "group_order": 3
-    },
-    "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis (Part 4) - Concatenating and Merging DataFrames - Exercise Solutions",
-      "group": "Data Analysis",
-      "group_order": 4
-    },
-    "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis (Part 6) - Regression - CLASS EXERCISE SOLUTIONS",
-      "group": "Data Analysis",
-      "group_order": 6
-    },
-    "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS",
-      "group": "Data Analysis",
-      "group_order": 5
-    },
     "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Introduction to Python (Part 1) - Class Exercise Solutions",
+      "title": "Intro 1 — Values, strings and lists",
+      "label": "Intro 1",
       "group": "Intro to Python",
-      "group_order": 1
+      "group_order": 1,
+      "order": 1,
+      "topics": [
+        "Intro to Python",
+        "Python Basics",
+        "Strings",
+        "Lists"
+      ]
     },
     "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS",
+      "title": "Intro 2 — Lists, loops and strings",
+      "label": "Intro 2",
       "group": "Intro to Python",
-      "group_order": 2
+      "group_order": 1,
+      "order": 2,
+      "topics": [
+        "Intro to Python",
+        "Lists",
+        "Loops",
+        "Strings"
+      ]
     },
     "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Introduction to Python (Part 3) - EXERCISE SOLUTIONS",
+      "title": "Intro 3 — Dictionaries and paired data",
+      "label": "Intro 3",
       "group": "Intro to Python",
-      "group_order": 3
+      "group_order": 1,
+      "order": 3,
+      "topics": [
+        "Intro to Python",
+        "Dictionaries",
+        "Loops",
+        "Lists"
+      ],
+      "data_files": {
+        "avocados.txt": "materials/datasets/avocados.txt"
+      }
     },
     "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
-      "title": "Introduction to Python (Part 4) - EXERCISE SOLUTIONS",
+      "title": "Intro 4 — Functions, errors and debugging",
+      "label": "Intro 4",
       "group": "Intro to Python",
-      "group_order": 4
+      "group_order": 1,
+      "order": 4,
+      "topics": [
+        "Intro to Python",
+        "Functions",
+        "Errors"
+      ]
+    },
+    "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 1 — Introduction to Pandas",
+      "label": "Data Analysis 1",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 1,
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "NumPy"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 2 — Cleaning data",
+      "label": "Data Analysis 2",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 2,
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Cleaning Data"
+      ],
+      "data_files": {
+        "violations.csv": "materials/datasets/violations.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 3 — Sorting and summary statistics",
+      "label": "Data Analysis 3",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 3,
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Summary Statistics"
+      ],
+      "data_files": {
+        "invoices.xlsx": "materials/datasets/invoices.xlsx",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "packages": [
+        "pandas",
+        "python-calamine"
+      ]
+    },
+    "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 4 — Concatenating, merging and files",
+      "label": "Data Analysis 4",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 4,
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "Merging"
+      ],
+      "data_files": {
+        "earnings.csv": "materials/datasets/earnings.csv",
+        "exchange.csv": "materials/datasets/exchange.csv",
+        "company_names.csv": "materials/datasets/company_names.csv",
+        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 5 — Plotting, outliers and industry data",
+      "label": "Data Analysis 5",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 5,
+      "topics": [
+        "Data Analysis",
+        "pandas",
+        "matplotlib",
+        "Visualization"
+      ],
+      "data_files": {
+        "compustat.csv": "materials/datasets/compustat.csv",
+        "sic_indnames.csv": "materials/datasets/sic_indnames.csv",
+        "analyticskit.py": "materials/analyticskit.py"
+      },
+      "packages": [
+        "pandas",
+        "matplotlib"
+      ]
+    },
+    "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb": {
+      "title": "Data Analysis 6 — Regression",
+      "label": "Data Analysis 6",
+      "group": "Data Analysis",
+      "group_order": 2,
+      "order": 6,
+      "topics": [
+        "Data Analysis",
+        "Regression",
+        "statsmodels"
+      ],
+      "data_files": {
+        "insurance.csv": "materials/datasets/insurance.csv"
+      },
+      "packages": [
+        "pandas",
+        "matplotlib",
+        "statsmodels",
+        "scipy"
+      ]
     }
   }
 }

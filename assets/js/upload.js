@@ -346,7 +346,7 @@ async function saveToBrowser() {
   setStatus(
     problems.length ? "warn" : "ok",
     `${saved} of ${state.files.length} file(s) stored in this browser (${(totalUploadBytes() / 1024).toFixed(0)} KB of ${maxTotalBytes / 1024} KB). ` +
-      `They now appear under “Uploaded in this browser” on the <a href="teaching/index.html">teaching page</a>.` +
+      `They now appear on the <a href="learning/index.html">learning page</a>, marked “in this browser”, and can be opened and run there.` +
       (problems.length ? `<br><span style="color:var(--bad)">${problems.map(escapeHtml).join("<br>")}</span>` : ""),
   );
 }

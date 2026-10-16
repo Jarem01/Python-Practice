@@ -42,6 +42,15 @@ SKIP_DIRS = {
 
 PROBLEM_TYPES = ("fix_the_code", "fill_in_blank", "predict_output", "write_from_scratch")
 DIFFICULTIES = ("easy", "medium", "hard")
+
+#: Short names used for the course labels on cards ("Intro 1", "Data Analysis 3").
+#: Override per notebook with a "label" in data/curriculum.json.
+SHORT_TRACK = {
+    "Intro to Python": "Intro",
+    "Introduction to Python": "Intro",
+    "Python": "Intro",
+    "Data Analysis": "Data Analysis",
+}
 EXERCISE_WORDS = re.compile(
     r"\b(exercise|exercises|task|tasks|assignment|practice|challenge|question|"
     r"probl[eè]me|aufgabe|übung|opgave|oppgave|teht[aä]v[aä]|"
@@ -259,6 +268,11 @@ def scan_notebooks(root: Path) -> list[dict]:
 
 PY_SKIP_DIRS = SKIP_DIRS | {"tools", "tests", "assets", ".github", "docs"}
 
+#: Helper modules that ship with the notebooks (Data Analysis 5 does
+#: `from analyticskit import *`). They are support files, not course material, so
+#: they are never listed as a script to teach from.
+PY_HELPER_FILES = {"analyticskit.py"}
+
 DOCSTRING_RE = re.compile(r'^\s*("""|\'\'\')(.*?)\1', re.DOTALL)
 DEF_RE = re.compile(r"^\s*(?:async\s+)?(?:def|class)\s+(\w+)", re.MULTILINE)
 EXERCISE_COMMENT_RE = re.compile(
@@ -320,6 +334,10 @@ def scan_scripts(root: Path) -> list[dict]:
     """Every .py file that is course material rather than part of the site itself."""
     scripts = []
     for path in sorted(root.rglob("*.py")):
+        if path.name in PY_HELPER_FILES:
+            # analyticskit.py and friends are imported by the notebooks: support
+            # files, not scripts to teach from.
+            continue
         rel = path.relative_to(root)
         if any(part in PY_SKIP_DIRS or part.startswith(".") for part in rel.parts[:-1]):
             continue
@@ -603,6 +621,19 @@ def main() -> int:
     errors, warnings = validate_problems(raw_problems, glossary_slugs, {entry["path"] for entry in entries})
     errors = load_errors + errors
 
+    # Every notebook in the course should have practice exercises of its own:
+    # the site tells the learner when a section is missing them instead of
+    # silently showing nothing to do.
+    problem_notebooks = {str(p.get("notebook") or "") for p in raw_problems}
+    for entry in entries:
+        if entry.get("kind") == "script":
+            continue
+        if entry["path"] not in problem_notebooks:
+            warnings.append(
+                f"{entry['path']}: no practice exercises reference this notebook yet "
+                f"(add them under problems/ with \"notebook\": \"{entry['path']}\")"
+            )
+
     problems = [normalize_problem(p) for p in raw_problems]
 
     # topic -> problem ids, and topic -> notebook paths (for cross-linking)
@@ -633,6 +664,34 @@ def main() -> int:
                 entry[key] = override[key]
         if override.get("topics"):
             entry["matched_topics"] = sorted(set(override["topics"]))
+        # Part number: an explicit "order" wins, otherwise it is read from the
+        # file name ("... (Part 5) ...") so parts always sort 1, 2, 3 …
+        part = override.get("order")
+        if part is None:
+            match = PART_RE.search(entry["filename"]) or PART_RE.search(entry["title"])
+            part = int(match.group(1)) if match else 999
+        entry["part"] = int(part)
+        # Short course label shown on cards and used to group exercises
+        # ("Intro 1", "Data Analysis 3") — derived from the group when absent.
+        label = override.get("label")
+        if not label:
+            group_name = str(entry["group"])
+            short = SHORT_TRACK.get(group_name, group_name)
+            label = f"{short} {entry['part']}" if entry["part"] != 999 else short
+        entry["label"] = str(label)
+        if override.get("packages"):
+            packages = override["packages"]
+            entry["packages"] = [str(p) for p in packages] if isinstance(packages, list) else [str(packages)]
+        else:
+            entry["packages"] = []
+        data_files = override.get("data_files") or {}
+        if not isinstance(data_files, dict):
+            errors.append(f"data/curriculum.json: data_files for '{entry['path']}' must be an object")
+            data_files = {}
+        entry["data_files"] = {str(k): str(v) for k, v in data_files.items()}
+        for name, repo_path in entry["data_files"].items():
+            if not (root / repo_path).exists():
+                warnings.append(f"data/curriculum.json: '{entry['path']}' wants {name} from '{repo_path}', which does not exist yet")
 
     group_order: dict[str, int] = {}
     for entry in entries:
@@ -643,7 +702,12 @@ def main() -> int:
         group_order.setdefault(group, 100)
 
     def by_order(items):
-        return sorted(items, key=lambda item: (item.get("group_order", 999), item["filename"].lower()))
+        # Course order: group first (Intro before Data Analysis), then the part
+        # number, so "Part 10" never sorts before "Part 2".
+        return sorted(
+            items,
+            key=lambda item: (item.get("group_order", 999), item.get("part", 999), item["filename"].lower()),
+        )
 
     groups: list[dict] = []
     for group in sorted(group_order, key=lambda g: (group_order[g], g)):
@@ -668,8 +732,8 @@ def main() -> int:
             "topics": len(topic_index),
         },
         "groups": groups,
-        "notebooks": notebooks,
-        "scripts": scripts,
+        "notebooks": by_order(notebooks),
+        "scripts": by_order(scripts),
         "topics": {name: bucket for name, bucket in sorted(topic_index.items())},
     }
 
