@@ -75,8 +75,8 @@ class SectionCoverageTest(unittest.TestCase):
 
     def test_sections_are_ordered_intro_first_then_data_analysis(self):
         order = [entry["path"] for entry in self.manifest["notebooks"]]
-        intro = [i for i, path in enumerate(order) if path.startswith("Intro to Python")]
-        analysis = [i for i, path in enumerate(order) if path.startswith("Data Analysis")]
+        intro = [i for i, path in enumerate(order) if path.startswith("acc525/Intro to Python")]
+        analysis = [i for i, path in enumerate(order) if path.startswith("acc525/Data Analysis")]
         self.assertTrue(intro, "the Intro notebooks are missing")
         self.assertTrue(analysis, "the Data Analysis notebooks are missing")
         self.assertLess(max(intro), min(analysis), "Intro must come before Data Analysis")
@@ -118,7 +118,7 @@ class DatasetFileTest(unittest.TestCase):
 
     def test_every_data_analysis_section_declares_data(self):
         for entry in self.manifest["notebooks"]:
-            if entry["path"].startswith("Data Analysis"):
+            if entry["path"].startswith("acc525/Data Analysis"):
                 self.assertTrue(entry.get("data_files"), f"{entry['label']} declares no data files")
 
 
@@ -131,7 +131,7 @@ class DatasetAnchorTest(unittest.TestCase):
 
     def test_violations_matches_the_notebook(self):
         data = pd.read_csv(
-            ROOT / "materials/datasets/violations.csv",
+            ROOT / "acc525/data/violations.csv",
             parse_dates=["date"],
             dtype={"zip": str, "gvkey": str},
         )
@@ -141,7 +141,7 @@ class DatasetAnchorTest(unittest.TestCase):
         public_december = data[(data["ownership structure"] == "publicly traded") & (data.date.dt.month == 12)]
         self.assertEqual(len(public_december), 3027, "3,027 publicly traded December rows")
         self.assertEqual(data.loc[107, "penalty"], "$8,800 ", "the 108th row penalty")
-        raw = pd.read_csv(ROOT / "materials/datasets/violations.csv", usecols=["penalty"], dtype=str)["penalty"]
+        raw = pd.read_csv(ROOT / "acc525/data/violations.csv", usecols=["penalty"], dtype=str)["penalty"]
         self.assertEqual(raw.iloc[0], "$45,000 ", "the first penalty is the one the cleaning exercise hits")
         cleaned = raw.fillna("0").str.strip().str.replace("$", "", regex=False).str.replace(",", "", regex=False)
         self.assertTrue(cleaned.astype(float).notna().all(), "penalties clean up to floats")
@@ -149,7 +149,7 @@ class DatasetAnchorTest(unittest.TestCase):
     def test_invoices_matches_the_notebook(self):
         if not HAVE_EXCEL:
             self.skipTest("openpyxl is not installed (python3 -m pip install openpyxl)")
-        data = pd.read_excel(ROOT / "materials/datasets/invoices.xlsx")
+        data = pd.read_excel(ROOT / "acc525/data/invoices.xlsx")
         self.assertEqual(data.shape, (5000, 8))
         self.assertEqual(round(float(data["Amount"].max()), 2), 1299950.00)
         self.assertEqual(round(float(data["Amount"].median()), 2), 1949.87)
@@ -161,7 +161,7 @@ class DatasetAnchorTest(unittest.TestCase):
         self.assertGreaterEqual(len(bulk), 4, "the July bulk order is in the data")
 
     def test_insurance_is_the_public_dataset(self):
-        data = pd.read_csv(ROOT / "materials/datasets/insurance.csv")
+        data = pd.read_csv(ROOT / "acc525/data/insurance.csv")
         self.assertEqual(data.shape, (1338, 7))
         self.assertAlmostEqual(float(data["age"].mean()), 39.2, places=1)
         self.assertAlmostEqual(float((data["sex"] == "male").mean()), 0.505, places=3)
@@ -169,8 +169,8 @@ class DatasetAnchorTest(unittest.TestCase):
         self.assertEqual(int((data["smoker"] == "yes").sum()), 274)
 
     def test_compustat_covers_the_industries_the_notebook_plots(self):
-        data = pd.read_csv(ROOT / "materials/datasets/compustat.csv")
-        names = pd.read_csv(ROOT / "materials/datasets/sic_indnames.csv")
+        data = pd.read_csv(ROOT / "acc525/data/compustat.csv")
+        names = pd.read_csv(ROOT / "acc525/data/sic_indnames.csv")
         merged = data.merge(names, on="sic", how="left")
         self.assertTrue(merged["industry"].notna().all(), "every row needs an industry name")
         wanted = {3571, 6020, 4924, 1040, 5812, 3760, 5411}
@@ -178,23 +178,23 @@ class DatasetAnchorTest(unittest.TestCase):
         self.assertGreater(float(data["mktcap"].max()), 8 * float(data["mktcap"].quantile(0.99)))
 
     def test_earnings_merge_cleanly(self):
-        earnings = pd.read_csv(ROOT / "materials/datasets/earnings.csv", parse_dates=["fpe"])
-        exchange = pd.read_csv(ROOT / "materials/datasets/exchange.csv")
-        company = pd.read_csv(ROOT / "materials/datasets/company_names.csv").rename(columns={"tic": "ticker"})
+        earnings = pd.read_csv(ROOT / "acc525/data/earnings.csv", parse_dates=["fpe"])
+        exchange = pd.read_csv(ROOT / "acc525/data/exchange.csv")
+        company = pd.read_csv(ROOT / "acc525/data/company_names.csv").rename(columns={"tic": "ticker"})
         merged = earnings.merge(exchange, on="ticker").merge(company, on="ticker")
         self.assertEqual(len(merged), len(earnings))
         self.assertGreater(len(merged), 0)
 
     def test_avocados_has_a_full_2017(self):
-        lines = (ROOT / "materials/datasets/avocados.txt").read_text(encoding="utf-8").splitlines()
+        lines = (ROOT / "acc525/data/avocados.txt").read_text(encoding="utf-8").splitlines()
         in_2017 = [line for line in lines[1:] if "/2017" in line]
         self.assertEqual(len(in_2017), 365)
         self.assertTrue(all(len(line.split("|")) == 2 for line in in_2017), "each line is date|price")
 
     def test_degrees_files_concatenate(self):
         frames = [
-            pd.read_csv(ROOT / "materials/datasets/degrees-that-pay-back-a.csv"),
-            pd.read_csv(ROOT / "materials/datasets/degrees-that-pay-back-b.csv"),
+            pd.read_csv(ROOT / "acc525/data/degrees-that-pay-back-a.csv"),
+            pd.read_csv(ROOT / "acc525/data/degrees-that-pay-back-b.csv"),
         ]
         joined = pd.concat(frames, ignore_index=True)
         self.assertEqual(len(joined), 40)

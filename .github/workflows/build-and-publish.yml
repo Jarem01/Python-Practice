@@ -61,13 +61,11 @@ jobs:
           git push
           echo "Committed the rebuilt manifests."
 
+      # This copies the pages, assets, manifests and class folders, and drops
+      # anything a class lists under "private_paths" in data/courses.json —
+      # answer keys and model solutions stay out of the published site.
       - name: Assemble the site
-        run: |
-          mkdir -p _site
-          cp -r assets data problems materials practice learning _site/
-          cp index.html glossary.html upload.html .nojekyll _site/
-          # Course notebooks and scripts kept at the repository root are served too.
-          find . -maxdepth 1 -type f \( -name "*.ipynb" -o -name "*.py" \) -exec cp {} _site/ \;
+        run: python3 tools/assemble_site.py _site
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

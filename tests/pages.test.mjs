@@ -25,6 +25,12 @@ const root = path.resolve(here, "..");
 const bundle = JSON.parse(await readFile(path.join(root, "problems", "index.json"), "utf8"));
 const glossary = JSON.parse(await readFile(path.join(root, "data", "glossary.json"), "utf8"));
 const manifest = JSON.parse(await readFile(path.join(root, "data", "notebooks.json"), "utf8"));
+const coursesFile = JSON.parse(await readFile(path.join(root, "data", "courses.json"), "utf8"));
+// Every page shows one class at a time, and the class it opens with is the one
+// data/courses.json names as the default — not a name hard-coded in the test.
+const defaultCourse = coursesFile.courses.find((course) => course.id === coursesFile.default);
+const courseProblems = bundle.problems.filter((problem) => problem.course === defaultCourse.id);
+const courseNotebooks = manifest.notebooks.filter((entry) => entry.course === defaultCourse.id);
 // The class notebooks are the learning content now; tests use the first one.
 const part1 = manifest.notebooks.find((n) => n.path.includes("Intro to Python (Part 1)"));
 const skip = JSDOM ? false : "jsdom is not installed (npm install --no-save jsdom)";
@@ -129,7 +135,10 @@ test("index.html renders stats, type cards and the notebook overview", { skip },
     const numbers = [...page.document.querySelectorAll("#stats .tile-value")]
       .filter((n) => /^\d+$/.test(n.textContent))
       .map((n) => Number(n.textContent));
-    assert.ok(numbers.includes(bundle.count), `problem count ${bundle.count} should appear in the stats`);
+    assert.ok(
+      numbers.includes(courseProblems.length),
+      `the default class's problem count ${courseProblems.length} should appear in the stats`,
+    );
     assert.ok(numbers.includes(glossary.entries.length), "the glossary term count should appear");
 
     assert.equal(page.document.querySelectorAll("#type-cards .tile").length, 4, "one card per exercise type");
@@ -138,7 +147,7 @@ test("index.html renders stats, type cards and the notebook overview", { skip },
     // Practice coverage: one row per class section, in course order.
     const coverage = page.document.getElementById("coverage");
     const rows = [...coverage.querySelectorAll("tbody tr")];
-    assert.equal(rows.length, manifest.notebooks.length, "every section is listed in the coverage table");
+    assert.equal(rows.length, courseNotebooks.length, "every section of the class is listed in the coverage table");
     assert.match(rows[0].textContent, /Intro 1/, "Intro comes first");
     assert.match(rows[rows.length - 1].textContent, /Data Analysis 6/, "Data Analysis comes last");
     assert.ok(
@@ -516,22 +525,22 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
   try {
     await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
     const items = () => [...page.document.querySelectorAll("#problem-list .tile")];
-    assert.equal(items().length, bundle.count);
+    assert.equal(items().length, courseProblems.length, "the list shows the default class only");
 
     const typePill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "Fix the code");
     click(page.window, typePill);
-    assert.equal(items().length, bundle.by_type.fix_the_code);
+    assert.equal(items().length, courseProblems.filter((p) => p.type === "fix_the_code").length);
     assert.equal(typePill.getAttribute("aria-pressed"), "true");
 
     const search = page.document.querySelector('#filters input[type="search"]');
     type(page.window, search, "dictionary");
     const found = items().length;
-    assert.ok(found > 0 && found < bundle.count, `search should narrow the list (got ${found})`);
+    assert.ok(found > 0 && found < courseProblems.length, `search should narrow the list (got ${found})`);
 
     click(page.window, page.document.querySelector("#filters .btn.ghost"));
-    assert.equal(items().length, bundle.count, "clear filters restores the full list");
+    assert.equal(items().length, courseProblems.length, "clear filters restores the full list");
 
-    const solved = bundle.problems[0].id;
+    const solved = courseProblems[0].id;
     page.window.localStorage.setItem("pypractice:progress", JSON.stringify({ [solved]: { status: "solved", attempts: 2 } }));
     const solvedPill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent.startsWith("solved"));
     click(page.window, solvedPill);
@@ -552,12 +561,12 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
     const tables = [...page.document.querySelectorAll("#problem-list .data-table")];
     assert.ok(tables.length, "the table view renders tables");
     const rowCount = tables.reduce((total, table) => total + table.querySelectorAll("tbody tr").length, 0);
-    assert.equal(rowCount, bundle.count, "every exercise is a row");
+    assert.equal(rowCount, courseProblems.length, "every exercise of the class is a row");
     const firstRow = tables[0].querySelector("tbody tr").textContent;
     assert.match(firstRow, /Intro 1/, `the table starts with the first Intro section (got "${firstRow}")`);
     const tilesButton = [...page.document.querySelectorAll("#filters .view-toggle button")].find((b) => b.textContent === "Tiles");
     click(page.window, tilesButton);
-    assert.equal(items().length, bundle.count, "switching back restores the tiles");
+    assert.equal(items().length, courseProblems.length, "switching back restores the tiles");
 
     // "by topic" groups the same exercises the other way round.
     const topicPill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "by topic");
@@ -574,7 +583,10 @@ test("practice/index.html honours ?type= deep links", { skip }, async () => {
   const page = await loadPage("practice/index.html", "assets/js/practice-list.js", "?type=predict_output");
   try {
     await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
-    assert.equal(page.document.querySelectorAll("#problem-list .tile").length, bundle.by_type.predict_output);
+    assert.equal(
+      page.document.querySelectorAll("#problem-list .tile").length,
+      courseProblems.filter((p) => p.type === "predict_output").length,
+    );
   } finally {
     page.restore();
   }
@@ -814,6 +826,354 @@ test("exercise.html loads the fix-the-code starter into an editor", { skip }, as
     assert.equal(gutter.textContent.split("\n")[0], "1");
     assert.match(page.document.getElementById("exercise").textContent, /Expected output/);
     assert.equal([...page.document.querySelectorAll(".btn")].filter((b) => /^Hint/.test(b.textContent)).length, 1);
+  } finally {
+    page.restore();
+  }
+});
+
+/* --------------------------------------------------------------- classes --- */
+
+const fin400Problems = bundle.problems.filter((problem) => problem.course === "fin400");
+
+test("every page offers the class picker and opens on the default class", { skip }, async () => {
+  const pages = [
+    ["index.html", "assets/js/home.js"],
+    ["glossary.html", "assets/js/glossary-page.js"],
+    ["learning/index.html", "assets/js/learning-index.js"],
+    ["practice/index.html", "assets/js/practice-list.js"],
+    ["upload.html", "assets/js/upload.js"],
+    ["practice/create.html", "assets/js/create.js"],
+  ];
+  for (const [html, modulePath] of pages) {
+    const page = await loadPage(html, modulePath);
+    try {
+      const select = await waitFor(() => page.document.querySelector("#course-picker select"));
+      assert.ok(select, `${html} should show the class picker in its header`);
+      assert.deepEqual(
+        [...select.options].map((option) => option.value),
+        coursesFile.courses.map((course) => course.id),
+        `${html}: the picker lists every class`,
+      );
+      assert.equal(select.value, coursesFile.default, `${html} opens on the default class`);
+      assert.match(select.options[0].textContent, /ACC 525|FIN 400/, "the options name the class");
+      assert.equal(
+        page.document.querySelectorAll("#course-picker .class-switch").length,
+        coursesFile.courses.length > 1 ? 1 : 0,
+        `${html}: a one-click link to the other class is offered`,
+      );
+    } finally {
+      page.restore();
+    }
+  }
+});
+
+test("?course=fin400 narrows the practice list to that class, split by half", { skip }, async () => {
+  const page = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400");
+  try {
+    await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
+    const tiles = page.document.querySelectorAll("#problem-list .tile");
+    assert.equal(tiles.length, fin400Problems.length, "only FIN 400 exercises are listed");
+    assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
+    assert.match(page.document.getElementById("count-badge").textContent, /FIN 400/);
+
+    const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
+    assert.deepEqual(headings, ["First half — Python bootcamp (.py)", "Second half — Notebooks, DataFrames and regression"]);
+
+    // Both halves can be picked apart, and a half can be deep-linked.
+    const halves = [...page.document.querySelectorAll("#filters .pill")].filter((p) => /both halves|First half|Second half/.test(p.textContent));
+    assert.equal(halves.length, 3, "the half filter is offered");
+    const bootcamp = halves.find((p) => /First half/.test(p.textContent));
+    click(page.window, bootcamp);
+    assert.equal(
+      page.document.querySelectorAll("#problem-list .tile").length,
+      fin400Problems.filter((p) => p.phase === "bootcamp").length,
+    );
+
+    const page2 = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400&phase=analysis");
+    try {
+      await waitFor(() => page2.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
+      assert.equal(
+        page2.document.querySelectorAll("#problem-list .tile").length,
+        fin400Problems.filter((p) => p.phase === "analysis").length,
+        "?phase= shows one half only",
+      );
+    } finally {
+      page2.restore();
+    }
+  } finally {
+    page.restore();
+  }
+});
+
+test("a FIN 400 exercise offers hints but never reveals a solution", { skip }, async () => {
+  const problem = fin400Problems.find((p) => p.type === "write_from_scratch");
+  const page = await loadPage("practice/exercise.html", "assets/js/exercise.js", `?id=${problem.id}`);
+  try {
+    await waitFor(() => page.document.querySelector("h1"), { timeout: 3000 });
+    const labels = [...page.document.querySelectorAll(".btn")].map((b) => b.textContent);
+    assert.ok(labels.some((label) => /^Hint/.test(label)), "the hint button is there");
+    assert.ok(!labels.includes("Show solution"), "there is no Show solution button");
+    assert.ok(!labels.includes("Show next solution line"), "guided mode reveals no solution lines");
+    assert.match(page.document.getElementById("exercise").textContent, /solutions hidden|Solutions are not shown/);
+    assert.match(page.document.getElementById("exercise").textContent, /FIN 400/);
+
+    click(page.window, [...page.document.querySelectorAll(".btn")].find((b) => /^Hint/.test(b.textContent)));
+    assert.match(page.document.getElementById("feedback").textContent, /Hint 1/);
+  } finally {
+    page.restore();
+  }
+});
+
+test("ACC 525 keeps its reference solutions", { skip }, async () => {
+  const problem = courseProblems.find((p) => p.type === "write_from_scratch" && p.solution);
+  assert.ok(problem, "ACC 525 still ships a worked answer");
+  const page = await loadPage("practice/exercise.html", "assets/js/exercise.js", `?id=${problem.id}`);
+  try {
+    await waitFor(() => page.document.querySelector("h1"), { timeout: 3000 });
+    const labels = [...page.document.querySelectorAll(".btn")].map((b) => b.textContent);
+    assert.ok(labels.includes("Show solution"), "the other class still shows one");
+  } finally {
+    page.restore();
+  }
+});
+
+test("the home page describes the class it is showing, both halves included", { skip }, async () => {
+  const page = await loadPage("index.html", "assets/js/home.js", "?course=fin400");
+  try {
+    await waitFor(() => page.document.querySelector("#course-hero .tile"), { timeout: 3000 });
+    const hero = page.document.getElementById("course-hero");
+    assert.match(hero.textContent, /FIN 400/);
+    assert.match(hero.textContent, /First half — Python bootcamp/);
+    assert.match(hero.textContent, /Second half — Notebooks/);
+    assert.match(hero.textContent, /solutions hidden/);
+
+    const stats = [...page.document.querySelectorAll("#stats .tile-value")].map((n) => n.textContent);
+    assert.ok(stats.includes(String(fin400Problems.length)), "the class's exercise count is shown");
+
+    const listed = page.document.getElementById("notebooks").textContent;
+    assert.match(listed, /No notebooks for FIN 400 yet/, "an empty class says where to add material");
+    assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
+  } finally {
+    page.restore();
+  }
+});
+
+test("learning/index.html says where a class without notebooks gets them", { skip }, async () => {
+  const page = await loadPage("learning/index.html", "assets/js/learning-index.js", "?course=fin400");
+  try {
+    await waitFor(() => page.document.getElementById("learning-summary").textContent.length, { timeout: 3000 });
+    const listed = page.document.getElementById("notebooks").textContent;
+    assert.match(listed, /No notebooks for FIN 400 yet/);
+    assert.match(listed, /fin400\//, "the message names the folder");
+    assert.doesNotMatch(listed, /Intro 1 —/, "the other class's notebooks are not listed");
+  } finally {
+    page.restore();
+  }
+});
+
+/* ------------------------------------------------------------ flashcards --- */
+
+const flashcardDeck = JSON.parse(await readFile(path.join(root, "data", "flashcards.json"), "utf8"));
+const fin400Cards = flashcardDeck.cards.filter((card) => !card.courses || card.courses.includes("fin400"));
+
+test("flashcards.html shows the deck by assignment and a card flips to its three parts", { skip }, async () => {
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=fin400");
+  try {
+    const cards = await waitFor(() => {
+      const found = page.document.querySelectorAll("#flashcards .flashcard");
+      return found.length ? [...found] : null;
+    }, { timeout: 3000 });
+    assert.ok(cards, "the deck renders");
+    assert.equal(cards.length, fin400Cards.length, "every FIN 400 card is listed");
+    assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
+    assert.equal(page.document.getElementById("flashcard-count").textContent, `${fin400Cards.length} cards`);
+
+    const headings = [...page.document.querySelectorAll("#flashcards .list-group h3")].map((h) => h.textContent);
+    assert.deepEqual(headings, ["Part 1 — Python bootcamp", "Part 2 — Notebooks, DataFrames & regression"]);
+
+    const first = cards[0];
+    const front = first.querySelector(".flashcard-front");
+    const back = first.querySelector(".flashcard-back");
+    assert.match(front.textContent, new RegExp(fin400Cards[0].method.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+    assert.equal(back.hidden, true, "the answer starts hidden");
+    assert.equal(front.getAttribute("aria-expanded"), "false");
+
+    click(page.window, front);
+    assert.equal(back.hidden, false, "clicking the front reveals the back");
+    assert.equal(front.getAttribute("aria-expanded"), "true");
+    assert.match(back.textContent, /What it does/);
+    assert.match(back.textContent, /In practice/);
+    assert.match(back.textContent, /Output/);
+    assert.equal(back.querySelector(".flashcard-code").textContent, fin400Cards[0].call);
+    assert.equal(back.querySelector(".flashcard-output").textContent, fin400Cards[0].output);
+
+    click(page.window, front);
+    assert.equal(back.hidden, true, "clicking again hides the answer");
+  } finally {
+    page.restore();
+  }
+});
+
+test("flashcards.html filters by library, topic and search, and groups three ways", { skip }, async () => {
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=fin400");
+  try {
+    const count = () => page.document.querySelectorAll("#flashcards .flashcard").length;
+    await waitFor(() => count(), { timeout: 3000 });
+
+    const group = page.document.getElementById("flashcard-group");
+    type(page.window, group, "library");
+    await waitFor(() => page.document.querySelector("#flashcards .list-group"), { timeout: 3000 });
+    const libraries = [...page.document.querySelectorAll("#flashcards .list-group h3")].map((h) => h.textContent);
+    assert.deepEqual(libraries, ["numpy", "pandas", "python", "statsmodels"], "grouping by library separates the libraries");
+
+    const pandasCards = fin400Cards.filter((card) => card.library === "pandas");
+    const library = page.document.getElementById("flashcard-library");
+    type(page.window, library, "pandas");
+    await waitFor(() => count() === pandasCards.length, { timeout: 3000 });
+    assert.equal(count(), pandasCards.length, "the library filter keeps one library");
+    assert.match(page.document.getElementById("flashcard-count").textContent, new RegExp(`^${pandasCards.length} of ${fin400Cards.length} cards$`));
+
+    const topic = page.document.getElementById("flashcard-topic");
+    type(page.window, topic, "Grouping");
+    await waitFor(() => count() === 1, { timeout: 3000 });
+    assert.equal(count(), 1, "one topic filter narrows the deck");
+    assert.match(page.document.querySelector("#flashcards .flashcard").textContent, /groupby/);
+
+    // Clear the selections, then search across the whole deck.
+    type(page.window, library, "");
+    type(page.window, topic, "");
+    type(page.window, group, "alpha");
+    await waitFor(() => count() === fin400Cards.length, { timeout: 3000 });
+    assert.equal(count(), fin400Cards.length);
+    const methods = [...page.document.querySelectorAll("#flashcards .flashcard-method")].map((n) => n.textContent);
+    assert.deepEqual(methods, [...methods].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })), "A–Z orders by method");
+
+    type(page.window, page.document.getElementById("flashcard-search"), "read_csv");
+    await waitFor(() => count() === 1, { timeout: 3000 });
+    assert.equal(count(), 1, "the search looks inside the code too");
+    assert.match(page.document.querySelector("#flashcards .flashcard").textContent, /read_csv/);
+  } finally {
+    page.restore();
+  }
+});
+
+test("flashcards.html study deck shows one card at a time and pages with the arrow keys", { skip }, async () => {
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=fin400&mode=study");
+  try {
+    const deck = await waitFor(() => page.document.querySelector(".study-deck"), { timeout: 3000 });
+    assert.ok(deck, "?mode=study opens the study deck");
+    assert.equal(page.document.querySelectorAll(".study-deck .flashcard").length, 1, "only one card is shown");
+    assert.match(deck.querySelector(".deck-meta").textContent, new RegExp(`Card 1 of ${fin400Cards.length}`));
+    assert.equal(page.document.querySelector('#mode-bar button[data-value="study"]').getAttribute("aria-pressed"), "true");
+
+    const back = deck.querySelector(".flashcard-back");
+    assert.equal(back.hidden, true);
+    const flip = [...deck.querySelectorAll(".deck-controls button")].find((b) => /Show answer/.test(b.textContent));
+    click(page.window, flip);
+    assert.equal(back.hidden, false, "the study deck can reveal the answer");
+    assert.equal(flip.textContent, "Hide answer");
+
+    const next = [...deck.querySelectorAll(".deck-controls button")].find((b) => /Next/.test(b.textContent));
+    click(page.window, next);
+    const second = page.document.querySelector(".study-deck");
+    assert.match(second.querySelector(".deck-meta").textContent, new RegExp(`Card 2 of ${fin400Cards.length}`));
+    assert.equal(second.querySelector(".flashcard-back").hidden, true, "a new card starts face down");
+    assert.match(second.textContent, new RegExp(fin400Cards[1].method.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+
+    // Arrow keys work anywhere on the page, as long as a control is not focused.
+    page.document.dispatchEvent(new page.window.KeyboardEvent("keydown", { key: "ArrowLeft", bubbles: true }));
+    await waitFor(() => /Card 1 of/.test(page.document.querySelector(".study-deck").textContent), { timeout: 3000 });
+    assert.match(page.document.querySelector(".study-deck .deck-meta").textContent, new RegExp(`Card 1 of ${fin400Cards.length}`));
+  } finally {
+    page.restore();
+  }
+});
+
+test("flashcards.html keeps known / review marks in the browser and filters by them", { skip }, async () => {
+  const knownCard = fin400Cards[0];
+  const reviewCard = fin400Cards[1];
+  const seed = (window) =>
+    window.localStorage.setItem(
+      "pypractice:flashcards",
+      JSON.stringify({
+        [knownCard.id]: { status: "known", updatedAt: "2026-01-01T00:00:00.000Z" },
+        [reviewCard.id]: { status: "review", updatedAt: "2026-01-02T00:00:00.000Z" },
+      }),
+    );
+
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=fin400", seed);
+  try {
+    const count = () => page.document.querySelectorAll("#flashcards .flashcard").length;
+    await waitFor(() => count(), { timeout: 3000 });
+
+    const summary = page.document.getElementById("flashcard-progress");
+    assert.match(summary.textContent, new RegExp(`1 of ${fin400Cards.length} cards known`));
+    assert.match(summary.textContent, /1 to review/);
+    assert.equal(summary.querySelector('[role="progressbar"]').getAttribute("aria-valuenow"), String(Math.round((1 / fin400Cards.length) * 100)));
+    // The marks survive a reload: they came from localStorage, not from this page.
+    assert.match(page.document.querySelector(`[data-card="${knownCard.id}"] .flashcard-status`).textContent, /known/);
+    assert.match(page.document.querySelector(`[data-card="${reviewCard.id}"] .flashcard-status`).textContent, /review/);
+
+    const status = page.document.getElementById("flashcard-status");
+    type(page.window, status, "known");
+    await waitFor(() => count() === 1, { timeout: 3000 });
+    assert.equal(count(), 1, "the progress filter keeps only known cards");
+    assert.match(page.document.querySelector("#flashcards .flashcard").textContent, new RegExp(knownCard.method.slice(0, 4)));
+    assert.match(page.document.getElementById("flashcard-count").textContent, new RegExp(`^1 of ${fin400Cards.length} cards$`));
+
+    type(page.window, status, "unseen");
+    await waitFor(() => count() === fin400Cards.length - 2, { timeout: 3000 });
+    assert.equal(count(), fin400Cards.length - 2, "the unseen filter drops the marked cards");
+
+    // The choice travels in the URL, so a shared link opens the same slice.
+    assert.equal(new URL(page.window.location.href).searchParams.get("status"), "unseen");
+  } finally {
+    page.restore();
+  }
+});
+
+test("flashcards.html marks a card from its back and can reset every mark", { skip }, async () => {
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=fin400");
+  try {
+    const first = await waitFor(() => page.document.querySelector("#flashcards .flashcard"), { timeout: 3000 });
+    assert.ok(first, "the deck renders");
+    const cardId = first.dataset.card;
+    click(page.window, first.querySelector(".flashcard-front"));
+
+    const known = first.querySelector('.flashcard-back button[data-status="known"]');
+    assert.ok(known, "the back offers a Known button");
+    click(page.window, known);
+    const stored = JSON.parse(page.window.localStorage.getItem("pypractice:flashcards"));
+    assert.equal(stored[cardId].status, "known", "the mark is written to localStorage");
+    assert.ok(stored[cardId].updatedAt, "the mark records when it was set");
+    assert.equal(known.getAttribute("aria-pressed"), "true");
+    assert.match(page.document.getElementById("flashcard-progress").textContent, new RegExp(`1 of ${fin400Cards.length} cards known`));
+
+    // Clicking the same button again takes the mark back off.
+    click(page.window, known);
+    assert.deepEqual(JSON.parse(page.window.localStorage.getItem("pypractice:flashcards")), {});
+    assert.equal(known.getAttribute("aria-pressed"), "false");
+
+    click(page.window, known);
+    page.window.confirm = () => true;
+    click(page.window, page.document.getElementById("flashcard-reset"));
+    assert.deepEqual(JSON.parse(page.window.localStorage.getItem("pypractice:flashcards")), {});
+    assert.match(page.document.getElementById("flashcard-progress").textContent, new RegExp(`0 of ${fin400Cards.length} cards known`));
+  } finally {
+    page.restore();
+  }
+});
+
+test("flashcards.html says where a class without cards gets them", { skip }, async () => {
+  const page = await loadPage("flashcards.html", "assets/js/flashcards-page.js", "?course=acc525");
+  try {
+    const notice = await waitFor(() => page.document.querySelector("#flashcards .notice"), { timeout: 3000 });
+    assert.ok(notice, "an empty class explains itself instead of showing a blank page");
+    assert.match(notice.textContent, /No flashcards for ACC 525/);
+    assert.match(notice.textContent, /data\/flashcards\.json/);
+    const link = notice.querySelector('a[href="?course=fin400"]');
+    assert.ok(link, "the empty state points at the class that has cards");
+    assert.match(link.textContent, /FIN 400/);
   } finally {
     page.restore();
   }

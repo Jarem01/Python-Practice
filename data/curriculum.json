@@ -1,5 +1,5 @@
 {
-  "_comment": "Manual overrides for the generated index. 'label' is the short course name (Intro 1, Data Analysis 3, …), 'order' is the part number used for sorting inside a group, 'data_files' maps the name the notebook's code opens to the file in materials/ that the site copies into the sandbox, and 'packages' lists the Pyodide packages the in-browser Python must load before the notebook runs. Keep 'packages' to what Pyodide actually ships: pandas, numpy, matplotlib, scipy, statsmodels, python-calamine (used by pandas' read_excel for .xlsx). Re-run tools/build_index.py after editing.",
+  "_comment": "Manual overrides for the generated index. 'label' is the short course name (Intro 1, Data Analysis 3, …), 'order' is the part number used for sorting inside a group, 'data_files' maps the name the notebook's code opens to the file in acc525/data/ (and the helper in acc525/) that the site copies into the sandbox, and 'packages' lists the Pyodide packages the in-browser Python must load before the notebook runs. Keep 'packages' to what Pyodide actually ships: pandas, numpy, matplotlib, scipy, statsmodels, python-calamine (used by pandas' read_excel for .xlsx). Re-run tools/build_index.py after editing.",
   "group_titles": {
     "Intro to Python": "Intro to Python",
     "Data Analysis": "Data Analysis",
@@ -11,7 +11,7 @@
     "Notebooks": 999
   },
   "notebook_overrides": {
-    "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Intro 1 — Values, strings and lists",
       "label": "Intro 1",
       "group": "Intro to Python",
@@ -24,7 +24,7 @@
         "Lists"
       ]
     },
-    "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Intro 2 — Lists, loops and strings",
       "label": "Intro 2",
       "group": "Intro to Python",
@@ -37,7 +37,7 @@
         "Strings"
       ]
     },
-    "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Intro 3 — Dictionaries and paired data",
       "label": "Intro 3",
       "group": "Intro to Python",
@@ -50,10 +50,10 @@
         "Lists"
       ],
       "data_files": {
-        "avocados.txt": "materials/datasets/avocados.txt"
+        "avocados.txt": "acc525/data/avocados.txt"
       }
     },
-    "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Intro 4 — Functions, errors and debugging",
       "label": "Intro 4",
       "group": "Intro to Python",
@@ -65,7 +65,7 @@
         "Errors"
       ]
     },
-    "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 1 — Introduction to Pandas",
       "label": "Data Analysis 1",
       "group": "Data Analysis",
@@ -77,13 +77,13 @@
         "NumPy"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "packages": [
         "pandas"
       ]
     },
-    "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 2 — Cleaning data",
       "label": "Data Analysis 2",
       "group": "Data Analysis",
@@ -95,13 +95,13 @@
         "Cleaning Data"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "packages": [
         "pandas"
       ]
     },
-    "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 3 — Sorting and summary statistics",
       "label": "Data Analysis 3",
       "group": "Data Analysis",
@@ -113,15 +113,15 @@
         "Summary Statistics"
       ],
       "data_files": {
-        "invoices.xlsx": "materials/datasets/invoices.xlsx",
-        "analyticskit.py": "materials/analyticskit.py"
+        "invoices.xlsx": "acc525/data/invoices.xlsx",
+        "analyticskit.py": "acc525/analyticskit.py"
       },
       "packages": [
         "pandas",
         "python-calamine"
       ]
     },
-    "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 4 — Concatenating, merging and files",
       "label": "Data Analysis 4",
       "group": "Data Analysis",
@@ -133,18 +133,18 @@
         "Merging"
       ],
       "data_files": {
-        "earnings.csv": "materials/datasets/earnings.csv",
-        "exchange.csv": "materials/datasets/exchange.csv",
-        "company_names.csv": "materials/datasets/company_names.csv",
-        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
-        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "earnings.csv": "acc525/data/earnings.csv",
+        "exchange.csv": "acc525/data/exchange.csv",
+        "company_names.csv": "acc525/data/company_names.csv",
+        "degrees-that-pay-back-a.csv": "acc525/data/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "acc525/data/degrees-that-pay-back-b.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       },
       "packages": [
         "pandas"
       ]
     },
-    "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 5 — Plotting, outliers and industry data",
       "label": "Data Analysis 5",
       "group": "Data Analysis",
@@ -157,16 +157,16 @@
         "Visualization"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "sic_indnames.csv": "materials/datasets/sic_indnames.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "sic_indnames.csv": "acc525/data/sic_indnames.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       },
       "packages": [
         "pandas",
         "matplotlib"
       ]
     },
-    "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb": {
+    "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb": {
       "title": "Data Analysis 6 — Regression",
       "label": "Data Analysis 6",
       "group": "Data Analysis",
@@ -178,7 +178,7 @@
         "statsmodels"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "packages": [
         "pandas",

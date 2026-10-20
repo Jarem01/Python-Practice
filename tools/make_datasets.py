@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create the practice datasets that live in materials/datasets/.
+"""Create the practice datasets that live in acc525/data/.
 
 Every notebook in this repository opens a data file by name — `violations.csv`,
 `invoices.xlsx`, `insurance.csv`, `compustat.csv`, `avocados.txt`, … Those files
@@ -8,7 +8,7 @@ deterministic set of them: the same command always writes byte-identical files,
 and the numbers the class notebooks quote (68,841 violations rows, 25,337 of
 them with a zip code, a median invoice of $1,949.87, …) come out right.
 
-    python3 tools/make_datasets.py            # write into materials/datasets/
+    python3 tools/make_datasets.py            # write into acc525/data/
     python3 tools/make_datasets.py --verify   # only check what is already there
 
 `insurance.csv` is the well-known public Medical Cost Personal Dataset
@@ -33,7 +33,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "materials" / "datasets"
+OUT = ROOT / "acc525" / "data"
 SEED = 20260115
 
 
@@ -979,12 +979,12 @@ def main() -> int:
         print("    https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv")
         return 1
 
-    kit = ROOT / "materials" / "analyticskit.py"
+    kit = ROOT / "acc525" / "analyticskit.py"
     kit.write_text(ANALYTICSKIT, encoding="utf-8")
     made.append("analyticskit.py (winsorize, truncate, standardize)")
 
     for entry in made:
-        print(f"  wrote materials/datasets/{entry}" if not entry.startswith("analyticskit") else f"  wrote materials/{entry}")
+        print(f"  wrote acc525/data/{entry}" if not entry.startswith("analyticskit") else f"  wrote acc525/{entry}")
 
     try:
         return verify()

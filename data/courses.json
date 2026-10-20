@@ -1,0 +1,61 @@
+{
+  "_comment": "The classes this site teaches. Every page shows one class at a time; the picker in the header switches between them and remembers the choice. 'paths' are repository folders that belong to a class (the first class with an empty path list owns everything not claimed by another class). 'private_paths' are folders that belong to a class but are never published: the build leaves their files out of the manifests and tools/assemble_site.py removes them from _site, so answer keys never reach the website. 'phases' are the halves of a course: a notebook/problem is put in a phase when its group is listed in phase.groups, and the practice page can group by phase. 'solutions' decides whether the exercise page may show a reference solution: 'shown' (default) or 'hidden' (hints only). Re-run tools/build_index.py after editing.",
+  "default": "acc525",
+  "courses": [
+    {
+      "id": "acc525",
+      "code": "ACC 525",
+      "title": "Python for accounting",
+      "summary": "The class exercise notebooks, from first scripts to pandas and regression. Solutions and reference answers are shown, because this class works through them together.",
+      "paths": ["acc525"],
+      "solutions": "shown",
+      "phases": [
+        {
+          "id": "intro",
+          "title": "Part 1 — Intro to Python",
+          "summary": "Values, strings, lists, loops, dictionaries, functions and errors.",
+          "groups": ["Intro to Python"]
+        },
+        {
+          "id": "analysis",
+          "title": "Part 2 — Data analysis",
+          "summary": "pandas: loading, cleaning, sorting, merging, plotting and regression.",
+          "groups": ["Data Analysis"]
+        }
+      ],
+      "groups": {
+        "Intro to Python": { "title": "Intro to Python", "order": 1 },
+        "Data Analysis": { "title": "Data Analysis", "order": 2 }
+      },
+      "helpers": ["analyticskit.py"]
+    },
+    {
+      "id": "fin400",
+      "code": "FIN 400",
+      "title": "Python for finance",
+      "summary": "Two halves: write functions in plain .py files first, then work in notebooks with DataFrames and finish with regression. Solutions are never shown — hints are, and every exercise runs on its own data.",
+      "paths": ["fin400"],
+      "private_paths": ["fin400/solutions"],
+      "solutions": "hidden",
+      "phases": [
+        {
+          "id": "bootcamp",
+          "title": "First half — Python bootcamp (.py)",
+          "summary": "Write, fix and test functions in ordinary .py files. No notebooks and no DataFrames yet.",
+          "groups": ["bootcamp"]
+        },
+        {
+          "id": "analysis",
+          "title": "Second half — Notebooks, DataFrames and regression",
+          "summary": "Work in .ipynb files: load data, clean it, group and merge it, plot it, and finish with a regression.",
+          "groups": ["notebooks", "assignments"]
+        }
+      ],
+      "groups": {
+        "bootcamp": { "title": "Part 1 — Python bootcamp (.py)", "order": 1 },
+        "notebooks": { "title": "Part 2 — Notebooks, DataFrames & regression", "order": 2 },
+        "assignments": { "title": "Assignments — briefs and worked practice", "order": 3 }
+      }
+    }
+  ]
+}

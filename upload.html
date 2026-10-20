@@ -15,10 +15,12 @@
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <div id="course-picker"></div>
     <nav class="main">
       <a href="index.html">Home</a>
       <a href="learning/index.html">Learning</a>
       <a href="practice/index.html">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
       <a href="glossary.html">Glossary</a>
       <a href="upload.html" aria-current="page">Add material</a>
       <a href="practice/create.html">Add exercise</a>
@@ -36,14 +38,14 @@
     solution, which becomes an automatically checked practice exercise.
   </p>
   <p class="small">
-    Every uploaded file is stored under <code>materials/</code> in the repository, which is the single
-    folder that tracks all of the source study material — add to it as often as you like, in any
-    batch, and the learning and practice pages pick the new files up as soon as the index is rebuilt.
+    Files are committed to the folder you choose below. It starts as <code>materials/</code>; a class that
+    keeps its material in its own folder (FIN 400 → <code>fin400/</code>) starts there instead. Add files as
+    often as you like, and the learning and practice pages pick them up as soon as the index is rebuilt.
   </p>
   <ol class="small muted">
     <li><strong>Add files</strong> by dropping them below or picking them from your computer.</li>
     <li><strong>Analyze</strong> to see what was detected and to build practice exercises.</li>
-    <li><strong>Save</strong> to GitHub (the source files land in <code>materials/</code>) or to this
+    <li><strong>Save</strong> to GitHub (the source files land in the folder you chose) or to this
         browser, then keep browsing — uploads show up in the <a href="learning/index.html">learning</a>
         and <a href="practice/index.html">practice</a> sections right away.</li>
   </ol>
@@ -75,7 +77,8 @@
       <label class="field">
         <span class="lbl">Subfolder / track (optional)</span>
         <input type="text" id="subfolder" placeholder="Intro to Python (Part 5)">
-        <span class="hint">Groups the material under one track in the learning index.</span>
+        <span class="hint">Groups the material in the learning index. For FIN 400 use
+          <code>bootcamp</code>, <code>notebooks</code> or <code>assignments</code> so the file lands in the right section.</span>
       </label>
       <label class="field">
         <span class="lbl">Options</span>
@@ -83,6 +86,20 @@
         <span class="small"><input type="checkbox" id="predict" checked> Also add “predict the output” versions</span><br>
         <span class="small"><input type="checkbox" id="commit-exercises" checked> Save the checked exercises into <code>problems/generated/</code></span>
       </label>
+    </div>
+
+    <div id="private-warning" class="notice warn hidden" style="margin-top:.9rem">
+      <p><strong>This destination is private.</strong> The site never publishes it, so no practice exercises are
+      generated or committed from these files — an exercise's expected output would be the answer key. The source
+      files are still committed to the repository, which is not the same as being private on GitHub.</p>
+    </div>
+
+    <div class="notice warn" style="margin-top:.9rem">
+      <p><strong>Answer keys and model solutions belong in <code>fin400/solutions/</code>.</strong>
+      The site never publishes that folder: the build leaves its files out of the index and
+      <code>tools/assemble_site.py</code> removes it from the published site, so no page links to a solution.
+      The files do stay in the repository, and a public GitHub repository shows them to anyone who browses
+      there — keep the repository private (or keep answer keys off GitHub) if students must not see them.</p>
     </div>
   </section>
 

@@ -4,7 +4,7 @@
       "id": "da5-load-and-merge-industry",
       "type": "write_from_scratch",
       "title": "Attach industry names to compustat",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Merging",
@@ -15,8 +15,8 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "sic_indnames.csv": "acc525/data/sic_indnames.csv"
       },
       "line_count": 6,
       "prompt": "`compustat.csv` has firm fundamentals keyed by `sic` (industry code). `sic_indnames.csv` maps each `sic` to an `industry` name.\n\nRead both, merge them with a **left** join on `sic`, and print the number of distinct industries.",
@@ -40,7 +40,7 @@
       "id": "da5-computers-leverage",
       "type": "write_from_scratch",
       "title": "Leverage in the Computers industry",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas",
@@ -51,8 +51,8 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "sic_indnames.csv": "acc525/data/sic_indnames.csv"
       },
       "line_count": 8,
       "prompt": "A firm's **leverage** is its liabilities (`lt`) divided by its assets (`at`).\n\nThe Computers industry has `sic == 3571`. Build the leverage column for those firms and print the **median leverage**, rounded to three decimals.",
@@ -76,7 +76,7 @@
       "id": "da5-banks-most-leveraged",
       "type": "write_from_scratch",
       "title": "Which industry is the most leveraged?",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas",
@@ -87,8 +87,8 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "sic_indnames.csv": "materials/datasets/sic_indnames.csv"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "sic_indnames.csv": "acc525/data/sic_indnames.csv"
       },
       "line_count": 9,
       "prompt": "Merge `compustat.csv` with `sic_indnames.csv` on `sic`, keep the rows whose `sic` is in `[6020, 4924, 3571, 1040, 5812, 3760, 5411]`, and add a `leverage` column (`lt / at`).\n\nGroup by `industry`, take the median leverage, and print the industry with the highest median.",
@@ -112,7 +112,7 @@
       "id": "da5-winsorize-mktcap",
       "type": "write_from_scratch",
       "title": "Winsorize market capitalization",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Outliers",
@@ -123,8 +123,8 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       },
       "line_count": 8,
       "prompt": "`analyticskit.py` is in the working directory and defines `winsorize(values, lower_percentile, upper_percentile)`, which **caps** the tails while keeping every observation.\n\nWinsorize `mktcap` at the 5th and 95th percentiles into `mktcap_w` and print the maximum of the winsorized column, rounded to two decimals. Compare it with the raw maximum.",
@@ -148,7 +148,7 @@
       "id": "da5-truncate-rows",
       "type": "write_from_scratch",
       "title": "Truncate instead of winsorize",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Outliers",
@@ -159,8 +159,8 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       },
       "line_count": 8,
       "prompt": "`truncate()` in `analyticskit.py` **drops** the observations outside two percentiles instead of capping them.\n\nTruncate `mktcap` at the 5th and 95th percentiles into `mktcap_t` and print how many rows are left.",
@@ -184,7 +184,7 @@
       "id": "da5-mktcap-percentiles",
       "type": "fill_in_blank",
       "title": "Describe the tails of market cap",
-      "notebook": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Summary Statistics",
@@ -195,7 +195,7 @@
         "pandas"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv"
+        "compustat.csv": "acc525/data/compustat.csv"
       },
       "line_count": 6,
       "prompt": "Fill in the blanks so the cell prints the 99th percentile of `mktcap`, rounded to the nearest thousand.\n\nCompare it with the maximum you get from `.max()` — this gap is why the notebook winsorizes.",

@@ -4,18 +4,69 @@
  */
 
 import { CONFIG } from "./config.js";
+import {
+  activeCourse,
+  filterGlossary,
+  filterManifest,
+  filterProblems as inCourse,
+  loadCourses,
+  mountCoursePicker,
+  phasesOf,
+} from "./course.js";
 import { el, escapeHtml, getViewMode, setViewMode, TYPE_LABELS, TYPE_ORDER, viewToggle } from "./util.js";
 import { loadGlossary } from "./glossary.js";
 import { loadNotebookManifest, renderNotebookList } from "./notebooks.js";
 import { loadProblems, problemStats, problemStatus } from "./problems.js";
 
+/**
+ * The class itself, at the top of the page: what it is, its two halves, and how
+ * much practice is waiting in each. This is the "which half am I in?" view that
+ * a two-half class like FIN 400 needs.
+ */
+function renderCourseHero(course, problems) {
+  const host = document.getElementById("course-hero");
+  if (!host || !course) return;
+  const phases = phasesOf(course);
+  const parts = [];
+
+  parts.push('<div class="card">');
+  parts.push('<div class="course-chip">');
+  parts.push(`<span class="badge">${escapeHtml(course.code)}</span>`);
+  if (course.title) parts.push(`<span class="small muted">${escapeHtml(course.title)}</span>`);
+  if (course.solutions === "hidden") {
+    parts.push('<span class="badge warned" title="Hints are offered; reference answers are not published.">solutions hidden</span>');
+  }
+  parts.push("</div>");
+  if (course.summary) parts.push(`<p>${escapeHtml(course.summary)}</p>`);
+
+  if (phases.length) {
+    parts.push('<div class="grid cols-3">');
+    for (const phase of phases) {
+      const own = problems.filter((problem) => problem.phase === phase.id);
+      const solved = own.filter((problem) => problemStatus(problem) === "solved").length;
+      const href = `practice/index.html?group=phase&phase=${encodeURIComponent(phase.id)}`;
+      parts.push(
+        `<a class="tile" href="${href}">` +
+          `<div class="row-between"><h3 style="margin:0;font-size:1.02rem">${escapeHtml(phase.title)}</h3>` +
+          `<span class="badge${solved ? " solved" : ""}">${own.length} exercise${own.length === 1 ? "" : "s"}</span></div>` +
+          (phase.summary ? `<p class="small muted" style="margin:.4rem 0 .3rem">${escapeHtml(phase.summary)}</p>` : "") +
+          `<div class="tiny muted">${solved} solved</div></a>`,
+      );
+    }
+    parts.push("</div>");
+  }
+  parts.push("</div>");
+  host.innerHTML = parts.join("");
+}
+
 function renderStats(problems, manifest, glossary) {
   const host = document.getElementById("stats");
   const stats = problemStats(problems);
-  const totals = manifest?.totals || {};
+  const notebooks = manifest?.notebooks || [];
+  const notebookExercises = notebooks.reduce((total, entry) => total + (entry.exercises?.length || 0), 0);
   const cards = [
-    ["Notebooks", totals.notebooks ?? 0, "learning/"],
-    ["Notebook exercises", totals.exercises ?? 0, "learning/"],
+    ["Notebooks", notebooks.length, "learning/"],
+    ["Notebook exercises", notebookExercises, "learning/"],
     ["Practice exercises", stats.total, "practice/"],
     ["Glossary terms", glossary?.entries?.length ?? 0, "glossary.html"],
   ];
@@ -35,7 +86,13 @@ function renderStats(problems, manifest, glossary) {
  */
 function renderCoverage(problems, manifest) {
   const host = document.getElementById("coverage");
-  if (!host || !manifest?.notebooks?.length) return;
+  if (!host) return;
+  if (!manifest?.notebooks?.length) {
+    host.innerHTML =
+      '<h3 style="margin:0">Practice coverage by section</h3>' +
+      '<p class="small muted" style="margin:.4rem 0 0">This class has no notebooks in the repository yet, so there is nothing to cover.</p>';
+    return;
+  }
   const rows = manifest.notebooks.map((notebook) => {
     const own = problems.filter((problem) => problem.notebook === notebook.path);
     const solved = own.filter((problem) => problemStatus(problem) === "solved").length;
@@ -153,6 +210,19 @@ async function main() {
   let problems = [];
   let manifest = null;
   let glossary = null;
+  let course = null;
+
+  // Which class this page is showing. Without data/courses.json the page still
+  // works: it just treats all the material as one class.
+  try {
+    const catalog = await loadCourses();
+    course = await activeCourse(catalog);
+    mountCoursePicker(catalog, { active: course.id });
+    if (course) document.title = `${course.code} — Python Practice`;
+  } catch (error) {
+    course = null;
+    console.warn(error.message);
+  }
 
   try {
     problems = await loadProblems();
@@ -168,6 +238,23 @@ async function main() {
     glossary = await loadGlossary();
   } catch (error) {
     document.getElementById("warnings").insertAdjacentHTML("beforeend", `<div class="notice warn"><p>${escapeHtml(error.message)}</p></div>`);
+  }
+
+  if (course) {
+    problems = inCourse(problems, course.id);
+    if (manifest) manifest = filterManifest(manifest, course.id);
+    if (glossary) glossary = filterGlossary(glossary, course.id);
+  }
+
+  if (course) renderCourseHero(course, problems);
+
+  const blurb = document.getElementById("learning-blurb");
+  if (blurb && course) {
+    const phases = phasesOf(course).map((phase) => phase.title).join(", then ");
+    blurb.innerHTML =
+      `<strong>${escapeHtml(course.code)}</strong> in order${phases ? ` — ${escapeHtml(phases)}` : ""} — with the exercises ` +
+      `found inside each section. <strong>Run</strong> opens a notebook as a live, editable notebook in the browser ` +
+      `(like Jupyter), with every exercise inside it boxed so you can jump straight to the one you want.`;
   }
 
   if (problems.length) {
@@ -199,7 +286,16 @@ async function main() {
   const viewBar = document.getElementById("view-bar");
   if (manifest) {
     let view = getViewMode("learning");
-    const draw = () => renderNotebookList(notebookHost, manifest, { base: "", problems, config: CONFIG, view });
+    const draw = () =>
+      renderNotebookList(notebookHost, manifest, {
+        base: "",
+        problems,
+        config: CONFIG,
+        view,
+        emptyMessage: course
+          ? `No notebooks for ${course.code} yet. Add them under ${(course.paths || []).filter(Boolean).join("/") || "the repository"}/ and re-run python3 tools/build_index.py.`
+          : undefined,
+      });
     if (viewBar) {
       viewBar.append(
         viewToggle(view, (value) => {

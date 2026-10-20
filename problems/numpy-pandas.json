@@ -26,7 +26,7 @@
         "boolean-mask",
         "axis"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-numpy-sum-axis",
@@ -62,7 +62,7 @@
         "axis",
         "shape"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-pandas-hottest-city",
@@ -93,7 +93,7 @@
         "series",
         "method"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-pandas-groupby",
@@ -129,7 +129,7 @@
         "groupby",
         "series"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-numpy-normalize",
@@ -162,7 +162,7 @@
         "vectorization",
         "function"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-pandas-city-counts",
@@ -194,7 +194,7 @@
         "dictionary",
         "method"
       ],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     }
   ]
 }

@@ -2,7 +2,7 @@
  * Data files for exercises.
  *
  * A problem can declare:
- *     "data_files": { "sales.csv": "materials/datasets/sales.csv" }
+ *     "data_files": { "sales.csv": "acc525/data/sales.csv" }
  * The file is then copied into the Python sandbox under the name the notebook's
  * code expects (`sales.csv`), so notebook code runs unchanged. Binary formats
  * (xlsx, parquet) are passed as base64 and written as bytes.

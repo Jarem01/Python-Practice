@@ -5,6 +5,7 @@
 
 import { dataFileHints, packageHints } from "./analyze.js";
 import { CONFIG, siteUrl } from "./config.js";
+import { loadCourses, mountCoursePicker } from "./course.js";
 import { loadNotebookFile, loadNotebookManifest, jupyterLiteUrl, renderToc } from "./notebooks.js";
 import { renderRunnableNotebook } from "./notebook-runner.js";
 import { loadProblems } from "./problems.js";
@@ -71,10 +72,23 @@ async function main() {
 
   document.title = `${entry.title} · ${manifest.root || "Python Practice"}`;
 
-  const order = (manifest.notebooks || []).map((n) => n.path);
-  const index = order.indexOf(entry.path);
-  const previous = index > 0 ? manifest.notebooks[index - 1] : null;
-  const next = index >= 0 && index < manifest.notebooks.length - 1 ? manifest.notebooks[index + 1] : null;
+  // A notebook opened from a shared link should say which class it belongs to,
+  // even when the header picker is remembering the other class.
+  let course = null;
+  try {
+    const catalog = await loadCourses();
+    course = catalog.courses.find((candidate) => candidate.id === entry.course) || null;
+    if (course) mountCoursePicker(catalog, { active: course.id });
+  } catch {
+    course = null;
+  }
+
+  // Previous/next walk the notebooks of this class only: jumping from FIN 400
+  // into an ACC 525 notebook would drop the learner in the wrong course.
+  const siblings = (manifest.notebooks || []).filter((n) => !entry.course || n.course === entry.course);
+  const index = siblings.findIndex((n) => n.path === entry.path);
+  const previous = index > 0 ? siblings[index - 1] : null;
+  const next = index >= 0 && index < siblings.length - 1 ? siblings[index + 1] : null;
 
   let problems = [];
   try {
@@ -86,13 +100,17 @@ async function main() {
   for (const topic of entry.matched_topics || []) {
     for (const id of manifest.topics?.[topic]?.problems || []) {
       const problem = problems.find((p) => p.id === id);
-      if (problem && !related.some((p) => p.id === problem.id)) related.push(problem);
+      if (!problem || related.some((p) => p.id === problem.id)) continue;
+      if (entry.course && problem.course && problem.course !== entry.course) continue;
+      related.push(problem);
     }
   }
 
   headerHost.innerHTML = "";
   headerHost.append(el("h1", { text: entry.title, style: "margin-bottom:.2rem" }));
   const meta = [
+    course ? course.code : entry.group,
+    course && entry.phase ? (course.phases || []).find((phase) => phase.id === entry.phase)?.title : "",
     entry.group,
     pluralize(entry.cell_count, "cell"),
     `${entry.code_cell_count} code`,

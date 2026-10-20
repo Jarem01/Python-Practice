@@ -22,7 +22,7 @@
         "range",
         "for-loop"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "predict-string-slice",
@@ -48,7 +48,7 @@
         "len",
         "method"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-even-filter",
@@ -87,7 +87,7 @@
         "modulo",
         "operator"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-count-vowels",
@@ -120,7 +120,7 @@
         "for-loop",
         "method"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-fstring-greeting",
@@ -144,7 +144,7 @@
         "variable",
         "string"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "predict-while-counter",
@@ -169,7 +169,7 @@
         "loop",
         "print"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-sum-args",
@@ -213,7 +213,7 @@
         "parameter",
         "tuple"
       ],
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-celsius-to-fahrenheit",
@@ -243,7 +243,7 @@
         "return",
         "operator"
       ],
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-syntax-indent",
@@ -266,7 +266,7 @@
         "if-statement",
         "block"
       ],
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     }
   ]
 }

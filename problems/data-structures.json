@@ -24,7 +24,7 @@
         "method",
         "for-loop"
       ],
-      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "predict-list-alias",
@@ -50,7 +50,7 @@
         "method",
         "reference"
       ],
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-dict-comprehension",
@@ -83,7 +83,7 @@
         "len",
         "list-comprehension"
       ],
-      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-most-common",
@@ -116,7 +116,7 @@
         "return",
         "for-loop"
       ],
-      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fix-first-even-return",
@@ -142,7 +142,7 @@
         "for-loop",
         "if-statement"
       ],
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "predict-tuple-unpack",
@@ -170,7 +170,7 @@
         "range",
         "sum"
       ],
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "fill-sorted-key",
@@ -204,7 +204,7 @@
         "tuple",
         "index"
       ],
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb"
     },
     {
       "id": "write-word-frequencies",
@@ -238,7 +238,7 @@
         "for-loop",
         "function"
       ],
-      "notebook": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
     }
   ]
 }

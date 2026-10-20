@@ -5,6 +5,7 @@
  */
 
 import { CONFIG } from "./config.js";
+import { activeCourse, loadCourses, mountCoursePicker } from "./course.js";
 import {
   analyzeFile,
   buildDraftProblem,
@@ -27,6 +28,11 @@ const state = {
   files: [],
   drafts: [],
   glossary: null,
+  course: null,
+  // Folders some class keeps private (data/courses.json → private_paths),
+  // e.g. FIN 400's fin400/solutions. Nothing uploaded there is turned into an
+  // exercise, because exercises are published.
+  privatePaths: [],
   busy: false,
   cancel: false,
   uid: 0,
@@ -50,6 +56,40 @@ function targetPath(name) {
   const folder = (nodes.folder.value || CONFIG.uploadFolder || "materials").replace(/^\/+|\/+$/g, "");
   const sub = (nodes.subfolder.value || "").replace(/^\/+|\/+$/g, "").replace(/\s+/g, " ");
   return [folder, sub, name].filter(Boolean).join("/");
+}
+
+/** The folder the uploads are going into, without a file name. */
+function destinationFolder() {
+  const folder = (nodes.folder.value || CONFIG.uploadFolder || "materials").replace(/^\/+|\/+$/g, "");
+  const sub = (nodes.subfolder.value || "").replace(/^\/+|\/+$/g, "").replace(/\s+/g, " ");
+  return [folder, sub].filter(Boolean).join("/");
+}
+
+/** The data folder of the class in the header ("acc525/data", "fin400/data"). */
+function courseDataFolder() {
+  const root = ((state.course && state.course.paths) || []).filter(Boolean)[0];
+  return root ? `${root}/data` : "materials/datasets";
+}
+
+/** Is this upload going into a folder its class keeps off the site? */
+function isPrivateDestination() {
+  const path = destinationFolder();
+  return state.privatePaths.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+}
+
+/**
+ * Say so when the destination is private, and switch exercise generation off.
+ * The sources still belong in the repository (that is where the instructor
+ * keeps them); an exercise built from a solved notebook would be published,
+ * so the page refuses to build one.
+ */
+function updatePrivateDestination() {
+  const privateFolder = isPrivateDestination();
+  const warning = document.getElementById("private-warning");
+  if (warning) warning.classList.toggle("hidden", !privateFolder);
+  for (const box of [nodes.generate, nodes.predict, nodes.commitExercises]) {
+    if (box) box.disabled = privateFolder;
+  }
 }
 
 async function addFiles(fileList) {
@@ -145,6 +185,14 @@ async function analyzeAll() {
   }
   renderFiles();
 
+  if (isPrivateDestination()) {
+    updatePrivateDestination();
+    return setStatus(
+      "ok",
+      "Analysis finished. This destination is private, so no practice exercises were built — they would be published, and these files must not be.",
+    );
+  }
+
   if (!nodes.generate.checked) {
     return setStatus("ok", "Analysis finished. Tick “Build practice exercises” to generate exercises from notebooks.");
   }
@@ -201,7 +249,7 @@ async function generateExercises() {
       const declared = {};
       for (const name of wanted) {
         const uploaded = state.files.find((item) => item.name === name);
-        declared[name] = uploaded ? uploaded.path : `materials/datasets/${name}`;
+        declared[name] = uploaded ? uploaded.path : `${courseDataFolder()}/${name}`;
       }
       const resolved = Object.keys(declared).length ? await resolveDataFiles(declared) : { files: {}, problems: [] };
       const modules = {};
@@ -227,6 +275,9 @@ async function generateExercises() {
         withPredictVariant: nodes.predict.checked,
         setupUsable: Boolean(setup),
         dataFiles: Object.keys(declared).length ? declared : null,
+        // Exercises built from this upload belong to the class in the header,
+        // and a hidden class keeps the notebook's solution out of the draft.
+        course: state.course,
       });
       for (const draft of drafts) {
         saveDraft(draft);
@@ -360,6 +411,9 @@ async function saveToBrowser() {
  * browser until they are finished on the practice page.
  */
 function exercisePayload() {
+  // Never publish an exercise built from a private folder: its expected
+  // output is the answer key.
+  if (isPrivateDestination()) return { files: [], skipped: 0, private: true };
   const wanted = !nodes.commitExercises || nodes.commitExercises.checked;
   if (!wanted || !state.drafts.length) return { files: [], skipped: 0 };
   const files = [];
@@ -433,9 +487,11 @@ async function saveToGitHub() {
     `Committed ${ok.length} of ${results.length} file(s) to <code>${escapeHtml(settings.repo)}</code> — ` +
       `${source.length} source file(s) under <code>${escapeHtml(nodes.folder.value || CONFIG.uploadFolder)}/</code> and ${savedExercises} exercise file(s). ` +
       `The index rebuilds automatically on the next push (the GitHub Actions workflow commits it back and republishes the site), or run <code>python3 tools/build_index.py</code> in your clone.` +
-      (exercises.skipped
-        ? `<br>${exercises.skipped} exercise(s) stayed in this browser because nothing can check them yet — they would stop the index build.`
-        : "") +
+      (exercises.private
+        ? "<br>No exercises were committed: the destination is a private folder, and exercises are published."
+        : exercises.skipped
+          ? `<br>${exercises.skipped} exercise(s) stayed in this browser because nothing can check them yet — they would stop the index build.`
+          : "") +
       (failed.length ? `<br><span style="color:var(--bad)">${failed.map((r) => `${escapeHtml(r.path)}: ${escapeHtml(r.error)}`).join("<br>")}</span>` : ""),
   );
 }
@@ -447,7 +503,9 @@ function downloadBundle() {
     generated_at: new Date().toISOString(),
     destination: nodes.folder.value || CONFIG.uploadFolder,
     files: state.files.map((file) => ({ path: file.path, encoding: file.encoding, content: file.content })),
-    problems: state.drafts,
+    // A bundle applied by the importer becomes part of the published site, so
+    // exercises are kept out of it when the source folder is private.
+    problems: isPrivateDestination() ? [] : state.drafts,
   };
   const blob = new Blob([`${JSON.stringify(bundle, null, 2)}\n`], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -542,7 +600,7 @@ function applySettings() {
   nodes.ghRemember.checked = settings.remember !== false;
 }
 
-function main() {
+async function main() {
   for (const id of ["status", "files", "drafts", "drop", "file-input", "pick", "url-input", "fetch-url", "folder", "subfolder", "generate", "predict", "commit-exercises", "analyze", "save-browser", "save-github", "download-bundle", "clear", "progress", "gh-repo", "gh-branch", "gh-token", "gh-remember", "gh-test", "gh-save", "gh-forget", "gh-status", "save-hint"]) {
     nodes[id.replace(/-([a-z])/g, (_m, c) => c.toUpperCase())] = document.getElementById(id);
   }
@@ -554,6 +612,8 @@ function main() {
   nodes.folder.value = nodes.folder.value || CONFIG.uploadFolder;
 
   nodes.analyze.addEventListener("click", () => analyzeAll());
+  nodes.folder.addEventListener("input", updatePrivateDestination);
+  nodes.subfolder.addEventListener("input", updatePrivateDestination);
   nodes.saveBrowser.addEventListener("click", () => saveToBrowser());
   nodes.saveGithub.addEventListener("click", () => saveToGitHub());
   nodes.downloadBundle.addEventListener("click", () => downloadBundle());
@@ -586,6 +646,21 @@ function main() {
       githubStatus(String((error && error.message) || error), "error");
     }
   });
+
+  // Uploading for a class that has its own folder starts in that folder, so the
+  // files land in the right place without having to remember the path.
+  try {
+    const catalog = await loadCourses();
+    const course = await activeCourse(catalog);
+    state.course = course;
+    mountCoursePicker(catalog, { active: course.id });
+    const folder = (course.paths || []).filter(Boolean)[0];
+    if (folder && nodes.folder && nodes.folder.value === CONFIG.uploadFolder) nodes.folder.value = folder;
+    state.privatePaths = catalog.courses.flatMap((candidate) => candidate.privatePaths || []);
+    updatePrivateDestination();
+  } catch (error) {
+    console.warn(error.message);
+  }
 
   renderFiles();
   renderDrafts();

@@ -30,6 +30,14 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
+#: The classes the site teaches, and which folders belong to each one. Editing
+#: this file is how a second class is added: the build reads it, and the pages
+#: fetch it to fill the class picker in the header.
+COURSES_FILE = "data/courses.json"
+
+#: Hand-written revision deck shown on flashcards.html.
+FLASHCARDS_FILE = "data/flashcards.json"
+
 #: Folder that collects the source study material, including files uploaded
 #: from the website. Keep in sync with CONFIG.materialsDir in assets/js/config.js.
 MATERIALS_DIR = "materials"
@@ -42,6 +50,7 @@ SKIP_DIRS = {
 
 PROBLEM_TYPES = ("fix_the_code", "fill_in_blank", "predict_output", "write_from_scratch")
 DIFFICULTIES = ("easy", "medium", "hard")
+SOLUTION_POLICIES = ("shown", "hidden")
 
 #: Short names used for the course labels on cards ("Intro 1", "Data Analysis 3").
 #: Override per notebook with a "label" in data/curriculum.json.
@@ -151,6 +160,158 @@ GENERIC_FOLDERS = {
     "notebooks", "notebook", "jupyter", "src", "python", "scripts", "code",
     "exercises", "lessons", "labs", "course", "class",
 }
+
+
+def norm_path(value: str) -> str:
+    """Repository path the way the manifests spell them: forward slashes, no
+    leading './' and no trailing slash. Empty means the repository root."""
+    return str(value or "").replace("\\", "/").strip().strip("/").removeprefix("./")
+
+
+# --------------------------------------------------------------------------- #
+# courses
+# --------------------------------------------------------------------------- #
+
+def load_courses(root: Path) -> tuple[dict, list[str]]:
+    """Read data/courses.json.
+
+    Returns ({"default": id, "courses": [...]}, errors). The file is optional: a
+    repository without it teaches one unnamed course, which is what this site
+    was before a second class was added.
+    """
+    errors: list[str] = []
+    path = root / COURSES_FILE
+    if not path.exists():
+        fallback = {
+            "id": "default",
+            "code": "Course",
+            "title": "",
+            "summary": "",
+            "paths": [],
+            "solutions": "shown",
+            "phases": [],
+            "groups": {},
+        }
+        return {"default": "default", "courses": [fallback], "helpers": []}, errors
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001
+        return {"default": "default", "courses": [], "helpers": []}, [f"{COURSES_FILE}: invalid JSON ({error})"]
+
+    courses: list[dict] = []
+    seen: set[str] = set()
+    for raw in data.get("courses") or []:
+        if not isinstance(raw, dict):
+            errors.append(f"{COURSES_FILE}: every course must be an object")
+            continue
+        course_id = slugify(raw.get("id") or raw.get("code") or "")
+        if not course_id:
+            errors.append(f"{COURSES_FILE}: a course is missing its id")
+            continue
+        if course_id in seen:
+            errors.append(f"{COURSES_FILE}: duplicate course id '{course_id}'")
+            continue
+        seen.add(course_id)
+
+        phases = []
+        for phase in raw.get("phases") or []:
+            if not isinstance(phase, dict):
+                continue
+            phases.append({
+                "id": slugify(phase.get("id") or phase.get("title") or ""),
+                "title": str(phase.get("title") or phase.get("id") or "").strip(),
+                "summary": str(phase.get("summary") or "").strip(),
+                "groups": [str(g) for g in (phase.get("groups") or [])],
+            })
+
+        policy = str(raw.get("solutions") or "shown").strip().lower()
+        if policy not in SOLUTION_POLICIES:
+            errors.append(
+                f"{COURSES_FILE}: course '{course_id}' has solutions '{policy}' "
+                f"(expected one of {', '.join(SOLUTION_POLICIES)})"
+            )
+            policy = "shown"
+
+        groups = {}
+        for name, config in (raw.get("groups") or {}).items():
+            config = config if isinstance(config, dict) else {}
+            groups[str(name)] = {
+                "title": str(config.get("title") or name).strip(),
+                "label": str(config.get("label") or "").strip(),
+                "order": int(config.get("order") or 100),
+            }
+
+        private_paths = [norm_path(p) for p in (raw.get("private_paths") or []) if norm_path(p)]
+        for path in private_paths:
+            roots = [norm_path(p) for p in (raw.get("paths") or [])]
+            if path in roots:
+                errors.append(f"{COURSES_FILE}: course '{course_id}' marks its own root '{path}' private; name a subfolder instead")
+
+        courses.append({
+            "id": course_id,
+            "code": str(raw.get("code") or course_id).strip(),
+            "title": str(raw.get("title") or "").strip(),
+            "summary": str(raw.get("summary") or "").strip(),
+            "paths": [norm_path(p) for p in (raw.get("paths") or [])],
+            "private_paths": private_paths,
+            "solutions": policy,
+            "phases": phases,
+            "groups": groups,
+            # Helper modules a class's files import (not material to teach from).
+            "helpers": [str(name).strip() for name in (raw.get("helpers") or []) if str(name).strip()],
+        })
+
+    if not courses:
+        errors.append(f"{COURSES_FILE}: no courses defined")
+        return {"default": "default", "courses": [], "helpers": []}, errors
+
+    roots = [c for c in courses if "" in c["paths"]]
+    if len(roots) > 1:
+        errors.append(
+            f"{COURSES_FILE}: more than one course claims the repository root "
+            f"({', '.join(c['id'] for c in roots)}); only one may leave 'paths' empty"
+        )
+
+    default = slugify(data.get("default") or courses[0]["id"])
+    if default not in {c["id"] for c in courses}:
+        errors.append(f"{COURSES_FILE}: default course '{default}' is not defined")
+        default = courses[0]["id"]
+
+    helpers = sorted({name for course in courses for name in course.get("helpers", [])})
+    return {"default": default, "courses": courses, "helpers": helpers}, errors
+
+
+def course_match(rel_path: str, courses: list[dict], default_id: str) -> tuple[str, str]:
+    """The course a repository path belongs to, and the folder prefix that
+    decided it. The longest matching prefix wins, so 'fin400/notebooks/x.ipynb'
+    stays in FIN 400 even when another course claims the whole root."""
+    text = norm_path(rel_path)
+    best_id, best_prefix, best_len = default_id, "", -1
+    for course in courses:
+        for prefix in course["paths"]:
+            if prefix == "":
+                candidate = 0
+            elif text == prefix or text.startswith(prefix + "/"):
+                candidate = len(prefix)
+            else:
+                continue
+            if candidate > best_len:
+                best_id, best_prefix, best_len = course["id"], prefix, candidate
+    return best_id, best_prefix
+
+
+def course_folder(rel_path: str, prefix: str) -> str:
+    """The folder just inside a course root ('fin400/bootcamp/loops.py' from the
+    prefix 'fin400' -> 'bootcamp'). This is the group the file is listed under,
+    so dropping a file into the right folder is all it takes to place it."""
+    text = norm_path(rel_path)
+    if prefix:
+        text = text[len(prefix):].lstrip("/")
+    parts = [part for part in text.split("/") if part]
+    # parts[-1] is the file name; a file directly inside the course root has no
+    # folder of its own.
+    return parts[0] if len(parts) > 1 else ""
 
 
 def infer_group(rel_path: Path) -> tuple[str, int]:
@@ -330,11 +491,16 @@ def analyze_python(path: Path, rel: Path) -> dict:
     }
 
 
-def scan_scripts(root: Path) -> list[dict]:
-    """Every .py file that is course material rather than part of the site itself."""
+def scan_scripts(root: Path, helper_files: set[str] | None = None) -> list[dict]:
+    """Every .py file that is course material rather than part of the site itself.
+
+    `helper_files` are modules the class files import (a course can list its own
+    in data/courses.json → helpers); they are support files, never lessons.
+    """
+    helpers = set(PY_HELPER_FILES) | {str(name) for name in (helper_files or set())}
     scripts = []
     for path in sorted(root.rglob("*.py")):
-        if path.name in PY_HELPER_FILES:
+        if path.name in helpers:
             # analyticskit.py and friends are imported by the notebooks: support
             # files, not scripts to teach from.
             continue
@@ -348,6 +514,95 @@ def scan_scripts(root: Path) -> list[dict]:
         except Exception as error:  # noqa: BLE001
             print(f"  ! could not read {rel}: {error}")
     return scripts
+
+
+def assign_courses(entries: list[dict], registry: dict) -> None:
+    """Put every notebook and script in a class, and in the folder-group the
+    course config describes for it.
+
+    Dropping 'fin400/bootcamp/loops.py' into the repository is enough to place
+    it: the path decides the class, the first folder inside the class decides
+    the group, and data/courses.json decides how that group is titled.
+    """
+    courses = registry["courses"]
+    for entry in entries:
+        course_id, prefix = course_match(entry["path"], courses, registry["default"])
+        entry["course"] = course_id
+        folder = course_folder(entry["path"], prefix)
+        entry["course_folder"] = folder
+        course = next((c for c in courses if c["id"] == course_id), None)
+        if not course or not folder or not course["paths"]:
+            continue
+        entry["group"] = folder
+        described = course["groups"].get(folder)
+        entry["group_order"] = described["order"] if described else 100 + len(course["groups"])
+
+
+def assign_phases(entries: list[dict], registry: dict) -> None:
+    """The half of the course each file belongs to ('bootcamp', 'analysis', …).
+
+    A file is put in a phase when its group is listed in that phase; anything a
+    course has not described yet lands in the first phase instead of vanishing
+    from the practice list.
+    """
+    courses = {course["id"]: course for course in registry["courses"]}
+    for entry in entries:
+        course = courses.get(entry.get("course"))
+        phase = ""
+        if course:
+            for candidate in course["phases"]:
+                if entry.get("group") in candidate["groups"]:
+                    phase = candidate["id"]
+                    break
+            if not phase and course["phases"]:
+                phase = course["phases"][0]["id"]
+        entry["phase"] = phase
+
+
+def course_for_entries(registry: dict) -> dict[str, dict]:
+    return {course["id"]: course for course in registry["courses"]}
+
+
+def apply_course_policy(problems: list[dict], entries: list[dict], registry: dict) -> list[str]:
+    """Give every problem its class, its phase and its solution policy.
+
+    A problem belongs to the class of its notebook unless it says otherwise, and
+    when a class hides solutions the reference answer is removed from the bundle
+    altogether — the exercise page cannot show what it never received.
+    """
+    errors: list[str] = []
+    courses = course_for_entries(registry)
+    by_path = {entry["path"]: entry for entry in entries}
+
+    for problem in problems:
+        source = problem.get("_source", "?")
+        notebook = by_path.get(norm_path(problem.get("notebook"))) if problem.get("notebook") else None
+        course_id = slugify(problem.get("course") or (notebook or {}).get("course") or registry["default"])
+        course = courses.get(course_id)
+        if not course:
+            errors.append(f"{source}: problem '{problem.get('id')}' names unknown course '{course_id}'")
+            course_id, course = registry["default"], courses.get(registry["default"])
+        if notebook and notebook.get("course") != course_id:
+            errors.append(
+                f"{source}: problem '{problem.get('id')}' is in {course_id} but its notebook "
+                f"'{notebook['path']}' belongs to {notebook.get('course')}"
+            )
+        problem["course"] = course_id
+
+        phase = str(problem.get("phase") or "")
+        known = [p["id"] for p in (course or {}).get("phases", [])]
+        if phase and known and phase not in known:
+            errors.append(
+                f"{source}: problem '{problem.get('id')}' has phase '{phase}', "
+                f"which {course_id} does not define ({', '.join(known)})"
+            )
+            phase = ""
+        problem["phase"] = phase or (notebook or {}).get("phase") or (known[0] if known else "")
+
+        problem["solutions"] = (course or {}).get("solutions", "shown")
+        if problem["solutions"] == "hidden":
+            problem.pop("solution", None)
+    return errors
 
 
 def infer_topics(notebook: dict, root: Path, topics: list[str]) -> None:
@@ -562,6 +817,93 @@ def validate_problems(problems: list[dict], glossary_slugs: set[str], notebook_p
     return errors, warnings
 
 
+def validate_flashcards(root: Path, course_ids: set[str]) -> tuple[int, list[str], list[str]]:
+    """Check data/flashcards.json: every card needs a method, a description, a
+    call and the output that call prints.
+
+    The output itself is proved by tests/test_flashcards.py, which runs each
+    card's code; here we only make sure the shape is right, so `--check` catches
+    a missing field before the page does.
+    """
+    errors: list[str] = []
+    warnings: list[str] = []
+    path = root / FLASHCARDS_FILE
+    if not path.exists():
+        return 0, errors, warnings
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001
+        return 0, [f"{FLASHCARDS_FILE}: invalid JSON ({error})"], warnings
+
+    cards = data.get("cards")
+    if not isinstance(cards, list):
+        return 0, [f"{FLASHCARDS_FILE}: 'cards' must be a list"], warnings
+
+    seen_ids: set[str] = set()
+    seen_methods: dict[str, str] = {}
+    for index, card in enumerate(cards, start=1):
+        where = f"{FLASHCARDS_FILE} card {index}"
+        if not isinstance(card, dict):
+            errors.append(f"{where}: every card must be an object")
+            continue
+        cid = str(card.get("id") or "").strip()
+        if not cid:
+            errors.append(f"{where}: a card is missing its 'id'")
+        else:
+            if cid in seen_ids:
+                errors.append(f"{where}: duplicate card id '{cid}'")
+            seen_ids.add(cid)
+        where = f"{FLASHCARDS_FILE} card '{cid or index}'"
+        for field in ("method", "library", "assignment", "does", "call"):
+            if not str(card.get(field) or "").strip():
+                errors.append(f"{where}: missing '{field}'")
+        if not isinstance(card.get("output"), str):
+            errors.append(f"{where}: 'output' must be a string (the text the call prints)")
+        if card.get("setup") is not None and not isinstance(card.get("setup"), str):
+            errors.append(f"{where}: 'setup' must be a string of code")
+        if not isinstance(card.get("topics"), list) or not card.get("topics"):
+            errors.append(f"{where}: 'topics' must be a non-empty list")
+        courses = card.get("courses")
+        if courses is not None:
+            if not isinstance(courses, list) or not courses:
+                errors.append(f"{where}: 'courses' must be a list of course ids (or left out)")
+            else:
+                for course_id in courses:
+                    if course_id not in course_ids:
+                        errors.append(f"{where}: names unknown class '{course_id}'")
+        method = str(card.get("method") or "").strip()
+        if method:
+            key = method.lower()
+            if key in seen_methods:
+                warnings.append(f"{where}: the same method already has a card ('{seen_methods[key]}')")
+            seen_methods[key] = cid or method
+
+    libraries = {str(card.get("library")) for card in cards if isinstance(card, dict) and card.get("library")}
+    if cards and not libraries:
+        warnings.append(f"{FLASHCARDS_FILE}: no card names a library, so the library filter has nothing to show")
+    return len(cards), errors, warnings
+
+
+def private_prefixes(registry: dict) -> list[tuple[str, str]]:
+    """(class id, path) for every folder a class keeps off the site."""
+    return [
+        (course["id"], path)
+        for course in registry["courses"]
+        for path in course.get("private_paths", [])
+    ]
+
+
+def private_owner(rel_path: str, prefixes: list[tuple[str, str]]) -> str | None:
+    """The class hiding this repository path, or None when it is published."""
+    path = norm_path(rel_path)
+    if not path:
+        return None
+    for owner, prefix in prefixes:
+        if path == prefix or path.startswith(prefix + "/"):
+            return owner
+    return None
+
+
 def normalize_problem(problem: dict) -> dict:
     """Fill defaults and drop build-only keys."""
     out = dict(problem)
@@ -596,10 +938,22 @@ def main() -> int:
     log = (lambda *a: None) if args.quiet else print
 
     log(f"Scanning {root} …")
-    notebooks = scan_notebooks(root)
-    scripts = scan_scripts(root)
+    registry, course_errors = load_courses(root)
+    hidden_prefixes = private_prefixes(registry)
+    scanned_notebooks = scan_notebooks(root)
+    scanned_scripts = scan_scripts(root, set(registry.get("helpers") or []))
+    # A class can keep folders off the site (answer keys, model solutions).
+    # Those files stay in the repository but never reach a manifest, a page or
+    # the published folder — tools/assemble_site.py removes them from _site too.
+    notebooks = [entry for entry in scanned_notebooks if not private_owner(entry["path"], hidden_prefixes)]
+    scripts = [entry for entry in scanned_scripts if not private_owner(entry["path"], hidden_prefixes)]
+    held_back = (len(scanned_notebooks) + len(scanned_scripts)) - (len(notebooks) + len(scripts))
     entries = notebooks + scripts
+    assign_courses(entries, registry)
     log(f"  {len(notebooks)} notebook(s), {len(scripts)} python script(s)")
+    if held_back:
+        log(f"  {held_back} file(s) in a private folder are kept out of the site")
+    log("  classes: " + ", ".join(f"{course['code']} ({course['id']})" for course in registry["courses"]))
 
     glossary = {"entries": []}
     glossary_path = root / "data" / "glossary.json"
@@ -611,6 +965,11 @@ def main() -> int:
         for alias in entry.get("aliases", []) or []:
             glossary_slugs.add(slugify(alias))
 
+    flashcard_count, flashcard_errors, flashcard_warnings = validate_flashcards(
+        root, {course["id"] for course in registry["courses"]}
+    )
+    log(f"  {flashcard_count} flashcard(s)")
+
     raw_problems, load_errors = load_problems(root)
     log(f"  {len(raw_problems)} problem definition(s)")
 
@@ -619,7 +978,18 @@ def main() -> int:
         infer_topics(entry, root, all_topics)
 
     errors, warnings = validate_problems(raw_problems, glossary_slugs, {entry["path"] for entry in entries})
-    errors = load_errors + errors
+    problems_from_private = [
+        problem
+        for problem in raw_problems
+        if private_owner(problem.get("notebook") or "", hidden_prefixes)
+    ]
+    for problem in problems_from_private:
+        errors.append(
+            f"{problem.get('_source', '?')}: problem '{problem.get('id')}' is built from "
+            f"private material '{problem.get('notebook')}', which the class keeps off the site"
+        )
+    errors = course_errors + load_errors + flashcard_errors + errors
+    warnings = flashcard_warnings + warnings
 
     # Every notebook in the course should have practice exercises of its own:
     # the site tells the learner when a section is missing them instead of
@@ -635,6 +1005,24 @@ def main() -> int:
             )
 
     problems = [normalize_problem(p) for p in raw_problems]
+
+    # Which class is this exercise for, which half of it, and may its solution
+    # be shown? This also strips the reference answer of a class that hides
+    # solutions, so it can never reach the browser.
+    assign_phases(entries, registry)
+    errors += apply_course_policy(problems, entries, registry)
+    courses_by_id = course_for_entries(registry)
+    for entry in entries:
+        course = courses_by_id.get(entry.get("course")) or {}
+        known = [phase["id"] for phase in course.get("phases", [])]
+        if known and entry.get("group") not in {
+            group for phase in course.get("phases", []) for group in phase.get("groups", [])
+        }:
+            warnings.append(
+                f"{entry['path']}: group '{entry.get('group')}' is not listed in any phase of "
+                f"{course.get('code', entry.get('course'))} — add it to data/courses.json "
+                f"(phases → groups) to place this file in a half of the course"
+            )
 
     # topic -> problem ids, and topic -> notebook paths (for cross-linking)
     topic_index: dict[str, dict[str, list[str]]] = {}
@@ -673,7 +1061,12 @@ def main() -> int:
         entry["part"] = int(part)
         # Short course label shown on cards and used to group exercises
         # ("Intro 1", "Data Analysis 3") — derived from the group when absent.
+        # A class that describes its own folders in data/courses.json names the
+        # group itself, because 'bootcamp' is a folder name, not a label.
         label = override.get("label")
+        course_group = (courses_by_id.get(entry.get("course")) or {}).get("groups", {}).get(entry.get("course_folder", ""))
+        if not label and course_group:
+            label = course_group.get("label") or course_group.get("title") or str(entry["group"])
         if not label:
             group_name = str(entry["group"])
             short = SHORT_TRACK.get(group_name, group_name)
@@ -693,6 +1086,10 @@ def main() -> int:
             if not (root / repo_path).exists():
                 warnings.append(f"data/curriculum.json: '{entry['path']}' wants {name} from '{repo_path}', which does not exist yet")
 
+    # A curriculum override may move a file into another group, so the phase is
+    # decided after the overrides have been applied.
+    assign_phases(entries, registry)
+
     group_order: dict[str, int] = {}
     for entry in entries:
         order = entry.get("group_order", 999)
@@ -709,12 +1106,17 @@ def main() -> int:
             key=lambda item: (item.get("group_order", 999), item.get("part", 999), item["filename"].lower()),
         )
 
+    course_titles = {
+        name: config["title"]
+        for course in registry["courses"]
+        for name, config in course["groups"].items()
+    }
     groups: list[dict] = []
     for group in sorted(group_order, key=lambda g: (group_order[g], g)):
         members = by_order([entry for entry in entries if entry["group"] == group])
         groups.append({
             "name": group,
-            "title": (curriculum.get("group_titles", {}) or {}).get(group, group),
+            "title": (curriculum.get("group_titles", {}) or {}).get(group) or course_titles.get(group, group),
             "order": group_order[group],
             "notebooks": [n["path"] for n in members if n.get("kind") != "script"],
             "scripts": [n["path"] for n in members if n.get("kind") == "script"],
@@ -731,6 +1133,25 @@ def main() -> int:
             "problems": len(problems),
             "topics": len(topic_index),
         },
+        "courses": [
+            {
+                "id": course["id"],
+                "code": course["code"],
+                "title": course["title"],
+                "paths": course["paths"],
+                "private_paths": course["private_paths"],
+                "solutions": course["solutions"],
+                "phases": course["phases"],
+                "groups": course["groups"],
+                "totals": {
+                    "notebooks": sum(1 for e in notebooks if e.get("course") == course["id"]),
+                    "scripts": sum(1 for e in scripts if e.get("course") == course["id"]),
+                    "exercises": sum(len(e.get("exercises", [])) for e in entries if e.get("course") == course["id"]),
+                    "problems": sum(1 for p in problems if p.get("course") == course["id"]),
+                },
+            }
+            for course in registry["courses"]
+        ],
         "groups": groups,
         "notebooks": by_order(notebooks),
         "scripts": by_order(scripts),
@@ -740,6 +1161,15 @@ def main() -> int:
     bundle = {
         "generated_at": manifest["generated_at"],
         "count": len(problems),
+        "courses": [
+            {
+                "id": course["id"],
+                "code": course["code"],
+                "count": sum(1 for p in problems if p.get("course") == course["id"]),
+                "solutions": course["solutions"],
+            }
+            for course in registry["courses"]
+        ],
         "by_type": {t: sum(1 for p in problems if p.get("type") == t) for t in PROBLEM_TYPES},
         "topics": sorted({t for p in problems for t in p.get("topics", [])}),
         "difficulties": {d: sum(1 for p in problems if p.get("difficulty") == d) for d in DIFFICULTIES},

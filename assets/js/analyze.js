@@ -469,6 +469,9 @@ export function buildDraftProblem(unit, run, options = {}) {
     setupUsable = true,
     dataFiles = null,
     extraPackages = [],
+    // { id, solutions: "shown"|"hidden" } — the class the material is for. A
+    // hidden class never puts a solution on the draft it generates either.
+    course = null,
   } = options;
 
   const solution = unit.codeCells.join("\n\n").trim();
@@ -509,6 +512,12 @@ export function buildDraftProblem(unit, run, options = {}) {
     },
   };
 
+  if (course && course.id) {
+    problem.course = course.id;
+    problem.solutions = course.solutions === "hidden" ? "hidden" : "shown";
+    if (problem.solutions === "hidden") delete problem.solution;
+  }
+
   if (setupUsable && setup) problem.setup = `${setup}\n`;
   if (dataFiles && Object.keys(dataFiles).length) problem.data_files = dataFiles;
 
@@ -534,7 +543,11 @@ export function buildDraftProblem(unit, run, options = {}) {
       starter_code: `${solution}\n`,
       expected_output: stdout,
       hints: problem.hints.slice(0, 3),
-      solution: `${solution}\n`,
+      // A class that hides solutions gets no reference answer here either; the
+      // predict variant still ships its expected output, which is why FIN 400
+      // is built from write-from-scratch / fix-the-code exercises instead.
+      ...(problem.solutions === "hidden" ? { solutions: "hidden" } : { solution: `${solution}\n` }),
+      ...(course && course.id ? { course: course.id } : {}),
       notebook: notebookPath || undefined,
       packages,
       glossary: problem.glossary,

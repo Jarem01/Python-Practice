@@ -24,7 +24,7 @@ const root = path.resolve(here, "..");
 const skip = JSDOM ? false : "jsdom is not installed (npm install --no-save jsdom)";
 // A real class notebook, fetched the way the page's URL box does it.
 const notebookName = "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb";
-const notebookFile = path.join(root, notebookName);
+const notebookFile = path.join(root, "acc525", "Intro to Python", notebookName);
 
 async function fetchFromDisk(url) {
   const parsed = new URL(String(url));
@@ -104,7 +104,7 @@ test("upload.html analyzes a fetched notebook and stores it in the browser", { s
   try {
     const { document } = page;
     assert.ok(document.getElementById("drop"), "the drop zone is there");
-    assert.equal(document.querySelectorAll("nav.main a").length, 6, "every page carries the same navigation");
+    assert.equal(document.querySelectorAll("nav.main a").length, 7, "every page carries the same navigation");
     assert.match(document.querySelector('nav.main a[href="upload.html"]').textContent, /Add material/);
     assert.match(document.body.textContent, /materials\//, "the page says where uploads are stored");
 
@@ -117,8 +117,11 @@ test("upload.html analyzes a fetched notebook and stores it in the browser", { s
       }
       return fetchFromDisk(url, options);
     };
+    // Pin the destination: the page would otherwise start in the class folder
+    // once data/courses.json has loaded, which races with this fetch.
+    document.getElementById("folder").value = "acc525";
     const urlInput = document.getElementById("url-input");
-    urlInput.value = `http://localhost/${encodeURIComponent(notebookName)}`;
+    urlInput.value = `http://localhost/acc525/${encodeURIComponent("Intro to Python")}/${encodeURIComponent(notebookName)}`;
     click(page.window, document.getElementById("fetch-url"));
 
     const rows = await waitFor(() => {
@@ -147,7 +150,7 @@ test("upload.html analyzes a fetched notebook and stores it in the browser", { s
     assert.ok(saved, "the browser store confirms the save");
     const stored = JSON.parse(page.window.localStorage.getItem("pypractice:uploads"));
     assert.equal(stored.length, 1);
-    assert.equal(stored[0].path, `materials/${notebookName}`);
+    assert.equal(stored[0].path, `acc525/${notebookName}`);
     assert.equal(stored[0].kind, "notebook");
     assert.match(stored[0].entry.title, /Introduction to Python \(Part 1\)/, "the analyzed title travels with the file");
     assert.ok(stored[0].entry.exercises.length >= 1, "the exercises inside the file were detected");
@@ -158,6 +161,42 @@ test("upload.html analyzes a fetched notebook and stores it in the browser", { s
     await waitFor(() => /stored in this browser/.test(document.getElementById("status").textContent));
     const again = JSON.parse(page.window.localStorage.getItem("pypractice:uploads"));
     assert.equal(again.length, 1, "re-saving the same path replaces the record");
+  } finally {
+    page.restore();
+  }
+});
+
+test("a private upload folder never builds exercises", { skip }, async () => {
+  const page = await loadUploadPage();
+  try {
+    const { document } = page;
+    await waitFor(() => document.querySelector("#course-picker select"), { timeout: 3000 });
+
+    // Pin the destination: the page would otherwise start in the class folder
+    // once data/courses.json has loaded, which races with this fetch.
+    document.getElementById("folder").value = "acc525";
+    const urlInput = document.getElementById("url-input");
+    urlInput.value = `http://localhost/acc525/${encodeURIComponent("Intro to Python")}/${encodeURIComponent(notebookName)}`;
+    click(page.window, document.getElementById("fetch-url"));
+    await waitFor(() => document.querySelectorAll("#files table tbody tr").length, { timeout: 3000 });
+
+    // FIN 400 keeps fin400/solutions off the site; the page must say so and stop
+    // building exercises, because an exercise's expected output is the answer.
+    const folder = document.getElementById("folder");
+    folder.value = "fin400/solutions";
+    folder.dispatchEvent(new page.window.Event("input", { bubbles: true }));
+    const warning = document.getElementById("private-warning");
+    assert.equal(warning.classList.contains("hidden"), false, "the private destination is explained");
+    assert.equal(document.getElementById("generate").disabled, true, "exercise generation is switched off");
+
+    click(page.window, document.getElementById("analyze"));
+    const status = await waitFor(() =>
+      /private, so no practice exercises/.test(document.getElementById("status").textContent)
+        ? document.getElementById("status").textContent
+        : null,
+    );
+    assert.ok(status, "analysis reports that it did not build exercises");
+    assert.deepEqual(JSON.parse(page.window.localStorage.getItem("pypractice:drafts") || "[]"), [], "no draft was created");
   } finally {
     page.restore();
   }

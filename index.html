@@ -17,10 +17,12 @@
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="index.html"><span class="logo">&gt;&gt;&gt;</span> Python Practice</a>
+    <div id="course-picker"></div>
     <nav class="main">
       <a href="index.html" aria-current="page">Home</a>
       <a href="learning/index.html">Learning</a>
       <a href="practice/index.html">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
       <a href="glossary.html">Glossary</a>
       <a href="upload.html">Add material</a>
       <a href="practice/create.html">Add exercise</a>
@@ -39,12 +41,15 @@
     </p>
     <div class="btn-row">
       <a class="btn primary" href="practice/index.html">Start practicing</a>
+      <a class="btn" href="flashcards.html">Review the flashcards</a>
       <a class="btn" href="learning/index.html">Browse the notebooks</a>
       <a class="btn ghost" href="upload.html">Add course material</a>
       <a class="btn ghost" href="practice/create.html">Add your own exercise</a>
     </div>
     <p class="small muted" style="margin-top:.6rem"><span id="problem-count">…</span> · nothing to install, nothing to build</p>
   </section>
+
+  <div id="course-hero"></div>
 
   <div id="warnings"></div>
 
@@ -65,8 +70,8 @@
 
   <section>
     <h2>Learning content</h2>
-    <p class="small muted">
-      The course in order — Intro 1–4, then Data Analysis 1–6 — with the exercises found inside each section.
+    <p class="small muted" id="learning-blurb">
+      Each class keeps its own notebooks, in its own order, with the exercises found inside each section.
       <strong>Run</strong> opens a notebook as a live, editable notebook in the browser (like Jupyter), with every
       exercise inside it boxed so you can jump straight to the one you want.
     </p>

@@ -5,6 +5,13 @@
  */
 
 import { assignmentForProblem, assignmentsForProblems, loadAssignments } from "./assignments.js";
+import {
+  activeCourse,
+  filterGlossary,
+  filterProblems as inCourse,
+  loadCourses,
+  mountCoursePicker,
+} from "./course.js";
 import { focusHash, loadGlossary, renderGlossaryPage } from "./glossary.js";
 import { loadProblems } from "./problems.js";
 import { el, escapeHtml, getViewMode, normalizeOutput, setViewMode, viewToggle } from "./util.js";
@@ -32,6 +39,23 @@ async function main() {
     problems = await loadProblems();
   } catch {
     /* "practice it" links are optional */
+  }
+
+  // The class decides which terms and which exercises are listed. A term that
+  // names its own classes in data/glossary.json stays out of the others.
+  let course = null;
+  try {
+    const catalog = await loadCourses();
+    course = await activeCourse(catalog);
+    mountCoursePicker(catalog, { active: course.id });
+    if (course) {
+      glossary = filterGlossary(glossary, course.id);
+      problems = inCourse(problems, course.id);
+      document.title = `Glossary — ${course.code}`;
+    }
+  } catch (error) {
+    course = null;
+    console.warn(error.message);
   }
   await loadAssignments();
 

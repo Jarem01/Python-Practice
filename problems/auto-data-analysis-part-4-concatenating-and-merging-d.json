@@ -1,7 +1,7 @@
 {
   "_generated": {
     "by": "tools/generate_problems.mjs",
-    "from": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "from": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
     "notebook": "Data Analysis (Part 4) - Concatenating and Merging DataFrames - Exercise Solutions",
     "tasks": 13,
     "auto_checked": 2,
@@ -23,7 +23,7 @@
         "You are provided with two DataFrames `df1` and `df2`. Concatenate them together to form a single DataFrame called `df`. Reset the index when concatenating."
       ],
       "solution": "df1 = pd.DataFrame({'ticker':['MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','MSFT','AAPL','AAPL','AAPL','AAPL'],'year':[2012,2013,2014,2015,2017,2018,2019,2013,2014,2015,2016],'month':[12,6,9,12,12,9,3,3,6,12,3],'eps':[5.2,0.3,3.4,-1.6,1.4,-1.4,2,0.6,1.6,-1.9,0.9],'revenue':[6018,4075,2432,15830,15123,12677,13181,3843,4068,3920,1958]})\ndf2 = pd.DataFrame({'ticker':['T','T','T','T','F','F','F','F','F','F','F','F','AMZN','AMZN','AMZN','AMZN'],'year':[2012,2013,2014,2016,2012,2013,2014,2015,2016,2017,2018,2019,2014,2017,2018,2019],'month':[9,12,12,12,6,12,6,9,9,12,12,3,6,12,9,6],'eps':[2.2,1.7,0.7,-1.4,2.1,3.4,2.7,-0.2,-1.4,3.4,-1.4,-1.6,0.9,3.1,0.5,3.9],'revenue':[6312,9016,4823,16887,71,1771,14163,18874,1171,8067,11906,12510,15941,4340,2820,30000]})\n\n# 1\ndf = pd.concat([df1,df2], ignore_index=True)\ndf\n",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [
         "pandas"
       ],
@@ -34,7 +34,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 3,
         "exercise": 1,
         "autoChecked": true,
@@ -60,7 +60,7 @@
         "You are provided with two DataFrames `data` and `data2`. Merge them based on their common columns to create a new DataFrame called `data`."
       ],
       "solution": "data1 = pd.DataFrame({\"EmployeeID\": [101, 101, 102, 102, 103, 103, 104, 104],\"Quarter\": [\"Q1\", \"Q2\", \"Q1\", \"Q2\", \"Q1\", \"Q2\", \"Q1\", \"Q2\"],\"BaseSalary\": [15000, 15000, 18000, 18000, 17000, 17000, 16000, 16000],\"Department\": [\"HR\", \"HR\", \"IT\", \"IT\", \"Finance\", \"Finance\", \"Marketing\", \"Marketing\"]})\ndata2 = pd.DataFrame({\"EmployeeID\": [101, 101, 102, 103, 103, 105, 105],\"Quarter\": [\"Q1\", \"Q2\", \"Q1\", \"Q1\", \"Q2\", \"Q1\", \"Q2\"],\"PerformanceScore\": [4.5, 4.7, 3.9, 4.2, 4.3, 4.8, 4.6],\"Bonus\": [2000, 2500, 1500, 1800, 1900, 3000, 3200]})\n\n# 2\ndata = pd.merge(data1, data2, on=['EmployeeID','Quarter'])\ndata\n",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [
         "pandas"
       ],
@@ -70,7 +70,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 6,
         "exercise": 2,
         "autoChecked": true,

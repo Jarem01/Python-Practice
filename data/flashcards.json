@@ -1,0 +1,319 @@
+{
+  "_comment": "Flashcards for the class: one card per method. 'does' says what the method does in words, 'call' is a snippet a student can paste and run, and 'output' is exactly what that snippet prints. 'setup' (optional) builds the small example the call uses; it is run first and shown in a collapsed block. 'assignment' is the label the cards are grouped under, in the order cards first appear here — use your own assignment names. 'library' is what the card is filed under when grouping by library (python, pandas, numpy, statsmodels, ...). 'courses' limits a card to one class; leave it out to show the card in every class.",
+  "cards": [
+    {
+      "id": "python-function",
+      "method": "def … return",
+      "library": "python",
+      "topics": [
+        "Functions"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Bundles a calculation under a name. `def` lists the inputs, `return` hands the answer back, and you can call the function as often as you like.",
+      "call": "def future_value(amount, rate, years):\n    return amount * (1 + rate) ** years\n\n\nprint(round(future_value(1000, 0.05, 3), 2))",
+      "output": "1157.63"
+    },
+    {
+      "id": "python-for-loop",
+      "method": "for … in",
+      "library": "python",
+      "topics": [
+        "Loops"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Repeats the indented block once for every item in the sequence. An accumulator variable outside the loop keeps a running total.",
+      "call": "prices = [10.0, 12.5, 8.0]\ntotal = 0\n\nfor price in prices:\n    total = total + price\n\nprint(total)",
+      "output": "30.5"
+    },
+    {
+      "id": "python-if-elif-else",
+      "method": "if / elif / else",
+      "library": "python",
+      "topics": [
+        "Conditionals"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Runs the first block whose condition is true and skips the rest. `elif` checks another condition, and `else` catches everything left over.",
+      "call": "ret = -0.02\n\nif ret > 0:\n    label = \"gain\"\nelif ret < 0:\n    label = \"loss\"\nelse:\n    label = \"flat\"\n\nprint(label)",
+      "output": "loss"
+    },
+    {
+      "id": "python-dictionary",
+      "method": "dict[key]",
+      "library": "python",
+      "topics": [
+        "Dictionaries"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Stores values under names and looks one up by its key. Reading a key that is not there raises `KeyError`; `.get(key, default)` avoids that.",
+      "call": "rates = {\"equity\": 0.08, \"bond\": 0.03}\n\nprint(rates[\"bond\"])\nprint(rates.get(\"cash\", 0.0))",
+      "output": "0.03\n0.0"
+    },
+    {
+      "id": "python-fstring-percent",
+      "method": "f-string {value:.2%}",
+      "library": "python",
+      "topics": [
+        "Formatting"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "An f-string fills `{…}` with a value. The `:.2%` format multiplies by 100, adds a percent sign and keeps two decimals — the usual way a return is printed.",
+      "call": "ret = 0.0734\n\nprint(f\"Return: {ret:.2%}\")",
+      "output": "Return: 7.34%"
+    },
+    {
+      "id": "python-try-except",
+      "method": "try / except",
+      "library": "python",
+      "topics": [
+        "Errors"
+      ],
+      "assignment": "Part 1 — Python bootcamp",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Runs the code in `try` and jumps to `except` if it raises the named error. Here the text is not a plain number, so the conversion fails and the value becomes `None` instead of stopping the program.",
+      "call": "text = \"12.5%\"\n\ntry:\n    value = float(text)\nexcept ValueError:\n    value = None\n\nprint(value)",
+      "output": "None"
+    },
+    {
+      "id": "pandas-read-csv",
+      "method": "pd.read_csv()",
+      "library": "pandas",
+      "topics": [
+        "Loading data"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Reads a comma-separated file into a DataFrame: one column per header in the file, one row per line. `.shape` reports `(rows, columns)`.",
+      "setup": "import pandas as pd\n\npd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\"],\n    \"return\": [0.08, 0.03, 0.12],\n}).to_csv(\"fund_returns.csv\", index=False)",
+      "call": "funds = pd.read_csv(\"fund_returns.csv\")\n\nprint(funds.shape)",
+      "output": "(3, 2)"
+    },
+    {
+      "id": "pandas-head",
+      "method": "df.head()",
+      "library": "pandas",
+      "topics": [
+        "Inspecting data"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Shows the first five rows of a DataFrame — the quickest check that the file loaded the way you expected. `df.head(2)` asks for two rows.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "print(funds.head(2))",
+      "output": "    fund  sector  return\n0  Alpha  Equity    0.08\n1   Beta    Bond    0.03"
+    },
+    {
+      "id": "pandas-column-mean",
+      "method": "df['column'].mean()",
+      "library": "pandas",
+      "topics": [
+        "Summary statistics"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Selects one column (a Series) and averages it. `.mean()` ignores missing values; a column that is text has to be converted to numbers first.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "print(round(funds[\"return\"].mean(), 4))",
+      "output": "0.06"
+    },
+    {
+      "id": "pandas-boolean-filter",
+      "method": "df[condition]",
+      "library": "pandas",
+      "topics": [
+        "Filtering"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Keeps the rows where the condition is true. Combine two conditions with `&` (and) or `|` (or), each in its own parentheses.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "equity = funds[funds[\"sector\"] == \"Equity\"]\n\nprint(equity.shape)",
+      "output": "(3, 3)"
+    },
+    {
+      "id": "pandas-groupby-mean",
+      "method": "df.groupby()",
+      "library": "pandas",
+      "topics": [
+        "Grouping"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Splits the rows into one group per value of a column, then runs the aggregation inside each group. The result is indexed by the group name.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "print(funds.groupby(\"sector\")[\"return\"].mean().round(3))",
+      "output": "sector\nBond      0.03\nEquity    0.09\nName: return, dtype: float64"
+    },
+    {
+      "id": "pandas-sort-values",
+      "method": "df.sort_values()",
+      "library": "pandas",
+      "topics": [
+        "Sorting"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Returns a new DataFrame ordered by a column. `ascending=False` puts the largest first; the original frame is left alone unless you assign the result.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "ranked = funds.sort_values(\"return\", ascending=False)\n\nprint(ranked[\"fund\"].head(3).tolist())",
+      "output": "['Gamma', 'Alpha', 'Epsilon']"
+    },
+    {
+      "id": "pandas-new-column",
+      "method": "df['new'] = …",
+      "library": "pandas",
+      "topics": [
+        "Columns"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Adds a column by assigning to a name that does not exist yet. The arithmetic runs on the whole column at once, not row by row.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "funds[\"return_pct\"] = funds[\"return\"] * 100\n\nprint(funds[\"return_pct\"].round(1).tolist())",
+      "output": "[8.0, 3.0, 12.0, 2.0, 7.0, 4.0]"
+    },
+    {
+      "id": "pandas-fillna",
+      "method": "series.fillna()",
+      "library": "pandas",
+      "topics": [
+        "Missing values"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Replaces missing values (`NaN`) with a value you choose. Assign the result back to keep the change; `.isna().sum()` counts the gaps first.",
+      "setup": "import pandas as pd\n\nprices = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\"],\n    \"price\": [10.5, None, 8.0],\n})",
+      "call": "print(prices[\"price\"].isna().sum())\n\nprices[\"price\"] = prices[\"price\"].fillna(0)\nprint(prices[\"price\"].tolist())",
+      "output": "1\n[10.5, 0.0, 8.0]"
+    },
+    {
+      "id": "pandas-merge-left",
+      "method": "df.merge(how='left')",
+      "library": "pandas",
+      "topics": [
+        "Merging"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Joins two DataFrames on a shared key. A left join keeps every row of the left frame and fills `NaN` where the right frame has no match.",
+      "setup": "import pandas as pd\n\nfunds = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\", \"Delta\", \"Epsilon\", \"Zeta\"],\n    \"sector\": [\"Equity\", \"Bond\", \"Equity\", \"Bond\", \"Equity\", \"Bond\"],\n    \"return\": [0.08, 0.03, 0.12, 0.02, 0.07, 0.04],\n})",
+      "call": "spend = pd.DataFrame({\n    \"fund\": [\"Alpha\", \"Beta\", \"Gamma\"],\n    \"assets\": [120, 80, 150],\n})\n\ncombined = funds.merge(spend, on=\"fund\", how=\"left\")\nprint(combined.shape)\nprint(combined[\"assets\"].isna().sum())",
+      "output": "(6, 4)\n3"
+    },
+    {
+      "id": "pandas-rename",
+      "method": "df.rename(columns={…})",
+      "library": "pandas",
+      "topics": [
+        "Columns"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Changes column (or index) labels. It returns a new DataFrame, so assign it: `data = data.rename(columns={...})`.",
+      "setup": "import pandas as pd\n\ndata = pd.DataFrame({\"tic\": [\"Alpha\", \"Beta\"], \"ret\": [0.08, 0.03]})",
+      "call": "data = data.rename(columns={\"tic\": \"fund\", \"ret\": \"return\"})\n\nprint(data.columns.tolist())",
+      "output": "['fund', 'return']"
+    },
+    {
+      "id": "numpy-array-shape",
+      "method": "np.array()",
+      "library": "numpy",
+      "topics": [
+        "Arrays"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Builds a NumPy array from a list or a list of lists. `.shape` shows its dimensions: `(3,)` is one row of three values.",
+      "setup": "import numpy as np",
+      "call": "array = np.array([1, 2, 3])\n\nprint(array.shape)",
+      "output": "(3,)"
+    },
+    {
+      "id": "numpy-where",
+      "method": "np.where()",
+      "library": "numpy",
+      "topics": [
+        "Arrays"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "A vectorised if/else: it tests every element and returns one value where the test is true and another where it is false. Useful for building a 0/1 dummy column.",
+      "setup": "import numpy as np",
+      "call": "returns = np.array([0.08, -0.02, 0.03])\n\nprint(np.where(returns > 0, 1, 0).tolist())",
+      "output": "[1, 0, 1]"
+    },
+    {
+      "id": "numpy-mean",
+      "method": "np.mean()",
+      "library": "numpy",
+      "topics": [
+        "Summary statistics"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Averages an array in one call. NumPy works on the whole array at once, which is why it is faster than a Python loop for large data.",
+      "setup": "import numpy as np",
+      "call": "returns = np.array([0.08, 0.04, 0.12])\n\nprint(np.mean(returns))",
+      "output": "0.08"
+    },
+    {
+      "id": "statsmodels-ols",
+      "method": "sm.OLS().fit()",
+      "library": "statsmodels",
+      "topics": [
+        "Regression"
+      ],
+      "assignment": "Part 2 — Notebooks, DataFrames & regression",
+      "courses": [
+        "fin400"
+      ],
+      "does": "Fits an ordinary least squares regression and returns the result object. `sm.add_constant` puts the intercept in the design matrix; `.params` holds one coefficient per column.",
+      "setup": "import pandas as pd\nimport statsmodels.api as sm\n\ndata = pd.DataFrame({\n    \"ret\": [0.03, 0.05, 0.04, 0.07, 0.06, 0.09],\n    \"mkt\": [0.02, 0.04, 0.03, 0.06, 0.05, 0.08],\n})\n\nX = sm.add_constant(data[\"mkt\"])\nmodel = sm.OLS(data[\"ret\"], X).fit()",
+      "call": "print(model.params.round(4))",
+      "output": "const    0.01\nmkt      1.00\ndtype: float64"
+    }
+  ]
+}

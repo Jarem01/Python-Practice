@@ -1,7 +1,7 @@
 {
   "_generated": {
     "by": "tools/generate_problems.mjs",
-    "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
     "notebook": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS",
     "tasks": 6,
     "auto_checked": 5,
@@ -21,7 +21,7 @@
       "prompt": "Introduction to Python (Part 2) - EXERCISE SOLUTIONS\n\n#### Exercise 1\nYou are provided with the `skills` list below.\nIf `'Python'` is not in the `skills` list, print `'What a shame! Python is the best!'`.\nOtherwise, if the `skills` list contains exactly 5 items and `'Python'` is the last skill in the list, print `'Saved the best for last.'`\nFor any other case, print `'Very solid list of skills.'`.",
       "hints": [],
       "solution": "skills = [\"JavaScript\", \"HTML\", \"SQL\", \"CSS\", \"Python\"]\n\nif 'Python' not in skills:\n    print(\"What a shame! Python is the best!\")\nelif len(skills) == 5 and skills[-1] == \"Python\":\n    print(\"Saved the best for last.\")\nelse:\n    print(\"Very solid list of skills.\")\n",
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -32,7 +32,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 1,
         "exercise": 1,
         "autoChecked": true,
@@ -55,7 +55,7 @@
       "prompt": "#### Exercise 2\nThe `replace` method can be used on a string object to replace text with different text. Start typing `text = text.replace(` in the cell below and use the tool tip window to identify what is required to use the `replace` method. Then use the `replace` method to replace \"myname\" in the text below with your own name and print out the result.",
       "hints": [],
       "solution": "text = 'myname is going to be a Python wizard by the end of the semester! myname will not give up!'\n\ntext1 = text.replace('myname','Prof Lee')\nprint(text1)\n\n# The documentation provides an optional third parameter \"count\" in the replace method which tells\n# you the number of instances to replace. Leave this blank if you want to replace all values.\n\ntext2 = text.replace('myname','Prof Lee',1) # Only replaces the first instance of myname.\nprint(text2)\n",
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "string",
@@ -66,7 +66,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 3,
         "exercise": 2,
         "autoChecked": true,
@@ -92,7 +92,7 @@
         "Iterate through the `jobs` list using a `for` loop and print each job with its respective salary in the format `job : salary`."
       ],
       "solution": "# 1\nfor j,job in enumerate(jobs):\n    salary = salaries[j]\n    print(f'{job} : {salary}')\n",
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -103,7 +103,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 7,
         "exercise": 1,
         "autoChecked": true,
@@ -129,7 +129,7 @@
         "Use a `while` loop to compute 5 factorial. Recall, the formula for 5 factorial is as follows:"
       ],
       "solution": "# 1\n\nfactorial = 1\ncurrent_number = 5\n\nwhile current_number > 0:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    \nprint(factorial)\n",
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -140,7 +140,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 9,
         "exercise": 1,
         "autoChecked": true,
@@ -166,7 +166,7 @@
         "Use a `while True` loop to repeat the exercise (i.e., to compute 5 factorial)."
       ],
       "solution": "# 2\n\nfactorial = 1\ncurrent_number = 5\n\nwhile True:\n    factorial = factorial * current_number\n    current_number = current_number - 1\n    if current_number == 0:\n        break\n    \nprint(factorial)\n",
-      "notebook": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "while-loop",
@@ -177,7 +177,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 11,
         "exercise": 2,
         "autoChecked": true,

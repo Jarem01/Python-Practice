@@ -19,3 +19,7 @@ npm-debug.log*
 # Local .env files — never commit secrets
 .env
 .env.local
+
+# Delivery artifacts built to hand the project to a clone (never part of the site)
+/python-practice-site.zip
+/update.patch

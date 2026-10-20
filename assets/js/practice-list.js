@@ -9,6 +9,14 @@
 
 import { assignmentForProblem, assignmentsForProblems, groupProblems, loadAssignments } from "./assignments.js";
 import {
+  activeCourse,
+  filterProblems as inCourse,
+  groupProblemsByPhase,
+  loadCourses,
+  mountCoursePicker,
+  phasesOf,
+} from "./course.js";
+import {
   el,
   escapeHtml,
   getViewMode,
@@ -25,8 +33,10 @@ const VIEW_KEY = "practice";
 const state = {
   problems: [],
   assignments: [],
+  course: null,
+  catalog: null,
   view: getViewMode(VIEW_KEY),
-  filters: { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated" },
+  filters: { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated", phase: "" },
 };
 
 const DIFFICULTIES = ["easy", "medium", "hard"];
@@ -36,11 +46,17 @@ const STATUSES = [
   ["attempted", "in progress"],
   ["solved", "solved"],
 ];
-const GROUPINGS = [
-  ["assignment", "by assignment"],
-  ["topic", "by topic"],
-  ["none", "one list"],
-];
+function groupings() {
+  const options = [
+    ["assignment", "by assignment"],
+    ["topic", "by topic"],
+  ];
+  // A class with two halves (FIN 400: .py functions, then notebooks) reads
+  // best split that way, so that grouping is offered whenever it applies.
+  if (phasesOf(state.course).length > 1) options.push(["phase", "by half of the course"]);
+  options.push(["none", "one list"]);
+  return options;
+}
 
 function setQueryParams() {
   const url = new URL(location.href);
@@ -134,6 +150,25 @@ function renderFilters(container) {
     ]),
   );
 
+  // The halves of the class, offered as a filter when the class has them.
+  const phases = phasesOf(state.course);
+  if (phases.length > 1) {
+    container.append(
+      el("div", { class: "group" }, [
+        el("span", { class: "lbl", text: "Half" }),
+        pillRow(
+          [["", "both halves"], ...phases.map((phase) => [phase.id, phase.title.split("—")[0].trim() || phase.title])],
+          state.filters.phase,
+          (value) => {
+            state.filters.phase = value;
+            setQueryParams();
+            renderList();
+          },
+        ),
+      ]),
+    );
+  }
+
   const statusCounts = problemStats(state.problems);
   container.append(
     el("div", { class: "group" }, [
@@ -163,7 +198,7 @@ function renderFilters(container) {
   container.append(
     el("div", { class: "group" }, [
       el("span", { class: "lbl", text: "Group" }),
-      pillRow(GROUPINGS, state.filters.group, (value) => {
+      pillRow(groupings(), state.filters.group, (value) => {
         state.filters.group = value;
         setQueryParams();
         renderList();
@@ -199,7 +234,7 @@ function renderFilters(container) {
 
   const clear = el("button", { class: "btn small ghost", type: "button", text: "Clear filters" });
   clear.addEventListener("click", () => {
-    state.filters = { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated" };
+    state.filters = { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated", phase: "" };
     setQueryParams();
     renderFilters(container);
     renderList();
@@ -309,7 +344,10 @@ function problemsView(problems) {
 function renderList() {
   const container = document.getElementById("problem-list");
   const summary = document.getElementById("list-summary");
-  const filtered = sortedProblems(filterProblems(state.problems, state.filters));
+  const matched = filterProblems(state.problems, state.filters).filter(
+    (problem) => !state.filters.phase || problem.phase === state.filters.phase,
+  );
+  const filtered = sortedProblems(matched);
   const stats = problemStats(state.problems);
 
   summary.innerHTML =
@@ -319,6 +357,20 @@ function renderList() {
 
   container.innerHTML = "";
   if (!filtered.length) {
+    if (!state.problems.length && state.course) {
+      container.append(
+        el("div", {
+          class: "notice warn",
+          html:
+            `<p><strong>No practice exercises for ${escapeHtml(state.course.code)} yet.</strong></p>` +
+            `<p class="small">Add a problem file under <code>problems/</code> with ` +
+            `<code>"course": "${escapeHtml(state.course.id)}"</code>, then run ` +
+            `<code>python3 tools/build_index.py</code>. ` +
+            `<a href="../learning/index.html">Browse this class's material</a>.</p>`,
+        }),
+      );
+      return;
+    }
     container.append(el("p", { class: "muted", text: "No exercise matches these filters." }));
     return;
   }
@@ -328,7 +380,12 @@ function renderList() {
     return;
   }
 
-  for (const bucket of groupProblems(filtered, state.filters.group)) {
+  const buckets =
+    state.filters.group === "phase"
+      ? groupProblemsByPhase(filtered, state.course)
+      : groupProblems(filtered, state.filters.group);
+
+  for (const bucket of buckets) {
     const heading = el("div", { class: "list-group" });
     heading.append(el("h3", { text: bucket.label }));
     heading.append(
@@ -341,6 +398,9 @@ function renderList() {
       heading.append(el("span", { class: "badge", text: bucket.group }));
     }
     container.append(heading);
+    if (state.filters.group === "phase" && bucket.summary) {
+      container.append(el("p", { class: "small muted", text: bucket.summary, style: "margin:0 0 .6rem" }));
+    }
     const ordered =
       state.filters.sort === "curated"
         ? [...bucket.problems].sort(
@@ -361,16 +421,38 @@ async function main() {
     return;
   }
 
+  // One class at a time: the list, its filters and its counts all belong to the
+  // class picked in the header. Without data/courses.json everything is shown.
+  try {
+    state.catalog = await loadCourses();
+    state.course = await activeCourse(state.catalog);
+    mountCoursePicker(state.catalog, { active: state.course.id });
+    state.problems = inCourse(state.problems, state.course.id);
+  } catch (error) {
+    state.course = null;
+    console.warn(error.message);
+  }
+
   await loadAssignments();
   state.assignments = assignmentsForProblems(state.problems);
 
-  for (const key of ["assignment", "type", "topic", "difficulty", "status", "query", "group", "sort"]) {
+  for (const key of ["assignment", "type", "topic", "difficulty", "status", "query", "group", "sort", "phase"]) {
     const value = param(key);
     if (value) state.filters[key] = value;
   }
+
+  // A class whose exercises are not tied to notebooks yet (FIN 400 while its
+  // class files are still being added) would otherwise show one anonymous
+  // "General exercises" group. Its halves are the useful grouping there.
+  if (!param("group") && state.course && phasesOf(state.course).length > 1 && state.assignments.length <= 1) {
+    state.filters.group = "phase";
+  }
   renderFilters(filtersHost);
   renderList();
-  document.getElementById("count-badge").textContent = `${state.problems.length} exercises in ${state.assignments.length} assignments`;
+  const scope = state.course ? `${state.course.code} · ` : "";
+  document.getElementById("count-badge").textContent =
+    `${scope}${state.problems.length} exercises in ${state.assignments.length} assignments`;
+  if (state.course) document.title = `Practice — ${state.course.code}`;
 }
 
 main();

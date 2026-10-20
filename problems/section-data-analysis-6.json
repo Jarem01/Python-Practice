@@ -4,7 +4,7 @@
       "id": "da6-region-average-charges",
       "type": "write_from_scratch",
       "title": "Which region pays the most?",
-      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Regression",
@@ -15,7 +15,7 @@
         "pandas"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "line_count": 6,
       "prompt": "`insurance.csv` holds medical costs for 1,338 people (`age`, `sex`, `bmi`, `children`, `smoker`, `region`, `charges`).\n\nGroup by `region`, take the mean of `charges`, and print the region with the highest average.",
@@ -38,7 +38,7 @@
       "id": "da6-ols-age-coefficient",
       "type": "write_from_scratch",
       "title": "Estimate the age coefficient yourself",
-      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Regression",
@@ -50,7 +50,7 @@
         "numpy"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "line_count": 14,
       "prompt": "The notebook fits `charges` on `age`, `bmi`, `children`, `male` and `smoke` with statsmodels. Ordinary least squares has a closed form, so you can do it with NumPy:\n\n1. Build the design matrix `X`: a column of ones, then `age`, `bmi`, `children`, `male`, `smoke`.\n2. Solve `numpy.linalg.lstsq(X, y, rcond=None)`.\n3. Print the coefficient on `age`, rounded to two decimals (`257.74` — each extra year of age costs about $258).",
@@ -74,7 +74,7 @@
       "id": "da6-smoke-indicator",
       "type": "fill_in_blank",
       "title": "Build the regression indicators",
-      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Regression",
@@ -86,7 +86,7 @@
         "numpy"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "line_count": 8,
       "prompt": "Categorical text has to become numbers before it can go into a regression. Fill in the blanks so `male` is 1 for men and `smoke` is 1 for smokers, then print how many smokers there are.\n\n`numpy` is already imported as `np`.",
@@ -124,7 +124,7 @@
       "id": "da6-train-test-split",
       "type": "write_from_scratch",
       "title": "Split the sample the way the notebook does",
-      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Regression",
@@ -136,7 +136,7 @@
         "numpy"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "line_count": 7,
       "prompt": "The notebook draws a 70% training sample with `df.sample(frac=0.7, random_state=73723)` and puts everything else in `test`.\n\nDo exactly that and print the number of rows in `train` — a single number. The seed makes it reproducible.",
@@ -160,7 +160,7 @@
       "id": "da6-lowest-excess-charges",
       "type": "write_from_scratch",
       "title": "Which region is cheapest once you adjust?",
-      "notebook": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Regression",
@@ -172,7 +172,7 @@
         "numpy"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       },
       "line_count": 14,
       "prompt": "Fit the model with NumPy (column of ones, then `age`, `bmi`, `children`, `male`, `smoke`), predict `charges_hat`, and add a column `excess_charges = charges - charges_hat`.\n\nGroup by `region` and print the region with the **lowest** average excess charge — the region that pays less than its risk factors suggest.",

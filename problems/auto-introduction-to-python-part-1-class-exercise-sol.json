@@ -1,7 +1,7 @@
 {
   "_generated": {
     "by": "tools/generate_problems.mjs",
-    "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
     "notebook": "Introduction to Python (Part 1) - Class Exercise Solutions",
     "tasks": 17,
     "auto_checked": 28,
@@ -23,7 +23,7 @@
         "Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000."
       ],
       "solution": "# 1\nprint(8**3 >= 5000)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "boolean",
@@ -33,7 +33,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 1,
         "exercise": 1,
         "autoChecked": true,
@@ -58,7 +58,7 @@
         "Print the Boolean test for 8<sup>3</sup> greater than or equal to 5,000."
       ],
       "solution": "# 1\nprint(8**3 >= 5000)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "boolean",
@@ -68,7 +68,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 1,
         "exercise": 1,
         "autoChecked": true,
@@ -92,7 +92,7 @@
         "Print the Boolean test for `'Cougar'` in `myvar`."
       ],
       "solution": "# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "boolean",
@@ -102,7 +102,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 3,
         "exercise": 2,
         "autoChecked": true,
@@ -128,7 +128,7 @@
         "Print the Boolean test for `'Cougar'` in `myvar`."
       ],
       "solution": "# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "boolean",
@@ -139,7 +139,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 3,
         "exercise": 2,
         "autoChecked": true,
@@ -163,7 +163,7 @@
         "Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:"
       ],
       "solution": "# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "string",
@@ -174,7 +174,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 7,
         "exercise": 4,
         "autoChecked": true,
@@ -200,7 +200,7 @@
         "Print the statement \"Area of a circle with radius ## is equal to ##.\" (filling in the radius with `r` and the area with `area`) in the following two ways:"
       ],
       "solution": "# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "string",
@@ -212,7 +212,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 7,
         "exercise": 4,
         "autoChecked": true,
@@ -236,13 +236,13 @@
         "Display the 5th president of the Church of Jesus Christ of Latter-day Saints."
       ],
       "solution": "# 1.\npresidents[4]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 12,
         "exercise": 1,
         "autoChecked": true,
@@ -268,14 +268,14 @@
         "Display the 5th president of the Church of Jesus Christ of Latter-day Saints."
       ],
       "solution": "# 1.\npresidents[4]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 12,
         "exercise": 1,
         "autoChecked": true,
@@ -299,7 +299,7 @@
         "Display a list of the 7th through 10th presidents of the Church."
       ],
       "solution": "# 2.\npresidents[6:10]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -307,7 +307,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 14,
         "exercise": 2,
         "autoChecked": true,
@@ -333,7 +333,7 @@
         "Display a list of the 7th through 10th presidents of the Church."
       ],
       "solution": "# 2.\npresidents[6:10]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -342,7 +342,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 14,
         "exercise": 2,
         "autoChecked": true,
@@ -366,7 +366,7 @@
         "Display a list of the first four presidents of the Church."
       ],
       "solution": "# 3.\npresidents[0:4]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -374,7 +374,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 16,
         "exercise": 3,
         "autoChecked": true,
@@ -400,7 +400,7 @@
         "Display a list of the first four presidents of the Church."
       ],
       "solution": "# 3.\npresidents[0:4]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -409,7 +409,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 16,
         "exercise": 3,
         "autoChecked": true,
@@ -433,7 +433,7 @@
         "Display a list of the last three presidents of the Church."
       ],
       "solution": "# 4.\npresidents[-3:]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -441,7 +441,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 18,
         "exercise": 4,
         "autoChecked": true,
@@ -467,7 +467,7 @@
         "Display a list of the last three presidents of the Church."
       ],
       "solution": "# 4.\npresidents[-3:]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -476,7 +476,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 18,
         "exercise": 4,
         "autoChecked": true,
@@ -500,13 +500,13 @@
         "Replace the sixth element in `list1` with 5."
       ],
       "solution": "# 1\nlist1[5] = 5\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 22,
         "exercise": 1,
         "autoChecked": true,
@@ -532,14 +532,14 @@
         "Replace the sixth element in `list1` with 5."
       ],
       "solution": "# 1\nlist1[5] = 5\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 22,
         "exercise": 1,
         "autoChecked": true,
@@ -563,7 +563,7 @@
         "Display the index location of the number 1 in `list1`."
       ],
       "solution": "# 2\nlist1.index(1)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "index"
@@ -571,7 +571,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 24,
         "exercise": 2,
         "autoChecked": true,
@@ -597,7 +597,7 @@
         "Display the index location of the number 1 in `list1`."
       ],
       "solution": "# 2\nlist1.index(1)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "index"
@@ -606,7 +606,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 24,
         "exercise": 2,
         "autoChecked": true,
@@ -630,13 +630,13 @@
         "Append 10 to `list1`."
       ],
       "solution": "# 3\nlist1.append(10)\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 26,
         "exercise": 3,
         "autoChecked": true,
@@ -662,14 +662,14 @@
         "Append 10 to `list1`."
       ],
       "solution": "# 3\nlist1.append(10)\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 26,
         "exercise": 3,
         "autoChecked": true,
@@ -693,13 +693,13 @@
         "Delete the first element in `list1`."
       ],
       "solution": "# 4\ndel list1[0]\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 28,
         "exercise": 4,
         "autoChecked": true,
@@ -725,14 +725,14 @@
         "Delete the first element in `list1`."
       ],
       "solution": "# 4\ndel list1[0]\nlist1\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 28,
         "exercise": 4,
         "autoChecked": true,
@@ -756,13 +756,13 @@
         "Count the occurences of 2 in `list1`."
       ],
       "solution": "# 5\nlist1.count(2)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 30,
         "exercise": 5,
         "autoChecked": true,
@@ -788,14 +788,14 @@
         "Count the occurences of 2 in `list1`."
       ],
       "solution": "# 5\nlist1.count(2)\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [],
       "draft": true,
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 30,
         "exercise": 5,
         "autoChecked": true,
@@ -819,7 +819,7 @@
         "You are provided with `list2` below. Display 'Mark' from the first list in `list2`."
       ],
       "solution": "# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -827,7 +827,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 32,
         "exercise": 6,
         "autoChecked": true,
@@ -853,7 +853,7 @@
         "You are provided with `list2` below. Display 'Mark' from the first list in `list2`."
       ],
       "solution": "# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list"
@@ -862,7 +862,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 32,
         "exercise": 6,
         "autoChecked": true,
@@ -886,7 +886,7 @@
         "You are provided with `list3` below. Print the elements in the list joined using a comma and space."
       ],
       "solution": "# 7\nlist3 = ['Laman','Lemuel','Sam','Nephi']\nprint(', '.join(list3))\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list",
@@ -895,7 +895,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 34,
         "exercise": 7,
         "autoChecked": true,
@@ -921,7 +921,7 @@
         "You are provided with `list3` below. Print the elements in the list joined using a comma and space."
       ],
       "solution": "# 7\nlist3 = ['Laman','Lemuel','Sam','Nephi']\nprint(', '.join(list3))\n",
-      "notebook": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "list",
@@ -931,7 +931,7 @@
       "capture_last_expression": true,
       "setup": "# 1\nprint(8**3 >= 5000)\n\n# 2\nmyvar = \"Rise and Shout the Cougars are Out!\"\nprint('Cougar' in myvar)\n\n# 3\npi = 3.14159\nr = 15\narea = pi * r**2\n\n# 4a\nprint(\"Area of a circle with radius \" + str(r) + \" is equal to \" + str(area) + \".\")\n\n# 4b\nprint(f\"Area of a circle with radius {r} is equal to {area}.\")\n\npresidents = ['Joseph Smith','Brigham Young','John Taylor','Wilford Woodruff','Lorenzo Snow','Joseph F. Smith','Heber J. Grant','George Albert Smith','David O. McKay','Joseph Fielding Smith','Harold B. Lee','Spencer W. Kimball','Ezra Taft Benson','Howard W. Hunter','Gordon B. Hinckley','Thomas S. Monson','Russell M. Nelson','Dallin H. Oaks']\n\n# 1.\npresidents[4]\n\n# 2.\npresidents[6:10]\n\n# 3.\npresidents[0:4]\n\n# 4.\npresidents[-3:]\n\nlist1 = [8,3,2,6,3,2,1,2]\n\n# 1\nlist1[5] = 5\nlist1\n\n# 2\nlist1.index(1)\n\n# 3\nlist1.append(10)\nlist1\n\n# 4\ndel list1[0]\nlist1\n\n# 5\nlist1.count(2)\n\n# 6\nlist2 = [['Matthew','Mark'],['Luke'],['John','Acts','Romans']]\nlist2[0][1]\n",
       "generated": {
-        "from": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 34,
         "exercise": 7,
         "autoChecked": true,

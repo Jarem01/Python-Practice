@@ -4,7 +4,7 @@
       "id": "da4-read-and-merge-files",
       "type": "write_from_scratch",
       "title": "Merge three CSV files on the ticker",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Merging",
@@ -15,9 +15,9 @@
         "pandas"
       ],
       "data_files": {
-        "earnings.csv": "materials/datasets/earnings.csv",
-        "exchange.csv": "materials/datasets/exchange.csv",
-        "company_names.csv": "materials/datasets/company_names.csv"
+        "earnings.csv": "acc525/data/earnings.csv",
+        "exchange.csv": "acc525/data/exchange.csv",
+        "company_names.csv": "acc525/data/company_names.csv"
       },
       "line_count": 8,
       "prompt": "Three files sit in the working directory: `earnings.csv` (ticker, fpe, eps, revenue), `exchange.csv` (ticker, exchg, exchange, country) and `company_names.csv` (tic, conm, cusip, sic).\n\nMerge them into a single DataFrame `data`: `earnings` with `exchange` on `ticker`, then with `company_names` **after renaming its `tic` column to `ticker`**. Print `data.shape`.",
@@ -41,7 +41,7 @@
       "id": "da4-concat-degrees",
       "type": "write_from_scratch",
       "title": "Concatenate every degrees file",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Merging",
@@ -52,8 +52,8 @@
         "pandas"
       ],
       "data_files": {
-        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
-        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv"
+        "degrees-that-pay-back-a.csv": "acc525/data/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "acc525/data/degrees-that-pay-back-b.csv"
       },
       "line_count": 9,
       "prompt": "The working directory holds several files whose names start with `degrees-that-pay-back`.\n\nCollect *all* of them with `glob.glob('degrees-that-pay-back*.csv')`, read each one, concatenate them into `df` with a fresh index, and print `df.shape`.",
@@ -77,7 +77,7 @@
       "id": "da4-left-join-spend",
       "type": "write_from_scratch",
       "title": "A left join that keeps the sales rows",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Merging",
@@ -108,7 +108,7 @@
       "id": "da4-export-to-delimited",
       "type": "fill_in_blank",
       "title": "Export with a pipe delimiter",
-      "notebook": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Files",

@@ -6,6 +6,7 @@
 
 import { assignmentForProblem, loadAssignments } from "./assignments.js";
 import { siteUrl } from "./config.js";
+import { activeCourse, loadCourses, mountCoursePicker } from "./course.js";
 import { resolveDataFiles } from "./datasets.js";
 import { createEditor } from "./editor.js";
 import { fillTemplate, gradeBlanks, gradeRun, gradeText, isAutoGradable, splitTemplate } from "./grade.js";
@@ -27,8 +28,13 @@ import {
 const state = {
   problems: [],
   problem: null,
+  course: null,
   glossary: null,
   terms: [],
+  // "hidden" on a class whose reference answers are not published (FIN 400).
+  // The build strips the solution from the bundle for those, so there is
+  // nothing to reveal even if a button were left behind.
+  solutions: "shown",
   editor: null,
   blankInputs: [],
   mode: "guided",
@@ -343,6 +349,8 @@ function setupWriteFromScratch(problem) {
     type: "button",
     text: "Show next solution line",
   });
+  // A class that hides solutions gets no line-by-line reveal either: hints are
+  // the only scaffolding on offer.
   showHint.addEventListener("click", () => {
     const hints = problem.hints || [];
     if (state.hintsShown >= hints.length) return;
@@ -367,11 +375,20 @@ function setupWriteFromScratch(problem) {
     showLine.disabled = state.solutionLinesShown >= solutionLines.length;
     persist({ hintsUsed: state.hintsShown, status: "attempted" });
   });
-  guidedActions.append(showHint, showLine);
+  guidedActions.append(showHint);
+  if (state.solutions !== "hidden") guidedActions.append(showLine);
   guidedBox.append(el("h4", { text: "Hints, one step at a time" }));
   guidedBox.append(hintList, guidedActions);
   if (!(problem.hints || []).length) {
     guidedBox.append(el("p", { class: "small muted", text: "This exercise has no hints — try the line-count mode instead." }));
+  }
+  if (state.solutions === "hidden") {
+    guidedBox.append(
+      el("p", {
+        class: "tiny muted",
+        text: "Solutions are not shown in this class: work through the hints, run your code, and compare the output with what is expected.",
+      }),
+    );
   }
 
   // Line-count mode
@@ -568,9 +585,19 @@ function renderPrompt(problem) {
   } else {
     bits.push("general practice");
   }
+  if (state.course) bits.push(`<strong>${escapeHtml(state.course.code)}</strong>`);
   bits.push(`id: <code>${escapeHtml(problem.id)}</code>`);
   meta.innerHTML = bits.join(" · ");
   card.append(meta);
+
+  if (state.solutions === "hidden") {
+    card.append(
+      el("p", {
+        class: "small muted",
+        html: "This class keeps its solutions hidden: use the hints, and check your own output against the expected output.",
+      }),
+    );
+  }
 
   // The question sits in the amber block the class study guides use for problems.
   if (problem.prompt) card.append(el("div", { class: "prompt-block", html: renderMarkdown(problem.prompt) }));
@@ -661,7 +688,7 @@ function renderActions(problem) {
     row.append(reveal);
   }
 
-  if (problem.solution) {
+  if (problem.solution && state.solutions !== "hidden") {
     const solution = el("button", { class: "btn ghost", type: "button", text: "Show solution" });
     solution.addEventListener("click", () => {
       if (problem.type === "fill_in_blank") {
@@ -726,6 +753,17 @@ async function main() {
   }
   state.problems = problems;
 
+  // Which class is this exercise for? The exercise page must work even when it
+  // was opened from a link to the other class, so the class is read from the
+  // problem itself and only shown in the header.
+  let catalog = null;
+  try {
+    catalog = await loadCourses();
+    await activeCourse(catalog);
+  } catch {
+    catalog = null;
+  }
+
   const problem = problems.find((p) => p.id === id) || null;
   if (!problem) {
     nodes.root.innerHTML =
@@ -734,6 +772,15 @@ async function main() {
     return;
   }
   state.problem = problem;
+  state.solutions = problem.solutions === "hidden" ? "hidden" : "shown";
+  if (catalog) {
+    const course =
+      catalog.courses.find((entry) => entry.id === problem.course) || (await activeCourse(catalog));
+    state.course = course;
+    // The picker highlights the class this exercise belongs to, so switching
+    // class from here is one click instead of a lost exercise.
+    mountCoursePicker(catalog, { active: course.id });
+  }
   state.terms = termsForProblem(state.glossary, problem);
   document.title = `${problem.title} · Python Practice`;
 

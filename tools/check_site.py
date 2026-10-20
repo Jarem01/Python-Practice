@@ -26,10 +26,17 @@ PAGES = [
     "practice/index.html",
     "practice/exercise.html",
     "practice/create.html",
+    "flashcards.html",
     "upload.html",
 ]
 
-MANIFESTS = ["data/notebooks.json", "problems/index.json", "data/glossary.json"]
+MANIFESTS = [
+    "data/notebooks.json",
+    "problems/index.json",
+    "data/glossary.json",
+    "data/courses.json",
+    "data/flashcards.json",
+]
 
 LINK_RE = re.compile(r"""(?:src|href)\s*=\s*["']([^"']+)["']""", re.IGNORECASE)
 
@@ -98,6 +105,13 @@ def main() -> int:
                 detail += f", {data.get('count')} problems"
             if manifest == "data/notebooks.json":
                 detail += f", {data.get('totals', {}).get('notebooks')} notebooks"
+                courses = data.get("courses") or []
+                if courses:
+                    detail += f", {len(courses)} classes"
+            if manifest == "data/courses.json":
+                detail += f", {len(data.get('courses') or [])} classes"
+            if manifest == "data/flashcards.json":
+                detail += f", {len(data.get('cards') or [])} cards"
         except Exception as error:  # noqa: BLE001
             ok = False
             detail = f"not JSON: {error}"

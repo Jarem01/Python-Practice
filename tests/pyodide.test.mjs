@@ -3,9 +3,14 @@
  * path the browser uses: assets/js/harness.js + assets/js/grade.js.
  *
  * For every problem in problems/index.json it verifies that
- *   • the reference solution passes its own checks, and
+ *   • the reference answer passes its own checks, and
  *   • for predict-the-output problems the recorded expected_output is really
  *     what the program prints.
+ *
+ * A class that hides its solutions from students (FIN 400) has no `solution` in
+ * the bundle, by design. Its reference answers live in tests/solutions/*.json
+ * instead: tests/ is never published, so the checks are provable without
+ * shipping the answers to the browser.
  *
  * Requires the Pyodide npm package (dev-only):
  *   npm install --no-save pyodide && node --test tests/
@@ -14,7 +19,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -25,6 +30,20 @@ import { normalizeOutput } from "../assets/js/util.js";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const bundle = JSON.parse(await readFile(path.join(root, "problems", "index.json"), "utf8"));
+
+/** Reference answers kept out of the published bundle (tests/solutions/*.json). */
+const referenceAnswers = {};
+try {
+  for (const name of await readdir(path.join(root, "tests", "solutions"))) {
+    if (!name.endsWith(".json")) continue;
+    const data = JSON.parse(await readFile(path.join(root, "tests", "solutions", name), "utf8"));
+    for (const [id, code] of Object.entries(data)) {
+      if (!id.startsWith("_")) referenceAnswers[id] = code;
+    }
+  }
+} catch {
+  /* no side file: every problem must then carry its own solution */
+}
 
 let loadPyodide = null;
 let indexURL = null;
@@ -162,8 +181,13 @@ for (const problem of bundle.problems) {
       return;
     }
 
-    assert.ok(problem.solution, "every auto-checked problem needs a reference solution in the repo tests");
-    const result = await run({ code: problem.solution, tests: problem.tests || "", packages, ...shared });
+    const reference = problem.solution ?? referenceAnswers[problem.id];
+    assert.ok(
+      reference,
+      `${problem.id} has no reference answer. Add one to tests/solutions/${problem.course}.json ` +
+        `(hidden classes never carry 'solution' in the bundle) or as "solution" on the problem.`,
+    );
+    const result = await run({ code: reference, tests: problem.tests || "", packages, ...shared });
     const verdict = gradeRun(problem, result);
     assert.equal(
       verdict.ok,

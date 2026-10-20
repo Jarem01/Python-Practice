@@ -1,6 +1,8 @@
 # Python Practice
 
-A lightweight learning system for a Python / data-analysis course.
+A lightweight learning system for two Python / data-analysis classes: **ACC 525** (Python for
+accounting) and **FIN 400** (Python for finance). One site, one exercise engine, a class picker in
+the header.
 
 The Jupyter notebooks in this repository stay **exactly as they are** and become the learning
 material. On top of them sits a small practice engine that runs real Python in the browser
@@ -32,6 +34,39 @@ whoever uses it needs no server, no Python install and no account. Progress is k
 
 ---
 
+## Two classes on one site
+
+The picker next to the site name switches classes, and the choice is remembered per browser;
+`?course=fin400` works as a shareable link to the other class. Everything else — the exercise
+engine, the notebook viewer, progress, the glossary — is the same code for both.
+
+| Class | Material | Solutions |
+| --- | --- | --- |
+| **ACC 525** — Python for accounting | `acc525/Intro to Python/` and `acc525/Data Analysis/` (notebooks), data in `acc525/data/`; exercises in `problems/*.json` | shown — this class works through them together |
+| **FIN 400** — Python for finance | `fin400/bootcamp/` (`.py`, first half), `fin400/notebooks/` (`.ipynb`, second half), `fin400/assignments/` (briefs and worked practice), data in `fin400/data/`, cards in `data/flashcards.json`, exercises in `problems/fin400-*.json` | **hidden** — hints only, and every exercise runs on data that is not the assignment's |
+
+`data/courses.json` is the registry that makes this work: it names the classes, says which folders
+belong to each, lists the halves of each course, and sets whether solutions may be shown. The build
+files every notebook and exercise from the path it lives at, so adding material is dropping a file
+in the right folder.
+
+**Where FIN 400 files go, and how to upload them through github.com without a clone:
+[fin400/README.md](fin400/README.md).**
+
+"Hidden" means the reference answer is removed from `problems/index.json` by the build — the
+exercise page cannot show what it never received. It does not mean the *checks* are invisible: a
+student who reads the page source can read the `tests` of any exercise, which is why the exercises
+use their own data rather than the assignment's.
+
+A class can also keep whole folders off the site with `private_paths` in `data/courses.json`.
+FIN 400 lists `fin400/solutions` there: the build never indexes those files, and
+`tools/assemble_site.py` removes the folder from the published site, so no page links to an answer
+key. The files are still in the repository — a public GitHub repository shows them to anyone who
+browses there, so keep the repository private (or keep keys off GitHub entirely) if students must
+not see them.
+
+---
+
 ## Quick start (running the repository locally)
 
 This is only needed to **change** the site. A local web server is required, because browsers refuse
@@ -55,6 +90,7 @@ The pages (every one of them is on the deployed URL above as well):
 | `practice/index.html` | All exercises, grouped by the assignment they came from and by topic, with search and filters |
 | `practice/exercise.html?id=…` | The exercise engine (all four types, with the run output and a colored comparison) |
 | `practice/create.html` | Form to author a new exercise, save it as a local draft, download JSON |
+| `flashcards.html` | Revision deck: one card per method, flipped to show what it does, a call to run and the output it prints |
 | `glossary.html` | Every term with definitions, examples and links, in A–Z order or sorted by assignment |
 | `upload.html` | **Add material**: drop notebooks/scripts/data, analyze them, save to GitHub or this browser |
 
@@ -64,6 +100,7 @@ The pages (every one of them is on the deployed URL above as well):
 
 ```
 index.html                 landing page
+flashcards.html            revision deck: one card per method
 glossary.html              glossary page
 learning/index.html        notebook index
 learning/view.html         notebook viewer
@@ -74,19 +111,24 @@ upload.html                add course material (and generate exercises from it)
 assets/css/style.css       the only stylesheet (light + dark)
 assets/js/                 ES modules, no build step (see "Extending the JavaScript")
 data/notebooks.json        GENERATED — notebook index for the learning section
+data/courses.json          HAND-WRITTEN — the classes, their folders, halves and solution policy
 data/glossary.json         HAND-WRITTEN — glossary terms
+data/flashcards.json       HAND-WRITTEN — one card per method: what it does, a call, its output
 data/curriculum.json       OPTIONAL — manual grouping/ordering overrides
-materials/                 everything uploaded from the website (source study material)
+fin400/                    the FIN 400 class: bootcamp/ (.py), notebooks/ (.ipynb),
+                           assignments/ (briefs), data/, solutions/ (never published)
+acc525/                    the ACC 525 class: Intro to Python/, Data Analysis/, data/, analyticskit.py
+materials/                 uploads that do not belong to a class yet (source study material)
 problems/*.json|*.md       HAND-WRITTEN — exercise definitions
 problems/generated/*.json  Uploaded/generated exercises, one file each
 problems/index.json        GENERATED — the bundle the practice app fetches
-*.ipynb                    the class notebooks (any folder works)
 tools/build_index.py       regenerates both manifests
 tools/run_notebooks.py     executes the notebooks and saves their outputs
 tools/check_notebooks.py   runs the notebooks against the bundled data
-tools/make_datasets.py     builds materials/datasets/ (the files the notebooks open)
+tools/make_datasets.py     builds acc525/data/ (the files the notebooks open)
 tools/generate_problems.mjs turns notebooks into exercises with real Python
 tools/import_materials.py  applies a bundle downloaded from the website
+tools/assemble_site.py     copies the site to _site, leaving private_paths out
 .github/workflows/         rebuild the index + publish to GitHub Pages on every push
 tests/                     unit, integration and page tests
 ```
@@ -213,8 +255,8 @@ class notebooks sits alongside everything added later.
 ### Exercises need their data files
 
 A notebook task that reads `insurance.csv`, `avocados.txt` or a class module such as
-`analyticskit.py` can only become an exercise if that file is in the repository. Upload it (or copy
-it into `materials/`) and generate again:
+`analyticskit.py`can only become an exercise if that file is in the repository. Upload it (or copy it into the
+class folder the notebook lives in) and generate again:
 
 ```bash
 node tools/generate_problems.mjs --predict-variants   # writes problems/auto-*.json
@@ -222,7 +264,8 @@ python3 tools/build_index.py
 ```
 
 Tasks whose data is missing are reported and skipped rather than turned into an exercise that cannot
-run.
+run. Class material belongs in the class folder — `acc525/analyticskit.py`, `acc525/data/` — not at the
+repository root; that is what keeps the two classes apart and the root tidy.
 
 ---
 
@@ -360,6 +403,50 @@ $ python3 tools/build_index.py
 
 ---
 
+## Flashcards
+
+`data/flashcards.json` is the revision deck — one card per method, written by hand:
+
+```json
+{
+  "id": "pandas-groupby-mean",
+  "method": "df.groupby()",
+  "library": "pandas",
+  "topics": ["Grouping"],
+  "assignment": "Part 2 — Notebooks, DataFrames & regression",
+  "courses": ["fin400"],
+  "does": "Splits the rows into one group per value of a column, then aggregates each group.",
+  "setup": "import pandas as pd\n\nfunds = pd.DataFrame({...})",
+  "call": "print(funds.groupby(\"sector\")[\"return\"].mean())",
+  "output": "sector\nBond      0.03\nEquity    0.09\nName: return, dtype: float64"
+}
+```
+
+* `does` is the explanation in plain words, `call` is the snippet to practice, and `output` is exactly
+  what that snippet prints. `tests/test_flashcards.py` runs every card's `setup` + `call` in Python
+  and fails if the printed output differs from the card.
+* `setup` (optional) builds the small example the call uses; the card shows it in a collapsed block.
+  `assignment` is the label the deck groups by, and groups keep the order the cards appear in the
+  file, so write the file in course order. `library` is the filter for pandas / NumPy / Python /
+  statsmodels, and `topics` are the ideas a card belongs to (a card with two topics appears under
+  both).
+* `courses` limits a card to one class; leave it out to share a card with every class.
+* The page groups by assignment, topic, library or A–Z, filters by library / topic / assignment and
+  searches the method, the words, the code and the output. **Study deck** shows one card at a time
+  and pages with the arrow keys.
+* **Progress is tracked per card.** The back of a card has **Known** and **Need to review** buttons;
+  clicking the active button again clears the mark. The bar above the deck counts what is left, and
+  the **Progress** filter narrows the deck to known, review or unseen cards — so a study session can
+  be "only the ones I have not learned yet". The choice is in the URL, e.g.
+  `flashcards.html?course=fin400&status=unseen`, so it can be bookmarked.
+* Marks live in this browser only, under the localStorage key `pypractice:flashcards` (the same
+  per-browser approach as exercise progress). They are not tied to an account, not written to the
+  repository, and do not follow a student to another machine; **Reset my marks** clears them.
+* Cards are read straight from the file — no rebuild is needed. `build_index.py --check` validates
+  the shape, and the FIN 400 cards only use calls the class teaches.
+
+---
+
 ## Look and feel
 
 The site follows the class study guides: a white page with deep-blue headings, amber **problem**
@@ -455,9 +542,9 @@ rule in `grade.js`, a renderer + check path in `exercise.js`, and allow the type
 ## The datasets
 
 The class notebooks open their data by bare file name (`violations.csv`, `invoices.xlsx`,
-`insurance.csv`, `compustat.csv`, `avocados.txt`, …). Those files live in `materials/datasets/`
-and — because the browser runs the notebooks too — are copied into the Python sandbox for the
-notebook or exercise that declares them.
+`insurance.csv`, `compustat.csv`, `avocados.txt`, …). Those files live in `acc525/data/` and —
+because the browser runs the notebooks too — are copied into the Python sandbox for the notebook
+or exercise that declares them.
 
 They are generated, deterministically, by:
 
@@ -469,7 +556,7 @@ python3 tools/make_datasets.py    # rebuild them (same seed, same bytes)
 The size is the point: `violations.csv` has 68,841 rows, `invoices.xlsx` 5,000 invoices,
 `compustat.csv` 10,647 firms over 30 industries, plus `insurance.csv` (the public 1,338-row
 medical-cost dataset), `earnings.csv`, `store_sales.csv` and the small lookup tables the merge
-exercises join on. The generator also writes `materials/analyticskit.py`, the helper module Data
+exercises join on. The generator also writes `acc525/analyticskit.py`, the helper module Data
 Analysis 5 imports — keep the two in step by editing the constant in `tools/make_datasets.py` or,
 better, re-syncing it from the file the way the tool does now.
 
@@ -489,7 +576,11 @@ and needs `statsmodels` for Data Analysis 6; `tests/notebooks.test.mjs` does the
 Pyodide, which is the check that matters.
 
 * `tests/test_build.py` — slug parity with the JS, Markdown problem parsing, validation errors,
-  notebook scanning, and `build_index.py --check`.
+  notebook scanning, private class folders, and `build_index.py --check`.
+* `tests/test_flashcards.py` — the deck's shape, and **every card's output**: it runs each card's
+  `setup` and `call` and compares the printed text with the stored `output`.
+* `tests/test_assemble_site.py` — the published folder contains the site but not a class's
+  `private_paths` (FIN 400's `solutions/`), and the source repository keeps them.
 * `tests/logic.test.mjs` — markdown rendering (including HTML escaping), glossary linking,
   normalization, diffing and the graders.
 * `tests/pyodide.test.mjs` — runs the harness in real Python via Pyodide: stream capture,
@@ -500,9 +591,10 @@ Pyodide, which is the check that matters.
   the rendered DOM: filtering and grouping the exercise list, grading a typed answer (including the
   green/red output comparison), the glossary's search / section filter / order switch, sorting the
   glossary by section, saving a draft, that every notebook ships saved outputs, that every tile
-  on the site sits in a grid (so one tile can never be taller than the one beside it), and that every
+  on the site sits in a grid (so one tile can never be taller than the one beside it), that every
   list — the type cards, both notebook lists, the exercise list and the glossary — really swaps its
-  markup when you choose Tiles or Table.
+  markup when you choose Tiles or Table, and that the flashcards page groups, filters, flips a card
+  and pages through the study deck.
 * `tests/upload-page.test.mjs` — drives the upload page end to end in jsdom: fetch a notebook,
   analyze it, store it in the browser, re-save without duplicating.
 * `tests/test_import.py` — the bundle importer: path safety (absolute paths and `..` are refused),

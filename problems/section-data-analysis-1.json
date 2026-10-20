@@ -4,7 +4,7 @@
       "id": "da1-read-selected-columns",
       "type": "write_from_scratch",
       "title": "Load violations.csv with only three columns",
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas"
@@ -14,7 +14,7 @@
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "line_count": 4,
       "prompt": "The course dataset `violations.csv` is in the working directory (68,841 rows, 11 columns).\n\nRead it into a DataFrame called `data`, keeping only the columns `company`, `penalty` and `date` **by name**, then print `data.shape`.",
@@ -38,7 +38,7 @@
       "id": "da1-microsoft-rows",
       "type": "write_from_scratch",
       "title": "How many violations involve Microsoft?",
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas"
@@ -48,7 +48,7 @@
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "line_count": 4,
       "prompt": "Load `violations.csv` into `data` as the notebook does (`parse_dates=['date']`, `dtype={'gvkey': str, 'zip': str}`).\n\nFilter the rows where `company` is `'Microsoft'` into a DataFrame called `microsoft`, then print `len(microsoft)` — a single number.",
@@ -72,7 +72,7 @@
       "id": "da1-public-december",
       "type": "write_from_scratch",
       "title": "Publicly traded firms in December",
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas",
@@ -83,7 +83,7 @@
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "line_count": 5,
       "prompt": "Load `violations.csv` into `data`.\n\nBuild `public12`: the rows whose `ownership structure` is `'publicly traded'` **and** whose `date` falls in December. Print `len(public12)`.\n\nTwo conditions on one DataFrame need parentheses around each one, joined with `&`.",
@@ -106,7 +106,7 @@
       "id": "da1-missing-zip-count",
       "type": "write_from_scratch",
       "title": "Count the missing zip codes",
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas",
@@ -117,7 +117,7 @@
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "line_count": 4,
       "prompt": "Load `violations.csv` into `data` (read `zip` as a string so the leading zeros survive).\n\nPrint `data['zip'].isna().sum()` — the number of rows with **no** zip code — and remember the file has 68,841 rows.",
@@ -140,7 +140,7 @@
       "id": "da1-build-a-dataframe",
       "type": "fill_in_blank",
       "title": "Build a DataFrame by hand",
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "pandas"

@@ -11,6 +11,10 @@
 import { el, escapeHtml, slugify, TYPE_LABELS, TYPE_ORDER } from "./util.js";
 import { clearDrafts, deleteDraft, loadDrafts, saveDraft } from "./problems.js";
 import { countBlanks, fillTemplate } from "./grade.js";
+import { activeCourse, loadCourses, mountCoursePicker } from "./course.js";
+
+/** The class a new exercise is being written for (set in main()). */
+let course = null;
 
 const FIELDS = [
   ["id", "text", "Id (leave empty to derive from the title)"],
@@ -135,8 +139,13 @@ function collect() {
   if (form.tests.value.trim()) problem.tests = `${form.tests.value.replace(/\n$/, "")}\n`;
   if (form.setup.value.trim()) problem.setup = `${form.setup.value.replace(/\n$/, "")}\n`;
   if (form.stdin.value.trim()) problem.stdin = `${form.stdin.value.replace(/\n$/, "")}\n`;
-  if (form.solution.value.trim()) problem.solution = `${form.solution.value.replace(/\n$/, "")}\n`;
+  // A class that hides solutions must not ship one: it would be stripped by the
+  // build anyway, so the field is never written for that class.
+  if (form.solution.value.trim() && !(course && course.solutions === "hidden")) {
+    problem.solution = `${form.solution.value.replace(/\n$/, "")}\n`;
+  }
   if (form.test_summary.value.trim()) problem.test_summary = form.test_summary.value.trim();
+  if (course) problem.course = course.id;
   return problem;
 }
 
@@ -238,9 +247,33 @@ function fillForm(problem) {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function main() {
+async function main() {
   buildForm();
   renderDrafts();
+
+  try {
+    const catalog = await loadCourses();
+    course = await activeCourse(catalog);
+    mountCoursePicker(catalog, { active: course.id });
+  } catch (error) {
+    course = null;
+    console.warn(error.message);
+  }
+
+  if (course) {
+    const note = document.getElementById("course-note");
+    if (note) {
+      note.textContent =
+        `New exercises are added to ${course.code}${course.title ? ` (${course.title})` : ""}.` +
+        (course.solutions === "hidden"
+          ? " This class keeps solutions hidden: write hints instead of a reference answer, and check the data — exercises should run on their own data, not the assignment's."
+          : "");
+    }
+    if (course.solutions === "hidden") {
+      const solutionField = document.querySelector('label.field[data-key="solution"]');
+      if (solutionField) solutionField.classList.add("hidden");
+    }
+  }
 
   document.getElementById("save-draft").addEventListener("click", () => {
     const { problem, errors } = updatePreview();

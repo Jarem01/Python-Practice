@@ -2,8 +2,8 @@
  "problems": [
   {
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "easy",
    "expected_output": "(5000, 8)",
@@ -19,7 +19,7 @@
    "id": "da3-load-invoices",
    "line_count": 4,
    "mode": "both",
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"
@@ -38,8 +38,8 @@
   },
   {
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "easy",
    "expected_output": "1949.87",
@@ -55,7 +55,7 @@
    "id": "da3-median-amount",
    "line_count": 4,
    "mode": "both",
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"
@@ -74,8 +74,8 @@
   },
   {
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "easy",
    "expected_output": "Mouse",
@@ -91,7 +91,7 @@
    "id": "da3-most-common-part",
    "line_count": 5,
    "mode": "both",
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"
@@ -110,8 +110,8 @@
   },
   {
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "medium",
    "expected_output": "7",
@@ -128,7 +128,7 @@
    "id": "da3-monthly-spike",
    "line_count": 7,
    "mode": "both",
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"
@@ -147,8 +147,8 @@
   },
   {
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "hard",
    "expected_output": "T13839563",
@@ -164,7 +164,7 @@
    "id": "da3-july-bulk-order",
    "line_count": 8,
    "mode": "both",
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"
@@ -192,8 +192,8 @@
     }
    ],
    "data_files": {
-    "analyticskit.py": "materials/analyticskit.py",
-    "invoices.xlsx": "materials/datasets/invoices.xlsx"
+    "analyticskit.py": "acc525/analyticskit.py",
+    "invoices.xlsx": "acc525/data/invoices.xlsx"
    },
    "difficulty": "medium",
    "expected_output": "18.00%",
@@ -208,7 +208,7 @@
    ],
    "id": "da3-high-price-share",
    "line_count": 5,
-   "notebook": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+   "notebook": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
    "packages": [
     "pandas",
     "python-calamine"

@@ -1,7 +1,7 @@
 {
   "_generated": {
     "by": "tools/generate_problems.mjs",
-    "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+    "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
     "notebook": "Introduction to Python (Part 4) - EXERCISE SOLUTIONS",
     "tasks": 6,
     "auto_checked": 7,
@@ -23,7 +23,7 @@
         "Iterate through the `sentences` list and use the `count_word` function you created in Part 1 to print the following:"
       ],
       "solution": "# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -34,7 +34,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 3,
         "exercise": 2,
         "autoChecked": true,
@@ -60,7 +60,7 @@
         "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
       ],
       "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "print",
@@ -70,7 +70,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 5,
         "exercise": 1,
         "autoChecked": true,
@@ -96,7 +96,7 @@
         "The code below calculates the area of a circle with radius 5. Run the cell, read the **exception traceback** output, and correct the error in the code."
       ],
       "solution": "# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "print",
@@ -107,7 +107,7 @@
       "capture_last_expression": true,
       "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n",
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 5,
         "exercise": 1,
         "autoChecked": true,
@@ -131,7 +131,7 @@
         "Identify and correct the error in the code below."
       ],
       "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -140,7 +140,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 7,
         "exercise": 2,
         "autoChecked": true,
@@ -166,7 +166,7 @@
         "Identify and correct the error in the code below."
       ],
       "solution": "# 2\n\ndata = [13,22,34,48,50]\n\nfor i,element in enumerate(data):\n    print(f'{i} : {element}')\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -176,7 +176,7 @@
       "capture_last_expression": true,
       "setup": "# 1\ndef count_word(string_var, word='class'):\n    string_var = string_var.lower() # Convert the string to lower case to count 'Class' as well as 'class'.\n    string_var = string_var.replace('.','') # Remove periods\n    string_var = string_var.replace('!','') # Remove exclamation points\n    string_var = string_var.replace(',','') # Remove commas\n    string_var = string_var.replace('?','') # Remove question marks\n    word_list = string_var.split(' ') # Creates a list of words in the string\n    count1 = word_list.count(word) # Counts the number of words equal to word (e.g., 'class')\n    return count1\n\n# 2\nsentences = ['Wow, I am learning so much in this class this semester!','I wish all of my classes were this awesome.','If I could recommend one class this semester, the data analytics class would be it.','Of all the classes at BYU, this class is the hardest class I have taken and the most rewarding class too.','This class is classy.','I love the Analytics Class this semester!','I love this class.']\nfor sentence in sentences:\n    class_count = count_word(sentence)\n    semester_count = count_word(sentence, word='semester')\n    print(f\"The count of 'class' is {class_count}, and the count of 'semester' is {semester_count}.\")\n\n# 1\n\nimport math\n\nr = 5\narea = math.pi * r**2\nprint(area)\n",
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 7,
         "exercise": 2,
         "autoChecked": true,
@@ -200,7 +200,7 @@
         "Identify and correct the error(s) in the code below."
       ],
       "solution": "# 1\n\ndef get_value(name):\n    dict1 = {'Anna':1,'Andrew':2,'Daniel':3,'Jenna':4,'Matthew':5,'Lauren':6}\n    value = dict1.get(name, None)\n    return value\n    \nvalue = get_value('Andrew')\n\nprint(value)\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "def",
@@ -211,7 +211,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 9,
         "exercise": 1,
         "autoChecked": true,
@@ -237,7 +237,7 @@
         "Iterate through the `numbers` list, divide each element by 2 in the list, and print the result. If Python returns an error, print the element in the list that caused the error along with the exception raised by Python."
       ],
       "solution": "# 1\nnumbers = [1,2,3,'4',5,'6',7,8]\n\nfor number in numbers:\n    try:\n        number = number/2\n        print(number)\n    except Exception as e:\n        print(f'{number} : {e}')\n",
-      "notebook": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "packages": [],
       "glossary": [
         "for-loop",
@@ -248,7 +248,7 @@
       "draft": true,
       "capture_last_expression": true,
       "generated": {
-        "from": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "from": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "cell": 11,
         "exercise": 1,
         "autoChecked": true,

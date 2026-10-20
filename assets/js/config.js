@@ -54,7 +54,11 @@ export const CONFIG = {
    */
   materialsDir: "materials",
 
-  /** Default destination for uploads, and the GitHub repository they are saved to. */
+  /**
+   * Default destination for uploads, and the GitHub repository they are saved to.
+   * Material for a class that lives in its own folder (FIN 400 → fin400/) should
+   * be uploaded into that folder: type it in the folder field on the upload page.
+   */
   uploadFolder: "materials",
   githubRepo: "Jarem01/Python-Practice",
   githubBranch: "main",
@@ -79,5 +83,7 @@ export const PATHS = {
   notebooks: siteUrl("data/notebooks.json"),
   problems: siteUrl("problems/index.json"),
   glossary: siteUrl("data/glossary.json"),
+  flashcards: siteUrl("data/flashcards.json"),
   curriculum: siteUrl("data/curriculum.json"),
+  courses: siteUrl("data/courses.json"),
 };

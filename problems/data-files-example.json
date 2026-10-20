@@ -9,8 +9,8 @@
       "mode": "both",
       "line_count": 5,
       "packages": ["pandas"],
-      "data_files": { "sales.csv": "materials/datasets/sales.csv" },
-      "prompt": "This exercise shows how notebooks' data files work here.\n\nThe file `materials/datasets/sales.csv` is listed in the exercise's `data_files`, so it is copied into the sandbox and can be read with the plain file name `sales.csv`.\n\n**Your task:** read it into a pandas DataFrame called `df`, print the DataFrame's shape, and print the total number of units sold (the sum of the `units` column).\n\n```\ndf.shape      ->  (5, 3)\ntotal units   ->  36\n```",
+      "data_files": { "sales.csv": "acc525/data/sales.csv" },
+      "prompt": "This exercise shows how notebooks' data files work here.\n\nThe file `acc525/data/sales.csv` is listed in the exercise's `data_files`, so it is copied into the sandbox and can be read with the plain file name `sales.csv`.\n\n**Your task:** read it into a pandas DataFrame called `df`, print the DataFrame's shape, and print the total number of units sold (the sum of the `units` column).\n\n```\ndf.shape      ->  (5, 3)\ntotal units   ->  36\n```",
       "hints": [
         "`import pandas as pd` at the top.",
         "`pd.read_csv(\"sales.csv\")` reads the file that was placed in the working directory.",
@@ -22,7 +22,7 @@
       "tests": "assert hasattr(df, \"shape\"), \"df must be a pandas DataFrame\"\nassert df.shape == (5, 3), f\"expected 5 rows and 3 columns, got {df.shape}\"\nassert list(df.columns) == [\"product\", \"units\", \"price\"], f\"unexpected columns: {list(df.columns)}\"\nassert int(df[\"units\"].sum()) == 36, \"the units column should add up to 36\"\n",
       "test_summary": "Checks the DataFrame's shape and columns and that the units column adds up to 36.",
       "glossary": ["pandas", "dataframe", "method"],
-      "notebook": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
     }
   ]
 }

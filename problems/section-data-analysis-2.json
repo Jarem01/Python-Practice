@@ -4,7 +4,7 @@
       "id": "da2-clean-penalty-strings",
       "type": "write_from_scratch",
       "title": "Turn '$45,000 ' into 45000.0",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -37,7 +37,7 @@
       "id": "da2-np-where-overtime",
       "type": "fill_in_blank",
       "title": "Flag the overtime hours with np.where",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -83,7 +83,7 @@
       "id": "da2-np-where-performance",
       "type": "write_from_scratch",
       "title": "Three performance levels with np.where",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -116,7 +116,7 @@
       "id": "da2-sentence-column",
       "type": "write_from_scratch",
       "title": "Build a sentence column",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -148,7 +148,7 @@
       "id": "da2-fix-penalty-cleanup",
       "type": "fix_the_code",
       "title": "The cleanup that forgets to strip",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -179,7 +179,7 @@
       "id": "da2-violations-penalty-total",
       "type": "write_from_scratch",
       "title": "Clean the real penalty column and total it",
-      "notebook": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "notebook": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "topics": [
         "Data Analysis",
         "Cleaning Data",
@@ -190,7 +190,7 @@
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       },
       "line_count": 8,
       "prompt": "Read the `penalty` column of `violations.csv` as text (`dtype={'penalty': str}`), strip the dollars sign, the commas and the spaces, convert it to floats (missing values may stay missing), then print the total **in billions of dollars**, rounded to two decimals:\n\n```python\nprint(round(data[\"penalty\"].sum() / 1e9, 2))\n```",

@@ -1,24 +1,126 @@
 {
-  "generated_at": "2026-10-16T05:14:29+00:00",
-  "root": "Python-Practice",
+  "generated_at": "2026-10-20T22:49:29+00:00",
+  "root": "5de7ac673820556d5eb2fdf4",
   "totals": {
     "notebooks": 10,
     "scripts": 0,
     "cells": 241,
     "exercises": 35,
-    "problems": 106,
-    "topics": 20
+    "problems": 114,
+    "topics": 29
   },
+  "courses": [
+    {
+      "id": "acc525",
+      "code": "ACC 525",
+      "title": "Python for accounting",
+      "paths": [
+        "acc525"
+      ],
+      "private_paths": [],
+      "solutions": "shown",
+      "phases": [
+        {
+          "id": "intro",
+          "title": "Part 1 \u2014 Intro to Python",
+          "summary": "Values, strings, lists, loops, dictionaries, functions and errors.",
+          "groups": [
+            "Intro to Python"
+          ]
+        },
+        {
+          "id": "analysis",
+          "title": "Part 2 \u2014 Data analysis",
+          "summary": "pandas: loading, cleaning, sorting, merging, plotting and regression.",
+          "groups": [
+            "Data Analysis"
+          ]
+        }
+      ],
+      "groups": {
+        "Intro to Python": {
+          "title": "Intro to Python",
+          "label": "",
+          "order": 1
+        },
+        "Data Analysis": {
+          "title": "Data Analysis",
+          "label": "",
+          "order": 2
+        }
+      },
+      "totals": {
+        "notebooks": 10,
+        "scripts": 0,
+        "exercises": 35,
+        "problems": 106
+      }
+    },
+    {
+      "id": "fin400",
+      "code": "FIN 400",
+      "title": "Python for finance",
+      "paths": [
+        "fin400"
+      ],
+      "private_paths": [
+        "fin400/solutions"
+      ],
+      "solutions": "hidden",
+      "phases": [
+        {
+          "id": "bootcamp",
+          "title": "First half \u2014 Python bootcamp (.py)",
+          "summary": "Write, fix and test functions in ordinary .py files. No notebooks and no DataFrames yet.",
+          "groups": [
+            "bootcamp"
+          ]
+        },
+        {
+          "id": "analysis",
+          "title": "Second half \u2014 Notebooks, DataFrames and regression",
+          "summary": "Work in .ipynb files: load data, clean it, group and merge it, plot it, and finish with a regression.",
+          "groups": [
+            "notebooks",
+            "assignments"
+          ]
+        }
+      ],
+      "groups": {
+        "bootcamp": {
+          "title": "Part 1 \u2014 Python bootcamp (.py)",
+          "label": "",
+          "order": 1
+        },
+        "notebooks": {
+          "title": "Part 2 \u2014 Notebooks, DataFrames & regression",
+          "label": "",
+          "order": 2
+        },
+        "assignments": {
+          "title": "Assignments \u2014 briefs and worked practice",
+          "label": "",
+          "order": 3
+        }
+      },
+      "totals": {
+        "notebooks": 0,
+        "scripts": 0,
+        "exercises": 0,
+        "problems": 8
+      }
+    }
+  ],
   "groups": [
     {
       "name": "Intro to Python",
       "title": "Intro to Python",
       "order": 1,
       "notebooks": [
-        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ],
       "scripts": []
     },
@@ -27,12 +129,12 @@
       "title": "Data Analysis",
       "order": 2,
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
       ],
       "scripts": []
     },
@@ -46,8 +148,8 @@
   ],
   "notebooks": [
     {
-      "id": "intro-to-python-part-1-class-exercise-solutions",
-      "path": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-intro-to-python-intro-to-python-part-1-class-exercise-solutions",
+      "path": "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Intro 1 \u2014 Values, strings and lists",
@@ -86,14 +188,17 @@
         "Strings"
       ],
       "bytes": 9904,
+      "course": "acc525",
+      "course_folder": "Intro to Python",
+      "phase": "intro",
       "part": 1,
       "label": "Intro 1",
       "packages": [],
       "data_files": {}
     },
     {
-      "id": "intro-to-python-part-2-class-exercise-solutions",
-      "path": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-intro-to-python-intro-to-python-part-2-class-exercise-solutions",
+      "path": "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Intro 2 \u2014 Lists, loops and strings",
@@ -138,14 +243,17 @@
         "Strings"
       ],
       "bytes": 6105,
+      "course": "acc525",
+      "course_folder": "Intro to Python",
+      "phase": "intro",
       "part": 2,
       "label": "Intro 2",
       "packages": [],
       "data_files": {}
     },
     {
-      "id": "intro-to-python-part-3-class-exercise-solutions",
-      "path": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-intro-to-python-intro-to-python-part-3-class-exercise-solutions",
+      "path": "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Intro 3 \u2014 Dictionaries and paired data",
@@ -177,7 +285,8 @@
       "inferred_topics": [
         "Dictionaries",
         "Intro to Python",
-        "Lists"
+        "Lists",
+        "Numbers"
       ],
       "matched_topics": [
         "Dictionaries",
@@ -186,16 +295,19 @@
         "Loops"
       ],
       "bytes": 11705,
+      "course": "acc525",
+      "course_folder": "Intro to Python",
+      "phase": "intro",
       "part": 3,
       "label": "Intro 3",
       "packages": [],
       "data_files": {
-        "avocados.txt": "materials/datasets/avocados.txt"
+        "avocados.txt": "acc525/data/avocados.txt"
       }
     },
     {
-      "id": "intro-to-python-part-4-class-exercise-solutions",
-      "path": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-intro-to-python-intro-to-python-part-4-class-exercise-solutions",
+      "path": "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Intro 4 \u2014 Functions, errors and debugging",
@@ -230,7 +342,8 @@
         }
       ],
       "inferred_topics": [
-        "Intro to Python"
+        "Intro to Python",
+        "Numbers"
       ],
       "matched_topics": [
         "Errors",
@@ -238,14 +351,17 @@
         "Intro to Python"
       ],
       "bytes": 6933,
+      "course": "acc525",
+      "course_folder": "Intro to Python",
+      "phase": "intro",
       "part": 4,
       "label": "Intro 4",
       "packages": [],
       "data_files": {}
     },
     {
-      "id": "data-analysis-part-1-class-exercise-solutions",
-      "path": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-1-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 1 \u2014 Introduction to Pandas",
@@ -290,18 +406,21 @@
         "pandas"
       ],
       "bytes": 21136,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 1,
       "label": "Data Analysis 1",
       "packages": [
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       }
     },
     {
-      "id": "data-analysis-part-2-class-exercise-solutions",
-      "path": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-2-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 2 \u2014 Cleaning data",
@@ -346,18 +465,21 @@
         "pandas"
       ],
       "bytes": 14666,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 2,
       "label": "Data Analysis 2",
       "packages": [
         "pandas"
       ],
       "data_files": {
-        "violations.csv": "materials/datasets/violations.csv"
+        "violations.csv": "acc525/data/violations.csv"
       }
     },
     {
-      "id": "data-analysis-part-3-class-exercise-solutions",
-      "path": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-3-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 3 \u2014 Sorting and summary statistics",
@@ -388,6 +510,8 @@
       ],
       "inferred_topics": [
         "Data Analysis",
+        "Sorting",
+        "Statistics",
         "Summary Statistics",
         "pandas"
       ],
@@ -397,6 +521,9 @@
         "pandas"
       ],
       "bytes": 19213,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 3,
       "label": "Data Analysis 3",
       "packages": [
@@ -404,13 +531,13 @@
         "python-calamine"
       ],
       "data_files": {
-        "invoices.xlsx": "materials/datasets/invoices.xlsx",
-        "analyticskit.py": "materials/analyticskit.py"
+        "invoices.xlsx": "acc525/data/invoices.xlsx",
+        "analyticskit.py": "acc525/analyticskit.py"
       }
     },
     {
-      "id": "data-analysis-part-4-class-exercise-solutions",
-      "path": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-4-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 4 \u2014 Concatenating, merging and files",
@@ -457,23 +584,26 @@
         "pandas"
       ],
       "bytes": 21185,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 4,
       "label": "Data Analysis 4",
       "packages": [
         "pandas"
       ],
       "data_files": {
-        "earnings.csv": "materials/datasets/earnings.csv",
-        "exchange.csv": "materials/datasets/exchange.csv",
-        "company_names.csv": "materials/datasets/company_names.csv",
-        "degrees-that-pay-back-a.csv": "materials/datasets/degrees-that-pay-back-a.csv",
-        "degrees-that-pay-back-b.csv": "materials/datasets/degrees-that-pay-back-b.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "earnings.csv": "acc525/data/earnings.csv",
+        "exchange.csv": "acc525/data/exchange.csv",
+        "company_names.csv": "acc525/data/company_names.csv",
+        "degrees-that-pay-back-a.csv": "acc525/data/degrees-that-pay-back-a.csv",
+        "degrees-that-pay-back-b.csv": "acc525/data/degrees-that-pay-back-b.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       }
     },
     {
-      "id": "data-analysis-part-5-class-exercise-solutions",
-      "path": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-5-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 5 \u2014 Plotting, outliers and industry data",
@@ -504,6 +634,7 @@
       ],
       "inferred_topics": [
         "Data Analysis",
+        "Statistics",
         "Summary Statistics"
       ],
       "matched_topics": [
@@ -513,6 +644,9 @@
         "pandas"
       ],
       "bytes": 132477,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 5,
       "label": "Data Analysis 5",
       "packages": [
@@ -520,14 +654,14 @@
         "matplotlib"
       ],
       "data_files": {
-        "compustat.csv": "materials/datasets/compustat.csv",
-        "sic_indnames.csv": "materials/datasets/sic_indnames.csv",
-        "analyticskit.py": "materials/analyticskit.py"
+        "compustat.csv": "acc525/data/compustat.csv",
+        "sic_indnames.csv": "acc525/data/sic_indnames.csv",
+        "analyticskit.py": "acc525/analyticskit.py"
       }
     },
     {
-      "id": "data-analysis-part-6-class-exercise-solutions",
-      "path": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+      "id": "acc525-data-analysis-data-analysis-part-6-class-exercise-solutions",
+      "path": "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "filename": "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
       "kind": "notebook",
       "title": "Data Analysis 6 \u2014 Regression",
@@ -559,6 +693,7 @@
       "inferred_topics": [
         "Data Analysis",
         "Regression",
+        "Statistics",
         "Summary Statistics",
         "pandas"
       ],
@@ -568,6 +703,9 @@
         "statsmodels"
       ],
       "bytes": 177069,
+      "course": "acc525",
+      "course_folder": "Data Analysis",
+      "phase": "analysis",
       "part": 6,
       "label": "Data Analysis 6",
       "packages": [
@@ -577,7 +715,7 @@
         "scipy"
       ],
       "data_files": {
-        "insurance.csv": "materials/datasets/insurance.csv"
+        "insurance.csv": "acc525/data/insurance.csv"
       }
     }
   ],
@@ -599,12 +737,12 @@
         "da2-violations-penalty-total"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Data Analysis": {
@@ -652,12 +790,12 @@
         "da6-lowest-excess-charges"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Data Structures": {
@@ -672,13 +810,19 @@
         "fill-even-filter"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
+    },
+    "Debugging": {
+      "problems": [
+        "fin400-fix-simple-interest"
+      ],
+      "notebooks": []
     },
     "Dictionaries": {
       "problems": [
@@ -688,17 +832,36 @@
         "write-word-frequencies"
       ],
       "notebooks": [
-        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
+    },
+    "Errors": {
+      "problems": [
+        "fin400-clean-ticker"
+      ],
+      "notebooks": []
     },
     "Excel": {
       "problems": [
         "da3-load-invoices"
       ],
       "notebooks": [
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
+    },
+    "FIN 400": {
+      "problems": [
+        "fin400-average-monthly-return",
+        "fin400-fix-fund-report",
+        "fin400-net-of-fees",
+        "fin400-regression-beta",
+        "fin400-fv-function",
+        "fin400-fix-simple-interest",
+        "fin400-sharpe-ratio",
+        "fin400-clean-ticker"
+      ],
+      "notebooks": []
     },
     "Files": {
       "problems": [
@@ -706,17 +869,34 @@
         "da4-export-to-delimited"
       ],
       "notebooks": [
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
+    },
+    "Formatting": {
+      "problems": [
+        "fin400-fix-fund-report"
+      ],
+      "notebooks": []
     },
     "Functions": {
       "problems": [
         "write-most-common",
         "fix-first-even-return",
         "write-word-frequencies",
+        "fin400-fv-function",
+        "fin400-fix-simple-interest",
+        "fin400-sharpe-ratio",
+        "fin400-clean-ticker",
         "write-count-vowels",
         "fill-sum-args",
         "write-celsius-to-fahrenheit"
+      ],
+      "notebooks": []
+    },
+    "Grouping": {
+      "problems": [
+        "fin400-average-monthly-return",
+        "fin400-fix-fund-report"
       ],
       "notebooks": []
     },
@@ -771,10 +951,10 @@
         "auto-introduction-to-python-part-4-exercise-solutions-iterate-through-the-numbers-list-div"
       ],
       "notebooks": [
-        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Lists": {
@@ -783,8 +963,8 @@
         "fill-sorted-key"
       ],
       "notebooks": [
-        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Loops": {
@@ -799,13 +979,14 @@
     },
     "Merging": {
       "problems": [
+        "fin400-net-of-fees",
         "da4-read-and-merge-files",
         "da4-concat-degrees",
         "da4-left-join-spend",
         "da5-load-and-merge-industry"
       ],
       "notebooks": [
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Missing data": {
@@ -813,12 +994,12 @@
         "da1-missing-zip-count"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "NumPy": {
@@ -832,6 +1013,15 @@
         "da6-smoke-indicator"
       ],
       "notebooks": []
+    },
+    "Numbers": {
+      "problems": [
+        "fin400-fv-function"
+      ],
+      "notebooks": [
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
     },
     "Outliers": {
       "problems": [
@@ -854,14 +1044,15 @@
         "fix-loop-off-by-one"
       ],
       "notebooks": [
-        "Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 2) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Regression": {
       "problems": [
+        "fin400-regression-beta",
         "da6-region-average-charges",
         "da6-ols-age-coefficient",
         "da6-smoke-indicator",
@@ -869,11 +1060,30 @@
         "da6-lowest-excess-charges"
       ],
       "notebooks": [
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Sorting": {
+      "problems": [
+        "fin400-net-of-fees"
+      ],
+      "notebooks": [
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
+      ]
+    },
+    "Statistics": {
+      "problems": [
+        "fin400-sharpe-ratio"
+      ],
+      "notebooks": [
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Strings": {
       "problems": [
+        "fin400-clean-ticker",
         "predict-string-slice",
         "write-count-vowels",
         "fix-fstring-greeting",
@@ -882,7 +1092,7 @@
         "da2-fix-penalty-cleanup"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "Summary Statistics": {
@@ -897,14 +1107,18 @@
         "da5-mktcap-percentiles"
       ],
       "notebooks": [
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
     "pandas": {
       "problems": [
         "example-read-a-data-file",
+        "fin400-average-monthly-return",
+        "fin400-fix-fund-report",
+        "fin400-net-of-fees",
+        "fin400-regression-beta",
         "fix-pandas-hottest-city",
         "fill-pandas-groupby",
         "write-pandas-city-counts",
@@ -934,11 +1148,17 @@
         "da6-lowest-excess-charges"
       ],
       "notebooks": [
-        "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
+    },
+    "statsmodels": {
+      "problems": [
+        "fin400-regression-beta"
+      ],
+      "notebooks": []
     }
   }
 }

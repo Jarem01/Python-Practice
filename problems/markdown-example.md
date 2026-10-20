@@ -5,7 +5,7 @@ title: Off-by-one in a while loop
 topics: [Python Basics, Loops]
 difficulty: easy
 glossary: [while-loop, loop]
-notebook: Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb
+notebook: acc525/Intro to Python/Intro to Python (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb
 ---
 
 This Markdown file **is** an exercise — it lives in `problems/` next to the JSON files and is
