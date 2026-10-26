@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-26T18:45:22+00:00",
-  "root": "Python-Practice",
+  "generated_at": "2026-10-26T19:16:35+00:00",
+  "root": "5de7ac673820556d5eb2fdf4",
   "totals": {
-    "notebooks": 15,
+    "notebooks": 25,
     "scripts": 0,
-    "cells": 326,
-    "exercises": 35,
-    "problems": 164,
-    "topics": 41
+    "cells": 388,
+    "exercises": 55,
+    "problems": 184,
+    "topics": 51
   },
   "courses": [
     {
@@ -84,6 +84,14 @@
             "notebooks",
             "assignments"
           ]
+        },
+        {
+          "id": "lectures",
+          "title": "Lecture notebooks \u2014 one per class meeting",
+          "summary": "The class-by-class notebooks: loading data, loops and functions, the statistics library, the CDF, empirical probability, pandas basics, filtering, data review and groupby.",
+          "groups": [
+            "lectures"
+          ]
         }
       ],
       "groups": {
@@ -101,13 +109,18 @@
           "title": "Assignments \u2014 briefs and worked practice",
           "label": "",
           "order": 3
+        },
+        "lectures": {
+          "title": "Part 3 \u2014 Lecture notebooks",
+          "label": "",
+          "order": 3
         }
       },
       "totals": {
-        "notebooks": 5,
+        "notebooks": 15,
         "scripts": 0,
-        "exercises": 0,
-        "problems": 58
+        "exercises": 20,
+        "problems": 78
       }
     }
   ],
@@ -156,6 +169,24 @@
         "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
         "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      ],
+      "scripts": []
+    },
+    {
+      "name": "lectures",
+      "title": "Part 3 \u2014 Lecture notebooks",
+      "order": 3,
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
       ],
       "scripts": []
     },
@@ -941,6 +972,483 @@
       "data_files": {
         "insurance.csv": "acc525/data/insurance.csv"
       }
+    },
+    {
+      "id": "fin400-lectures-lecture-01-loading-the-data",
+      "path": "fin400/lectures/lecture-01-loading-the-data.ipynb",
+      "filename": "lecture-01-loading-the-data.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 01 \u2014 Loading the data",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "The class data comes as plain csv files in fin400/data/. Every lecture starts the same way: read the file, keep the dates as dates, then check the shape before trusting a single number.",
+      "cell_count": 7,
+      "code_cell_count": 2,
+      "markdown_cell_count": 5,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 3,
+          "title": "Exercise 1 \u2014 Load it and describe what you have",
+          "anchor": "exercise-1-load-it-and-describe-what-you-have"
+        },
+        {
+          "index": 4,
+          "title": "Exercise 2 \u2014 Read the range before you read the numbers",
+          "anchor": "exercise-2-read-the-range-before-you-read-the-numbers"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Files",
+        "Lecture 01",
+        "Numbers"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3748,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 1,
+      "label": "Lecture 01",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      }
+    },
+    {
+      "id": "fin400-lectures-lecture-02-distributions-loops-functions",
+      "path": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+      "filename": "lecture-02-distributions-loops-functions.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 02 \u2014 Distributions: loops, transformations and functions",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "Returns are not normal \u2014 they are wide, they have fat tails, and they have both signs. The first tool is a loop that walks a list and builds a new one, and the second is turning that loop into a function so the same tran",
+      "cell_count": 7,
+      "code_cell_count": 2,
+      "markdown_cell_count": 5,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 3,
+          "title": "Exercise 1 \u2014 loglist(values)",
+          "anchor": "exercise-1-loglist-values"
+        },
+        {
+          "index": 4,
+          "title": "Exercise 2 \u2014 The loop that logs the whole list",
+          "anchor": "exercise-2-the-loop-that-logs-the-whole-list"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Functions",
+        "Lecture 02",
+        "Loops",
+        "Returns"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3222,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 2,
+      "label": "Lecture 02",
+      "packages": [],
+      "data_files": {}
+    },
+    {
+      "id": "fin400-lectures-lecture-03-statistics-library",
+      "path": "fin400/lectures/lecture-03-statistics-library.ipynb",
+      "filename": "lecture-03-statistics-library.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 03 \u2014 Statistics with the statistics library",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "The library only formalises what you can already write with a loop. That matters for one reason: if you cannot write the loop, you do not know what the library is doing.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Fix the maximum that returns zero",
+          "anchor": "exercise-1-fix-the-maximum-that-returns-zero"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Read a summary before running it",
+          "anchor": "exercise-2-read-a-summary-before-running-it"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 03",
+        "Numbers",
+        "Returns",
+        "Statistics"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3074,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 3,
+      "label": "Lecture 03",
+      "packages": [],
+      "data_files": {}
+    },
+    {
+      "id": "fin400-lectures-lecture-04-squared-deviations-cdf",
+      "path": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+      "filename": "lecture-04-squared-deviations-cdf.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 04 \u2014 Squared deviations, the CDF and the inverse CDF",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "Two ideas that the rest of the course leans on: how far values sit from their mean, and how a normal distribution converts between a value and a probability.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 sqdevs(values)",
+          "anchor": "exercise-1-sqdevs-values"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Fill in the distribution",
+          "anchor": "exercise-2-fill-in-the-distribution"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 04",
+        "Probability",
+        "Returns",
+        "Statistics"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3052,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 4,
+      "label": "Lecture 04",
+      "packages": [],
+      "data_files": {}
+    },
+    {
+      "id": "fin400-lectures-lecture-05-listcdf-and-index-loops",
+      "path": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+      "filename": "lecture-05-listcdf-and-index-loops.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 05 \u2014 A list of CDF values, and looping by index",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "The homework pattern: given a list of values and a mean and standard deviation, return the probability of each one. One function, one loop, one cdf call per value.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 listcdf(data, mu, sigma)",
+          "anchor": "exercise-1-listcdf-data-mu-sigma"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Read the index loop",
+          "anchor": "exercise-2-read-the-index-loop"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 05",
+        "Loops",
+        "Probability",
+        "Returns",
+        "Statistics"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3083,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 5,
+      "label": "Lecture 05",
+      "packages": [],
+      "data_files": {}
+    },
+    {
+      "id": "fin400-lectures-lecture-06-empirical-probability",
+      "path": "fin400/lectures/lecture-06-empirical-probability.ipynb",
+      "filename": "lecture-06-empirical-probability.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 06 \u2014 Empirical probability and the shape of a strategy",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "\"How often does this strategy lose more than 5% in a month?\" is not a question about a formula. It is a question about how many months did that \u2014 an empirical probability.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Where do the months fall?",
+          "anchor": "exercise-1-where-do-the-months-fall"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Count before you take a share",
+          "anchor": "exercise-2-count-before-you-take-a-share"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 06",
+        "Probability"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3049,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 6,
+      "label": "Lecture 06",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      }
+    },
+    {
+      "id": "fin400-lectures-lecture-07-first-look-pandas",
+      "path": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+      "filename": "lecture-07-first-look-pandas.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 07 \u2014 A first look at pandas: columns, describe, summaries",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "A DataFrame is a table with column names. Three moves cover most of the work: pick a column, make a new column from old ones, and summarise the result.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Two new columns and a summary",
+          "anchor": "exercise-1-two-new-columns-and-a-summary"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Fill in the quantile call",
+          "anchor": "exercise-2-fill-in-the-quantile-call"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 07",
+        "Probability",
+        "Returns",
+        "pandas"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3251,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 7,
+      "label": "Lecture 07",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      }
+    },
+    {
+      "id": "fin400-lectures-lecture-08-boolean-indexing",
+      "path": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+      "filename": "lecture-08-boolean-indexing.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 08 \u2014 Conditional logic and boolean indexing",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "Filtering is two steps that look like one: build a True/False column, then use it to pick rows. Combination is where it usually goes wrong.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Men aged 40 and over",
+          "anchor": "exercise-1-men-aged-40-and-over"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 The mask that raises",
+          "anchor": "exercise-2-the-mask-that-raises"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Filtering",
+        "Lecture 08",
+        "Strings"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 2807,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 8,
+      "label": "Lecture 08",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      }
+    },
+    {
+      "id": "fin400-lectures-lecture-11-data-review",
+      "path": "fin400/lectures/lecture-11-data-review.ipynb",
+      "filename": "lecture-11-data-review.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 11 \u2014 Reviewing a data set before you trust it",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "Before any analysis: how many rows, which columns, what type is each one, and are there dates hiding in a string column?",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Either condition, not both",
+          "anchor": "exercise-1-either-condition-not-both"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Read a date filter",
+          "anchor": "exercise-2-read-a-date-filter"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 11"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3079,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 11,
+      "label": "Lecture 11",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      }
+    },
+    {
+      "id": "fin400-lectures-lecture-12-groupby",
+      "path": "fin400/lectures/lecture-12-groupby.ipynb",
+      "filename": "lecture-12-groupby.ipynb",
+      "kind": "notebook",
+      "title": "Lecture 12 \u2014 groupby: one summary per group",
+      "group": "lectures",
+      "group_order": 3,
+      "kernel": "Python 3",
+      "summary": "groupby is the pandas version of \"for each group, compute\u2026\". Split, apply, combine.",
+      "cell_count": 6,
+      "code_cell_count": 2,
+      "markdown_cell_count": 4,
+      "output_cell_count": 1,
+      "exercises": [
+        {
+          "index": 2,
+          "title": "Exercise 1 \u2014 Median age and BMI by gender",
+          "anchor": "exercise-1-median-age-and-bmi-by-gender"
+        },
+        {
+          "index": 3,
+          "title": "Exercise 2 \u2014 Fill in the two-key groupby",
+          "anchor": "exercise-2-fill-in-the-two-key-groupby"
+        }
+      ],
+      "inferred_topics": [
+        "FIN 400",
+        "Lecture 12",
+        "Outliers",
+        "pandas"
+      ],
+      "matched_topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "bytes": 3004,
+      "course": "fin400",
+      "course_folder": "lectures",
+      "phase": "lectures",
+      "part": 12,
+      "label": "Lecture 12",
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      }
     }
   ],
   "scripts": [],
@@ -949,7 +1457,9 @@
       "problems": [
         "da1-public-december"
       ],
-      "notebooks": []
+      "notebooks": [
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb"
+      ]
     },
     "Cleaning Data": {
       "problems": [
@@ -966,7 +1476,9 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb"
       ]
     },
     "Conditionals": {
@@ -1027,7 +1539,9 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb"
       ]
     },
     "Data Structures": {
@@ -1047,7 +1561,9 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb"
       ]
     },
     "Data cleaning": {
@@ -1061,7 +1577,9 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb"
       ]
     },
     "Debugging": {
@@ -1076,7 +1594,10 @@
         "fin400-p13-fix-cumprod",
         "fin400-p14-fix-sign",
         "fin400-p19-fix-loop",
-        "fin400-p10-fix-levratio"
+        "fin400-p10-fix-levratio",
+        "fin400-l02-fix-logloop",
+        "fin400-l03-fix-max-priming",
+        "fin400-l08-fix-mask-and"
       ],
       "notebooks": []
     },
@@ -1086,7 +1607,8 @@
       ],
       "notebooks": [
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb"
       ]
     },
     "Dictionaries": {
@@ -1176,10 +1698,40 @@
         "fin400-practice-duplicate-years",
         "fin400-practice-regress-size",
         "fin400-practice-beta-portfolio",
-        "fin400-practice-pe-loop"
+        "fin400-practice-pe-loop",
+        "fin400-l01-inspect",
+        "fin400-l01-predict-range",
+        "fin400-l02-loglist",
+        "fin400-l02-fix-logloop",
+        "fin400-l03-fix-max-priming",
+        "fin400-l03-predict-summary",
+        "fin400-l04-sqdevs",
+        "fin400-l04-blank-invcdf",
+        "fin400-l05-listcdf",
+        "fin400-l05-predict-indexloop",
+        "fin400-l06-bins",
+        "fin400-l06-predict-cut",
+        "fin400-l07-columns",
+        "fin400-l07-blank-quantile",
+        "fin400-l08-mask",
+        "fin400-l08-fix-mask-and",
+        "fin400-l11-or-mask",
+        "fin400-l11-predict-dates",
+        "fin400-l12-groupby",
+        "fin400-l12-blank-twokeys"
       ],
       "notebooks": [
-        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
       ]
     },
     "Files": {
@@ -1189,6 +1741,7 @@
       ],
       "notebooks": [
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
       ]
     },
@@ -1196,7 +1749,9 @@
       "problems": [
         "fin400-practice-survey-groups"
       ],
-      "notebooks": []
+      "notebooks": [
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb"
+      ]
     },
     "Formatting": {
       "problems": [
@@ -1227,10 +1782,13 @@
         "fin400-practice-index-largest",
         "fin400-practice-clip-extremes",
         "fin400-practice-roll-probabilities",
-        "fin400-practice-count-outside"
+        "fin400-practice-count-outside",
+        "fin400-l02-loglist",
+        "fin400-l05-listcdf"
       ],
       "notebooks": [
-        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb"
       ]
     },
     "Grouping": {
@@ -1317,6 +1875,186 @@
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
       ]
     },
+    "Lecture 01": {
+      "problems": [
+        "fin400-l01-inspect",
+        "fin400-l01-predict-range"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 02": {
+      "problems": [
+        "fin400-l02-loglist",
+        "fin400-l02-fix-logloop"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 03": {
+      "problems": [
+        "fin400-l03-fix-max-priming",
+        "fin400-l03-predict-summary"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 04": {
+      "problems": [
+        "fin400-l04-sqdevs",
+        "fin400-l04-blank-invcdf"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 05": {
+      "problems": [
+        "fin400-l05-listcdf",
+        "fin400-l05-predict-indexloop"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 06": {
+      "problems": [
+        "fin400-l06-bins",
+        "fin400-l06-predict-cut"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 07": {
+      "problems": [
+        "fin400-l07-columns",
+        "fin400-l07-blank-quantile"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 08": {
+      "problems": [
+        "fin400-l08-mask",
+        "fin400-l08-fix-mask-and"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 11": {
+      "problems": [
+        "fin400-l11-or-mask",
+        "fin400-l11-predict-dates"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
+    "Lecture 12": {
+      "problems": [
+        "fin400-l12-groupby",
+        "fin400-l12-blank-twokeys"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
+    },
     "Lists": {
       "problems": [
         "predict-list-alias",
@@ -1343,10 +2081,17 @@
         "fin400-p5-predict-index",
         "fin400-practice-count-outside",
         "fin400-p19-fix-loop",
-        "fin400-practice-pe-loop"
+        "fin400-practice-pe-loop",
+        "fin400-l02-loglist",
+        "fin400-l02-fix-logloop",
+        "fin400-l03-fix-max-priming",
+        "fin400-l04-sqdevs",
+        "fin400-l05-predict-indexloop"
       ],
       "notebooks": [
-        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb"
       ]
     },
     "Merging": {
@@ -1376,7 +2121,9 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb"
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-11-data-review.ipynb"
       ]
     },
     "NumPy": {
@@ -1399,6 +2146,8 @@
         "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+        "fin400/lectures/lecture-01-loading-the-data.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
         "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
       ]
     },
@@ -1407,7 +2156,9 @@
         "da5-winsorize-mktcap",
         "da5-truncate-rows"
       ],
-      "notebooks": []
+      "notebooks": [
+        "fin400/lectures/lecture-12-groupby.ipynb"
+      ]
     },
     "Portfolios": {
       "problems": [
@@ -1430,7 +2181,12 @@
         "fin400-p8-predict-pmf",
         "fin400-p10-predict-leverage",
         "fin400-p15-predict-merge",
-        "fin400-p17-predict-slope"
+        "fin400-p17-predict-slope",
+        "fin400-l01-predict-range",
+        "fin400-l03-predict-summary",
+        "fin400-l05-predict-indexloop",
+        "fin400-l06-predict-cut",
+        "fin400-l11-predict-dates"
       ],
       "notebooks": []
     },
@@ -1439,7 +2195,11 @@
         "fin400-practice-roll-probabilities"
       ],
       "notebooks": [
-        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-06-empirical-probability.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb"
       ]
     },
     "Python Basics": {
@@ -1495,6 +2255,11 @@
         "acc525/Intro to Python/Intro to Python (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
         "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
         "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
       ]
@@ -1516,7 +2281,11 @@
         "fin400-p3-predict-variance",
         "fin400-practice-cdf-list",
         "fin400-p4-blank-cdf",
-        "fin400-p4-fix-normal-args"
+        "fin400-p4-fix-normal-args",
+        "fin400-l03-predict-summary",
+        "fin400-l04-sqdevs",
+        "fin400-l04-blank-invcdf",
+        "fin400-l05-listcdf"
       ],
       "notebooks": [
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
@@ -1524,6 +2293,9 @@
         "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
         "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
         "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb",
+        "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
         "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
       ]
     },
@@ -1540,7 +2312,8 @@
       ],
       "notebooks": [
         "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb"
       ]
     },
     "Summary Statistics": {
@@ -1558,7 +2331,8 @@
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
-        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb"
       ]
     },
     "Visualization": {
@@ -1625,13 +2399,27 @@
         "fin400-practice-merge-sector",
         "fin400-practice-merge-left",
         "fin400-practice-leverage-by-year",
-        "fin400-practice-duplicate-years"
+        "fin400-practice-duplicate-years",
+        "fin400-l01-inspect",
+        "fin400-l01-predict-range",
+        "fin400-l06-bins",
+        "fin400-l06-predict-cut",
+        "fin400-l07-columns",
+        "fin400-l07-blank-quantile",
+        "fin400-l08-mask",
+        "fin400-l08-fix-mask-and",
+        "fin400-l11-or-mask",
+        "fin400-l11-predict-dates",
+        "fin400-l12-groupby",
+        "fin400-l12-blank-twokeys"
       ],
       "notebooks": [
         "acc525/Data Analysis/Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb",
         "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+        "fin400/lectures/lecture-12-groupby.ipynb",
         "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
         "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
       ]

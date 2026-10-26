@@ -179,7 +179,7 @@ class CourseTests(unittest.TestCase):
         self.assertEqual(self.registry["default"], "acc525")
         fin400 = next(c for c in self.registry["courses"] if c["id"] == "fin400")
         self.assertEqual(fin400["solutions"], "hidden")
-        self.assertEqual([phase["id"] for phase in fin400["phases"]], ["bootcamp", "analysis"])
+        self.assertEqual([phase["id"] for phase in fin400["phases"]], ["bootcamp", "analysis", "lectures"])
         self.assertIn("fin400", fin400["paths"])
 
     def test_a_path_belongs_to_the_longest_matching_class(self):
@@ -259,7 +259,7 @@ class CourseTests(unittest.TestCase):
 
         fin400 = [p for p in bundle["problems"] if p["course"] == "fin400"]
         self.assertGreaterEqual(len(fin400), 8)
-        self.assertEqual({p["phase"] for p in fin400}, {"bootcamp", "analysis"})
+        self.assertEqual({p["phase"] for p in fin400}, {"bootcamp", "analysis", "lectures"})
         self.assertTrue(all(p["solutions"] == "hidden" for p in fin400))
         self.assertEqual(manifest["courses"][1]["totals"]["problems"], len(fin400))
 

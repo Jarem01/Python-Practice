@@ -43,10 +43,11 @@ test("the registry names both classes and a default that exists", () => {
   }
 });
 
-test("FIN 400 has two halves and hides its solutions", () => {
+test("FIN 400 has three parts and hides its solutions", () => {
   const fin400 = registry.courses.find((course) => course.id === "fin400");
   assert.equal(fin400.solutions, "hidden");
-  assert.deepEqual(fin400.phases.map((phase) => phase.id), ["bootcamp", "analysis"]);
+  // Two halves of the course, plus the class-by-class lecture notebooks.
+  assert.deepEqual(fin400.phases.map((phase) => phase.id), ["bootcamp", "analysis", "lectures"]);
   assert.ok(fin400.paths.includes("fin400"), "the class owns the fin400/ folder");
 });
 
@@ -121,14 +122,15 @@ test("exercises group by the half of the course they belong to", () => {
   const fin400 = registry.courses.find((course) => course.id === "fin400");
   const problems = filterProblems(bundle.problems, "fin400");
   const buckets = groupProblemsByPhase(problems, fin400);
-  assert.deepEqual(buckets.map((bucket) => bucket.key), ["bootcamp", "analysis"]);
-  // Both halves carry material, and grouping neither loses nor duplicates an exercise.
+  // The two halves, then the lecture notebooks (one per class meeting).
+  assert.deepEqual(buckets.map((bucket) => bucket.key), ["bootcamp", "analysis", "lectures"]);
+  // Every part carries material, and grouping neither loses nor duplicates an exercise.
   assert.ok(buckets.every((bucket) => bucket.problems.length > 0));
   assert.equal(
     buckets.reduce((total, bucket) => total + bucket.problems.length, 0),
     problems.length,
   );
-  assert.equal(phasesOf(fin400).length, 2);
+  assert.equal(phasesOf(fin400).length, 3);
 
   // An exercise filed under no known half still appears, at the end.
   const stray = groupProblemsByPhase([{ id: "x", phase: "nonsense" }], fin400);

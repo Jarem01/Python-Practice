@@ -6,6 +6,9 @@
 
 const INDENT = "    ";
 
+/** Tallest the box ever gets; past this the text scrolls inside it. */
+const MAX_LINES = 40;
+
 export function createEditor(container, options = {}) {
   const {
     value = "",
@@ -43,31 +46,46 @@ export function createEditor(container, options = {}) {
   container.append(gutter, textarea);
 
   let lineHeight = 0;
+  let padTop = 0;
+  let padBottom = 0;
   function measure() {
     const styles = getComputedStyle(textarea);
     const parsed = parseFloat(styles.lineHeight);
     const fontSize = parseFloat(styles.fontSize);
     lineHeight = Number.isFinite(parsed) ? parsed : Number.isFinite(fontSize) ? fontSize * 1.5 : 20;
+    padTop = parseFloat(styles.paddingTop) || 0;
+    padBottom = parseFloat(styles.paddingBottom) || 0;
   }
 
   function lineCount() {
     return textarea.value.split("\n").length;
   }
 
+  /**
+   * The box is exactly as tall as the lines it holds: one line per row, a floor
+   * of `minLines`, and it shrinks again when lines are deleted.
+   *
+   * The height is computed from the line count and never from
+   * `textarea.scrollHeight`: the textarea is a stretched grid cell, so its
+   * scrollHeight reports the height of the cell (a full screen on a tall
+   * window) instead of the text inside it — which is what made the box huge.
+   */
   function sync() {
     if (!lineHeight) measure();
     const lines = lineCount();
-    const shown = Math.max(lines, minLines, lineTarget);
+    const wanted = Math.max(lines, minLines, lineTarget);
+    const shown = Math.min(wanted, MAX_LINES);
     const numbers = [];
     for (let i = 1; i <= shown; i++) {
       if (lineTarget && i > lineTarget) numbers.push("·");
       else numbers.push(String(i));
     }
     gutter.textContent = numbers.join("\n");
-    const padding = 2 * (parseFloat(getComputedStyle(textarea).paddingTop) || 8);
-    textarea.style.height = "auto";
-    textarea.style.height = `${Math.max(textarea.scrollHeight + padding / 2, shown * lineHeight + padding)}px`;
-    gutter.style.minHeight = textarea.style.height;
+    const height = Math.round(shown * lineHeight + padTop + padBottom);
+    textarea.style.height = `${height}px`;
+    gutter.style.minHeight = `${height}px`;
+    // Past the cap the box stops growing and the text scrolls instead.
+    textarea.style.overflowY = wanted > MAX_LINES ? "auto" : "hidden";
   }
 
   function emitChange() {

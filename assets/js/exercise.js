@@ -147,11 +147,10 @@ function errorBlock(error) {
  * exercise expects. Green when the two line up, red when they do not — so the
  * learner always sees the run, not just a verdict.
  */
-function outputCompare({ actual = null, expected = null, stderr = "", verdict, diff = null }) {
+function expectedCompare({ actual = null, expected = null, verdict, diff = null }) {
   const actualText = actual == null ? "" : String(actual).replace(/\s+$/, "");
   const expectedText = expected == null ? "" : String(expected).replace(/\s+$/, "");
   const hasExpected = expectedText !== "";
-  if (!hasExpected && !actualText && !stderr) return "";
 
   // Use the same comparison the grader uses, so the badge can never disagree
   // with the checks above it (whitespace/case tolerance included).
@@ -170,27 +169,56 @@ function outputCompare({ actual = null, expected = null, stderr = "", verdict, d
       ? '<span class="match-badge ok">✓ Checks passed</span>'
       : '<span class="match-badge bad">✗ Checks failed</span>';
 
-  const pane = (label, text, cls) =>
-    `<div class="out-pane ${cls}"><h5>${label}</h5>` +
-    (text ? `<pre><code>${escapeHtml(text)}</code></pre>` : '<p class="empty small">no output</p>') +
-    `</div>`;
-
-  const parts = [
-    `<div class="verdict info" style="margin-top:.6rem"><div class="row-between"><h4 style="margin:0">Your program's output</h4>${badge}</div>`,
-    `<div class="out-compare">`,
-    pane("Got", actualText, hasExpected ? (aligned ? "ok" : "bad") : verdict.ok ? "ok" : "bad"),
-    hasExpected ? pane("Expected", expectedText, aligned ? "ok" : "bad") : "",
-    `</div>`,
-  ];
-  if (stderr.trim()) {
-    parts.push(
-      `<details class="small" style="margin-top:.5rem"><summary>Messages on stderr</summary>` +
-        `<pre><code>${escapeHtml(stderr.replace(/\s+$/, ""))}</code></pre></details>`,
+  if (!hasExpected) {
+    // No fixed output to compare with; the assertions above are the yardstick.
+    return (
+      `<div class="verdict info" style="margin-top:.6rem"><div class="row-between">` +
+      `<h4 style="margin:0">Expected</h4>${badge}</div>` +
+      `<p class="small muted" style="margin:.35rem 0 0">This exercise is checked by assertions rather than by a fixed printed output.</p></div>`
     );
   }
+
+  const parts = [
+    `<div class="verdict info" style="margin-top:.6rem"><div class="row-between">` +
+      `<h4 style="margin:0">Expected output</h4>${badge}</div>`,
+    `<pre style="margin:.45rem 0 0"><code>${escapeHtml(expectedText)}</code></pre>`,
+  ];
   if (diff && !aligned) parts.push(diffBlock(diff));
   parts.push("</div>");
   return parts.join("");
+}
+
+/**
+ * The run panel. It sits directly under the code box and is written on every
+ * check, right or wrong: the output is the first thing to read, so it never has
+ * to be hunted for below a verdict.
+ */
+function renderOutput({ actual = null, stderr = "", error = null, label = "Output" } = {}) {
+  if (!nodes.output) return;
+  const text = actual == null ? "" : String(actual).replace(/\s+$/, "");
+  const parts = [
+    `<div class="cell-tag" style="margin:0 0 .3rem">${escapeHtml(label)}</div>`,
+    text
+      ? `<pre class="run-output"><code>${escapeHtml(text)}</code></pre>`
+      : '<p class="small muted run-output empty">It printed nothing.</p>',
+  ];
+  const errText = String(stderr || "").replace(/\s+$/, "");
+  if (errText) parts.push(`<pre class="run-output stderr"><code>${escapeHtml(errText)}</code></pre>`);
+  if (error) {
+    parts.push(
+      `<div class="notice bad small" style="margin:.45rem 0 0">` +
+        `<strong>${escapeHtml(error.type || "Error")}</strong>` +
+        `${error.line ? ` on line ${error.line}` : ""}: ${escapeHtml(error.message)}</div>`,
+    );
+  }
+  nodes.output.innerHTML = parts.join("");
+  nodes.output.classList.remove("hidden");
+}
+
+function clearOutput() {
+  if (!nodes.output) return;
+  nodes.output.innerHTML = "";
+  nodes.output.classList.add("hidden");
 }
 
 function showVerdict(verdict, { expected = null, actual = null, error = null, stderr = "", diff = null, extra = "" } = {}) {
@@ -204,10 +232,9 @@ function showVerdict(verdict, { expected = null, actual = null, error = null, st
       `</ul></div>`,
   );
 
-  if (error && !verdict.ok) parts.push(errorBlock(error));
-  // Shown whether the answer was right or wrong: seeing the actual output is how
-  // a learner learns from a correct answer as well as a wrong one.
-  parts.push(outputCompare({ actual, expected, stderr, verdict, diff }));
+  // The run itself is already shown above, directly under the code. What belongs
+  // here is the yardstick: what was expected, and how the two compare.
+  parts.push(expectedCompare({ actual, expected, verdict, diff }));
 
   setFeedback(parts.join(""));
   state.lastVerdict = verdict;
@@ -465,6 +492,8 @@ async function check() {
   if (problem.type === "predict_output") {
     const typed = currentCode();
     const verdict = gradeText(problem, typed);
+    // Nothing is executed here, so "the output" is what the learner typed.
+    renderOutput({ actual: typed, label: "Your answer" });
     showVerdict(verdict, { expected: problem.expected_output, actual: typed, diff: verdict.diff });
     state.lastVerdict = verdict;
     persist(
@@ -531,6 +560,8 @@ async function check() {
   const verdict = gradeRun(problem, run);
   if (blankVerdict) verdict.checks = [...blankVerdict.checks, ...verdict.checks];
   verdict.ok = verdict.checks.every((c) => c.ok);
+  // Always shown, right or wrong — the run is the thing to read first.
+  renderOutput({ actual: run.stdout, stderr: run.stderr, error: run.error });
 
   showVerdict(verdict, {
     expected: problem.expected_output,
@@ -675,14 +706,10 @@ function renderActions(problem) {
       setBusy(false);
       state.revealed = true;
       persist({ revealed: true, status: getProgress()[problem.id]?.status || "attempted", code: currentCode() });
-      const printed = run.stdout.replace(/\n$/, "");
+      renderOutput({ actual: run.stdout, stderr: run.stderr, error: run.error });
       setFeedback(
-        `<div class="answer-block"><h4 style="margin:0 0 .3em">The program prints</h4>` +
-          (printed
-            ? `<div class="out-compare"><div class="out-pane ok"><h5>Output</h5><pre><code>${escapeHtml(printed)}</code></pre></div></div>`
-            : '<p class="small">It prints nothing.</p>') +
-          (run.error ? `<p class="small" style="color:var(--bad)">It raised: ${escapeHtml(run.error.message)}</p>` : "") +
-          `<p class="small muted">Now type it in yourself to mark this exercise as solved.</p></div>`,
+        '<div class="answer-block"><h4 style="margin:0 0 .3em">The program prints</h4>' +
+          '<p class="small muted">The output is shown above, under the code. Now type it in yourself to mark this exercise as solved.</p></div>',
       );
     });
     row.append(reveal);
@@ -720,6 +747,7 @@ function renderActions(problem) {
       state.editor.setValue(problem.type === "predict_output" ? "" : problem.starter_code || "");
     }
     feedbackArea().classList.add("hidden");
+    clearOutput();
     state.hintsShown = 0;
     persist({ code: "", typedOutput: "", hintsUsed: 0, status: getProgress()[problem.id]?.status || "attempted" });
   });
@@ -804,6 +832,10 @@ async function main() {
   } else {
     task.append(setupWriteFromScratch(problem));
   }
+  // The run lives directly under the code, above the buttons: press Check answer
+  // and the output appears where the eye already is.
+  nodes.output = el("div", { class: "stack hidden", role: "status", "aria-live": "polite" });
+  task.append(nodes.output);
   task.append(renderActions(problem));
   nodes.root.append(task);
 

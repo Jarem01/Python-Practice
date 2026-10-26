@@ -620,6 +620,25 @@ a.term:hover { text-decoration: none; border-bottom-style: solid; }
 
 /* ---------------------------------------------------- run output --------- */
 
+/* The run panel, directly under the code box. */
+.run-output {
+  margin: 0;
+  padding: .55rem .7rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: .88rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 22rem;
+}
+.run-output.stderr { border-left-color: var(--warn-border, var(--border-strong)); margin-top: .4rem; }
+.run-output.empty { border-left-color: var(--border-strong); }
+.run-output + .run-output { margin-top: .4rem; }
+
 .out-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .7rem; margin-top: .6rem; }
 .out-pane {
   background: var(--bg-sunken);

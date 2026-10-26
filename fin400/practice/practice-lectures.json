@@ -1,0 +1,579 @@
+{
+  "_comment": "Exercises taken from the twelve lecture notebooks (fin400/lectures/). Each lecture keeps its own notebook; these are the tasks inside them, with hints and hidden checks but no worked answer.",
+  "problems": [
+    {
+      "id": "fin400-l01-inspect",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 01 · Exercise 1 — Load the monthly file and count what is in it",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 01"
+      ],
+      "prompt": "`fin400-monthly-stocks.csv` is one row per stock per month: `permno`, `caldt`,\n`ticker`, `prc`, `ret` and `mcap`.\n\nLoad it into `data` with `caldt` parsed as a date. Then keep\n`months = data['caldt'].nunique()` and `stocks = data['permno'].nunique()`, and print\nboth on their own line.\n\nBefore you plot anything or average anything, this is the check that the file\narrived intact.",
+      "hints": [
+        "`parse_dates=[\"caldt\"]` belongs inside `pd.read_csv(...)`.",
+        "`.nunique()` counts distinct values in a column.",
+        "Two `print` calls, so two lines: the month count first, then the stock count."
+      ],
+      "tests": "assert data.shape == (5400, 6)\nassert months == 120\nassert stocks == 45\nassert str(data[\"caldt\"].dtype).startswith(\"datetime64\")",
+      "test_summary": "the file loads, the date is a date, and the counts are right",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-01-loading-the-data.ipynb",
+      "phase": "lectures",
+      "order": 511
+    },
+    {
+      "id": "fin400-l01-predict-range",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Lecture 01 · Exercise 2 — How many rows, and which years",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 01",
+        "Predict the output"
+      ],
+      "prompt": "Type exactly what this program prints, one line per `print`. Work it out from the\nfile's description rather than running it: 45 stocks observed every month for ten\nyears, starting in January 1926.",
+      "hints": [
+        "`len(data)` is the number of rows, not the number of columns.",
+        "`.min()` on a date column gives the earliest date; `.dt.year` takes the year from it.",
+        "Three lines: a row count and two years."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\n\nprint(len(data))\nprint(data[\"caldt\"].min().year)\nprint(data[\"caldt\"].max().year)",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-01-loading-the-data.ipynb",
+      "phase": "lectures",
+      "order": 512,
+      "expected_output": "5400\n1926\n1935"
+    },
+    {
+      "id": "fin400-l02-loglist",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 02 · Exercise 1 — Natural logs of a list, in a function",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Functions",
+        "Lecture 02"
+      ],
+      "prompt": "Write `loglist(values)` that returns a new list holding the natural log of every\nvalue, in the same order. Then print `loglist([2.718281828459045, 1, 10])`.\n\nThe list you return must have the same length as the list you were given.",
+      "hints": [
+        "Import `math` and call `math.log(x)` inside the loop.",
+        "Build an empty list first, append inside the loop, and return the list at the end.",
+        "`math.log(math.e)` is 1.0, which makes a quick mental check."
+      ],
+      "tests": "out = loglist([2.718281828459045, 1, 10])\nassert len(out) == 3\nassert abs(out[0] - 1.0) < 1e-9\nassert abs(out[1] - 0.0) < 1e-12\nassert abs(out[2] - 2.302585092994046) < 1e-9\nassert loglist([]) == []",
+      "test_summary": "one natural log per value, same order, same length",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+      "phase": "lectures",
+      "order": 521
+    },
+    {
+      "id": "fin400-l02-fix-logloop",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Lecture 02 · Exercise 2 — The log of a list is not a number",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Debugging",
+        "Lecture 02"
+      ],
+      "expected_output": "[1.0, 0.0, 2.302585092994046]",
+      "prompt": "This program should print the natural log of each value:\n`[1.0, 0.0, 2.302585092994046]`. Instead it raises\n`TypeError: must be real number, not list`.\n\nThe loop is right and the list handling is right. One name inside `append(...)`\nis wrong.",
+      "hints": [
+        "`math.log` takes one number, not the whole list.",
+        "The loop variable `x` already holds the value you want to transform.",
+        "Change `math.log(pos)` to `math.log(x)`."
+      ],
+      "starter_code": "import math\n\npos = [2.718281828459045, 1, 10]\nnew = []\nfor x in pos:\n    new.append(math.log(pos))\n\nprint(new)",
+      "tests": "assert len(new) == 3\nassert abs(new[0] - 1.0) < 1e-9\nassert abs(new[1] - 0.0) < 1e-12\nassert abs(new[2] - 2.302585092994046) < 1e-9",
+      "test_summary": "each value is logged once, so the list has three numbers",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
+      "phase": "lectures",
+      "order": 522
+    },
+    {
+      "id": "fin400-l03-fix-max-priming",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Lecture 03 · Exercise 1 — The maximum that answers zero for negative returns",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Debugging",
+        "Lecture 03"
+      ],
+      "expected_output": "-0.5",
+      "prompt": "`find_max(values)` should return the largest value in the list. It works on\n`[1, 3, 20, 10, 0.5, 2]` — it returns 20 — but on `[-1, -3, -20, -10, -0.5, -2]` it\nreturns `0`, a number that is not in the list at all.\n\nFix the line that starts the running maximum. The loop and the comparison are fine.",
+      "hints": [
+        "The running maximum starts at `0`, so nothing negative can ever beat it.",
+        "Start from a value that is actually in the list: the first one.",
+        "`maximum = values[0]` — one line, nothing else changes."
+      ],
+      "starter_code": "def find_max(values):\n    maximum = 0\n    for value in values:\n        if value > maximum:\n            maximum = value\n    return maximum\n\n\nprint(find_max([-1, -3, -20, -10, -0.5, -2]))",
+      "tests": "assert find_max([-1, -3, -20, -10, -0.5, -2]) == -0.5\nassert find_max([1, 3, 20, 10, 0.5, 2]) == 20\nassert find_max([7]) == 7\nassert find_max([-5, -4]) == -4",
+      "test_summary": "the running maximum is primed with a value from the list",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-03-statistics-library.ipynb",
+      "phase": "lectures",
+      "order": 531
+    },
+    {
+      "id": "fin400-l03-predict-summary",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Lecture 03 · Exercise 2 — Mean, median and quartiles by hand",
+      "topics": [
+        "FIN 400",
+        "Statistics",
+        "Lecture 03",
+        "Predict the output"
+      ],
+      "prompt": "Type exactly what this program prints, one line per `print`. The list is\n`[21, 23, 24, 25, 26]` — add the five numbers before you reach for a calculator.",
+      "hints": [
+        "The total is 119, and there are five values.",
+        "Sorted, the middle value is 24.",
+        "Inclusive quartiles split the sorted list at 25% and 75% counting both ends."
+      ],
+      "starter_code": "import statistics as s\n\ncommute = [21, 23, 24, 25, 26]\n\nprint(s.mean(commute))\nprint(s.median(commute))\nprint(s.quantiles(commute, n=4, method=\"inclusive\"))",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-03-statistics-library.ipynb",
+      "phase": "lectures",
+      "order": 532,
+      "expected_output": "23.8\n24\n[23.0, 24.0, 25.0]"
+    },
+    {
+      "id": "fin400-l04-sqdevs",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 04 · Exercise 1 — Squared deviations, then check them against the variance",
+      "topics": [
+        "FIN 400",
+        "Statistics",
+        "Loops",
+        "Lecture 04"
+      ],
+      "prompt": "Write `sqdevs(values)` that returns the squared deviation of every value from the mean\nof the list, in the same order.\n\nCheck yourself: the mean of the list you return equals\n`statistics.pvariance(values)`, because variance is the average squared deviation.",
+      "hints": [
+        "`xbar = statistics.mean(values)` once, outside the loop.",
+        "`(x - xbar) ** 2` — parentheses matter; the difference is squared, not the value.",
+        "The returned list is the same length as the input."
+      ],
+      "tests": "assert sqdevs([2, 4, 6]) == [4.0, 0.0, 4.0]\nassert abs(sum(sqdevs([1, 2, 3, 4])) / 4 - 1.25) < 1e-12\nout = sqdevs([10, 12, 14])\nassert len(out) == 3 and abs(sum(out) / 3 - 8 / 3) < 1e-12\nassert all(v >= 0 for v in out)",
+      "test_summary": "each value becomes the square of its distance from the mean",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+      "phase": "lectures",
+      "order": 541
+    },
+    {
+      "id": "fin400-l04-blank-invcdf",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Lecture 04 · Exercise 2 — Fill in the percentile lookup",
+      "topics": [
+        "FIN 400",
+        "Statistics",
+        "Lecture 04"
+      ],
+      "prompt": "Fill in the two blanks so the program prints the value with 5% of a normal\ndistribution below it, for a mean of 23 and a standard deviation of 3.9.\n\nThe first blank is the class, the second is the method that takes a probability.",
+      "hints": [
+        "`statistics.NormalDist(mu, sigma)` builds the distribution.",
+        "`cdf` goes from value to probability; you need the other direction.",
+        "It is `inv_cdf` — inverse cumulative distribution function."
+      ],
+      "starter_code": "import statistics as s\n\nnd = s.___(mu=23, sigma=3.9)\nprint(round(nd.___(0.05), 2))",
+      "blanks": [
+        {
+          "accepted": [
+            "NormalDist"
+          ],
+          "hint": "The class is `NormalDist`."
+        },
+        {
+          "accepted": [
+            "inv_cdf"
+          ],
+          "hint": "It is `inv_cdf`, the inverse of `cdf`."
+        }
+      ],
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
+      "phase": "lectures",
+      "order": 542,
+      "expected_output": "16.59"
+    },
+    {
+      "id": "fin400-l05-listcdf",
+      "type": "write_from_scratch",
+      "difficulty": "medium",
+      "title": "Lecture 05 · Exercise 1 — A CDF for every value in the list",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Statistics",
+        "Lecture 05"
+      ],
+      "prompt": "Write `listcdf(data, mu, sigma)` that returns a list holding the probability of\nbeing at or below each value in `data`, given a normal distribution with mean\n`mu` and standard deviation `sigma`.\n\nThen print `listcdf([23], 23, 3.9)` — the mean has half the distribution below it.\n\nThe distribution is built **once** for the whole list, not once per value.",
+      "hints": [
+        "`nd = statistics.NormalDist(mu=mu, sigma=sigma)` before the loop.",
+        "Append `nd.cdf(x)` for each `x` in `data`.",
+        "Return the list; do not print inside the function."
+      ],
+      "tests": "out = listcdf([23], 23, 3.9)\nassert len(out) == 1 and abs(out[0] - 0.5) < 1e-12\nassert abs(listcdf([19], 23, 3.9)[0] - 0.152525) < 1e-5\nassert len(listcdf([1, 2, 3], 2, 1)) == 3\nassert listcdf([], 0, 1) == []",
+      "test_summary": "one probability per value, from a single distribution",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+      "phase": "lectures",
+      "order": 551
+    },
+    {
+      "id": "fin400-l05-predict-indexloop",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Lecture 05 · Exercise 2 — Three lines from a loop over positions",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Lecture 05",
+        "Predict the output"
+      ],
+      "prompt": "Type exactly what this program prints — three lines, one per value, in the order the\nloop walks the list.\n\nThe probabilities are the same ones from the lecture: a value equal to the mean has\n0.5 below it.",
+      "hints": [
+        "`range(len(data))` gives 0, 1, 2.",
+        "Each line prints the position, the value and the probability, separated by spaces.",
+        "`round(0.5, 4)` is `0.5`."
+      ],
+      "starter_code": "import statistics as s\n\ndata = [19.0, 23.0, 27.0]\nnd = s.NormalDist(mu=23, sigma=3.9)\ncdfs = [nd.cdf(x) for x in data]\n\nfor i in range(len(data)):\n    print(i, data[i], round(cdfs[i], 4))",
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+      "phase": "lectures",
+      "order": 552,
+      "expected_output": "0 19.0 0.1525\n1 23.0 0.5\n2 27.0 0.8475"
+    },
+    {
+      "id": "fin400-l06-bins",
+      "type": "write_from_scratch",
+      "difficulty": "medium",
+      "title": "Lecture 06 · Exercise 1 — Bucket the equal-weight return series",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 06"
+      ],
+      "prompt": "Load `fin400-monthly-stocks.csv`, build the equal-weight portfolio return for each\nmonth (`ew`), and put those returns — in **percent** — into four buckets:\n`[-100, -5, 0, 5, 100]`.\n\nPrint the share of months in each bucket, as a percentage rounded to one decimal,\nin bucket order.",
+      "hints": [
+        "`ew = data.groupby(\"caldt\")[\"ret\"].mean()` gives one return per month.",
+        "`pd.cut(ew * 100, [...])` labels each month with its bucket.",
+        "`bins.value_counts().sort_index() / len(ew) * 100` is the share in percent."
+      ],
+      "tests": "assert len(ew) == 120\nassert abs(float(ew.mean()) * 100 - 0.86) < 0.01\nassert len(bins.cat.categories) == 4\nassert int(bins.value_counts().sum()) == 120\nassert abs(float(share.sum()) - 100) < 0.2",
+      "test_summary": "one portfolio return per month, every month in exactly one bucket",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-06-empirical-probability.ipynb",
+      "phase": "lectures",
+      "order": 561
+    },
+    {
+      "id": "fin400-l06-predict-cut",
+      "type": "predict_output",
+      "difficulty": "medium",
+      "title": "Lecture 06 · Exercise 2 — Four bucket counts",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 06",
+        "Predict the output"
+      ],
+      "prompt": "Type exactly what this program prints: the count of months in each bucket, in bucket\norder. The four numbers add up to the 120 months in the file.",
+      "hints": [
+        "`sort_index()` prints the buckets from the lowest to the highest.",
+        "`value_counts()` counts the months that fell into each bucket.",
+        "One print per bucket because the loop walks `share.items()`."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\new = data.groupby(\"caldt\")[\"ret\"].mean()\nbins = pd.cut(ew * 100, [-100, -5, 0, 5, 100])\ncounts = bins.value_counts().sort_index()\n\nfor bucket, count in counts.items():\n    print(count)",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-06-empirical-probability.ipynb",
+      "phase": "lectures",
+      "order": 562,
+      "expected_output": "14\n39\n44\n23"
+    },
+    {
+      "id": "fin400-l07-columns",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 07 · Exercise 1 — Two new columns from two old ones",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 07"
+      ],
+      "prompt": "Load `fin400-stock-panel.csv` into `df`. Add `eps` = `ni / shr` (net income per share)\nand `mult` = `mcap / ni` (market value per dollar of net income).\n\nThen print `df[['ni', 'eps', 'mult']].describe()`.\n\nBoth columns come from arithmetic on columns that are already there.",
+      "hints": [
+        "Assign a new column with `df['eps'] = ...`.",
+        "Column arithmetic is elementwise, so no loop is needed.",
+        "`describe()` on a list of columns gives one row per statistic, one column per variable."
+      ],
+      "tests": "assert len(df) == 2343\nassert abs(float(df[\"eps\"].median()) - 4.222102) < 1e-3\nassert abs(float(df[\"mult\"].median()) - float((df[\"mcap\"] / df[\"ni\"]).median())) < 1e-9\nassert df[\"eps\"].notna().all()",
+      "test_summary": "eps and mult are built from the columns already in the file",
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+      "phase": "lectures",
+      "order": 571
+    },
+    {
+      "id": "fin400-l07-blank-quantile",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Lecture 07 · Exercise 2 — Fill in the percentile call",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 07"
+      ],
+      "prompt": "Fill in the two blanks so the program prints the 10th and 90th percentile of `eps`\nfor the stock panel.",
+      "hints": [
+        "The `Series` method is `quantile`.",
+        "Probabilities are decimals: the 10th percentile is `0.1`.",
+        "It takes a list to return several percentiles at once."
+      ],
+      "starter_code": "import pandas as pd\n\ndf = pd.read_csv(\"fin400-stock-panel.csv\")\ndf[\"eps\"] = df[\"ni\"] / df[\"shr\"]\n\nprint(df[\"eps\"].___([___, 0.9]).round(2).tolist())",
+      "blanks": [
+        {
+          "accepted": [
+            "quantile"
+          ],
+          "hint": "It is `quantile`."
+        },
+        {
+          "accepted": [
+            "0.1"
+          ],
+          "hint": "The 10th percentile is `0.1`."
+        }
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
+      "phase": "lectures",
+      "order": 572,
+      "expected_output": "[-0.97, 30.7]"
+    },
+    {
+      "id": "fin400-l08-mask",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 08 · Exercise 1 — Men aged 40 and over",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 08"
+      ],
+      "prompt": "Load `fin400-survey.csv` into `df` and add a `bmi` column: weight in kilograms over\nheight in metres squared.\n\nThen keep `older_men` — the rows where `gender` is `'male'` **and** `age` is at least\n40 — and print `older_men['bmi'].mean()`.\n\nThe file spells the categories out in words.",
+      "hints": [
+        "`df['bmi'] = df['weight'] / (df['height'] / 100) ** 2`.",
+        "Two conditions need `&`, with each comparison in parentheses.",
+        "`gender` is `'male'` or `'female'` — check `df['gender'].unique()` if unsure."
+      ],
+      "tests": "assert len(df) == 900\nassert int((df[\"gender\"] == \"male\").sum()) == 420\nassert len(older_men) < len(df)\nassert (older_men[\"gender\"] == \"male\").all()\nassert (older_men[\"age\"] >= 40).all()\nassert abs(float(older_men[\"bmi\"].mean()) - float(df.loc[(df[\"gender\"] == \"male\") & (df[\"age\"] >= 40), \"bmi\"].mean())) < 1e-9",
+      "test_summary": "the subset is male and at least 40, and the mean is of that subset",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+      "phase": "lectures",
+      "order": 581
+    },
+    {
+      "id": "fin400-l08-fix-mask-and",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Lecture 08 · Exercise 2 — Two conditions joined with `and`",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging",
+        "Lecture 08"
+      ],
+      "prompt": "The program raises `ValueError: The truth value of a Series is ambiguous` before it\nprints anything.\n\nThe conditions are the right ones. The operator between them is not.",
+      "hints": [
+        "`and` is for single True/False values; a Series has one per row.",
+        "pandas uses the elementwise operators `&` and `|`.",
+        "Keep each comparison in parentheses: `(a) & (b)`."
+      ],
+      "starter_code": "import pandas as pd\n\ndf = pd.read_csv(\"fin400-survey.csv\")\ndf[\"bmi\"] = df[\"weight\"] / (df[\"height\"] / 100) ** 2\n\nsubset = df[(df[\"gender\"] == \"male\") and (df[\"age\"] >= 40)]\nprint(round(subset[\"bmi\"].mean(), 4))",
+      "tests": "assert (subset[\"gender\"] == \"male\").all()\nassert (subset[\"age\"] >= 40).all()\nassert 0 < len(subset) < len(df)\nassert abs(float(subset[\"bmi\"].mean()) - float(df.loc[(df[\"gender\"] == \"male\") & (df[\"age\"] >= 40), \"bmi\"].mean())) < 1e-9",
+      "test_summary": "both conditions are applied to every row at once",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+      "phase": "lectures",
+      "order": 582
+    },
+    {
+      "id": "fin400-l11-or-mask",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 11 · Exercise 1 — Union of two conditions",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 11"
+      ],
+      "prompt": "Load `fin400-monthly-stocks.csv` with `caldt` parsed into `data`.\n\nKeep `either` — the rows from 1926 **or** from the ticker `XKKE` — and print\n`len(either)` followed by `either['ticker'].nunique()`.\n\nEither condition is enough to keep a row.",
+      "hints": [
+        "Use `|` between the two conditions, each in parentheses.",
+        "`data['caldt'].dt.year == 1926` needs the date parsed first.",
+        "`.nunique()` counts distinct values in the filtered frame."
+      ],
+      "tests": "assert len(data) == 5400\nassert int((data[\"caldt\"].dt.year == 1926).sum()) == 540\nassert len(either) == 648\nassert either[\"ticker\"].nunique() == 45\nassert ((either[\"caldt\"].dt.year == 1926) | (either[\"ticker\"] == \"XKKE\")).all()",
+      "test_summary": "a row is kept when either condition holds, and counted once",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-11-data-review.ipynb",
+      "phase": "lectures",
+      "order": 611
+    },
+    {
+      "id": "fin400-l11-predict-dates",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Lecture 11 · Exercise 2 — Counting rows by date",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 11",
+        "Predict the output"
+      ],
+      "prompt": "Type exactly what this program prints. The file covers 45 stocks, every month, from\nJanuary 1926 to December 1935.",
+      "hints": [
+        "Rows in 1926: 45 stocks × 12 months.",
+        "`nunique()` on the months of 1926 counts months, not rows.",
+        "Two lines."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\nin_1926 = data[data[\"caldt\"].dt.year == 1926]\n\nprint(len(in_1926))\nprint(in_1926[\"caldt\"].dt.month.nunique())",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-11-data-review.ipynb",
+      "phase": "lectures",
+      "order": 612,
+      "expected_output": "540\n12"
+    },
+    {
+      "id": "fin400-l12-groupby",
+      "type": "write_from_scratch",
+      "difficulty": "easy",
+      "title": "Lecture 12 · Exercise 1 — Median age and BMI by gender",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 12"
+      ],
+      "prompt": "Load `fin400-survey.csv`, add a `bmi` column, and keep\n`by_gender = df.groupby('gender')[['age', 'bmi']].median()`. Print it.\n\nOne call should give both variables for both groups.",
+      "hints": [
+        "`groupby('gender')` splits the frame; the list in brackets picks the columns.",
+        "`.median()` is the aggregation — the mean would be pulled by outliers.",
+        "The result is a small table: two rows, two columns."
+      ],
+      "tests": "assert list(by_gender.index) == [\"female\", \"male\"]\nassert abs(float(by_gender.loc[\"male\", \"bmi\"]) - 29.1618) < 1e-3\nassert abs(float(by_gender.loc[\"female\", \"age\"]) - 43.0) < 1e-9\nassert list(by_gender.columns) == [\"age\", \"bmi\"]",
+      "test_summary": "one median per gender for both age and bmi",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-12-groupby.ipynb",
+      "phase": "lectures",
+      "order": 621
+    },
+    {
+      "id": "fin400-l12-blank-twokeys",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "title": "Lecture 12 · Exercise 2 — Fill in the two-key groupby",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lecture 12"
+      ],
+      "prompt": "Fill in the two blanks so the program prints the median BMI for each combination of\ngender and income group.",
+      "hints": [
+        "The aggregation is the median, not the mean.",
+        "Two grouping keys go in a list: `groupby([...])`.",
+        "The income column is called `hincome`."
+      ],
+      "starter_code": "import pandas as pd\n\ndf = pd.read_csv(\"fin400-survey.csv\")\ndf[\"bmi\"] = df[\"weight\"] / (df[\"height\"] / 100) ** 2\n\nprint(df.groupby([\"gender\", \"___\"])[\"bmi\"].___().round(2).tolist())",
+      "blanks": [
+        {
+          "accepted": [
+            "hincome"
+          ],
+          "hint": "The income column is `hincome`."
+        },
+        {
+          "accepted": [
+            "median"
+          ],
+          "hint": "It is `median`."
+        }
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "course": "fin400",
+      "packages": [],
+      "notebook": "fin400/lectures/lecture-12-groupby.ipynb",
+      "phase": "lectures",
+      "order": 622,
+      "expected_output": "[27.98, 29.68, 29.35, 28.98]"
+    }
+  ]
+}

@@ -304,6 +304,16 @@ test("every notebook ships with saved outputs for its cells", { skip }, async ()
     const notebook = JSON.parse(await readFile(path.join(root, entry.path), "utf8"));
     const code = (notebook.cells || []).filter((c) => c.cell_type === "code" && String(c.source || "").trim());
     const withOutput = code.filter((c) => (c.outputs || []).length);
+    if (entry.group === "lectures") {
+      // A lecture notebook is an exercise page: one demonstration cell that ran,
+      // plus starter cells the student fills in — those have no output until they do.
+      assert.ok(withOutput.length >= 1, `${entry.label} needs its demonstration cell to show a result`);
+      assert.ok(
+        withOutput.every((c) => c.execution_count != null),
+        `${entry.label}: a saved output must record when it ran`,
+      );
+      continue;
+    }
     assert.ok(
       withOutput.length >= 4,
       `${entry.label} has only ${withOutput.length} cells with saved output of ${code.length}`,
@@ -606,21 +616,33 @@ test("exercise.html grades a predict-the-output answer without Python", { skip }
     click(page.window, page.document.querySelector(".btn.primary"));
     let feedback = page.document.getElementById("feedback");
     assert.match(feedback.textContent, /Not quite yet/);
-    // What the learner typed and what was expected are both shown, in red
-    // because they do not line up.
-    assert.equal(feedback.querySelectorAll(".out-pane").length, 2, "got and expected are both shown");
-    assert.ok(feedback.querySelector(".out-pane.bad"), "a mismatch is marked red");
+
+    // The answer they typed is shown directly under the code, above the buttons …
+    let output = page.document.querySelector("#exercise .card .run-output");
+    assert.ok(output, "the answer panel appears under the code");
+    assert.equal(output.textContent.trim(), "definitely wrong");
+    assert.ok(
+      textarea.compareDocumentPosition(output) & page.window.Node.DOCUMENT_POSITION_FOLLOWING,
+      "it sits below the code box",
+    );
+    assert.ok(
+      output.compareDocumentPosition(page.document.querySelector(".btn.primary")) &
+        page.window.Node.DOCUMENT_POSITION_FOLLOWING,
+      "and above the Check answer button",
+    );
+    // … then the expected output and the comparison.
+    assert.match(feedback.querySelector(".verdict.info h4").textContent, /Expected output/);
     assert.ok(feedback.querySelector(".match-badge.bad"), "the mismatch is labeled");
     assert.ok(feedback.querySelector(".diff-line"), "a line diff is shown");
+    assert.equal(feedback.querySelectorAll(".out-pane").length, 0, "the answer is not printed twice");
 
     type(page.window, textarea, problem.expected_output);
     click(page.window, page.document.querySelector(".btn.primary"));
     feedback = page.document.getElementById("feedback");
     assert.match(feedback.textContent, /Correct!/);
-    // A correct answer still shows the output, now in green.
-    assert.equal(feedback.querySelectorAll(".out-pane").length, 2, "the output is shown when correct too");
-    assert.equal(feedback.querySelectorAll(".out-pane.bad").length, 0, "nothing is red when it matches");
-    assert.ok(feedback.querySelector(".out-pane.ok"), "a match is marked green");
+    // A correct answer still shows the output, now matching.
+    output = page.document.querySelector("#exercise .card .run-output");
+    assert.equal(output.textContent.trim(), problem.expected_output.trim(), "the output is shown when correct too");
     assert.match(feedback.querySelector(".match-badge").textContent, /Matches/);
     const progress = JSON.parse(page.window.localStorage.getItem("pypractice:progress"));
     assert.equal(progress[problem.id].status, "solved");
@@ -693,18 +715,59 @@ test("exercise.html shows the output beside the expected output when code is che
   const page = await loadPage("practice/exercise.html", "assets/js/exercise.js", `?id=${problem.id}`);
   try {
     await waitFor(() => page.document.querySelector("textarea"), { timeout: 3000 });
-    type(page.window, page.document.querySelector("textarea"), problem.solution);
+    const textarea = page.document.querySelector("textarea");
+    type(page.window, textarea, problem.solution);
     click(page.window, page.document.querySelector(".btn.primary"));
+    // The run goes under the code, whether it worked or not.
+    const output = await waitFor(() => page.document.querySelector("#exercise .card .run-output"), { timeout: 5000 });
+    assert.ok(output, "checking the answer shows the run directly under the code");
+    assert.ok(
+      textarea.compareDocumentPosition(output) & page.window.Node.DOCUMENT_POSITION_FOLLOWING,
+      "the run sits below the code box",
+    );
+    // Below that, the expected output and the comparison.
     const feedback = await waitFor(
-      () => (page.document.querySelector("#feedback .out-compare") ? page.document.getElementById("feedback") : null),
+      () => (page.document.querySelector("#feedback .match-badge") ? page.document.getElementById("feedback") : null),
       { timeout: 5000 },
     );
-    assert.ok(feedback, "checking the answer shows the output panel");
-    assert.equal(feedback.querySelectorAll(".out-pane").length, 2, "the run's output and the expected output are both shown");
-    assert.match(feedback.querySelector(".out-pane h5").textContent, /Got/i);
-    assert.match(feedback.textContent, /Expected/);
-    assert.ok(feedback.querySelector(".out-pane.bad"), "output that does not line up is marked red");
+    assert.ok(feedback, "checking the answer shows the comparison");
+    assert.match(feedback.textContent, /Expected output/);
     assert.ok(feedback.querySelector(".match-badge"), "the comparison is labeled");
+    assert.equal(feedback.querySelectorAll(".run-output").length, 0, "the run is not repeated in the comparison panel");
+  } finally {
+    page.restore();
+  }
+});
+
+test("the code box is one row per line tall and shrinks again", { skip }, async () => {
+  // Regression: the height used to come from textarea.scrollHeight, which on a
+  // stretched grid cell reports the cell — a full screen of empty box for six
+  // lines, and it never shrank when lines were deleted.
+  const problem = bundle.problems.find((p) => p.type === "fix_the_code");
+  const page = await loadPage("practice/exercise.html", "assets/js/exercise.js", `?id=${problem.id}`);
+  try {
+    // The editor sizes itself on the next animation frame, so wait for the height.
+    const textarea = await waitFor(() => {
+      const box = page.document.querySelector("textarea");
+      return box && box.style.height ? box : null;
+    }, { timeout: 3000 });
+    assert.ok(textarea, "the editor rendered");
+    const lines = () => textarea.value.split("\n").length;
+    const height = () => parseFloat(textarea.style.height);
+
+    assert.ok(Number.isFinite(height()) && height() > 0, "the box has a measured height");
+    const perLine = height() / Math.max(lines(), 6);
+    assert.ok(perLine > 8 && perLine < 40, `one line measures ${perLine}px`);
+
+    textarea.value = `${textarea.value}\nprint(1)\nprint(2)`;
+    textarea.dispatchEvent(new page.window.Event("input", { bubbles: true }));
+    assert.equal(height(), Math.round(Math.max(lines(), 6) * perLine), "two new lines add two rows, not a screenful");
+
+    const taller = height();
+    textarea.value = problem.starter_code;
+    textarea.dispatchEvent(new page.window.Event("input", { bubbles: true }));
+    assert.equal(height(), Math.round(Math.max(lines(), 6) * perLine));
+    assert.ok(height() < taller, "deleting those lines shrinks the box again");
   } finally {
     page.restore();
   }

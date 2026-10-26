@@ -274,6 +274,170 @@
         "pandas",
         "statsmodels"
       ]
+    },
+    "fin400/lectures/lecture-01-loading-the-data.ipynb": {
+      "title": "Lecture 01 — Loading the data",
+      "label": "Lecture 01",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 1,
+      "summary": "Reading a monthly stock file with pandas, keeping the date a date, and checking what landed in memory.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "fin400/lectures/lecture-02-distributions-loops-functions.ipynb": {
+      "title": "Lecture 02 — Distributions: loops, transformations and functions",
+      "label": "Lecture 02",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 2,
+      "summary": "A loop over a list, the natural log of every value, and wrapping that loop in a function you can call twice.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {},
+      "packages": []
+    },
+    "fin400/lectures/lecture-03-statistics-library.ipynb": {
+      "title": "Lecture 03 — Statistics with the statistics library",
+      "label": "Lecture 03",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 3,
+      "summary": "A maximum written by hand (and the bug when every value is negative), the mean three ways, median, mode and quantiles.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {},
+      "packages": []
+    },
+    "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb": {
+      "title": "Lecture 04 — Squared deviations, the CDF and the inverse CDF",
+      "label": "Lecture 04",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 4,
+      "summary": "Deviations squared and averaged, then a normal distribution answering two questions: how likely is a value, and how extreme is a percentile.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {},
+      "packages": []
+    },
+    "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb": {
+      "title": "Lecture 05 — A list of CDF values, and looping by index",
+      "label": "Lecture 05",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 5,
+      "summary": "Turn a list of values into a list of probabilities, then pair each probability with the value it came from by looping over positions.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {},
+      "packages": []
+    },
+    "fin400/lectures/lecture-06-empirical-probability.ipynb": {
+      "title": "Lecture 06 — Empirical probability and the shape of a strategy",
+      "label": "Lecture 06",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 6,
+      "summary": "Build a portfolio return series from stock rows, cut it into buckets with pd.cut, and count how often each bucket happens.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "fin400/lectures/lecture-07-first-look-pandas.ipynb": {
+      "title": "Lecture 07 — A first look at pandas: columns, describe, summaries",
+      "label": "Lecture 07",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 7,
+      "summary": "Select columns, build new ones from old ones, and ask a whole table for its mean, median and percentiles.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "fin400/lectures/lecture-08-boolean-indexing.ipynb": {
+      "title": "Lecture 08 — Conditional logic and boolean indexing",
+      "label": "Lecture 08",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 8,
+      "summary": "A comparison makes a True/False column; that column selects rows; `&` and `|` combine two of them.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "fin400/lectures/lecture-11-data-review.ipynb": {
+      "title": "Lecture 11 — Reviewing a data set before you trust it",
+      "label": "Lecture 11",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 11,
+      "summary": "head, tail, info, nunique and unique; `&` versus `|`; and turning a date column into years and months.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
+    },
+    "fin400/lectures/lecture-12-groupby.ipynb": {
+      "title": "Lecture 12 — groupby: one summary per group",
+      "label": "Lecture 12",
+      "group": "lectures",
+      "group_order": 3,
+      "order": 12,
+      "summary": "Split a table by a column, summarise each piece, and then split by two columns at once.",
+      "topics": [
+        "FIN 400",
+        "Lecture notebooks"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "packages": [
+        "pandas"
+      ]
     }
   }
 }

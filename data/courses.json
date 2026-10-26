@@ -72,6 +72,14 @@
             "notebooks",
             "assignments"
           ]
+        },
+        {
+          "id": "lectures",
+          "title": "Lecture notebooks — one per class meeting",
+          "summary": "The class-by-class notebooks: loading data, loops and functions, the statistics library, the CDF, empirical probability, pandas basics, filtering, data review and groupby.",
+          "groups": [
+            "lectures"
+          ]
         }
       ],
       "groups": {
@@ -85,6 +93,10 @@
         },
         "assignments": {
           "title": "Assignments — briefs and worked practice",
+          "order": 3
+        },
+        "lectures": {
+          "title": "Part 3 — Lecture notebooks",
           "order": 3
         }
       }

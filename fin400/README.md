@@ -283,12 +283,17 @@ exercise list grouped by half.
 
 ## 7. What is in here right now
 
-Three things, and that is the whole class:
+Four things, and that is the whole class:
 
 * **Five guided modules** — `fin400/bootcamp/fin400-module-1…2` and `fin400/notebooks/fin400-module-3…5`.
   They are the teaching material: explanations, runnable cells with saved output, and a **Try it** list at
   the end of each one. They open in the Learning tab under **Part 1 — Python foundations** and
   **Part 2 — Notebooks, DataFrames & regression**.
+* **Ten lecture notebooks** — `fin400/lectures/`, one file per class meeting (Lectures 01–08, 11 and
+  12; the compilation has no 09 or 10). Each is its own `.ipynb` with the lecture's agenda, its
+  demonstration cell and its exercises, and each opens from the Learning tab under **Part 3 — Lecture
+  notebooks**. They carry **20 exercises** — `Lecture 01 · Exercise 1`, `Lecture 01 · Exercise 2`, … —
+  which sit after Practice 19 in the practice list.
 * **50 practice sets**, numbered **Practice 1 … Practice 19** after the homework, plus a warm-up on
   strings and the eight older seed exercises. Every numbered track carries the same skill as one homework
   with different companies, different numbers and different wording, and most tracks have **two or three
@@ -335,6 +340,23 @@ rather than alphabetically.
 | Practice 18 | beta portfolio and two t-tests | write · fill `t_test`/`squeeze` |
 | Practice 19 | five P/E regressions in a loop | write · fix a loop that keeps only the last fit |
 
+### The lecture map
+
+One notebook per lecture, two exercises each, in `fin400/practice/practice-lectures.json`:
+
+| Lecture | Notebook | Exercises |
+| --- | --- | --- |
+| 01 | loading the data, parsing dates, counting what landed | load and count · predict the row count and the years |
+| 02 | loops, `math.log`, wrapping a loop in a function | `loglist()` · fix a loop that logs the list |
+| 03 | the `statistics` library: max by hand, mean, median, quantiles | fix a max primed at zero · predict mean/median/quartiles |
+| 04 | squared deviations, `cdf`, `inv_cdf` | `sqdevs()` · fill the percentile lookup |
+| 05 | a list of CDF values, looping by index | `listcdf()` · predict three lines from an index loop |
+| 06 | empirical probability with `pd.cut` | bucket the equal-weight series · predict the four bucket counts |
+| 07 | columns, new columns from old ones, `describe` | build `eps` and `mult` · fill the percentile call |
+| 08 | boolean indexing, `&` vs `and` | men aged 40 and over · fix a mask joined with `and` |
+| 11 | `head`/`info`/`nunique`, `&` vs `\|`, `.dt` accessors | union of two conditions · predict rows and months in 1926 |
+| 12 | `groupby` on one key and on two | median age and BMI by gender · fill a two-key groupby |
+
 The eight original seed exercises stay in `problems/fin400-bootcamp.json` and
 `problems/fin400-analysis.json`, with `fin400/data/fund_returns.csv` and `fund_fees.csv`, and appear in the
 practice list under **General exercises**. Delete them if you do not want the extra material.
@@ -354,6 +376,10 @@ The rule for this class: a student gets hints about syntax and methods, never th
 - `fin400/solutions/` is listed under `private_paths` in `data/courses.json`, so
   `tools/assemble_site.py` keeps it out of `_site`. Treat that as a second lock, not as privacy: if the
   repository is public, do not put an answer key in it at all.
+- the lecture notebooks show a **demonstration** cell per lecture — how the data loads, what a summary
+  looks like — never the exercise's own solution. The master compilation's Part 1 (the homework
+  solutions, HW1–HW19) was not stored anywhere: no notebook, no problem file, no data file reproduces
+  it.
 
 Because no answer is committed, the Pyodide test (`tests/pyodide.test.mjs`) cannot check these
 exercises by itself. It reports each one as **skipped with that reason** rather than passing it
