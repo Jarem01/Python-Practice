@@ -201,3 +201,48 @@ test("a private upload folder never builds exercises", { skip }, async () => {
     page.restore();
   }
 });
+
+test("analyzing a notebook that imports a library ends with a message, not silence", { skip }, async () => {
+  // Regression: generating exercises looked the helper modules up with
+  // `const uploaded = uploaded.has(...)`, so the first notebook that imports
+  // anything (pandas, math, …) threw a ReferenceError. The rejection went
+  // nowhere and the Analyze button appeared to do nothing at all.
+  const page = await loadUploadPage();
+  try {
+    const { document } = page;
+    await waitFor(() => document.querySelector("#course-picker select"), { timeout: 3000 });
+    document.getElementById("folder").value = "acc525";
+
+    const importing = "Data Analysis (Part 1) - CLASS EXERCISE SOLUTIONS.ipynb";
+    globalThis.fetch = async (url, options) => {
+      if (String(url).includes(encodeURIComponent(importing)) || String(url).includes(importing)) {
+        const text = await readFile(path.join(root, "acc525", "Data Analysis", importing), "utf8");
+        return { ok: true, status: 200, url: String(url), text: async () => text, json: async () => JSON.parse(text) };
+      }
+      return fetchFromDisk(url, options);
+    };
+    const urlInput = document.getElementById("url-input");
+    urlInput.value = `http://localhost/acc525/${encodeURIComponent("Data Analysis")}/${encodeURIComponent(importing)}`;
+    click(page.window, document.getElementById("fetch-url"));
+    await waitFor(() => document.querySelectorAll("#files table tbody tr").length, { timeout: 5000 });
+
+    // Generation stays on — the page's default, and the path that used to die.
+    assert.equal(document.getElementById("generate").checked, true);
+    const analyze = document.getElementById("analyze");
+    click(page.window, analyze);
+    assert.equal(analyze.disabled, true, "the button locks while it works");
+    assert.equal(document.getElementById("progress").classList.contains("hidden"), false, "a progress bar appears");
+
+    const status = await waitFor(() => {
+      const text = document.getElementById("status").textContent;
+      return /Built \d+ practice exercise|No exercises could be built|Analysis stopped|Analysis failed/.test(text) ? text : null;
+    }, { timeout: 30000 });
+    assert.ok(status, `the page reports a result, not silence: “${document.getElementById("status").textContent}”`);
+    assert.doesNotMatch(status, /Analysis stopped|Analysis failed/, "generation no longer throws on an importing notebook");
+    assert.equal(analyze.disabled, false, "the button is usable again");
+    assert.equal(analyze.textContent, "Analyze files", "the button keeps its label");
+    assert.equal(document.getElementById("progress").classList.contains("hidden"), true, "the progress bar is put away");
+  } finally {
+    page.restore();
+  }
+});

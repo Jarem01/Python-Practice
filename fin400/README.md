@@ -154,8 +154,9 @@ and has no data files attached.
 
 ## 4. Writing the exercises
 
-Exercises live in `problems/`, one JSON file per topic or week. The two seed files
-(`problems/fin400-bootcamp.json`, `problems/fin400-analysis.json`) are complete working examples —
+Exercises live in `problems/` or in `fin400/practice/`, one JSON file per topic or week; the build
+reads both. The class's own practice sets are in `fin400/practice/` (see section 7), and the two seed
+files (`problems/fin400-bootcamp.json`, `problems/fin400-analysis.json`) are complete working examples —
 copy one and change the content.
 
 ```json
@@ -282,44 +283,139 @@ exercise list grouped by half.
 
 ## 7. What is in here right now
 
-Twenty seed flashcards (six Python, ten pandas, three NumPy, one statsmodels) and eight seed
-exercises, four per half, so the class is not an empty tab while the real assignments are being
-added:
+Three things, and that is the whole class:
 
-| Half | Exercises |
-| --- | --- |
-| Bootcamp | compound a balance, fix simple interest, a Sharpe ratio, clean a ticker |
-| Analysis | average return per fund, fix a fund report, rank funds net of fees, a pooled OLS regression |
+* **Five guided modules** — `fin400/bootcamp/fin400-module-1…2` and `fin400/notebooks/fin400-module-3…5`.
+  They are the teaching material: explanations, runnable cells with saved output, and a **Try it** list at
+  the end of each one. They open in the Learning tab under **Part 1 — Python foundations** and
+  **Part 2 — Notebooks, DataFrames & regression**.
+* **50 practice sets**, numbered **Practice 1 … Practice 19** after the homework, plus a warm-up on
+  strings and the eight older seed exercises. Every numbered track carries the same skill as one homework
+  with different companies, different numbers and different wording, and most tracks have **two or three
+  exercises in different formats** — the full task, then a shorter fix / fill-in / predict-the-output
+  version.
 
-Their data is in `fin400/data/` (`fund_returns.csv`, `fund_fees.csv`) and is **not** from any
-assignment. Replace or delete them freely — they are ordinary problem files.
+Every exercise names the module it belongs to (its `notebook` field), and the *Practice coverage by
+section* table on the home page counts them. Each of the five modules now carries a comparable set —
+**9 · 9 · 9 · 11 · 12** for Modules 1 to 5 — instead of the old split where Module 1 had a single exercise
+and Module 4 had nineteen. A track moves as a unit: the whole of Practice 2 (a list walked by hand) sits in
+Module 1, the whole of Practice 13 (portfolio growth) sits in Module 5.
+* **Twenty seed flashcards** covering the methods the class actually uses.
 
-### Swapping the placeholders for the real material
+The practice page opens as **one list in track order** — Practice 1, 2, 3 … 19 and the warm-ups after
+them — so the numbers never sort as text (10 before 2). Grouping by module or by half is one pill away.
 
-The seed material is confined to a few ordinary files; delete them and add yours, and nothing else
-needs editing:
+The practice sets are ordinary problem files in `fin400/practice/` — `practice-1-9.json` and
+`practice-10-19.json`, in the order the class works through them. `tools/build_index.py` reads that folder
+as well as `problems/`, so a set kept next to the class's data still appears in the FIN 400 tab. Each file
+is a plain `{ "problems": [...] }` wrapper, and each exercise carries `"order"` so the list reads 1, 2, 3
+rather than alphabetically.
+
+### The track map
+
+| Track | Skill | Exercises |
+| --- | --- | --- |
+| Practice 1 | mean of a list, built by hand | write · fix a loop that skips a reading · fill the accumulator |
+| Practice 2 | largest value in a list | write · predict the printed maximum and its index |
+| Practice 3 | squared deviations from the mean | write · fix arithmetic that squares the value · predict population vs sample variance |
+| Practice 4 | normal CDF for every value | write · predict two CDF values · fill `NormalDist`/`cdf` · fix a distribution built with its arguments swapped |
+| Practice 5 | index of the largest value | write · fix a function that returns the value · predict a tie |
+| Practice 6 | clip to a floor and a ceiling | write · fill the `if`/`elif`/`else` |
+| Practice 7 | BMI: new column, `describe`, percentiles | write · fix a unit conversion · fill `.between()` and `.mean()` |
+| Practice 8 | empirical probabilities of a die | write · predict the six-slot count · fix the off-by-one slot and divisor |
+| Practice 9 | logical indexing on a survey | write · fix `and` → `&` · count values outside bounds |
+| Practice 10 | EPS, leverage, `value_counts` | write · predict the median and the zero rows · fix a ratio built without parentheses |
+| Practice 11 | equal-weight portfolio | write · fix a report that counts instead of averaging |
+| Practice 12 | stock counts, lagged market cap, weighted portfolio | write · fill the 30/50/20 blend |
+| Practice 13 | value-weight portfolio, `cumprod`, wide frame | write · fix a growth factor left as a factor · fill `cumprod` |
+| Practice 14 | portfolios split on the lagged return | write · fix a split that uses the same month |
+| Practice 15 | merging two tables | write · left vs inner · predict the row counts |
+| Practice 16 | duplicate firm-years, median by year | write · fill `duplicated` |
+| Practice 17 | regression of market cap on employees | write · predict the fitted numbers |
+| Practice 18 | beta portfolio and two t-tests | write · fill `t_test`/`squeeze` |
+| Practice 19 | five P/E regressions in a loop | write · fix a loop that keeps only the last fit |
+
+The eight original seed exercises stay in `problems/fin400-bootcamp.json` and
+`problems/fin400-analysis.json`, with `fin400/data/fund_returns.csv` and `fund_fees.csv`, and appear in the
+practice list under **General exercises**. Delete them if you do not want the extra material.
+
+### No solutions, anywhere
+
+The rule for this class: a student gets hints about syntax and methods, never the answer. That is why
+
+- every FIN 400 exercise is built with `"solutions": "hidden"`. `build_index.py` removes the
+  `solution` field from the bundle, so the exercise page cannot show what it never received;
+- **no reference answer for this class is stored in this repository at all** — not in the problem
+  files, not in `tests/`. This repository is public, so an answer file committed "just for testing"
+  would be a published answer key. Prose answers ("is the average adult obese?") are asked as a
+  comment or a class discussion, never as a hidden check;
+- the hints stop at the method. They name the tool — `groupby(...).shift(1)`, a six-slot count list,
+  `t_test('mkt = 1')` — and leave the line itself to the student;
+- `fin400/solutions/` is listed under `private_paths` in `data/courses.json`, so
+  `tools/assemble_site.py` keeps it out of `_site`. Treat that as a second lock, not as privacy: if the
+  repository is public, do not put an answer key in it at all.
+
+Because no answer is committed, the Pyodide test (`tests/pyodide.test.mjs`) cannot check these
+exercises by itself. It reports each one as **skipped with that reason** rather than passing it
+silently. To check them for real, keep a local answers file outside the repository and point the suite
+at it:
 
 ```bash
-# exercises (all the seed practice questions)
-rm problems/fin400-bootcamp.json problems/fin400-analysis.json
-# the seed cards (or keep the file and replace its 20 entries)
-# data/flashcards.json
-# seed data used only by the deleted exercises
-rm fin400/data/fund_returns.csv fin400/data/fund_fees.csv
+EXTRA_REFERENCE_ANSWERS=~/fin400-answers.json npm test
 ```
 
-Then drop the real `.py` files into `fin400/bootcamp/`, the notebooks into `fin400/notebooks/`, the
-briefs into `fin400/assignments/`, data into `fin400/data/` and any answer keys into
-`fin400/solutions/` (never published). Run:
+The file is a flat `{ "problem-id": "python code" }` map; nothing in the repository reads it, and it
+must never be committed.
+
+### The practice data
+
+`fin400/data/` now holds ten files, all generated — none of them is from an assignment, and none needs
+a download:
+
+| File | Rows | Used by |
+| --- | --- | --- |
+| `fin400-survey.csv` | 900 adults | BMI, percentile and logical-indexing sets |
+| `fin400-stock-panel.csv` | 2,343 firm-years, 1980–2024 | EPS, leverage, yearly medians |
+| `fin400-stock-panel-dupes.csv` | the same panel plus 12 repeated firm-years | counting and dropping duplicates |
+| `fin400-monthly-stocks.csv` | 5,400 stock-months, 1926–1935 | equal- and value-weight portfolios, lags |
+| `fin400-port-mcap.csv` | 120 months | four size portfolios, the blend, the wide frame |
+| `fin400-port-beta.csv` | 120 months × 10 portfolios | regressions on the market |
+| `fin400-port-pe.csv` | 120 months × 5 portfolios | the loop of five regressions |
+| `fin400-factors.csv` | 120 months (`mkt`, `small`) | both regression sets |
+| `fin400-mcap-emp.csv` | 600 firms | size versus employees, merges |
+| `fin400-firms.csv` | 600 firms | sector and ticker for the merges |
+
+They are written by `tools/make_fin400_data.py` from a fixed seed, so the numbers the checks assert
+never drift:
 
 ```bash
-python3 tools/build_index.py        # index the new notebooks and files
-python3 tools/build_index.py --check
+python3 tools/make_fin400_data.py --verify   # check the committed files
+python3 tools/make_fin400_data.py           # rebuild them (same seed, same bytes)
+```
+
+The monthly panels cover ten years rather than the fifty in the homework, because 50 years × every
+stock is a large file to serve to a browser; the exercises say so where it matters. Every set is
+self-contained: the page copies the file the exercise declares into the Python sandbox, so the code
+reads a bare name such as `fin400-survey.csv`.
+
+### Adding more sets
+
+Drop a new `fin400/practice/<name>.json` file with the fields any other exercise uses, and run:
+
+```bash
+python3 tools/build_index.py --check     # validates problems, courses and phases
+python3 tools/build_index.py             # rewrites the two manifests
 npm test
 ```
 
-Give each uploaded notebook a `"FIN 400"`-style topic or a `data/curriculum.json` entry only if you
-want a custom label/order; by default its folder decides the section, and its own tasks appear as
-learning content. The seed card deck is the only thing with hand-written copy — replace its entries
-with the methods your modules actually use, or write a new `data/flashcards.json` with the same
-fields.
+There are three rules for this class: no `solution` field, at least two hints that describe the method
+rather than the answer, and something to check against (`tests`, `expected_output`, or `test_summary`
+plus tests). A set that reuses an existing dataset needs nothing else; a new dataset should be added to
+`tools/make_fin400_data.py` so it can be rebuilt.
+
+### Swapping in the real assignments
+
+The assignments themselves, and their solutions, do not belong in this public repository. If you later
+want a private copy, keep it in a private repository and point `private_paths` at the folder; otherwise
+the practice sets are the material, and they deliberately never reproduce an assignment's wording,
+companies or figures.

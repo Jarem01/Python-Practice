@@ -338,7 +338,7 @@ test("learning/index.html lists notebooks with their exercises and the topic map
   try {
     await waitFor(() => page.document.getElementById("notebooks").textContent.includes("Intro to Python"), { timeout: 3000 });
     const summary = page.document.getElementById("learning-summary").textContent;
-    assert.match(summary, new RegExp(String(manifest.notebooks.length)), "every notebook is counted");
+    assert.match(summary, new RegExp(String(courseNotebooks.length)), "every notebook of the class is counted");
     const listed = page.document.getElementById("notebooks").textContent;
     assert.match(listed, /Data Analysis/);
     assert.match(listed, /exercises?/i, "each notebook shows how many exercises it holds");
@@ -876,8 +876,29 @@ test("?course=fin400 narrows the practice list to that class, split by half", { 
     assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
     assert.match(page.document.getElementById("count-badge").textContent, /FIN 400/);
 
+    // A numbered class opens as one sequence, in track order.
     const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-    assert.deepEqual(headings, ["First half — Python bootcamp (.py)", "Second half — Notebooks, DataFrames and regression"]);
+    assert.equal(headings.length, 0, "the numbered track is one plain list");
+
+    // Sequential: Practice 10 may never precede Practice 2.
+    const trackNumbers = () => [...page.document.querySelectorAll("#problem-list .tile h3")]
+      .map((h) => /Practice (\d+)/.exec(h.textContent))
+      .filter(Boolean)
+      .map((match) => Number(match[1]));
+    const listedTracks = trackNumbers();
+    assert.ok(listedTracks.length >= 19, "every numbered track is listed");
+    for (let i = 1; i < listedTracks.length; i += 1) {
+      assert.ok(
+        listedTracks[i] >= listedTracks[i - 1],
+        `Practice ${listedTracks[i]} must not come before Practice ${listedTracks[i - 1]}`,
+      );
+    }
+
+    // Grouping is still available on demand.
+    const byAssignment = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "by assignment");
+    click(page.window, byAssignment);
+    const moduleHeadings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
+    assert.deepEqual(moduleHeadings.slice(0, 5), ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5"]);
 
     // Both halves can be picked apart, and a half can be deep-linked.
     const halves = [...page.document.querySelectorAll("#filters .pill")].filter((p) => /both halves|First half|Second half/.test(p.textContent));
@@ -943,7 +964,7 @@ test("the home page describes the class it is showing, both halves included", { 
     await waitFor(() => page.document.querySelector("#course-hero .tile"), { timeout: 3000 });
     const hero = page.document.getElementById("course-hero");
     assert.match(hero.textContent, /FIN 400/);
-    assert.match(hero.textContent, /First half — Python bootcamp/);
+    assert.match(hero.textContent, /First half — Python foundations/);
     assert.match(hero.textContent, /Second half — Notebooks/);
     assert.match(hero.textContent, /solutions hidden/);
 
@@ -951,20 +972,22 @@ test("the home page describes the class it is showing, both halves included", { 
     assert.ok(stats.includes(String(fin400Problems.length)), "the class's exercise count is shown");
 
     const listed = page.document.getElementById("notebooks").textContent;
-    assert.match(listed, /No notebooks for FIN 400 yet/, "an empty class says where to add material");
+    assert.match(listed, /Module 1 — Values, strings, lists and loops/, "the class's modules are listed");
+    assert.doesNotMatch(listed, /Intro 1 —/, "the other class's notebooks are not listed");
     assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
   } finally {
     page.restore();
   }
 });
 
-test("learning/index.html says where a class without notebooks gets them", { skip }, async () => {
+test("learning/index.html shows a class its own modules", { skip }, async () => {
   const page = await loadPage("learning/index.html", "assets/js/learning-index.js", "?course=fin400");
   try {
     await waitFor(() => page.document.getElementById("learning-summary").textContent.length, { timeout: 3000 });
     const listed = page.document.getElementById("notebooks").textContent;
-    assert.match(listed, /No notebooks for FIN 400 yet/);
-    assert.match(listed, /fin400\//, "the message names the folder");
+    assert.match(listed, /Module 1 — Values, strings, lists and loops/);
+    assert.match(listed, /Module 5 — Portfolios and a regression/);
+    assert.match(page.document.getElementById("learning-summary").textContent, /5/, "the five modules are counted");
     assert.doesNotMatch(listed, /Intro 1 —/, "the other class's notebooks are not listed");
   } finally {
     page.restore();

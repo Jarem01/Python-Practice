@@ -11,9 +11,10 @@ What it does
    parts (inferred from folder names / "Part N" prefixes, overridable in
    data/curriculum.json).
 2. Reads every problem in problems/**/*.json and problems/**/*.md (hand checks
-   next to problems/generated/, the exercises the upload page produces),
-   validates them and bundles them into problems/index.json (one fetch for the
-   practice app).
+   next to problems/generated/, the exercises the upload page produces) and in
+   fin400/practice/**, where a class keeps its own practice sets next to its
+   data. It validates them and bundles them into problems/index.json (one fetch
+   for the practice app).
 3. Cross-links problems and notebooks by topic.
 
 Pure standard library, so it runs anywhere Python 3.8+ is available.
@@ -37,6 +38,11 @@ COURSES_FILE = "data/courses.json"
 
 #: Hand-written revision deck shown on flashcards.html.
 FLASHCARDS_FILE = "data/flashcards.json"
+
+#: Folders that hold exercise definitions. `problems/` is the shared one; a
+#: class may also keep its own sets beside its data (FIN 400 uses fin400/practice),
+#: so the material for a class sits in one place when it is time to edit it.
+PROBLEM_DIRS = ("problems", "fin400/practice")
 
 #: Folder that collects the source study material, including files uploaded
 #: from the website. Keep in sync with CONFIG.materialsDir in assets/js/config.js.
@@ -724,33 +730,42 @@ def load_problems(root: Path) -> tuple[list[dict], list[str]]:
     problems: list[dict] = []
     errors: list[str] = []
 
-    for path in sorted((root / "problems").rglob("*.json")):
-        if path.name == "index.json" or any(part.startswith(".") for part in path.parts):
+    for folder in PROBLEM_DIRS:
+        base = root / folder
+        if not base.is_dir():
             continue
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-        except Exception as error:  # noqa: BLE001
-            errors.append(f"{path.name}: invalid JSON ({error})")
-            continue
-        items = data.get("problems") if isinstance(data, dict) and "problems" in data else data
-        if isinstance(items, dict):
-            items = [items]
-        if not isinstance(items, list):
-            errors.append(f"{path.name}: expected an object, an array or a {{'problems': [...]}} wrapper")
-            continue
-        for item in items:
-            if not isinstance(item, dict):
-                errors.append(f"{path.name}: every entry must be an object")
-                continue
-            item = dict(item)
-            item["_source"] = path.name
-            problems.append(item)
 
-    for path in sorted((root / "problems").rglob("*.md")):
-        try:
-            problems.append(parse_md_problem(path.read_text(encoding="utf-8"), path))
-        except Exception as error:  # noqa: BLE001
-            errors.append(f"{path.name}: could not parse markdown problem ({error})")
+        for path in sorted(base.rglob("*.json")):
+            if path.name == "index.json" or any(part.startswith(".") for part in path.relative_to(root).parts):
+                continue
+            where = str(path.relative_to(root))
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+            except Exception as error:  # noqa: BLE001
+                errors.append(f"{where}: invalid JSON ({error})")
+                continue
+            items = data.get("problems") if isinstance(data, dict) and "problems" in data else data
+            if isinstance(items, dict):
+                items = [items]
+            if not isinstance(items, list):
+                errors.append(f"{where}: expected an object, an array or a {{'problems': [...]}} wrapper")
+                continue
+            for item in items:
+                if not isinstance(item, dict):
+                    errors.append(f"{where}: every entry must be an object")
+                    continue
+                item = dict(item)
+                item["_source"] = where
+                problems.append(item)
+
+        for path in sorted(base.rglob("*.md")):
+            where = str(path.relative_to(root))
+            try:
+                problem = parse_md_problem(path.read_text(encoding="utf-8"), path)
+                problem["_source"] = where
+                problems.append(problem)
+            except Exception as error:  # noqa: BLE001
+                errors.append(f"{where}: could not parse markdown problem ({error})")
 
     return problems, errors
 
@@ -904,6 +919,30 @@ def private_owner(rel_path: str, prefixes: list[tuple[str, str]]) -> str | None:
     return None
 
 
+#: Library imported in a problem's code -> the Pyodide package it needs. Mirrors
+#: PACKAGE_RULES in assets/js/analyze.js, which does the same for uploads.
+PACKAGE_RULES = (
+    ("numpy", re.compile(r"\b(?:import|from)\s+numpy\b|\bnp\.")),
+    ("pandas", re.compile(r"\b(?:import|from)\s+pandas\b|\bpd\.")),
+    ("matplotlib", re.compile(r"\b(?:import|from)\s+matplotlib\b|\bplt\.")),
+    ("scipy", re.compile(r"\b(?:import|from)\s+scipy\b")),
+    ("statsmodels", re.compile(r"\b(?:import|from)\s+statsmodels\b|\bsmf?\.|\bsm\.(?:OLS|add_constant|formula)")),
+    ("scikit-learn", re.compile(r"\b(?:import|from)\s+sklearn\b")),
+)
+
+
+def packages_for_problem(problem: dict) -> list[str]:
+    """The Pyodide packages a problem's own code needs.
+
+    An exercise's `packages` list is what the page asks the sandbox to load, so a
+    pandas exercise that forgets to declare pandas fails at the first line in the
+    browser with ModuleNotFoundError. Deriving the list from the code means a
+    hand-written problem file cannot leave it out.
+    """
+    text = "\n".join(str(problem.get(key) or "") for key in ("starter_code", "setup", "tests", "solution"))
+    return [name for name, pattern in PACKAGE_RULES if pattern.search(text)]
+
+
 def normalize_problem(problem: dict) -> dict:
     """Fill defaults and drop build-only keys."""
     out = dict(problem)
@@ -920,6 +959,12 @@ def normalize_problem(problem: dict) -> dict:
     for key in ("hints", "topics", "glossary", "packages"):
         if not isinstance(out[key], list):
             out[key] = [out[key]]
+    # Anything the code imports is loaded even when the file forgot to say so.
+    declared = [str(name) for name in out["packages"]]
+    for name in packages_for_problem(out):
+        if name not in declared:
+            declared.append(name)
+    out["packages"] = declared
     return out
 
 

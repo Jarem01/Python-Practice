@@ -18,7 +18,7 @@ import { isBinaryPath, resolveDataFiles, toBase64 } from "./datasets.js";
 import { commitFiles, clearToken, loadSettings, parseRepo, saveSettings, verifyToken } from "./github.js";
 import { loadGlossary } from "./glossary.js";
 import { loadProblems, saveDraft } from "./problems.js";
-import { runPython } from "./runner.js";
+import { onStatus, runPython } from "./runner.js";
 import { TYPE_LABELS, el, escapeHtml, pluralize, slugify } from "./util.js";
 import { addUpload, listUploads, removeUpload, totalUploadBytes, uploadLimits } from "./uploads.js";
 
@@ -161,42 +161,63 @@ function binaryEntry(record) {
 /* --------------------------------------------------------------- analysis --- */
 
 async function analyzeAll() {
+  if (state.busy) {
+    setStatus("warn", "The previous run is still going — the progress bar above says where it is.");
+    return;
+  }
   if (!state.files.length) return setStatus("warn", "Add some files first.");
-  if (!state.glossary) {
-    try {
-      state.glossary = await loadGlossary();
-    } catch {
-      state.glossary = { entries: [] };
-    }
-  }
 
-  for (const file of state.files) {
-    if (file.status === "analyzed" || file.status === "error" || file.binary) continue;
-    try {
-      const analysis = analyzeFile({ name: file.name, text: file.content, path: file.path });
-      file.kind = analysis.kind;
-      file.entry = analysis.entry;
-      file.json = analysis.json;
-      file.status = "analyzed";
-    } catch (error) {
-      file.status = "error";
-      file.error = String((error && error.message) || error);
+  setBusy(true, "Analyzing…");
+  showProgress("Reading the files…");
+  try {
+    if (!state.glossary) {
+      try {
+        state.glossary = await loadGlossary();
+      } catch {
+        state.glossary = { entries: [] };
+      }
     }
-  }
-  renderFiles();
 
-  if (isPrivateDestination()) {
-    updatePrivateDestination();
-    return setStatus(
-      "ok",
-      "Analysis finished. This destination is private, so no practice exercises were built — they would be published, and these files must not be.",
+    for (const file of state.files) {
+      if (file.status === "analyzed" || file.status === "error" || file.binary) continue;
+      try {
+        const analysis = analyzeFile({ name: file.name, text: file.content, path: file.path });
+        file.kind = analysis.kind;
+        file.entry = analysis.entry;
+        file.json = analysis.json;
+        file.status = "analyzed";
+      } catch (error) {
+        file.status = "error";
+        file.error = String((error && error.message) || error);
+      }
+    }
+    renderFiles();
+
+    if (isPrivateDestination()) {
+      updatePrivateDestination();
+      setStatus(
+        "ok",
+        "Analysis finished. This destination is private, so no practice exercises were built — they would be published, and these files must not be.",
+      );
+      return;
+    }
+
+    if (!nodes.generate.checked) {
+      setStatus("ok", "Analysis finished. Tick “Build practice exercises” to generate exercises from notebooks.");
+      return;
+    }
+    await generateExercises();
+  } catch (error) {
+    // An exception here used to reject silently: the button looked dead. Always
+    // say what happened, and leave the file list intact.
+    setStatus(
+      "error",
+      `Analysis stopped: ${escapeHtml(String((error && error.message) || error))}. Your files are still listed — press <strong>Analyze files</strong> to try again.`,
     );
+  } finally {
+    setBusy(false);
+    hideProgress();
   }
-
-  if (!nodes.generate.checked) {
-    return setStatus("ok", "Analysis finished. Tick “Build practice exercises” to generate exercises from notebooks.");
-  }
-  await generateExercises();
 }
 
 /**
@@ -219,28 +240,25 @@ async function generateExercises() {
     return setStatus("warn", "No notebooks in the list, so there was nothing to turn into exercises.");
   }
 
-  state.busy = true;
   state.cancel = false;
-  nodes.progress.classList.remove("hidden");
   const before = state.drafts.length;
   let checked = 0;
   let needsReview = 0;
 
-  const uploaded = uploadedModules();
+  const helperModules = uploadedModules();
   setStatus("info", "Running each notebook solution in Python to capture its output…");
-  setStatus("progress", "");
+  showProgress(`Starting with ${notebooks[0].name}…`);
 
   for (const file of notebooks) {
     const units = extractExerciseUnits(file.json).filter((unit) => unit.code);
     for (let index = 0; index < units.length; index++) {
       if (state.cancel) {
         setStatus("warn", "Stopped. Everything generated so far has been kept.");
-        state.busy = false;
         renderDrafts();
         return;
       }
       const unit = units[index];
-      nodes.progress.textContent = `${file.name}: exercise ${index + 1} of ${units.length}…`;
+      setProgressText(`${file.name}: exercise ${index + 1} of ${units.length}…`);
       const setup = unit.setupCells.join("\n\n").trim();
       const packages = [...new Set([...packageHints(unit.code), ...packageHints(setup)])];
       // Data the notebook reads (sales.csv and friends) is handed to the sandbox
@@ -248,16 +266,19 @@ async function generateExercises() {
       const wanted = dataFileHints(`${unit.code}\n${setup}`);
       const declared = {};
       for (const name of wanted) {
-        const uploaded = state.files.find((item) => item.name === name);
-        declared[name] = uploaded ? uploaded.path : `${courseDataFolder()}/${name}`;
+        const added = state.files.find((item) => item.name === name);
+        declared[name] = added ? added.path : `${courseDataFolder()}/${name}`;
       }
       const resolved = Object.keys(declared).length ? await resolveDataFiles(declared) : { files: {}, problems: [] };
       const modules = {};
       for (const name of importedModules(`${unit.code}\n${setup}`)) {
-        const uploaded = uploaded.has(`${name}.py`) ? uploaded.get(`${name}.py`) : null;
-        if (!uploaded) continue;
-        modules[`${name}.py`] = uploaded.content;
-        declared[`${name}.py`] = uploaded.repoPath;
+        // This used to read `const uploaded = uploaded.has(...)`, which threw a
+        // ReferenceError on the first notebook that imports anything — the whole
+        // click then failed with nothing on screen.
+        const helper = helperModules.has(`${name}.py`) ? helperModules.get(`${name}.py`) : null;
+        if (!helper) continue;
+        modules[`${name}.py`] = helper.content;
+        declared[`${name}.py`] = helper.repoPath;
       }
       const run = await runPython(unit.code, {
         setup,
@@ -288,8 +309,6 @@ async function generateExercises() {
     }
   }
 
-  state.busy = false;
-  nodes.progress.classList.add("hidden");
   const created = state.drafts.length - before;
   setStatus(
     created ? "ok" : "warn",
@@ -304,6 +323,43 @@ async function generateExercises() {
 
 function setStatus(kind, html) {
   nodes.status.innerHTML = `<div class="notice ${kind === "ok" ? "ok" : kind === "warn" ? "warn" : kind === "error" ? "bad" : ""}">${html}</div>`;
+}
+
+/* --------------------------------------------------------------- progress --- */
+
+function showProgress(text = "") {
+  if (!nodes.progress) return;
+  nodes.progress.classList.remove("hidden");
+  setProgressText(text);
+}
+
+function setProgressText(text) {
+  if (nodes.progressText) nodes.progressText.textContent = text || "";
+}
+
+function hideProgress() {
+  if (!nodes.progress) return;
+  nodes.progress.classList.add("hidden");
+  setProgressText("");
+}
+
+/**
+ * Lock the long-running buttons while a job runs, so a second click cannot start
+ * a second run, and put the job's name on the button that started it.
+ */
+function setBusy(busy, label) {
+  state.busy = busy;
+  for (const button of [nodes.analyze, nodes.saveGithub, nodes.saveBrowser]) {
+    if (!button) continue;
+    if (busy) {
+      if (!button.dataset.label) button.dataset.label = button.textContent;
+      button.disabled = true;
+    } else {
+      button.disabled = false;
+      if (button.dataset.label) button.textContent = button.dataset.label;
+    }
+  }
+  if (busy && label && nodes.analyze) nodes.analyze.textContent = label;
 }
 
 function renderFiles() {
@@ -455,7 +511,7 @@ async function saveToGitHub() {
   if (!settings.token) return githubStatus("Paste a GitHub token first (see the settings below).");
 
   state.cancel = false;
-  nodes.progress.classList.remove("hidden");
+  showProgress(`Committing to ${settings.repo}@${settings.branch}…`);
   setStatus("info", `Committing to ${escapeHtml(settings.repo)}@${escapeHtml(settings.branch)}…`);
   const source = state.files.map((file) => ({
     path: file.path,
@@ -469,10 +525,10 @@ async function saveToGitHub() {
   const results = await commitFiles(payload, {
     ...settings,
     onProgress: ({ index, total, path, state: step, error }) => {
-      nodes.progress.textContent = `${step === "start" ? "Saving" : step === "done" ? "Saved" : "Failed"} ${index + 1}/${total}: ${path}${error ? ` — ${error}` : ""}`;
+      nodes.progressText.textContent = `${step === "start" ? "Saving" : step === "done" ? "Saved" : "Failed"} ${index + 1}/${total}: ${path}${error ? ` — ${error}` : ""}`;
     },
   });
-  nodes.progress.classList.add("hidden");
+  hideProgress();
 
   const ok = results.filter((result) => result.ok);
   const failed = results.filter((result) => !result.ok);
@@ -601,17 +657,28 @@ function applySettings() {
 }
 
 async function main() {
-  for (const id of ["status", "files", "drafts", "drop", "file-input", "pick", "url-input", "fetch-url", "folder", "subfolder", "generate", "predict", "commit-exercises", "analyze", "save-browser", "save-github", "download-bundle", "clear", "progress", "gh-repo", "gh-branch", "gh-token", "gh-remember", "gh-test", "gh-save", "gh-forget", "gh-status", "save-hint"]) {
+  for (const id of ["status", "files", "drafts", "drop", "file-input", "pick", "url-input", "fetch-url", "folder", "subfolder", "generate", "predict", "commit-exercises", "analyze", "save-browser", "save-github", "download-bundle", "clear", "progress", "progress-text", "gh-repo", "gh-branch", "gh-token", "gh-remember", "gh-test", "gh-save", "gh-forget", "gh-status", "save-hint"]) {
     nodes[id.replace(/-([a-z])/g, (_m, c) => c.toUpperCase())] = document.getElementById(id);
   }
-  nodes.progress.className = "small mono muted";
-  nodes.progress.classList.add("hidden");
+  hideProgress();
 
   initDropZone();
   applySettings();
   nodes.folder.value = nodes.folder.value || CONFIG.uploadFolder;
 
-  nodes.analyze.addEventListener("click", () => analyzeAll());
+  nodes.analyze.addEventListener("click", () => {
+    analyzeAll().catch((error) => {
+      setBusy(false);
+      hideProgress();
+      setStatus("error", `Analysis failed: ${escapeHtml(String((error && error.message) || error))}. Press <strong>Analyze files</strong> to try again.`);
+    });
+  });
+  // While a job is running, the Python runtime's own messages (downloading
+  // Pyodide, loading pandas) belong on the progress line — the first run spends
+  // a while there, and a silent button looks broken.
+  onStatus((status) => {
+    if (state.busy && status && status.message) setProgressText(status.message);
+  });
   nodes.folder.addEventListener("input", updatePrivateDestination);
   nodes.subfolder.addEventListener("input", updatePrivateDestination);
   nodes.saveBrowser.addEventListener("click", () => saveToBrowser());

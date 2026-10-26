@@ -217,7 +217,7 @@ function renderFilters(container) {
 
   const sort = el("select");
   for (const [value, label] of [
-    ["curated", "assignment order"],
+    ["curated", "course order (1, 2, 3…)"],
     ["title", "title"],
     ["difficulty", "difficulty"],
     ["type", "type"],
@@ -242,34 +242,57 @@ function renderFilters(container) {
   container.append(clear);
 }
 
+/**
+ * Title order that reads numbers as numbers: "Practice 2" before "Practice 10".
+ * Plain localeCompare compares character by character, which puts 10 right
+ * after 1 and is exactly what a numbered track must not do.
+ */
+function byTitle(a, b) {
+  return a.title.localeCompare(b.title, undefined, { numeric: true });
+}
+
+/** The track position a problem declares, if any (FIN 400's Practice 1 … 19). */
+function byOrder(a, b) {
+  return (a.order ?? 0) - (b.order ?? 0);
+}
+
+/** Sort key for an exercise with no track position: after every numbered one. */
+const UNORDERED = 100000;
+
 function sortedProblems(problems) {
   const difficultyOrder = { easy: 0, medium: 1, hard: 2 };
   const list = [...problems];
   switch (state.filters.sort) {
     case "title":
-      return list.sort((a, b) => a.title.localeCompare(b.title));
+      return list.sort(byTitle);
     case "difficulty":
       return list.sort(
-        (a, b) => (difficultyOrder[a.difficulty] ?? 9) - (difficultyOrder[b.difficulty] ?? 9) || a.title.localeCompare(b.title),
+        (a, b) => (difficultyOrder[a.difficulty] ?? 9) - (difficultyOrder[b.difficulty] ?? 9) || byTitle(a, b),
       );
     case "type":
-      return list.sort((a, b) => TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type) || a.title.localeCompare(b.title));
+      return list.sort((a, b) => TYPE_ORDER.indexOf(a.type) - TYPE_ORDER.indexOf(b.type) || byTitle(a, b));
     case "progress":
       return list.sort((a, b) => {
         const rank = { new: 0, attempted: 1, solved: 2 };
-        return rank[problemStatus(a)] - rank[problemStatus(b)] || a.title.localeCompare(b.title);
+        return rank[problemStatus(a)] - rank[problemStatus(b)] || byTitle(a, b);
       });
     default:
       // "Assignment order": the notebook the exercise came from, then its topic,
-      // then the order it appears in inside that notebook.
+      // then the order it appears in inside that notebook. A numbered track
+      // (FIN 400's Practice 1 … 19) carries its own `order`, so it reads in the
+      // order the class works through it instead of alphabetically.
       return list.sort((a, b) => {
         const left = assignmentForProblem(a);
         const right = assignmentForProblem(b);
         return (
+          // An explicit track position wins over everything, so a numbered set
+          // is read 1, 2, 3 … even when its exercises come from several
+          // notebooks. Exercises without one keep the assignment order.
+          (a.order ?? UNORDERED) - (b.order ?? UNORDERED) ||
           left.order - right.order ||
           left.label.localeCompare(right.label) ||
           (a.topics || []).join().localeCompare((b.topics || []).join()) ||
-          a.title.localeCompare(b.title)
+          byTitle(a, b)
         );
       });
   }
@@ -401,10 +424,15 @@ function renderList() {
     if (state.filters.group === "phase" && bucket.summary) {
       container.append(el("p", { class: "small muted", text: bucket.summary, style: "margin:0 0 .6rem" }));
     }
+    // Sequential inside a group: the numbered track first, then topic and
+    // title. Sorting on the title alone would put Practice 10 before Practice 2.
     const ordered =
       state.filters.sort === "curated"
         ? [...bucket.problems].sort(
-            (a, b) => (a.topics || []).join().localeCompare((b.topics || []).join()) || a.title.localeCompare(b.title),
+            (a, b) =>
+              byOrder(a, b) ||
+              (a.topics || []).join().localeCompare((b.topics || []).join()) ||
+              byTitle(a, b),
           )
         : bucket.problems;
     container.append(problemsView(ordered));
@@ -446,6 +474,12 @@ async function main() {
   // "General exercises" group. Its halves are the useful grouping there.
   if (!param("group") && state.course && phasesOf(state.course).length > 1 && state.assignments.length <= 1) {
     state.filters.group = "phase";
+  }
+
+  // A class with numbered tracks reads as one sequence — Practice 1, 2, 3 … —
+  // so it starts as a single list. The pills still group it by module or half.
+  if (!param("group") && state.problems.some((problem) => problem.order != null)) {
+    state.filters.group = "none";
   }
   renderFilters(filtersHost);
   renderList();

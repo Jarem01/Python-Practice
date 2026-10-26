@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-20T22:52:56+00:00",
-  "count": 114,
+  "generated_at": "2026-10-26T18:42:20+00:00",
+  "count": 164,
   "courses": [
     {
       "id": "acc525",
@@ -11,31 +11,37 @@
     {
       "id": "fin400",
       "code": "FIN 400",
-      "count": 8,
+      "count": 58,
       "solutions": "hidden"
     }
   ],
   "by_type": {
-    "fix_the_code": 10,
-    "fill_in_blank": 12,
-    "predict_output": 24,
-    "write_from_scratch": 68
+    "fix_the_code": 20,
+    "fill_in_blank": 18,
+    "predict_output": 31,
+    "write_from_scratch": 95
   },
   "topics": [
     "Boolean logic",
     "Cleaning Data",
+    "Conditionals",
     "Data Analysis",
     "Data Structures",
+    "Data cleaning",
     "Debugging",
+    "Descriptive statistics",
     "Dictionaries",
     "Errors",
     "Excel",
     "FIN 400",
     "Files",
+    "Filtering",
     "Formatting",
     "Functions",
     "Grouping",
+    "Hypothesis testing",
     "Intro to Python",
+    "Lagging",
     "Lists",
     "Loops",
     "Merging",
@@ -43,19 +49,25 @@
     "NumPy",
     "Numbers",
     "Outliers",
+    "Portfolios",
+    "Predict the output",
+    "Probability",
     "Python Basics",
+    "Random numbers",
     "Regression",
+    "Returns",
     "Sorting",
     "Statistics",
     "Strings",
     "Summary Statistics",
+    "Visualization",
     "pandas",
     "statsmodels"
   ],
   "difficulties": {
-    "easy": 61,
-    "medium": 41,
-    "hard": 12
+    "easy": 85,
+    "medium": 63,
+    "hard": 16
   },
   "problems": [
     {
@@ -4262,6 +4274,1644 @@
       "course": "acc525",
       "phase": "intro",
       "solutions": "shown"
+    },
+    {
+      "id": "fin400-practice-palindrome",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Warm-up \u2014 A palindrome check with a reverse slice",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Strings",
+        "Conditionals"
+      ],
+      "packages": [],
+      "line_count": 3,
+      "prompt": "Write `is_palindrome(text)` that returns `True` when a string reads the same\nbackwards and `False` otherwise.\n\nUse the reverse slice `text[::-1]`. Do not change case or strip spaces:\n`'Racecar'` and `'never odd or even'` are **not** palindromes for this\nfunction, but `'racecar'` is.\n\n```python\nprint(is_palindrome(\"level\"))   # True\n```",
+      "hints": [
+        "The third slot of a slice is the step; a step of `-1` walks from the last character to the first.",
+        "Compare the reversed string with the original \u2014 `==` already gives you a True/False.",
+        "Return that comparison directly; no `if` is required. An empty string compares equal to itself, so it returns True."
+      ],
+      "tests": "assert is_palindrome(\"racecar\") == True\nassert is_palindrome(\"Racecar\") == False\nassert is_palindrome(\"\") == True\nassert is_palindrome(\"ab\") == False",
+      "test_summary": "the reversed string is compared with the original, case-sensitive",
+      "order": 1,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-average",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 1 \u2014 An average without the statistics module",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Loops"
+      ],
+      "packages": [],
+      "line_count": 5,
+      "prompt": "Write `average_rating(scores)` \u2014 it takes a list of numeric scores of any\nlength and returns their mean.\n\nBuild the mean yourself with a loop: no `statistics`, no `sum()`, no NumPy.\nThe list always holds at least one score.\n\n```python\nprint(average_rating([4, 7, 9, 12]))   # 8.0\n```\n\nReturn the number; do not print inside the function.",
+      "hints": [
+        "Two counters are enough: a running total, and how many values you have seen.",
+        "`for score in scores:` then `total += score` and `count += 1` \u2014 `+=` updates a variable in place.",
+        "After the loop, divide the total by the count and return it. `len(scores)` is allowed."
+      ],
+      "tests": "assert average_rating([10, 20, 30, 40]) == 25.0\nassert average_rating([7]) == 7.0\nassert abs(average_rating([1.5, 2.5]) - 2.0) < 1e-9",
+      "test_summary": "the function averages any length of list by looping, including a single value",
+      "order": 11,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p1-fix-mean",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Practice 1 \u2014 Fix the average that skips a reading",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Debugging"
+      ],
+      "expected_output": "77.2",
+      "prompt": "This function should average every reading, and the program should print\n`77.2`. Instead it prints `81.0`.\n\nRun it, watch which value never reaches the total, and fix the loop. Keep the\nsame function name and argument.",
+      "hints": [
+        "`readings[1:]` is a slice \u2014 it starts at the *second* item.",
+        "Walk the list one element at a time and let the loop do the slicing.",
+        "The total and the count must cover the same values, or the division is lopsided."
+      ],
+      "starter_code": "def mean_reading(readings):\n    \"\"\"Mean of the day's readings.\"\"\"\n    total = 0\n    count = 0\n    for reading in readings[1:]:\n        total += reading\n        count += 1\n    return total / count\n\n\nprint(mean_reading([62, 71, 85, 90, 78]))",
+      "tests": "assert mean_reading([62, 71, 85, 90, 78]) == 77.2\nassert mean_reading([4, 8]) == 6.0",
+      "test_summary": "every reading is counted exactly once",
+      "course": "fin400",
+      "packages": [],
+      "order": 12,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-largest",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 2 \u2014 The largest value, found by hand",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Loops"
+      ],
+      "packages": [],
+      "line_count": 6,
+      "prompt": "Write `largest_value(values)` that returns the biggest number in a list of\nany length.\n\nIterate over the list: no `max()`, no `sorted()`, no library. The list always\nholds at least one value, and the values can be negative.\n\n```python\nprint(largest_value([3, -8, 15, 4]))   # 15\n```",
+      "hints": [
+        "Start from the first element rather than from zero, so a list of negative numbers still works.",
+        "Compare each value with the best one so far, and replace the best only when the value is bigger.",
+        "Return the best value after the loop finishes."
+      ],
+      "tests": "assert largest_value([4, 19, -3, 12]) == 19\nassert largest_value([-5, -2, -9]) == -2\nassert largest_value([42]) == 42",
+      "test_summary": "the maximum is found by comparison in a loop, including an all-negative list",
+      "order": 21,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p2-predict-max",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Practice 2 \u2014 Read the maximum, and where it sits",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Predict the output"
+      ],
+      "expected_output": "42\n1",
+      "prompt": "Type exactly what this program prints, one line per `print`.\n\nTrace `best` by hand as the loop walks the list \u2014 do not run it first.",
+      "hints": [
+        "`best` starts as the first price and only changes when a bigger one appears.",
+        "`prices.index(best)` asks for the position of that value.",
+        "Two `print` calls, so two lines."
+      ],
+      "starter_code": "prices = [18, 42, 7]\n\nbest = prices[0]\nfor price in prices:\n    if price > best:\n        best = price\n\nprint(best)\nprint(prices.index(best))",
+      "course": "fin400",
+      "packages": [],
+      "order": 22,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-squared-deviations",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 3 \u2014 Squared deviations from the mean",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Statistics"
+      ],
+      "packages": [],
+      "line_count": 6,
+      "prompt": "Write `squared_deviations(values)` that returns a new list holding, for every\nvalue, the square of its distance from the mean: `(x - mean) ** 2`.\n\nYou may call `statistics.mean` for the mean. Everything else is a loop \u2014\nno list comprehensions, no NumPy. Round nothing.\n\n```python\nprint(squared_deviations([1, 3, 5]))   # [4.0, 0.0, 4.0]\n```",
+      "hints": [
+        "`import statistics` and call `statistics.mean(values)` once, before the loop.",
+        "For each value: subtract the mean, square the result with `** 2`, and append it to a new list.",
+        "Start from an empty list and return it after the loop."
+      ],
+      "tests": "assert squared_deviations([4, 8, 6, 5, 7]) == [4.0, 4.0, 0.0, 1.0, 1.0]\nassert squared_deviations([2.0, 4.0]) == [1.0, 1.0]",
+      "test_summary": "every value is turned into its squared distance from the mean, in list order",
+      "order": 31,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p3-fix-sqdevs",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 3 \u2014 Squared deviations that square the wrong thing",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Statistics",
+        "Debugging"
+      ],
+      "expected_output": "[4, 0, 4]",
+      "prompt": "A squared deviation is the square of the distance between a value and the\nmean. The program should print `[4.0, 0.0, 4.0]` for the list `[2, 4, 6]`, but\nit prints a very different list.\n\nThe loop is fine. The arithmetic inside it is not \u2014 fix that line only.",
+      "hints": [
+        "Subtract first, then square \u2014 the order changes the answer completely.",
+        "`value ** 2 - mean` squares the value, not the distance.",
+        "The expression inside `append(...)` needs parentheses around the subtraction."
+      ],
+      "starter_code": "import statistics\n\n\ndef squared_deviations(values):\n    mean = statistics.mean(values)\n    out = []\n    for value in values:\n        out.append(value ** 2 - mean)\n    return out\n\n\nprint(squared_deviations([2, 4, 6]))",
+      "tests": "assert squared_deviations([2, 4, 6]) == [4.0, 0.0, 4.0]\nassert squared_deviations([10, 10]) == [0.0, 0.0]",
+      "test_summary": "each value becomes the square of its distance from the mean",
+      "course": "fin400",
+      "packages": [],
+      "order": 32,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p3-predict-variance",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Practice 3 \u2014 Population and sample variance, side by side",
+      "topics": [
+        "FIN 400",
+        "Statistics",
+        "Predict the output"
+      ],
+      "expected_output": "2.5\n3.33\n1.58",
+      "prompt": "Type exactly what this program prints, one line per `print`. Each line rounds to\ntwo decimals.\n\nAll three numbers measure the same spread, but two of them divide by a different\ncount than the third. Work the sums out by hand before you run anything.",
+      "hints": [
+        "The mean of `[2, 3, 5, 6]` is 4, so the squared deviations are 4, 1, 1 and 4.",
+        "`pvariance` divides that sum by `n`; `variance` divides it by `n - 1`.",
+        "`pstdev` is the square root of `pvariance`, not of `variance`."
+      ],
+      "starter_code": "import statistics\n\nprices = [2, 3, 5, 6]\n\nprint(round(statistics.pvariance(prices), 2))\nprint(round(statistics.variance(prices), 2))\nprint(round(statistics.pstdev(prices), 2))",
+      "course": "fin400",
+      "packages": [],
+      "order": 33,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-cdf-list",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 4 \u2014 A normal CDF for every value in a list",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Statistics",
+        "Functions"
+      ],
+      "packages": [],
+      "line_count": 7,
+      "prompt": "Write `cdf_values(data, mu=0, sigma=1)` that returns a list holding the normal\nCDF of each value in `data`, for a distribution with mean `mu` and standard\ndeviation `sigma`.\n\nUse `NormalDist` from the standard library's `statistics` module. The two\ndistribution parameters are optional and default to a standard normal.\n\n```python\nprint(round(cdf_values([22.5], 20, 2.5)[0], 4))   # 0.8413\n```",
+      "hints": [
+        "`import statistics as s` then build the distribution once: `s.NormalDist(mu, sigma)`.",
+        "The object has a `.cdf(x)` method that returns the probability of being below x.",
+        "Append one result per value and return the list; do not round inside the function."
+      ],
+      "tests": "out = cdf_values([10, 15, 20], 15, 2.5)\nassert len(out) == 3\nassert out[1] == 0.5\nassert abs(out[0] - 0.0227501) < 1e-5\nassert abs(out[2] - 0.9772499) < 1e-5\nassert abs(cdf_values([1.0])[0] - 0.8413447) < 1e-5",
+      "test_summary": "one CDF per value, with the defaults giving the standard normal",
+      "order": 41,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-normal-draws",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 4 \u2014 Draw normal random numbers with default arguments",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Random numbers"
+      ],
+      "packages": [],
+      "line_count": 3,
+      "prompt": "Write `draw_sample(n, mu=0, sigma=1)` that returns a list of `n` normally\ndistributed random numbers with mean `mu` and standard deviation `sigma`.\n\nThe last two parameters default to 0 and 1, so `draw_sample(10)` draws ten\nstandard normal values. Use `NormalDist(...).samples(n)` from `statistics`.\n\n```python\nprint(len(draw_sample(5)))   # 5\n```",
+      "hints": [
+        "Default values live in the definition itself: `def draw_sample(n, mu=0, sigma=1):`.",
+        "`NormalDist(mu, sigma).samples(n)` returns a list of n draws, so no loop is needed.",
+        "Return that list; a caller who passes only `n` gets a standard normal."
+      ],
+      "tests": "assert len(draw_sample(5)) == 5\nassert len(draw_sample(3, 10, 2)) == 3\nassert len(draw_sample(1, mu=5)) == 1\nassert isinstance(draw_sample(4)[0], float)",
+      "test_summary": "n draws are returned, and the distribution parameters really are optional",
+      "order": 42,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p4-blank-cdf",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Practice 4 \u2014 Complete the normal CDF lookup",
+      "topics": [
+        "FIN 400",
+        "Statistics"
+      ],
+      "expected_output": "0.5",
+      "prompt": "Fill in the two blanks so the program prints the probability of being at or\nbelow a value for a normal distribution.\n\nThe second blank is a **method** of the distribution object.",
+      "hints": [
+        "The standard library builds a normal distribution with `NormalDist(mu, sigma)`.",
+        "The method that returns the probability below a value is short \u2014 three letters."
+      ],
+      "starter_code": "import statistics as s\n\n\ndef cdf_of(values, mu, sigma):\n    dist = s.___(mu, sigma)\n    return [dist.___(value) for value in values]\n\n\nprint(round(cdf_of([100], 100, 10)[0], 2))",
+      "blanks": [
+        {
+          "accepted": [
+            "NormalDist"
+          ],
+          "hint": "The class is `NormalDist`."
+        },
+        {
+          "accepted": [
+            "cdf"
+          ],
+          "hint": "It is `cdf` \u2014 cumulative distribution function."
+        }
+      ],
+      "course": "fin400",
+      "packages": [],
+      "order": 43,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p4-fix-normal-args",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Practice 4 \u2014 The distribution with its arguments swapped",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Statistics",
+        "Debugging"
+      ],
+      "expected_output": "0.2743",
+      "prompt": "`probability_below(value, mu, sigma)` should return the chance of an observation\ncoming in at or below `value`: about 27% for a -2% return when the mean is 1% and\nthe standard deviation is 5%.\n\nThe program prints `0.0` \u2014 a probability that is astronomically small. The shape of\nthe function is right; one call builds the distribution in the wrong order.",
+      "hints": [
+        "`NormalDist` takes the **mean** first and the **standard deviation** second.",
+        "The function's own parameters are `mu`, `sigma` \u2014 the same order.",
+        "Only the line that builds `dist` needs to change."
+      ],
+      "starter_code": "import statistics as s\n\n\ndef probability_below(value, mu, sigma):\n    dist = s.NormalDist(sigma, mu)\n    return dist.cdf(value)\n\n\nprint(round(probability_below(-2, 1, 5), 4))",
+      "tests": "assert abs(probability_below(-2, 1, 5) - 0.2743) < 1e-4\nassert abs(probability_below(1, 1, 5) - 0.5) < 1e-9\nassert abs(probability_below(6, 1, 5) - 0.8413) < 1e-4\nassert abs(probability_below(0, 0, 1) - 0.5) < 1e-9",
+      "test_summary": "the mean is the first argument and the standard deviation the second",
+      "course": "fin400",
+      "packages": [],
+      "order": 44,
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-index-largest",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 5 \u2014 Where is the largest value?",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Loops"
+      ],
+      "packages": [],
+      "line_count": 6,
+      "prompt": "Write `index_of_largest(values)` that returns the **position** of the largest\nvalue in a list, not the value itself.\n\nIf the largest value appears more than once, return the first position.\nLoop by index \u2014 `for i in range(len(values)):` \u2014 and do not use `max`,\n`index` or `sorted`.\n\n```python\nprint(index_of_largest([6, 2, 11, 4]))   # 2\n```",
+      "hints": [
+        "Track a best index rather than a best value: start at 0 and compare `values[i]` with `values[best]`.",
+        "Use a strict `>` when comparing, so a tie leaves you with the earlier index.",
+        "Return the index at the end, not the value sitting at it."
+      ],
+      "tests": "assert index_of_largest([4, 9, 2, 9, 1]) == 1\nassert index_of_largest([-3, -8, -1]) == 2\nassert index_of_largest([5]) == 0",
+      "test_summary": "the index of the maximum is returned, with ties resolved to the first position",
+      "order": 51,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p5-predict-index",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Practice 5 \u2014 Two equal values: which index wins?",
+      "topics": [
+        "FIN 400",
+        "Loops",
+        "Predict the output"
+      ],
+      "expected_output": "1\n9",
+      "prompt": "Type what this program prints. Watch the comparison: it uses `>` rather than\n`>=`, which decides what happens on a tie.",
+      "hints": [
+        "The loop starts at index 0, whose value is 4.",
+        "Index 1 holds 9, which beats 4; index 2 also holds 9 \u2014 is it greater than 9?",
+        "`best` ends up at the first index that held the largest value."
+      ],
+      "starter_code": "nums = [4, 9, 9, 2]\n\nbest = 0\nfor i in range(len(nums)):\n    if nums[i] > nums[best]:\n        best = i\n\nprint(best)\nprint(nums[best])",
+      "course": "fin400",
+      "packages": [],
+      "order": 52,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-clip-extremes",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 6 \u2014 Clip the outliers to a floor and a ceiling",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Conditionals"
+      ],
+      "packages": [],
+      "line_count": 8,
+      "prompt": "Write `clip_extremes(data, floor, ceiling)` that returns a new list where any\nvalue below `floor` has been replaced by `floor`, and any value above\n`ceiling` by `ceiling`. Values in between are left alone.\n\nUse a loop with an explicit `if` / `elif` / `else` \u2014 no `min`, `max`, `sorted`\nor library that would do the thinking for you.\n\n```python\nprint(clip_extremes([1, 5, 9], 3, 7))   # [3, 5, 7]\n```",
+      "hints": [
+        "Build a new list; test the low end first with `if value < floor:`.",
+        "`elif value > ceiling:` catches the other end, and `else:` keeps the original.",
+        "Append exactly one value on every pass, so the result has the same length as the input."
+      ],
+      "tests": "assert clip_extremes([11, -2, 44, 6], 3, 30) == [11, 3, 30, 6]\nassert clip_extremes([7, 12, 58, 0, 95, 130], 0, 90) == [7, 12, 58, 0, 90, 90]",
+      "test_summary": "values outside the bounds are clipped while the order and length are preserved",
+      "order": 61,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p6-blank-clip",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Practice 6 \u2014 Complete the clipping loop",
+      "topics": [
+        "FIN 400",
+        "Conditionals"
+      ],
+      "expected_output": "[4, 12, 20, 0]",
+      "prompt": "Fill the three blanks so values below the floor become the floor and values\nabove the ceiling become the ceiling. The middle of the range is untouched.",
+      "hints": [
+        "The first test is the low end: `value < floor`.",
+        "A clipped value is replaced by the bound itself, not by the other bound.",
+        "The `else` branch keeps the value as it came in."
+      ],
+      "starter_code": "def clip(values, floor, ceiling):\n    out = []\n    for value in values:\n        if value ___ floor:\n            out.append(___)\n        elif value > ceiling:\n            out.append(ceiling)\n        else:\n            out.append(___)\n    return out\n\n\nprint(clip([4, 12, 30, -2], 0, 20))",
+      "blanks": [
+        {
+          "accepted": [
+            "<"
+          ],
+          "hint": "Below the floor is the low end: `<`."
+        },
+        {
+          "accepted": [
+            "floor"
+          ],
+          "hint": "Replace it with the floor you were given."
+        },
+        {
+          "accepted": [
+            "value"
+          ],
+          "hint": "Inside the bounds nothing changes."
+        }
+      ],
+      "course": "fin400",
+      "packages": [],
+      "order": 62,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-bmi-summary",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 7 \u2014 Build a BMI column and summarise it",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Descriptive statistics"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "line_count": 4,
+      "prompt": "`fin400-survey.csv` is a sample of 900 adults with `seqn`, `age`, `gender`,\n`weight` (kg), `height` (cm), `waist` (cm) and `hincome` (`'high'` when\nhousehold income exceeds $120,000, otherwise `'not'`).\n\nLoad it into `data`, add a column `bmi` equal to weight in kilograms divided\nby height in metres squared, and keep two summaries:\n\n- `bmi_summary = data['bmi'].describe()`\n- `bmi_extremes = data['bmi'].quantile([0.1, 0.9])`\n\nThen look at the mean. It sits just below the clinical obesity cutoff of 30.\nIs that enough to conclude that the average American adult is not obese? Say\nwhy in a comment \u2014 the checks only look at the numbers.",
+      "hints": [
+        "The file is already in the working folder, so `pd.read_csv(\"fin400-survey.csv\")` is enough.",
+        "Centimetres have to become metres before squaring: `height / 100`.",
+        "`.describe()` summarises a column; `.quantile([0.1, 0.9])` returns the two percentiles indexed by 0.1 and 0.9."
+      ],
+      "tests": "assert len(data) == 900\nassert abs(float(bmi_summary[\"mean\"]) - 29.221717) < 1e-3\nassert abs(float(bmi_extremes.loc[0.1]) - 21.063982) < 1e-3\nassert abs(float(bmi_extremes.loc[0.9]) - 36.546397) < 1e-3",
+      "test_summary": "a bmi column per row, with its summary statistics and 10th/90th percentiles",
+      "order": 71,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p7-fix-bmi",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Practice 7 \u2014 The BMI column that forgot to convert units",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging"
+      ],
+      "expected_output": "29.2217",
+      "prompt": "BMI is weight in kilograms divided by height in **metres** squared. This\nprogram should print the sample mean BMI, `29.2217`, but it prints something\naround `0.01`.\n\nThe data is in centimetres. Fix the one line that builds the column.",
+      "hints": [
+        "One centimetre is one hundredth of a metre.",
+        "Divide the height column by 100 *before* squaring it \u2014 watch the parentheses.",
+        "`(data['height'] / 100) ** 2` is a series of squared metres."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-survey.csv\")\ndata[\"bmi\"] = data[\"weight\"] / data[\"height\"] ** 2\n\nprint(round(data[\"bmi\"].mean(), 4))",
+      "tests": "assert abs(float(data[\"bmi\"].mean()) - 29.2217) < 1e-3\nassert abs(float(data[\"bmi\"].median()) - 29.0682) < 1e-3",
+      "test_summary": "the height is converted to metres before it is squared",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 72,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p7-blank-between",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Practice 7 \u2014 Keep the heights in a band, then average the BMI",
+      "topics": [
+        "FIN 400",
+        "pandas"
+      ],
+      "expected_output": "29.2337",
+      "prompt": "Fill in the two blanks so the program averages the BMI of the people whose height\nis between 165 and 175 cm, **inclusive of both ends**.\n\nThat is 314 of the 900 people in the file, and their mean BMI is `29.2337`.",
+      "hints": [
+        "A `Series` has a method that tests whether each value falls inside two bounds \u2014 it takes the lower bound first and keeps both ends.",
+        "The second blank is the `Series` method that averages the column."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-survey.csv\")\ndata[\"bmi\"] = data[\"weight\"] / (data[\"height\"] / 100) ** 2\n\nmiddle = data[data[\"height\"].___(165, 175)]\nprint(round(middle[\"bmi\"].___(), 4))",
+      "blanks": [
+        {
+          "accepted": [
+            "between"
+          ],
+          "hint": "It is `between` \u2014 `data['height'].between(165, 175)`."
+        },
+        {
+          "accepted": [
+            "mean"
+          ],
+          "hint": "It is `mean`, the same method `describe()` reports."
+        }
+      ],
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 73,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-roll-probabilities",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 8 \u2014 Empirical probabilities of a die",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Probability"
+      ],
+      "packages": [],
+      "line_count": 10,
+      "prompt": "Write `roll_probabilities(rolls)` that takes a list of die rolls (each value\n1\u20136) and returns a list of **six** floats: the share of rolls that came up 1,\nthen 2, up to 6.\n\nUse loops and `len()` only \u2014 no `.count()`, no dictionaries, no libraries. A\nvalue that never appeared gets a probability of 0.0.\n\n```python\nprint(roll_probabilities([2, 2, 2, 2]))   # [0.0, 1.0, 0.0, 0.0, 0.0, 0.0]\n```",
+      "hints": [
+        "Start with a six-slot list of zeros; the roll `n` belongs in slot `n - 1` because indexing starts at 0.",
+        "Inside the first loop, add one to the matching slot: `counts[roll - 1] += 1`.",
+        "In a second loop, divide each count by `len(rolls)` and build the list you return."
+      ],
+      "tests": "got = roll_probabilities([1, 1, 2, 2, 2, 2, 5, 6, 6, 3])\nassert len(got) == 6\nassert abs(got[0] - 0.2) < 1e-9\nassert abs(got[1] - 0.4) < 1e-9\nassert abs(got[2] - 0.1) < 1e-9\nassert got[3] == 0.0\nassert abs(got[4] - 0.1) < 1e-9\nassert abs(got[5] - 0.2) < 1e-9",
+      "test_summary": "six realized probabilities, including a face that never appeared",
+      "order": 81,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p8-predict-pmf",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Practice 8 \u2014 Six slots, one for each face",
+      "topics": [
+        "FIN 400",
+        "Lists",
+        "Predict the output"
+      ],
+      "expected_output": "[2, 1, 0, 0, 0, 0]\n0",
+      "prompt": "This is the counting half of the die-probability problem. Type what it\nprints \u2014 including the empty slots, which matter as much as the used ones.",
+      "hints": [
+        "A roll of `n` goes into slot `n - 1`.",
+        "There are two 1s in `rolls` and one 2.",
+        "A face that never appeared still occupies a slot in the list."
+      ],
+      "starter_code": "rolls = [1, 1, 2]\n\ncounts = [0, 0, 0, 0, 0, 0]\nfor roll in rolls:\n    counts[roll - 1] += 1\n\nprint(counts)\nprint(counts[5])",
+      "course": "fin400",
+      "packages": [],
+      "order": 82,
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "phase": "bootcamp",
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-survey-groups",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 9 \u2014 Two sub-samples built with logical indexing",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Filtering"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "line_count": 6,
+      "prompt": "Using the same survey file, build two smaller DataFrames with boolean masks,\none expression each:\n\n- `young_men` \u2014 male participants aged 18 to 30 **and** taller than 182.9 cm (six feet)\n- `women_high_income` \u2014 female participants whose `hincome` is `'high'`\n\nPrint `.describe()` for the numeric columns of each. `gender` holds `'male'`\nand `'female'`.\n\nIn Python, join conditions with `&`, wrap each condition in parentheses, and\nput the whole mask inside one set of square brackets.",
+      "hints": [
+        "A mask is a column of True/False: `data['gender'] == 'male'`.",
+        "Use `&`, not the word `and` \u2014 `and` works on truth values, not on pandas columns.",
+        "Each condition needs its own parentheses: `(a) & (b) & (c)`.",
+        "Assign the filtered frame to the name the exercise asks for; the check looks for `young_men` and `women_high_income`."
+      ],
+      "tests": "assert len(young_men) == 15\nassert len(women_high_income) == 83\nassert bool((young_men[\"height\"] > 182.9).all())\nassert bool((young_men[\"age\"] >= 18).all()) and bool((young_men[\"age\"] <= 30).all())\nassert bool((women_high_income[\"gender\"] == \"female\").all())\nassert bool((women_high_income[\"hincome\"] == \"high\").all())",
+      "test_summary": "both filters select exactly the rows that satisfy every condition",
+      "order": 91,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-count-outside",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "Practice 9 \u2014 Count the tails of a distribution",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Loops"
+      ],
+      "packages": [],
+      "line_count": 6,
+      "prompt": "Write `count_outside(values, low, high)` that returns how many values fall\n**strictly** below `low` or **strictly** above `high`. A value exactly on a\nbound is inside, not outside.\n\nUse a loop and a counter \u2014 no `sum()`, no boolean arithmetic, no NumPy.\nAn empty list returns 0.\n\n```python\nprint(count_outside([1, 5, 9, 15], 2, 10))   # 3\n```",
+      "hints": [
+        "One `if` with `or` handles both tails: `if value < low or value > high:`.",
+        "Add one to a counter each time that condition holds, starting the counter at 0.",
+        "Return the counter \u2014 with an empty list the loop never runs, so it stays 0."
+      ],
+      "tests": "assert count_outside([3, 8, 12, 1, 9, 15], 2, 10) == 3\nassert count_outside([], 0, 1) == 0\nassert count_outside([2, 10], 2, 10) == 0",
+      "test_summary": "values beyond either bound are counted, with the bounds themselves treated as inside",
+      "order": 92,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p9-fix-mask",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 9 \u2014 The mask that raises instead of filtering",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging"
+      ],
+      "expected_output": "15",
+      "prompt": "This should print how many participants are men aged 30 or under who are\ntaller than 182.9 cm \u2014 it should print `15`. Instead it stops with\n`ValueError: The truth value of a Series is ambiguous`.\n\nFix the condition. Keep the filter itself the same.",
+      "hints": [
+        "`and` asks Python to decide whether a whole column is true; that is what raises.",
+        "pandas combines masks with the element-wise `&` operator.",
+        "Wrap each comparison in its own parentheses: `(a) & (b) & (c)`."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-survey.csv\")\n\nyoung_tall = data[(data[\"gender\"] == \"male\") & (data[\"age\"] <= 30) and (data[\"height\"] > 182.9)]\n\nprint(len(young_tall))",
+      "tests": "assert len(young_tall) == 15\nassert bool((young_tall[\"gender\"] == \"male\").all())\nassert bool((young_tall[\"height\"] > 182.9).all())",
+      "test_summary": "every condition is combined with & and all three hold for each row",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 93,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p10-predict-leverage",
+      "type": "predict_output",
+      "difficulty": "medium",
+      "title": "Practice 10 \u2014 What the leverage column looks like",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Predict the output"
+      ],
+      "expected_output": "0.369\n191",
+      "prompt": "The panel has firms with long-term debt and firms with none. Type the two\nprinted lines: the median leverage ratio (rounded to 3 decimals) and how many\nfirm-years sit at a leverage ratio of exactly zero.",
+      "hints": [
+        "`levratio` is debt divided by debt plus market cap, so a firm with no debt lands on 0.",
+        "`median()` is the middle value once the column is sorted \u2014 `round(..., 3)` keeps it short.",
+        "Counting rows that equal zero gives the second number."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-stock-panel.csv\")\ndata[\"levratio\"] = data[\"debt_lgterm\"] / (data[\"debt_lgterm\"] + data[\"mcap\"])\n\nprint(round(data[\"levratio\"].median(), 3))\nprint(len(data[data[\"levratio\"] == 0]))",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 102,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p11-fix-equal-weight",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 11 \u2014 The portfolio report that counts instead of averaging",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging"
+      ],
+      "expected_output": "0.0086",
+      "prompt": "`ew_returns` should hold one equal-weight portfolio return per month, so its\nmean should be about `0.0086`. The program prints `45.0`.\n\nFix the aggregation: the column exists, the function applied to it is wrong.",
+      "hints": [
+        "45 is the number of stocks in each month \u2014 that is a count.",
+        "A portfolio return for a month is the average of the returns in that month.",
+        "`groupby(...)['ret'].mean()` keeps the dates as the index."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\new_returns = data.groupby(\"caldt\")[\"ret\"].count()\n\nprint(round(float(ew_returns.mean()), 4))",
+      "tests": "assert len(ew_returns) == 120\nassert abs(float(ew_returns.mean()) - 0.0086) < 1e-3",
+      "test_summary": "each month's average return is used, not the number of stocks",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 112,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p12-blank-weighted",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Practice 12 \u2014 Complete the 30/50/20 blend",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "expected_output": "0.0058",
+      "prompt": "Fill the three blanks so the blend puts 30% in micro, 50% in small and 20% in\nthe risk-free asset paying 0.0025 a month.\n\nThe last blank is the risk-free **rate**, not its weight.",
+      "hints": [
+        "The micro weight is 0.3, so the small-cap weight is the biggest of the three.",
+        "Weights should add up to 1 once the risk-free slice is included.",
+        "The risk-free term is a weight multiplied by its monthly return."
+      ],
+      "starter_code": "import pandas as pd\n\nport = pd.read_csv(\"fin400-port-mcap.csv\", parse_dates=[\"caldt\"])\n\nport[\"blend\"] = 0.3 * port[\"micro\"] + ___ * port[\"small\"] + ___ * ___\n\nprint(round(float(port[\"blend\"].mean()), 4))",
+      "blanks": [
+        {
+          "accepted": [
+            "0.5"
+          ],
+          "hint": "Half the portfolio is in small caps."
+        },
+        {
+          "accepted": [
+            "0.2"
+          ],
+          "hint": "A fifth is in the risk-free asset."
+        },
+        {
+          "accepted": [
+            "0.0025"
+          ],
+          "hint": "That is the monthly risk-free return."
+        }
+      ],
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 123,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p13-fix-cumprod",
+      "type": "fix_the_code",
+      "difficulty": "easy",
+      "title": "Practice 13 \u2014 The growth path that ends at 5.98 instead of 4.98",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Returns",
+        "Debugging"
+      ],
+      "expected_output": "4.9841",
+      "prompt": "`growth` should be a **return**, so the last value is the cumulative return\nover the whole sample: `4.9841`. The program prints `5.9841`.\n\nThe cumulative product is right; one operation after it is missing.",
+      "hints": [
+        "`cumprod` of (1 + r) gives a growth *factor*, not a return.",
+        "A factor becomes a return when you subtract the 1 you started with.",
+        "Check where the `- 1` belongs relative to the parentheses."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\ndata[\"weighted\"] = data[\"ret\"] * data[\"mcap\"]\nvw_returns = data.groupby(\"caldt\")[\"weighted\"].sum() / data.groupby(\"caldt\")[\"mcap\"].sum()\n\ngrowth = (1 + vw_returns).cumprod()\n\nprint(round(float(growth.iloc[-1]), 4))",
+      "tests": "assert abs(float(growth.iloc[-1]) - 4.984085) < 1e-4\nassert abs(float(growth.iloc[0]) - 0.022638) < 1e-5",
+      "test_summary": "the growth factor is converted back into a return",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 134,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p14-fix-sign",
+      "type": "fix_the_code",
+      "difficulty": "hard",
+      "title": "Practice 14 \u2014 The split that used this month's return",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios",
+        "Debugging"
+      ],
+      "expected_output": "0.0236",
+      "prompt": "The two portfolios should be formed on **last** month's return, so the\npositive-lag portfolio averages about `0.0236` a month. This version sorts on\nthe return of the same month it is trying to predict, so it prints `0.1194`.\n\nFix the column the two filters use.",
+      "hints": [
+        "Using this month's return to pick this month's portfolio is look-ahead \u2014 the sort has to happen first.",
+        "Inside each stock, `shift(1)` gives the previous month's return.",
+        "Filter on the lagged column, but keep weighting this month's return."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=[\"caldt\"])\ndata = data.sort_values([\"permno\", \"caldt\"])\ndata[\"ret_lag\"] = data.groupby(\"permno\")[\"ret\"].shift(1)\ndata = data.dropna(subset=[\"ret_lag\"])\ndata[\"contribution\"] = data[\"ret\"] * data[\"mcap\"]\n\nup = data[data[\"ret\"] > 0]\ndown = data[data[\"ret\"] < 0]\n\nvw_positive = up.groupby(\"caldt\")[\"contribution\"].sum() / up.groupby(\"caldt\")[\"mcap\"].sum()\nvw_negative = down.groupby(\"caldt\")[\"contribution\"].sum() / down.groupby(\"caldt\")[\"mcap\"].sum()\n\nprint(round(float(vw_positive.mean()), 4))",
+      "tests": "assert abs(float(vw_positive.mean()) - 0.023553) < 1e-5\nassert abs(float(vw_negative.mean()) - 0.007798) < 1e-5",
+      "test_summary": "the portfolios are sorted on the lagged return, not the same month's return",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 142,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p15-predict-merge",
+      "type": "predict_output",
+      "difficulty": "easy",
+      "title": "Practice 15 \u2014 Left merge versus inner merge, by the numbers",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging",
+        "Predict the output"
+      ],
+      "expected_output": "600\n600\n0",
+      "prompt": "Both files have exactly one row per `permno`, and every `permno` in the left\nfile appears in the right one.\n\nType the three printed lines.",
+      "hints": [
+        "An inner merge keeps only rows that match on both sides.",
+        "A left merge keeps every row of the left file, matched or not.",
+        "Nothing is missing on the right, so nothing is added and nothing is lost."
+      ],
+      "starter_code": "import pandas as pd\n\nsize = pd.read_csv(\"fin400-mcap-emp.csv\")\nfirms = pd.read_csv(\"fin400-firms.csv\")\n\ninner = pd.merge(size, firms, on=\"permno\", how=\"inner\")\nleft = pd.merge(size, firms, on=\"permno\", how=\"left\")\n\nprint(len(inner))\nprint(len(left))\nprint(int(left[\"sector\"].isna().sum()))",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 153,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
+        "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p16-blank-drop",
+      "type": "fill_in_blank",
+      "difficulty": "easy",
+      "title": "Practice 16 \u2014 Count the duplicate firm-years",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Data cleaning"
+      ],
+      "expected_output": "12\n2343",
+      "prompt": "One observation is one ticker in one fiscal year. Fill the blanks so the\nprogram counts the repeated firm-years, then reports the row count after they\nare removed.",
+      "hints": [
+        "The method that flags repeated rows is the past tense of \"duplicate\".",
+        "It takes the columns that define an observation as `subset=[...]`.",
+        "`.sum()` on the flags counts them, because True counts as 1."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-stock-panel-dupes.csv\")\n\nprint(int(data.___(subset=[\"ticker\", \"fyear\"]).sum()))\n\ndata = data.drop_duplicates(subset=[\"ticker\", \"fyear\"])\nprint(len(data))",
+      "blanks": [
+        {
+          "accepted": [
+            "duplicated"
+          ],
+          "hint": "`duplicated` marks the repeats."
+        }
+      ],
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 163,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p17-predict-slope",
+      "type": "predict_output",
+      "difficulty": "medium",
+      "title": "Practice 17 \u2014 Read a fitted line without the summary table",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Predict the output"
+      ],
+      "expected_output": "600\n120.4\n0.0",
+      "prompt": "Type the three printed lines: the number of observations, the fitted slope on\nemployees rounded to one decimal, and the mean residual rounded to six.\n\n`emp` is in thousands, so the slope is dollars of market cap per thousand\nemployees.",
+      "hints": [
+        "`nobs` is the number of firms in the regression.",
+        "`params['emp']` is the slope \u2014 the fitted line was built so it is close to 120.",
+        "Least squares forces the residuals to average exactly zero."
+      ],
+      "starter_code": "import pandas as pd\nimport statsmodels.formula.api as smf\n\nfirms = pd.read_csv(\"fin400-mcap-emp.csv\")\nreg = smf.ols(\"mcap ~ emp\", data=firms).fit()\n\nprint(int(reg.nobs))\nprint(round(reg.params[\"emp\"], 1))\nprint(round(float(reg.resid.mean()), 6))",
+      "course": "fin400",
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "order": 172,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p18-blank-ttest",
+      "type": "fill_in_blank",
+      "difficulty": "medium",
+      "title": "Practice 18 \u2014 Test whether the beta really is one",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Hypothesis testing"
+      ],
+      "expected_output": "0.0",
+      "prompt": "Fill the blanks so the program tests the hypothesis that the true slope equals\n1, and prints its p-value rounded to four decimals.\n\nThe first blank is the method on the fitted result; the second flattens what it\nreturns into a single number.",
+      "hints": [
+        "The method name is `t_test` and it takes the hypothesis as a string.",
+        "Its `pvalue` comes back as a 2-D array, so it needs flattening.",
+        "`.squeeze()` turns a one-element array into a plain number."
+      ],
+      "starter_code": "import pandas as pd\nimport statsmodels.formula.api as smf\n\nport = pd.read_csv(\"fin400-port-beta.csv\", parse_dates=[\"caldt\"])\nfac = pd.read_csv(\"fin400-factors.csv\", parse_dates=[\"caldt\"])\ndata = pd.merge(port, fac, on=\"caldt\", how=\"inner\")\n\ncapm = smf.ols(\"p9 ~ mkt\", data=data).fit()\n\ntest = capm.___(\"mkt = 1\")\nprint(round(float(test.pvalue.___()), 4))",
+      "blanks": [
+        {
+          "accepted": [
+            "t_test"
+          ],
+          "hint": "The method is `t_test`."
+        },
+        {
+          "accepted": [
+            "squeeze"
+          ],
+          "hint": "`squeeze` removes the extra dimensions."
+        }
+      ],
+      "course": "fin400",
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "order": 182,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p19-fix-loop",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 19 \u2014 The loop that keeps only the last regression",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Loops",
+        "Debugging"
+      ],
+      "expected_output": "['p0', 'p1', 'p2', 'p3', 'p4']",
+      "prompt": "The loop should estimate one regression per P/E portfolio and keep all five.\nIt prints `['p4']`.\n\nFix the loop so every portfolio survives it, then check that `results['p0']`\nexists.",
+      "hints": [
+        "Look at what happens to `results` on the first line inside the loop.",
+        "An empty dictionary created outside the loop is filled once per pass.",
+        "Assign with `results[name] = ...`; do not create a new dictionary each time."
+      ],
+      "starter_code": "import pandas as pd\nimport statsmodels.formula.api as smf\n\nport = pd.read_csv(\"fin400-port-pe.csv\", parse_dates=[\"caldt\"])\nfac = pd.read_csv(\"fin400-factors.csv\", parse_dates=[\"caldt\"])\ndata = pd.merge(port, fac, on=\"caldt\", how=\"inner\")\n\nresults = {}\nfor name in [\"p0\", \"p1\", \"p2\", \"p3\", \"p4\"]:\n    results = {}\n    results[name] = smf.ols(f\"{name} ~ mkt + small\", data=data).fit().params\n\nprint(sorted(results))",
+      "tests": "assert sorted(results.keys()) == [\"p0\", \"p1\", \"p2\", \"p3\", \"p4\"]\nassert abs(float(results[\"p0\"][\"mkt\"]) - 1.05249) < 0.005",
+      "test_summary": "all five fits are kept in one dictionary",
+      "course": "fin400",
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "order": 192,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-eps-leverage",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 10 \u2014 Earnings per share and a leverage ratio",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "line_count": 7,
+      "prompt": "`fin400-stock-panel.csv` is a firm-year panel with `ticker`, `fyear`, `ni`\n(net income, $ millions), `debt_lgterm` (long-term debt, $ millions), `mcap`\n(market value of equity, $ millions) and `shr` (shares outstanding, millions).\n\nLoad it into `data` and add three columns:\n\n- `eps` \u2014 net income per share\n- `levratio` \u2014 long-term debt divided by long-term debt plus market cap\n- `pos` \u2014 `True` when `levratio` is positive, `False` otherwise\n\nThen keep `lev_counts = data['pos'].value_counts()` and\n`mcap_by_pos = data.groupby('pos')['mcap'].mean()` and print both.\n\nSomething to notice: the two `value_counts` lines answer different questions\n(how many, and what share). Which firms are larger on average \u2014 the ones with\nno long-term debt, or the ones carrying some?",
+      "hints": [
+        "Every column is plain arithmetic: `data['ni'] / data['shr']` creates a new column.",
+        "`data['levratio'] > 0` produces the True/False column without a loop.",
+        "`value_counts()` counts each outcome; `groupby('pos')['mcap'].mean()` gives one average per group."
+      ],
+      "tests": "assert len(data) > 2000\nassert abs(float(data[\"eps\"].median()) - 4.222102) < 1e-3\nassert abs(float(data[\"levratio\"].median()) - 0.369484) < 1e-3\nassert int(lev_counts[True]) == 2152\nassert int(lev_counts[False]) == 191\nassert abs(float(mcap_by_pos[False]) - 10670.0013) < 0.01\nassert abs(float(mcap_by_pos[True]) - 9381.9091) < 0.01",
+      "test_summary": "eps, leverage and a boolean column, with the counts and the average market cap per group",
+      "order": 101,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-p10-fix-levratio",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 10 \u2014 The leverage ratio that is never a ratio",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging"
+      ],
+      "expected_output": "0.369",
+      "prompt": "`levratio` is long-term debt divided by long-term debt **plus** market value of\nequity, so every value must sit between 0 and 1 and the median should be `0.369`.\n\nThis program prints a median around `2844.1`. The columns are the right ones and\nthe division is in the right place \u2014 the grouping of the expression is not.",
+      "hints": [
+        "Division happens before addition, so the debt is divided by itself first.",
+        "One is being added to the market cap of every firm.",
+        "Wrap the sum in parentheses so the division applies to all of it."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-stock-panel.csv\")\ndata[\"levratio\"] = data[\"debt_lgterm\"] / data[\"debt_lgterm\"] + data[\"mcap\"]\n\nprint(round(data[\"levratio\"].median(), 3))",
+      "tests": "assert abs(float(data[\"levratio\"].median()) - 0.369) < 1e-3\nassert float(data[\"levratio\"].max()) <= 1\nassert int((data[\"levratio\"] > 1).sum()) == 0\nassert int((data[\"levratio\"] == 0).sum()) == 191",
+      "test_summary": "debt is divided by debt plus market cap, so the ratio stays inside 0 and 1",
+      "course": "fin400",
+      "packages": [
+        "pandas"
+      ],
+      "order": 103,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "glossary": [],
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-equal-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 11 \u2014 An equal-weight portfolio every month",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 5,
+      "prompt": "`fin400-monthly-stocks.csv` is a stock-month panel: `permno`, `caldt`,\n`ticker`, `prc`, `ret` and `mcap`.\n\nLoad it with `parse_dates=['caldt']`. Build the **equal-weight** portfolio \u2014\neach year-month, the portfolio return is the simple average of every stock's\n`ret` that month \u2014 and store it in `ew_returns`.\n\nThen store `ew_mean` and `ew_std`: the mean and the sample standard deviation\nof that monthly series.",
+      "hints": [
+        "`data.groupby('caldt')['ret'].mean()` collapses the panel to one value per date.",
+        "A Series has `.mean()` and `.std()`; pandas' `.std()` already uses the n \u2212 1 denominator.",
+        "Keep `ew_returns` as a Series indexed by date and take the two statistics from it."
+      ],
+      "tests": "assert len(ew_returns) == 120\nassert abs(float(ew_returns.mean()) - 0.008561) < 1e-5\nassert abs(float(ew_returns.std()) - 0.051730) < 1e-5\nassert abs(float(ew_mean) - 0.008561) < 1e-5\nassert abs(float(ew_std) - 0.051730) < 1e-5",
+      "test_summary": "one equal-weight return per month, with its mean and sample standard deviation",
+      "order": 111,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-count-and-lag",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 12 \u2014 How many stocks, and last month's market cap",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lagging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 7,
+      "prompt": "Same panel, two tasks that are really the same idea: a variable from an\nearlier row.\n\n1. `stock_count` \u2014 how many stocks are in the portfolio each year-month, as a\n   Series indexed by `caldt`.\n2. `mcap_lag` \u2014 a new column on `data` holding each stock's market cap from\n   the **previous** month, and NaN in its first month.\n\nSort by `permno` then `caldt` before you shift. Without the sort, one stock\ncan pick up another company's previous value.\n\nPrint `.describe()` for `stock_count`, and compare the number of\nnon-missing values in `mcap` and `mcap_lag`. Why are they different?",
+      "hints": [
+        "`groupby('caldt')['permno'].count()` counts the rows behind each date.",
+        "`data.sort_values(['permno', 'caldt'])` gives every stock's months in order.",
+        "`shift(1)` moves a column down one row *within each group*, which is exactly why the first month of every stock is NaN."
+      ],
+      "tests": "assert len(stock_count) == 120\nassert abs(float(stock_count.mean()) - 45.0) < 1e-9\nassert int(stock_count.sum()) == 5400\nassert int(data[\"mcap_lag\"].notna().sum()) == 5355",
+      "test_summary": "a dated count of stocks and a within-stock lag that leaves the first month of each stock empty",
+      "order": 121,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-blended-portfolio",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 12 \u2014 A 30/50/20 portfolio with a risk-free asset",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 5,
+      "prompt": "`fin400-port-mcap.csv` holds monthly returns on four portfolios sorted by\nmarket cap: `micro`, `small`, `mid`, `large`, with dates in `caldt`.\n\nLoad it into `port` and add a column `blend` that puts **30% in micro, 50% in\nsmall and 20% in a risk-free asset** paying 0.0025 per month.\n\nKeep `blend_summary = port['blend'].describe()` and print it. Compare the\nblend with `micro` and `small` on their own \u2014 what does the risk-free slice do\nto the average and the spread?",
+      "hints": [
+        "Multiplying a column by a number scales every return; adding the pieces combines the holdings.",
+        "The risk-free piece contributes a constant: `0.2 * 0.0025`.",
+        "Assign the result to `port['blend']` so the column exists \u2014 the check reads the column, not a loose variable."
+      ],
+      "tests": "assert len(port) == 120\nassert \"blend\" in port.columns\nassert abs(float(port[\"blend\"].mean()) - 0.00576) < 1e-5\nassert abs(float(port[\"blend\"].std()) - 0.051997) < 1e-5",
+      "test_summary": "a weighted column mixing two portfolios with a constant risk-free return",
+      "order": 122,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-value-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 \u2014 The same portfolio, weighted by market cap",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 8,
+      "prompt": "Same panel. Now build the **value-weight** portfolio: every month, each stock\ncontributes in proportion to its market cap, so the portfolio return is\n\n`sum(ret * mcap) / sum(mcap)`\n\nwith both sums taken over that month's rows.\n\nStore the monthly series in `vw_returns`, and its mean and sample standard\ndeviation in `vw_mean` and `vw_std`. Compare them with the equal-weight\nnumbers from the previous exercise \u2014 the gap is the size effect in miniature.",
+      "hints": [
+        "A contribution column makes this readable: `data['weighted'] = data['ret'] * data['mcap']`.",
+        "Two groupbys by `caldt` \u2014 one summing `weighted`, one summing `mcap` \u2014 and then divide the two Series.",
+        "The result is indexed by date, so `.mean()` and `.std()` summarise it directly."
+      ],
+      "tests": "assert len(vw_returns) == 120\nassert abs(float(vw_returns.mean()) - 0.016356) < 1e-5\nassert abs(float(vw_returns.std()) - 0.052597) < 1e-5\nassert abs(float(vw_mean) - 0.016356) < 1e-5\nassert abs(float(vw_std) - 0.052597) < 1e-5",
+      "test_summary": "market-cap weights applied month by month, with the mean and sample standard deviation stored",
+      "order": 131,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-cumulative-growth",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 \u2014 What a cumulative product actually measures",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Returns"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 6,
+      "prompt": "Build the value-weight monthly return series again (same file, same recipe \u2014\n`sum(ret * mcap) / sum(mcap)` per month) and call it `vw_returns`.\n\nThen store `growth = (1 + vw_returns).cumprod() - 1` and print the last value.\n\nAdd a comment answering this: what does a single number in `growth` mean, and\nhow is it different from that month's return? Look up `cumprod` if the name is\nunfamiliar.",
+      "hints": [
+        "`cumprod()` multiplies the values in order, so the factors (1 + r) compound.",
+        "Subtracting 1 turns a growth factor back into a return.",
+        "The last element is the return from the first sample month through that month \u2014 not that month's own return."
+      ],
+      "tests": "assert len(growth) == 120\nassert abs(float(growth.iloc[0]) - 0.022638) < 1e-5\nassert abs(float(growth.iloc[-1]) - 4.984085) < 1e-4",
+      "test_summary": "the compounding of monthly returns, where each entry is the cumulative return to that date",
+      "order": 132,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-wide-returns",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 \u2014 Reshape monthly returns for plotting",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Visualization"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 4,
+      "prompt": "The portfolio file is easier to plot when dates are the index and each\nportfolio is a column.\n\nFrom `fin400-port-mcap.csv` build:\n\n- `wide` \u2014 a DataFrame indexed by `caldt` with the columns in the order\n  `micro`, `small`, `mid`, `large`\n- `cumulative = (1 + wide).cumprod()` \u2014 the growth of $1 in each portfolio\n\n`cumulative.plot()` draws one line per portfolio; put it in a comment if you\nwant to look at it. Read the last row: which size portfolio ended highest?",
+      "hints": [
+        "`set_index('caldt')` moves the date column into the index.",
+        "Select the four columns after setting the index, with a list inside double brackets, to fix their order.",
+        "Every column of `cumulative` starts near 1.0 (the $1 you invested) and grows with the returns."
+      ],
+      "tests": "assert tuple(wide.shape) == (120, 4)\nassert list(wide.columns) == [\"micro\", \"small\", \"mid\", \"large\"]\nassert abs(float(cumulative[\"large\"].iloc[-1]) - 2.337838) < 1e-5\nassert abs(float(cumulative[\"micro\"].iloc[-1]) - 1.493871) < 1e-5",
+      "test_summary": "a date-indexed frame with the four portfolios in order and their cumulative growth",
+      "order": 133,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-sign-portfolios",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 14 \u2014 Value-weight stocks by the sign of last month's return",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios",
+        "Lagging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 14,
+      "prompt": "Same panel. Form two value-weight portfolios every month, split by whether a\nstock's **previous** month's return was positive or negative.\n\nStore the two monthly series in `vw_positive` and `vw_negative`, print\n`.describe()` for each, and say in a comment which one earned more and why\nthat might be.\n\nYou will need a lagged return column before you can split, and the rows where\nthe lag is missing have to go before the weights are computed.",
+      "hints": [
+        "A lagged return is the same pattern as the lagged market cap: sort by `permno` and `caldt`, then `groupby('permno')['ret'].shift(1)`.",
+        "`dropna(subset=['ret_lag'])` removes the first month of every stock.",
+        "Filter the frame twice \u2014 `ret_lag > 0` and `ret_lag < 0` \u2014 and value-weight each side with `sum(ret * mcap) / sum(mcap)` per date."
+      ],
+      "tests": "assert len(vw_positive) >= 100\nassert len(vw_negative) >= 100\nassert abs(float(vw_positive.mean()) - 0.023553) < 1e-5\nassert abs(float(vw_negative.mean()) - 0.007798) < 1e-5",
+      "test_summary": "two value-weight portfolios split on the lagged return, each with its monthly mean",
+      "order": 141,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-merge-sector",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 15 \u2014 Attach a sector to every company",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
+        "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "line_count": 4,
+      "prompt": "Two files describe the same companies in fiscal 2024:\n\n- `fin400-mcap-emp.csv` \u2014 `permno`, `fyear`, `mcap` ($ millions), `emp` (employees, thousands)\n- `fin400-firms.csv` \u2014 `permno`, `ticker`, `sector`\n\nMerge them into `merged` on `permno` so that every company keeps its data,\nthen store the average market cap per sector in `sector_mcap`.\n\nBefore you run it, predict how many rows the merge returns. Then check.",
+      "hints": [
+        "`pd.merge(left, right, on='permno', how='inner')` matches rows by the key.",
+        "Both files have exactly one row per `permno`, so no match multiplies a row \u2014 the merged frame is the same height.",
+        "`merged.groupby('sector')['mcap'].mean()` gives one average per sector."
+      ],
+      "tests": "assert len(merged) == 600\nassert \"sector\" in merged.columns and \"ticker\" in merged.columns\nassert abs(float(sector_mcap[\"Technology\"]) - 2046.5836) < 0.01\nassert abs(float(sector_mcap[\"Health Care\"]) - 1534.682) < 0.01",
+      "test_summary": "the two company files combined on permno, with average market cap by sector",
+      "order": 151,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-merge-left",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 15 \u2014 Left merge versus inner merge",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
+        "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "line_count": 6,
+      "prompt": "Same two company files. Build both merges on `permno`:\n\n- `left_merge` with `how='left'`\n- `inner_merge` with `how='inner'`\n\nPrint both lengths. Count how many rows have a missing sector after the left\nmerge and store that in `missing_sector`.\n\nThen answer in a comment: why do the two merges return the same number of\nrows here, and what would have to change for the left merge to be longer?",
+      "hints": [
+        "Argument order matters: the frame you want to keep goes on the left.",
+        "`left_merge['sector'].isna().sum()` counts rows that found no match.",
+        "A left merge only adds rows when a key appears more than once on the right \u2014 here every `permno` appears once."
+      ],
+      "tests": "assert len(left_merge) == 600\nassert len(inner_merge) == 600\nassert missing_sector == 0",
+      "test_summary": "both merge types keep every company, because the right-hand keys are unique",
+      "order": 152,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-leverage-by-year",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 16 \u2014 The typical firm's leverage, year by year",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "line_count": 10,
+      "prompt": "Same panel. Compute the **median** leverage ratio for every fiscal year with a\nsingle `groupby` statement and store the result in `lev_by_year`.\n\nThen put that yearly median back on every row: reset the index of the grouped\nresult, rename the value column `levratio_median_year`, and merge on `fyear`\nso `data` gains the column.\n\nPrint `lev_by_year` and look at 2008 and 2009 \u2014 the worst of the financial\ncrisis. Which way does the typical ratio move, and what does a falling market\nvalue of equity do to a ratio whose denominator is debt plus market cap?",
+      "hints": [
+        "`data.groupby('fyear')['levratio'].median()` returns a Series indexed by year.",
+        "`reset_index()` turns that index into a real column so it can be merged.",
+        "`rename(columns={...})` before `pd.merge(..., on='fyear', how='left')` stops the two leverage columns from colliding."
+      ],
+      "tests": "assert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2008]) - 0.331683) < 1e-3\nassert abs(float(lev_by_year.loc[2009]) - 0.388013) < 1e-3\nassert \"levratio_median_year\" in data.columns\nassert len(data) > 2000\nrow_2009 = data.loc[data[\"fyear\"] == 2009, \"levratio_median_year\"].iloc[0]\nassert abs(float(row_2009) - 0.388013) < 1e-3",
+      "test_summary": "a year-level median series, merged back onto every firm-year without changing the row count",
+      "order": 161,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-duplicate-years",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 16 \u2014 Count, then drop, duplicated firm-years",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Data cleaning"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
+      },
+      "line_count": 8,
+      "prompt": "`fin400-stock-panel-dupes.csv` has the same columns as the panel, but some\nfirm-years were entered twice. One observation should be one ticker in one\nfiscal year.\n\nLoad it into `data`, store the number of duplicated `(ticker, fyear)` pairs in\n`duplicate_count`, then drop them. Afterwards compute the median leverage\nratio by fiscal year and store it in `lev_by_year`.\n\nPrint the count first \u2014 no company should appear twice in a year.",
+      "hints": [
+        "`data.duplicated(subset=['ticker', 'fyear'])` marks the repeated rows; `.sum()` counts them.",
+        "`drop_duplicates(subset=['ticker', 'fyear'])` returns a cleaned frame \u2014 assign it back to `data`.",
+        "The leverage ratio has to exist as a column before the groupby can take a median of it."
+      ],
+      "tests": "assert duplicate_count == 12\nassert len(data) == 2343\nassert len(lev_by_year) == 45",
+      "test_summary": "twelve duplicate firm-years are counted and removed, leaving one row per ticker-year",
+      "order": 162,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-regress-size",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 17 \u2014 Regress market cap on employees",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "line_count": 8,
+      "prompt": "`fin400-mcap-emp.csv` has `mcap` (market value of equity, $ millions) and `emp`\n(employees, thousands) for 600 firms in fiscal 2024.\n\nFit `mcap = a + b * emp + z` with the statsmodels formula API and store the\nfitted object in `reg`. Then keep three results:\n\n- `slope = reg.params['emp']`\n- `resid_mean = reg.resid.mean()`\n- `predicted_25` \u2014 the expected market cap of a company with 25 thousand\n  employees (25,000 people)\n\nPrint `reg.summary()`. Also check whether the residuals correlate with `emp`;\nwhat should that correlation be once the line is fitted by least squares?",
+      "hints": [
+        "`import statsmodels.formula.api as smf`, then `smf.ols('mcap ~ emp', data=firms).fit()`.",
+        "`reg.params` is a Series of fitted coefficients by name; `reg.resid` is the residual Series.",
+        "For the prediction, evaluate the fitted line at 25 \u2014 `emp` is in thousands, so 25 means 25,000 employees."
+      ],
+      "tests": "assert int(reg.nobs) == 600\nassert abs(float(slope) - 120.422248) < 0.01\nassert abs(float(reg.params[\"Intercept\"]) - 771.784559) < 0.01\nassert abs(float(resid_mean)) < 1e-6\nassert abs(float(predicted_25) - 3782.340759) < 0.01",
+      "test_summary": "a fitted line, its slope and intercept, residuals that average to zero, and a prediction",
+      "order": 171,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-beta-portfolio",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 18 \u2014 A beta portfolio against the market, and two t-tests",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression",
+        "Hypothesis testing"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 12,
+      "prompt": "`fin400-port-beta.csv` has monthly returns on ten portfolios sorted by past\nbeta (`p0` \u2026 `p9`); `fin400-factors.csv` has the market return `mkt` and a\nsmall-cap factor `small`.\n\nMerge them on `caldt`, keeping only months that appear in both files, then\nregress `p9` on `mkt` and store the fitted object in `capm`.\n\nTest two hypotheses with `t_test` and store the p-values:\n\n- the true slope equals 1 \u2192 `slope_p`\n- the true intercept equals \u22120.004 \u2192 `alpha_p`\n\nFor each, say in a comment whether you reject the null at 5% and what that\nmeans in words. A very small p-value is a rejection, not a confirmation.",
+      "hints": [
+        "`pd.merge(port, factors, on='caldt', how='inner')` lines the dates up before you regress.",
+        "`capm.t_test('mkt = 1')` takes the hypothesis as a string; its `.pvalue` is a 2-D array, so use `.squeeze()` to get one number.",
+        "Name the intercept in the test string exactly as statsmodels does: `'Intercept = -0.004'`."
+      ],
+      "tests": "assert int(capm.nobs) == 120\nassert abs(float(capm.params[\"mkt\"]) - 1.345073) < 0.005\nassert float(slope_p) < 0.05\nassert float(alpha_p) < 0.05",
+      "test_summary": "an inner merge, a fitted CAPM line, and two t-test p-values",
+      "order": 181,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-practice-pe-loop",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 19 \u2014 Five portfolios, five regressions, one loop",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression",
+        "Loops"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 12,
+      "prompt": "`fin400-port-pe.csv` has monthly returns on five portfolios sorted by past P/E\n(`p0` is the lowest, `p4` the highest); `fin400-factors.csv` has `mkt` and\n`small`.\n\nMerge on `caldt` with an inner merge, then **in a loop** estimate\n`p ~ mkt + small` for every portfolio. Store each fitted parameter Series in a\ndict called `results`, keyed by the portfolio name, and print the summary\ninside the loop.\n\nCompare the `mkt` slopes across the five portfolios: do high-P/E portfolios\nlook more or less market-sensitive in this sample?",
+      "hints": [
+        "Build the formula from the loop variable: an f-string such as `f'{name} ~ mkt + small'`.",
+        "Start with `results = {}` and add one entry per portfolio \u2014 `results[name] = ...`.",
+        "`.fit().params` gives a Series with `Intercept`, `mkt` and `small`, which is exactly what the check reads."
+      ],
+      "tests": "assert sorted(results.keys()) == [\"p0\", \"p1\", \"p2\", \"p3\", \"p4\"]\nassert abs(float(results[\"p0\"][\"mkt\"]) - 1.05249) < 0.005\nassert abs(float(results[\"p4\"][\"mkt\"]) - 0.862471) < 0.005\nassert abs(float(results[\"p4\"][\"Intercept\"]) + 0.003559) < 0.005",
+      "test_summary": "one regression per portfolio, collected in a dict of fitted coefficients",
+      "order": 191,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
     }
   ]
 }

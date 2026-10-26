@@ -206,6 +206,12 @@ Notebooks can live anywhere in the repository: the class notebooks sit in the re
 root, and everything you upload from the website lands in `materials/`. `tools/build_index.py`
 finds them all, so there is no list to keep up to date.
 
+A class can also ship its own **guided modules** as ordinary notebooks in its folder — FIN 400 keeps two
+in `fin400/bootcamp/` and three in `fin400/notebooks/`, each with saved output and a *Try it* list. Add a
+`data/curriculum.json` entry so the module gets a title, a short label and its data files, then run
+`python3 tools/run_notebooks.py --nb "*fin400-module*"` to execute it and store the outputs. The
+Learning tab then lists it next to the accounting sections, grouped by the class folder it lives in.
+
 ### Opening notebooks in JupyterLite
 
 Stock JupyterLite cannot open a notebook from another origin; that needs the
@@ -281,10 +287,20 @@ Open **Add exercise** (`practice/create.html`), fill in the form, and use:
   `draft`, so you can try it before committing it;
 * **Download .json** — drop the file into `problems/` and run `python3 tools/build_index.py`.
 
-### 2. A JSON file in `problems/`
+### 2. A JSON file in `problems/` or `fin400/practice/`
 
 Any `problems/*.json` file is read by the generator. It may contain one problem, an array of
 problems, or `{ "problems": [...] }`.
+
+A class may keep its own sets beside its data instead: `fin400/practice/*.json` is read too, which is
+where the FIN 400 practice sets live. Those are built with no `solution` field and no reference
+answer anywhere in the repository — the repository is public, so an "answer file for the tests" would
+be a published answer key. `tests/pyodide.test.mjs` reports such a problem as skipped with that reason
+unless you point it at a local answers file:
+
+```bash
+EXTRA_REFERENCE_ANSWERS=~/fin400-answers.json npm test   # { "problem-id": "python code" }
+```
 
 ### 3. A Markdown file in `problems/`
 
@@ -344,6 +360,7 @@ print(total)
 | `hints` | all | Revealed one at a time; Markdown allowed |
 | `solution` | all | Shown on request (never marks the exercise solved by itself) |
 | `mode`, `line_count` | write | `both` (default), `guided` or `lines`; suggested line budget |
+| `order` | all | Position inside its group: a numbered track (FIN 400's *Practice 1 … 19*) sorts 1, 2, 3 instead of alphabetically |
 | `glossary` | all | Glossary slugs to link, e.g. `["for-loop", "dictionary"]` |
 | `packages` | all | Extra Pyodide packages loaded on demand, e.g. `["numpy", "pandas"]` |
 | `notebook` | all | Optional notebook path, shown as "from the notebook" |
@@ -556,7 +573,13 @@ python3 tools/make_datasets.py    # rebuild them (same seed, same bytes)
 The size is the point: `violations.csv` has 68,841 rows, `invoices.xlsx` 5,000 invoices,
 `compustat.csv` 10,647 firms over 30 industries, plus `insurance.csv` (the public 1,338-row
 medical-cost dataset), `earnings.csv`, `store_sales.csv` and the small lookup tables the merge
-exercises join on. The generator also writes `acc525/analyticskit.py`, the helper module Data
+exercises join on.
+
+FIN 400's practice data is built the same way, from a different seed, by
+`tools/make_fin400_data.py`: a 900-adult survey, a 2,343-row firm-year panel (plus a copy with
+duplicates), a ten-year stock-month panel, four portfolio files and a 600-firm size file. None of it
+comes from an assignment — the homework's own files are either linked or not supplied at all — so the
+exercises ask the same questions with different companies and different numbers. The generator also writes `acc525/analyticskit.py`, the helper module Data
 Analysis 5 imports — keep the two in step by editing the constant in `tools/make_datasets.py` or,
 better, re-syncing it from the file the way the tool does now.
 
@@ -586,7 +609,9 @@ Pyodide, which is the check that matters.
 * `tests/pyodide.test.mjs` — runs the harness in real Python via Pyodide: stream capture,
   tracebacks, `input()`, `setup`, the loop guard, and **every problem in the repository** (its
   reference solution must pass its own checks, and every predict-the-output answer must match
-  what the program really prints).
+  what the program really prints). A hidden class keeps no answer in the repository, so its problems
+  are skipped with that reason unless `EXTRA_REFERENCE_ANSWERS` points at a local, uncommitted
+  answers file.
 * `tests/pages.test.mjs` — loads each real HTML file in jsdom, runs its real module and asserts
   the rendered DOM: filtering and grouping the exercise list, grading a typed answer (including the
   green/red output comparison), the glossary's search / section filter / order switch, sorting the

@@ -74,26 +74,36 @@ test("no reference solution reaches the browser for FIN 400", () => {
   assert.ok(acc.every((problem) => problem.solutions === "shown"));
 });
 
-test("the manifest files notebooks per class, and FIN 400 is empty for now", () => {
+test("the manifest files notebooks and exercises per class", () => {
   const fin400 = manifest.courses.find((course) => course.id === "fin400");
   assert.ok(fin400, "the manifest lists both classes");
-  assert.equal(fin400.totals.problems, 8);
-  assert.equal(fin400.totals.notebooks, 0);
-  assert.ok(manifest.notebooks.every((entry) => entry.course === "acc525"));
+  const shipped = bundle.problems.filter((problem) => problem.course === "fin400").length;
+  const modules = manifest.notebooks.filter((entry) => entry.course === "fin400").length;
+  assert.ok(shipped > 0, "FIN 400 ships exercises");
+  assert.ok(modules > 0, "FIN 400 ships its guided modules");
+  assert.equal(fin400.totals.problems, shipped, "the manifest counts every FIN 400 exercise");
+  assert.equal(fin400.totals.notebooks, modules, "the manifest counts every FIN 400 notebook");
+  assert.ok(manifest.notebooks.some((entry) => entry.course === "acc525"), "ACC 525 keeps its notebooks");
 });
 
 test("filtering keeps one class and drops the other", () => {
+  const finCount = bundle.problems.filter((problem) => problem.course === "fin400").length;
   const fin = filterProblems(bundle.problems, "fin400");
-  assert.equal(fin.length, 8);
+  assert.equal(fin.length, finCount);
   assert.ok(fin.every((problem) => problem.course === "fin400"));
-  assert.equal(filterProblems(bundle.problems, "acc525").length, bundle.count - 8);
+  assert.equal(filterProblems(bundle.problems, "acc525").length, bundle.count - finCount);
 
+  const finNotebooks = manifest.notebooks.filter((entry) => entry.course === "fin400").length;
   const scaled = filterManifest(manifest, "fin400");
-  assert.equal(scaled.notebooks.length, 0);
-  assert.equal(scaled.groups.length, 0, "no empty group is left behind");
+  assert.equal(scaled.notebooks.length, finNotebooks, "only FIN 400 notebooks survive the filter");
+  assert.ok(scaled.groups.length > 0 && scaled.groups.every((group) => group.notebooks.length > 0),
+    "no empty group is left behind");
 
   const accManifest = filterManifest(manifest, "acc525");
-  assert.equal(accManifest.notebooks.length, manifest.notebooks.length);
+  assert.equal(
+    accManifest.notebooks.length,
+    manifest.notebooks.filter((entry) => entry.course === "acc525").length,
+  );
   assert.ok(accManifest.groups.every((group) => group.notebooks.length > 0));
 
   // An uploaded-but-unfiled notebook has no class yet and must stay visible.
@@ -112,7 +122,12 @@ test("exercises group by the half of the course they belong to", () => {
   const problems = filterProblems(bundle.problems, "fin400");
   const buckets = groupProblemsByPhase(problems, fin400);
   assert.deepEqual(buckets.map((bucket) => bucket.key), ["bootcamp", "analysis"]);
-  assert.deepEqual(buckets.map((bucket) => bucket.problems.length), [4, 4]);
+  // Both halves carry material, and grouping neither loses nor duplicates an exercise.
+  assert.ok(buckets.every((bucket) => bucket.problems.length > 0));
+  assert.equal(
+    buckets.reduce((total, bucket) => total + bucket.problems.length, 0),
+    problems.length,
+  );
   assert.equal(phasesOf(fin400).length, 2);
 
   // An exercise filed under no known half still appears, at the end.

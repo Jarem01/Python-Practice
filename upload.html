@@ -51,7 +51,10 @@
   </ol>
 
   <div id="status"></div>
-  <p id="progress"></p>
+  <div id="progress" class="progress hidden" role="status" aria-live="polite">
+    <div class="progress-track"><div class="progress-fill"></div></div>
+    <p class="small mono muted" id="progress-text" style="margin:.35rem 0 0"></p>
+  </div>
 
   <section class="card">
     <h2 style="margin-top:0">1. Add files</h2>

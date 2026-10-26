@@ -1,0 +1,601 @@
+permno,ticker,sector
+30001,GAC,Consumer
+30002,SMXC,Technology
+30003,OTR,Technology
+30004,TZRQ,Consumer
+30005,MVI,Industrials
+30006,HHYE,Energy
+30007,FTV,Financials
+30008,KRB,Financials
+30009,BUKL,Consumer
+30010,KTHM,Technology
+30011,MUJ,Health Care
+30012,RPP,Industrials
+30013,ANOQ,Industrials
+30014,LXWI,Energy
+30015,ZJCK,Consumer
+30016,MBIP,Financials
+30017,FMUK,Energy
+30018,PQO,Technology
+30019,OOS,Consumer
+30020,GAL,Health Care
+30021,RLUH,Industrials
+30022,YJID,Health Care
+30023,GTLC,Financials
+30024,XCOZ,Health Care
+30025,KHST,Consumer
+30026,UFX,Industrials
+30027,HZYQ,Technology
+30028,AGA,Industrials
+30029,DRPV,Consumer
+30030,NZA,Financials
+30031,KSYC,Energy
+30032,AFJ,Industrials
+30033,LPD,Consumer
+30034,TXK,Energy
+30035,DHDW,Energy
+30036,KROX,Industrials
+30037,RLYE,Industrials
+30038,JDVI,Health Care
+30039,DRKK,Health Care
+30040,HUNK,Health Care
+30041,KFUV,Technology
+30042,VMGH,Consumer
+30043,DSVC,Technology
+30044,RFIQ,Industrials
+30045,LRE,Financials
+30046,FHOU,Technology
+30047,NLQ,Health Care
+30048,VYRJ,Health Care
+30049,EZH,Industrials
+30050,JVD,Energy
+30051,XUY,Financials
+30052,BLQ,Energy
+30053,HNNT,Industrials
+30054,LQRN,Energy
+30055,PKE,Industrials
+30056,CZWN,Consumer
+30057,HKV,Technology
+30058,JJF,Financials
+30059,OXM,Health Care
+30060,XYB,Energy
+30061,JTM,Health Care
+30062,SSZS,Energy
+30063,VLR,Energy
+30064,HPL,Financials
+30065,RQH,Industrials
+30066,EBKX,Energy
+30067,WUPL,Consumer
+30068,KUUQ,Energy
+30069,XEK,Consumer
+30070,GKKM,Energy
+30071,BVSB,Energy
+30072,LZGS,Energy
+30073,EDH,Technology
+30074,YRWE,Industrials
+30075,KTFD,Health Care
+30076,ILKH,Health Care
+30077,LLXO,Technology
+30078,ETSO,Energy
+30079,FEA,Health Care
+30080,JRB,Industrials
+30081,YJY,Industrials
+30082,UCHY,Consumer
+30083,CIS,Consumer
+30084,AQB,Consumer
+30085,BUGZ,Health Care
+30086,LGSM,Technology
+30087,AKGX,Consumer
+30088,VQJ,Technology
+30089,DDEJ,Technology
+30090,TQPV,Technology
+30091,KCC,Industrials
+30092,UZLL,Industrials
+30093,AGP,Technology
+30094,WSM,Financials
+30095,IXI,Industrials
+30096,LMMM,Health Care
+30097,WMX,Financials
+30098,ZPBG,Consumer
+30099,KIUC,Consumer
+30100,FFSL,Technology
+30101,BXZU,Industrials
+30102,GMO,Technology
+30103,NKRY,Health Care
+30104,KAWB,Industrials
+30105,BIBU,Technology
+30106,PXFA,Industrials
+30107,EEE,Consumer
+30108,EMND,Industrials
+30109,NBK,Consumer
+30110,YZXY,Industrials
+30111,NOK,Health Care
+30112,MKPF,Consumer
+30113,RRHK,Technology
+30114,EYV,Health Care
+30115,CADK,Energy
+30116,ZKAL,Energy
+30117,YNM,Industrials
+30118,XMD,Technology
+30119,BIX,Consumer
+30120,KRT,Industrials
+30121,UBOD,Health Care
+30122,LVYN,Consumer
+30123,PZC,Financials
+30124,ILEA,Consumer
+30125,OQQ,Financials
+30126,AMLO,Health Care
+30127,KSSL,Energy
+30128,XMAC,Financials
+30129,MWIG,Consumer
+30130,KUDP,Health Care
+30131,ZIW,Consumer
+30132,EYA,Health Care
+30133,ZKA,Technology
+30134,NVGY,Industrials
+30135,EUV,Financials
+30136,KYVP,Industrials
+30137,PAI,Consumer
+30138,BTJ,Energy
+30139,RDX,Health Care
+30140,AMZ,Financials
+30141,TJV,Industrials
+30142,FKT,Industrials
+30143,VKBQ,Technology
+30144,PIJL,Energy
+30145,IAMJ,Energy
+30146,MBI,Health Care
+30147,JSG,Consumer
+30148,CNQ,Health Care
+30149,BPWO,Technology
+30150,TAK,Energy
+30151,SUU,Technology
+30152,WOAE,Consumer
+30153,GPTP,Consumer
+30154,JFY,Health Care
+30155,QXO,Energy
+30156,LTR,Energy
+30157,QNQQ,Financials
+30158,DJT,Technology
+30159,NEGA,Health Care
+30160,QKL,Financials
+30161,TLF,Health Care
+30162,HVYF,Industrials
+30163,XPC,Industrials
+30164,QQT,Energy
+30165,SLAW,Financials
+30166,JHDW,Technology
+30167,KEVX,Energy
+30168,AZII,Technology
+30169,MRI,Consumer
+30170,WFG,Industrials
+30171,HTF,Industrials
+30172,WOOS,Financials
+30173,ANVF,Financials
+30174,WYYB,Consumer
+30175,MPO,Financials
+30176,VST,Financials
+30177,INQ,Consumer
+30178,ATF,Financials
+30179,LXL,Industrials
+30180,KGF,Technology
+30181,WPA,Health Care
+30182,PRAK,Technology
+30183,BTNJ,Energy
+30184,IZL,Consumer
+30185,JDMP,Consumer
+30186,KZR,Technology
+30187,SVE,Technology
+30188,ZPBL,Technology
+30189,DDST,Technology
+30190,DJJR,Consumer
+30191,NDR,Health Care
+30192,RSBK,Energy
+30193,UDL,Consumer
+30194,ETGD,Industrials
+30195,QHCD,Technology
+30196,XQXD,Industrials
+30197,GEXU,Energy
+30198,RHL,Consumer
+30199,FFVV,Financials
+30200,RUI,Industrials
+30201,BTV,Financials
+30202,LMH,Industrials
+30203,YFCQ,Energy
+30204,ZGQI,Financials
+30205,UWDC,Energy
+30206,RST,Financials
+30207,VLHK,Energy
+30208,HQC,Energy
+30209,BRPV,Technology
+30210,YCXF,Energy
+30211,NJGA,Financials
+30212,LKWR,Technology
+30213,KZG,Industrials
+30214,RNCR,Industrials
+30215,OUEE,Financials
+30216,HWMP,Financials
+30217,GQCP,Consumer
+30218,CUC,Industrials
+30219,YZBP,Industrials
+30220,TSTP,Industrials
+30221,KLL,Industrials
+30222,XZO,Energy
+30223,DPM,Energy
+30224,JDO,Energy
+30225,QHVS,Energy
+30226,EPA,Health Care
+30227,ALVQ,Industrials
+30228,QIQ,Health Care
+30229,RCO,Technology
+30230,IBNF,Consumer
+30231,BKIP,Energy
+30232,YLF,Industrials
+30233,HQY,Energy
+30234,RSF,Energy
+30235,WMN,Energy
+30236,GPJ,Energy
+30237,XIAM,Energy
+30238,ZRD,Consumer
+30239,CVT,Energy
+30240,TBQ,Consumer
+30241,GSZ,Industrials
+30242,ULU,Energy
+30243,SRSU,Technology
+30244,FNOI,Energy
+30245,LAD,Health Care
+30246,AGDZ,Health Care
+30247,UEDR,Industrials
+30248,FQQ,Energy
+30249,YMG,Consumer
+30250,PTR,Technology
+30251,LGPQ,Health Care
+30252,TBU,Health Care
+30253,YYMF,Technology
+30254,YHR,Energy
+30255,NUMJ,Consumer
+30256,CFV,Energy
+30257,EXCT,Consumer
+30258,UTXT,Technology
+30259,GHQ,Industrials
+30260,ZQJ,Technology
+30261,YLAJ,Industrials
+30262,OEZO,Financials
+30263,LRR,Consumer
+30264,HKJ,Health Care
+30265,AOU,Industrials
+30266,ZSZW,Consumer
+30267,TKHY,Health Care
+30268,SQKK,Energy
+30269,PNN,Health Care
+30270,IWS,Energy
+30271,YXQ,Consumer
+30272,YIHQ,Energy
+30273,ACU,Financials
+30274,FJE,Technology
+30275,ZBJ,Energy
+30276,BOGK,Financials
+30277,NLZ,Health Care
+30278,HHG,Consumer
+30279,BDD,Energy
+30280,YHZY,Industrials
+30281,TKNV,Health Care
+30282,QXA,Consumer
+30283,OFBV,Consumer
+30284,KVG,Financials
+30285,DMSZ,Financials
+30286,BOR,Industrials
+30287,RIMR,Energy
+30288,ZHA,Industrials
+30289,WYKU,Energy
+30290,DWSN,Industrials
+30291,WLMW,Technology
+30292,UVTD,Industrials
+30293,JWK,Technology
+30294,TRO,Industrials
+30295,URE,Financials
+30296,VAI,Technology
+30297,KKEM,Consumer
+30298,ZOXE,Technology
+30299,IGG,Financials
+30300,RAN,Technology
+30301,AISV,Financials
+30302,NBLX,Financials
+30303,VENJ,Financials
+30304,RYMG,Technology
+30305,ZLH,Energy
+30306,QWTM,Energy
+30307,RRHS,Technology
+30308,LGJ,Financials
+30309,BDZK,Energy
+30310,KLN,Financials
+30311,YHE,Financials
+30312,AQM,Financials
+30313,OFC,Energy
+30314,STPZ,Consumer
+30315,LYC,Health Care
+30316,VZJH,Technology
+30317,VJO,Consumer
+30318,JSW,Industrials
+30319,KBVK,Energy
+30320,JUJV,Consumer
+30321,FFXZ,Technology
+30322,OVLS,Consumer
+30323,ZKLH,Energy
+30324,EXV,Industrials
+30325,GAG,Energy
+30326,ONWE,Energy
+30327,WXS,Technology
+30328,WIL,Consumer
+30329,HRMM,Technology
+30330,ZRN,Financials
+30331,QLF,Consumer
+30332,MBB,Industrials
+30333,YJMP,Energy
+30334,HCV,Health Care
+30335,MREQ,Energy
+30336,TFH,Financials
+30337,MMBH,Consumer
+30338,XCS,Financials
+30339,PXK,Industrials
+30340,NRBF,Technology
+30341,ODTO,Industrials
+30342,EAJ,Health Care
+30343,RFS,Financials
+30344,JVC,Technology
+30345,GJR,Health Care
+30346,HHST,Consumer
+30347,VKKD,Financials
+30348,UCU,Technology
+30349,IEJA,Health Care
+30350,OKZ,Energy
+30351,SVWD,Technology
+30352,QYY,Industrials
+30353,OGOP,Energy
+30354,GIND,Financials
+30355,YELM,Financials
+30356,MDJA,Financials
+30357,YFG,Energy
+30358,KOCO,Financials
+30359,RNSJ,Financials
+30360,EYKB,Financials
+30361,ZODL,Financials
+30362,WVAB,Energy
+30363,NQW,Health Care
+30364,UOOU,Technology
+30365,XAWQ,Health Care
+30366,OBQP,Health Care
+30367,NBN,Industrials
+30368,PUOD,Financials
+30369,QEP,Technology
+30370,YEFE,Technology
+30371,CMN,Energy
+30372,IQS,Health Care
+30373,URBR,Health Care
+30374,DNR,Energy
+30375,NZU,Consumer
+30376,YBX,Technology
+30377,CFJ,Energy
+30378,VBG,Energy
+30379,LUXM,Consumer
+30380,LRUT,Industrials
+30381,LQZ,Technology
+30382,RQJO,Health Care
+30383,OUM,Technology
+30384,AZZC,Industrials
+30385,WDQ,Technology
+30386,DNTB,Industrials
+30387,DTWM,Energy
+30388,HYP,Consumer
+30389,LQKY,Consumer
+30390,GCFI,Financials
+30391,RDT,Financials
+30392,CVY,Financials
+30393,GLIH,Financials
+30394,QGD,Financials
+30395,FUV,Health Care
+30396,QZRW,Industrials
+30397,DUD,Financials
+30398,PZNU,Technology
+30399,JQQ,Financials
+30400,ELF,Energy
+30401,NCH,Consumer
+30402,IKOV,Health Care
+30403,GVYA,Consumer
+30404,UZXH,Energy
+30405,QURM,Energy
+30406,HUWT,Financials
+30407,WDO,Consumer
+30408,EEU,Health Care
+30409,UQJD,Health Care
+30410,NKJO,Health Care
+30411,MIH,Consumer
+30412,YFLR,Energy
+30413,BQD,Financials
+30414,HZJ,Financials
+30415,AFM,Technology
+30416,RXCZ,Technology
+30417,IEWQ,Consumer
+30418,FQZ,Industrials
+30419,EDIM,Technology
+30420,AYS,Health Care
+30421,LFI,Industrials
+30422,OVA,Health Care
+30423,LRPE,Health Care
+30424,QTWH,Energy
+30425,DXO,Financials
+30426,ENA,Industrials
+30427,VZY,Financials
+30428,ZBTP,Consumer
+30429,SJY,Technology
+30430,DYD,Technology
+30431,ZYA,Financials
+30432,ZSLH,Consumer
+30433,EZBT,Consumer
+30434,WRTS,Industrials
+30435,CRD,Technology
+30436,TMO,Industrials
+30437,FKEX,Financials
+30438,VTL,Energy
+30439,THBH,Consumer
+30440,CEZA,Energy
+30441,RAS,Energy
+30442,ZBZ,Financials
+30443,NLA,Energy
+30444,EBET,Technology
+30445,OHM,Technology
+30446,FSR,Industrials
+30447,VGJK,Industrials
+30448,ECF,Consumer
+30449,LCW,Health Care
+30450,QMI,Health Care
+30451,YJN,Consumer
+30452,QRGT,Consumer
+30453,AJG,Consumer
+30454,MDE,Financials
+30455,ASLH,Health Care
+30456,UHP,Financials
+30457,KAZ,Consumer
+30458,SPMA,Financials
+30459,GVTT,Technology
+30460,XYSC,Health Care
+30461,JQLY,Energy
+30462,ONOP,Consumer
+30463,GJST,Technology
+30464,UNU,Energy
+30465,EOF,Industrials
+30466,QRPU,Consumer
+30467,YHZQ,Health Care
+30468,JRS,Industrials
+30469,PGWP,Financials
+30470,XQR,Financials
+30471,HXN,Consumer
+30472,SYSZ,Energy
+30473,CLBI,Industrials
+30474,GFUP,Industrials
+30475,RIM,Technology
+30476,FGM,Financials
+30477,OBF,Health Care
+30478,CKYL,Financials
+30479,ZSB,Health Care
+30480,FWO,Financials
+30481,AFLR,Financials
+30482,OHZM,Consumer
+30483,TVVR,Industrials
+30484,FIN,Technology
+30485,YUU,Energy
+30486,KGPZ,Technology
+30487,QDJL,Consumer
+30488,DJQL,Health Care
+30489,JCVN,Energy
+30490,BCH,Industrials
+30491,DZI,Financials
+30492,HXKX,Health Care
+30493,IQNV,Industrials
+30494,QHU,Technology
+30495,EXK,Technology
+30496,VZZ,Energy
+30497,CWGA,Industrials
+30498,UBX,Energy
+30499,UXM,Health Care
+30500,SBGA,Technology
+30501,GTSX,Industrials
+30502,XQNQ,Industrials
+30503,TTDV,Energy
+30504,VTKU,Energy
+30505,CKWX,Technology
+30506,IMS,Health Care
+30507,HUTD,Energy
+30508,EBLW,Industrials
+30509,INYB,Industrials
+30510,YWWD,Consumer
+30511,IXFX,Industrials
+30512,FON,Energy
+30513,YWDQ,Energy
+30514,VEI,Consumer
+30515,QJO,Consumer
+30516,WQBT,Health Care
+30517,YBH,Energy
+30518,FLHT,Consumer
+30519,BNF,Technology
+30520,WQV,Consumer
+30521,ZZWP,Consumer
+30522,HFQC,Energy
+30523,PZNL,Consumer
+30524,LQU,Energy
+30525,ZQPB,Industrials
+30526,OEH,Technology
+30527,RTXD,Energy
+30528,NLIZ,Consumer
+30529,KZZR,Energy
+30530,TQZ,Financials
+30531,NCSD,Consumer
+30532,YMI,Industrials
+30533,SYEI,Technology
+30534,YZDL,Industrials
+30535,BCT,Technology
+30536,ITLE,Industrials
+30537,VCK,Industrials
+30538,RRGI,Financials
+30539,UHKG,Energy
+30540,CGL,Industrials
+30541,RAH,Technology
+30542,METI,Technology
+30543,GJGO,Consumer
+30544,ZSY,Financials
+30545,JMYE,Technology
+30546,UCR,Financials
+30547,YYS,Energy
+30548,BJJ,Financials
+30549,QIZO,Industrials
+30550,TBX,Technology
+30551,TGP,Financials
+30552,SBEW,Technology
+30553,AWH,Industrials
+30554,CET,Health Care
+30555,XXIF,Consumer
+30556,AOJV,Consumer
+30557,FVF,Health Care
+30558,AUMI,Energy
+30559,FQA,Industrials
+30560,COM,Consumer
+30561,YTP,Consumer
+30562,OTZ,Industrials
+30563,DCXT,Industrials
+30564,DYH,Consumer
+30565,CUHP,Financials
+30566,ARB,Industrials
+30567,BGIC,Health Care
+30568,IPW,Consumer
+30569,XKCD,Energy
+30570,PUNG,Consumer
+30571,FFLZ,Energy
+30572,JXXM,Energy
+30573,FVXQ,Energy
+30574,IOXZ,Health Care
+30575,PFZ,Consumer
+30576,BGRO,Energy
+30577,MVLV,Health Care
+30578,SDNV,Energy
+30579,VMF,Health Care
+30580,PTGV,Health Care
+30581,IDD,Industrials
+30582,SFE,Financials
+30583,UEXN,Consumer
+30584,LIU,Health Care
+30585,XAP,Energy
+30586,OMU,Technology
+30587,MWW,Energy
+30588,ROG,Financials
+30589,BNI,Consumer
+30590,IHF,Industrials
+30591,FXV,Health Care
+30592,PBPM,Industrials
+30593,HKSC,Financials
+30594,BKT,Health Care
+30595,LYFB,Consumer
+30596,YCFW,Industrials
+30597,LBH,Consumer
+30598,PABJ,Energy
+30599,EGMG,Energy
+30600,MOPE,Energy

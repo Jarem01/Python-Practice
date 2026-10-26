@@ -8,9 +8,15 @@
  *     what the program prints.
  *
  * A class that hides its solutions from students (FIN 400) has no `solution` in
- * the bundle, by design. Its reference answers live in tests/solutions/*.json
- * instead: tests/ is never published, so the checks are provable without
- * shipping the answers to the browser.
+ * the bundle, by design — and its practice sets keep no answer in the repository
+ * at all, because the repository is public. Those problems are checked by
+ * pointing EXTRA_REFERENCE_ANSWERS at a local JSON file of reference answers
+ * that is never committed:
+ *
+ *   EXTRA_REFERENCE_ANSWERS=/path/to/answers.json npm test
+ *
+ * Without that file such a problem is reported as SKIPPED with the reason, never
+ * as a silent pass.
  *
  * Requires the Pyodide npm package (dev-only):
  *   npm install --no-save pyodide && node --test tests/
@@ -31,7 +37,11 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const bundle = JSON.parse(await readFile(path.join(root, "problems", "index.json"), "utf8"));
 
-/** Reference answers kept out of the published bundle (tests/solutions/*.json). */
+/**
+ * Reference answers kept out of the published bundle. Only a class that shares
+ * its worked answers may store them here (tests/solutions/*.json); a hidden
+ * class keeps none in a public repository and uses EXTRA_REFERENCE_ANSWERS.
+ */
 const referenceAnswers = {};
 try {
   for (const name of await readdir(path.join(root, "tests", "solutions"))) {
@@ -43,6 +53,14 @@ try {
   }
 } catch {
   /* no side file: every problem must then carry its own solution */
+}
+
+/** Optional private file: { problemId: referenceCode }. Never part of the repository. */
+if (process.env.EXTRA_REFERENCE_ANSWERS) {
+  const extra = JSON.parse(await readFile(process.env.EXTRA_REFERENCE_ANSWERS, "utf8"));
+  for (const [id, code] of Object.entries(extra)) {
+    if (!id.startsWith("_")) referenceAnswers[id] = code;
+  }
 }
 
 let loadPyodide = null;
@@ -156,7 +174,16 @@ async function materialize(dataFiles) {
 }
 
 for (const problem of bundle.problems) {
-  test(`problem "${problem.id}" (${problem.type}) is solvable`, { skip }, async () => {
+  const reference = problem.solution ?? referenceAnswers[problem.id];
+  // A hidden class keeps its answers out of the repository on purpose. Say so
+  // in the report instead of failing — or quietly passing.
+  const noReference =
+    problem.type === "predict_output" || reference
+      ? false
+      : `${problem.id} stores no reference answer (hidden class: the repository is public). ` +
+        "Set EXTRA_REFERENCE_ANSWERS to a local answers file to check it.";
+
+  test(`problem "${problem.id}" (${problem.type}) is solvable`, { skip: skip || noReference }, async () => {
     const packages = problem.packages || [];
     // Exactly what the exercise page passes: setup state, declared data files and
     // the Jupyter-style display of a trailing expression.
@@ -181,12 +208,7 @@ for (const problem of bundle.problems) {
       return;
     }
 
-    const reference = problem.solution ?? referenceAnswers[problem.id];
-    assert.ok(
-      reference,
-      `${problem.id} has no reference answer. Add one to tests/solutions/${problem.course}.json ` +
-        `(hidden classes never carry 'solution' in the bundle) or as "solution" on the problem.`,
-    );
+    assert.ok(reference, `${problem.id} has no reference answer`);
     const result = await run({ code: reference, tests: problem.tests || "", packages, ...shared });
     const verdict = gradeRun(problem, result);
     assert.equal(

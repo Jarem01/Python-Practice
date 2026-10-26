@@ -1,0 +1,494 @@
+{
+  "problems": [
+    {
+      "id": "fin400-practice-eps-leverage",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 10 — Earnings per share and a leverage ratio",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "line_count": 7,
+      "prompt": "`fin400-stock-panel.csv` is a firm-year panel with `ticker`, `fyear`, `ni`\n(net income, $ millions), `debt_lgterm` (long-term debt, $ millions), `mcap`\n(market value of equity, $ millions) and `shr` (shares outstanding, millions).\n\nLoad it into `data` and add three columns:\n\n- `eps` — net income per share\n- `levratio` — long-term debt divided by long-term debt plus market cap\n- `pos` — `True` when `levratio` is positive, `False` otherwise\n\nThen keep `lev_counts = data['pos'].value_counts()` and\n`mcap_by_pos = data.groupby('pos')['mcap'].mean()` and print both.\n\nSomething to notice: the two `value_counts` lines answer different questions\n(how many, and what share). Which firms are larger on average — the ones with\nno long-term debt, or the ones carrying some?",
+      "hints": [
+        "Every column is plain arithmetic: `data['ni'] / data['shr']` creates a new column.",
+        "`data['levratio'] > 0` produces the True/False column without a loop.",
+        "`value_counts()` counts each outcome; `groupby('pos')['mcap'].mean()` gives one average per group."
+      ],
+      "tests": "assert len(data) > 2000\nassert abs(float(data[\"eps\"].median()) - 4.222102) < 1e-3\nassert abs(float(data[\"levratio\"].median()) - 0.369484) < 1e-3\nassert int(lev_counts[True]) == 2152\nassert int(lev_counts[False]) == 191\nassert abs(float(mcap_by_pos[False]) - 10670.0013) < 0.01\nassert abs(float(mcap_by_pos[True]) - 9381.9091) < 0.01",
+      "test_summary": "eps, leverage and a boolean column, with the counts and the average market cap per group",
+      "order": 101,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+    },
+    {
+      "id": "fin400-p10-fix-levratio",
+      "type": "fix_the_code",
+      "difficulty": "medium",
+      "title": "Practice 10 — The leverage ratio that is never a ratio",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Debugging"
+      ],
+      "expected_output": "0.369",
+      "prompt": "`levratio` is long-term debt divided by long-term debt **plus** market value of\nequity, so every value must sit between 0 and 1 and the median should be `0.369`.\n\nThis program prints a median around `2844.1`. The columns are the right ones and\nthe division is in the right place — the grouping of the expression is not.",
+      "hints": [
+        "Division happens before addition, so the debt is divided by itself first.",
+        "One is being added to the market cap of every firm.",
+        "Wrap the sum in parentheses so the division applies to all of it."
+      ],
+      "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fin400-stock-panel.csv\")\ndata[\"levratio\"] = data[\"debt_lgterm\"] / data[\"debt_lgterm\"] + data[\"mcap\"]\n\nprint(round(data[\"levratio\"].median(), 3))",
+      "tests": "assert abs(float(data[\"levratio\"].median()) - 0.369) < 1e-3\nassert float(data[\"levratio\"].max()) <= 1\nassert int((data[\"levratio\"] > 1).sum()) == 0\nassert int((data[\"levratio\"] == 0).sum()) == 191",
+      "test_summary": "debt is divided by debt plus market cap, so the ratio stays inside 0 and 1",
+      "course": "fin400",
+      "packages": [],
+      "order": 103,
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "phase": "bootcamp",
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      }
+    },
+    {
+      "id": "fin400-practice-equal-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 11 — An equal-weight portfolio every month",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 5,
+      "prompt": "`fin400-monthly-stocks.csv` is a stock-month panel: `permno`, `caldt`,\n`ticker`, `prc`, `ret` and `mcap`.\n\nLoad it with `parse_dates=['caldt']`. Build the **equal-weight** portfolio —\neach year-month, the portfolio return is the simple average of every stock's\n`ret` that month — and store it in `ew_returns`.\n\nThen store `ew_mean` and `ew_std`: the mean and the sample standard deviation\nof that monthly series.",
+      "hints": [
+        "`data.groupby('caldt')['ret'].mean()` collapses the panel to one value per date.",
+        "A Series has `.mean()` and `.std()`; pandas' `.std()` already uses the n − 1 denominator.",
+        "Keep `ew_returns` as a Series indexed by date and take the two statistics from it."
+      ],
+      "tests": "assert len(ew_returns) == 120\nassert abs(float(ew_returns.mean()) - 0.008561) < 1e-5\nassert abs(float(ew_returns.std()) - 0.051730) < 1e-5\nassert abs(float(ew_mean) - 0.008561) < 1e-5\nassert abs(float(ew_std) - 0.051730) < 1e-5",
+      "test_summary": "one equal-weight return per month, with its mean and sample standard deviation",
+      "order": 111,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-count-and-lag",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 12 — How many stocks, and last month's market cap",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Lagging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 7,
+      "prompt": "Same panel, two tasks that are really the same idea: a variable from an\nearlier row.\n\n1. `stock_count` — how many stocks are in the portfolio each year-month, as a\n   Series indexed by `caldt`.\n2. `mcap_lag` — a new column on `data` holding each stock's market cap from\n   the **previous** month, and NaN in its first month.\n\nSort by `permno` then `caldt` before you shift. Without the sort, one stock\ncan pick up another company's previous value.\n\nPrint `.describe()` for `stock_count`, and compare the number of\nnon-missing values in `mcap` and `mcap_lag`. Why are they different?",
+      "hints": [
+        "`groupby('caldt')['permno'].count()` counts the rows behind each date.",
+        "`data.sort_values(['permno', 'caldt'])` gives every stock's months in order.",
+        "`shift(1)` moves a column down one row *within each group*, which is exactly why the first month of every stock is NaN."
+      ],
+      "tests": "assert len(stock_count) == 120\nassert abs(float(stock_count.mean()) - 45.0) < 1e-9\nassert int(stock_count.sum()) == 5400\nassert int(data[\"mcap_lag\"].notna().sum()) == 5355",
+      "test_summary": "a dated count of stocks and a within-stock lag that leaves the first month of each stock empty",
+      "order": 121,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-blended-portfolio",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 12 — A 30/50/20 portfolio with a risk-free asset",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 5,
+      "prompt": "`fin400-port-mcap.csv` holds monthly returns on four portfolios sorted by\nmarket cap: `micro`, `small`, `mid`, `large`, with dates in `caldt`.\n\nLoad it into `port` and add a column `blend` that puts **30% in micro, 50% in\nsmall and 20% in a risk-free asset** paying 0.0025 per month.\n\nKeep `blend_summary = port['blend'].describe()` and print it. Compare the\nblend with `micro` and `small` on their own — what does the risk-free slice do\nto the average and the spread?",
+      "hints": [
+        "Multiplying a column by a number scales every return; adding the pieces combines the holdings.",
+        "The risk-free piece contributes a constant: `0.2 * 0.0025`.",
+        "Assign the result to `port['blend']` so the column exists — the check reads the column, not a loose variable."
+      ],
+      "tests": "assert len(port) == 120\nassert \"blend\" in port.columns\nassert abs(float(port[\"blend\"].mean()) - 0.00576) < 1e-5\nassert abs(float(port[\"blend\"].std()) - 0.051997) < 1e-5",
+      "test_summary": "a weighted column mixing two portfolios with a constant risk-free return",
+      "order": 122,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-value-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 — The same portfolio, weighted by market cap",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 8,
+      "prompt": "Same panel. Now build the **value-weight** portfolio: every month, each stock\ncontributes in proportion to its market cap, so the portfolio return is\n\n`sum(ret * mcap) / sum(mcap)`\n\nwith both sums taken over that month's rows.\n\nStore the monthly series in `vw_returns`, and its mean and sample standard\ndeviation in `vw_mean` and `vw_std`. Compare them with the equal-weight\nnumbers from the previous exercise — the gap is the size effect in miniature.",
+      "hints": [
+        "A contribution column makes this readable: `data['weighted'] = data['ret'] * data['mcap']`.",
+        "Two groupbys by `caldt` — one summing `weighted`, one summing `mcap` — and then divide the two Series.",
+        "The result is indexed by date, so `.mean()` and `.std()` summarise it directly."
+      ],
+      "tests": "assert len(vw_returns) == 120\nassert abs(float(vw_returns.mean()) - 0.016356) < 1e-5\nassert abs(float(vw_returns.std()) - 0.052597) < 1e-5\nassert abs(float(vw_mean) - 0.016356) < 1e-5\nassert abs(float(vw_std) - 0.052597) < 1e-5",
+      "test_summary": "market-cap weights applied month by month, with the mean and sample standard deviation stored",
+      "order": 131,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-cumulative-growth",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 — What a cumulative product actually measures",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Returns"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 6,
+      "prompt": "Build the value-weight monthly return series again (same file, same recipe —\n`sum(ret * mcap) / sum(mcap)` per month) and call it `vw_returns`.\n\nThen store `growth = (1 + vw_returns).cumprod() - 1` and print the last value.\n\nAdd a comment answering this: what does a single number in `growth` mean, and\nhow is it different from that month's return? Look up `cumprod` if the name is\nunfamiliar.",
+      "hints": [
+        "`cumprod()` multiplies the values in order, so the factors (1 + r) compound.",
+        "Subtracting 1 turns a growth factor back into a return.",
+        "The last element is the return from the first sample month through that month — not that month's own return."
+      ],
+      "tests": "assert len(growth) == 120\nassert abs(float(growth.iloc[0]) - 0.022638) < 1e-5\nassert abs(float(growth.iloc[-1]) - 4.984085) < 1e-4",
+      "test_summary": "the compounding of monthly returns, where each entry is the cumulative return to that date",
+      "order": 132,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-wide-returns",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 13 — Reshape monthly returns for plotting",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Visualization"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 4,
+      "prompt": "The portfolio file is easier to plot when dates are the index and each\nportfolio is a column.\n\nFrom `fin400-port-mcap.csv` build:\n\n- `wide` — a DataFrame indexed by `caldt` with the columns in the order\n  `micro`, `small`, `mid`, `large`\n- `cumulative = (1 + wide).cumprod()` — the growth of $1 in each portfolio\n\n`cumulative.plot()` draws one line per portfolio; put it in a comment if you\nwant to look at it. Read the last row: which size portfolio ended highest?",
+      "hints": [
+        "`set_index('caldt')` moves the date column into the index.",
+        "Select the four columns after setting the index, with a list inside double brackets, to fix their order.",
+        "Every column of `cumulative` starts near 1.0 (the $1 you invested) and grows with the returns."
+      ],
+      "tests": "assert tuple(wide.shape) == (120, 4)\nassert list(wide.columns) == [\"micro\", \"small\", \"mid\", \"large\"]\nassert abs(float(cumulative[\"large\"].iloc[-1]) - 2.337838) < 1e-5\nassert abs(float(cumulative[\"micro\"].iloc[-1]) - 1.493871) < 1e-5",
+      "test_summary": "a date-indexed frame with the four portfolios in order and their cumulative growth",
+      "order": 133,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-sign-portfolios",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 14 — Value-weight stocks by the sign of last month's return",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Portfolios",
+        "Lagging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 14,
+      "prompt": "Same panel. Form two value-weight portfolios every month, split by whether a\nstock's **previous** month's return was positive or negative.\n\nStore the two monthly series in `vw_positive` and `vw_negative`, print\n`.describe()` for each, and say in a comment which one earned more and why\nthat might be.\n\nYou will need a lagged return column before you can split, and the rows where\nthe lag is missing have to go before the weights are computed.",
+      "hints": [
+        "A lagged return is the same pattern as the lagged market cap: sort by `permno` and `caldt`, then `groupby('permno')['ret'].shift(1)`.",
+        "`dropna(subset=['ret_lag'])` removes the first month of every stock.",
+        "Filter the frame twice — `ret_lag > 0` and `ret_lag < 0` — and value-weight each side with `sum(ret * mcap) / sum(mcap)` per date."
+      ],
+      "tests": "assert len(vw_positive) >= 100\nassert len(vw_negative) >= 100\nassert abs(float(vw_positive.mean()) - 0.023553) < 1e-5\nassert abs(float(vw_negative.mean()) - 0.007798) < 1e-5",
+      "test_summary": "two value-weight portfolios split on the lagged return, each with its monthly mean",
+      "order": 141,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-merge-sector",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 15 — Attach a sector to every company",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
+        "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "line_count": 4,
+      "prompt": "Two files describe the same companies in fiscal 2024:\n\n- `fin400-mcap-emp.csv` — `permno`, `fyear`, `mcap` ($ millions), `emp` (employees, thousands)\n- `fin400-firms.csv` — `permno`, `ticker`, `sector`\n\nMerge them into `merged` on `permno` so that every company keeps its data,\nthen store the average market cap per sector in `sector_mcap`.\n\nBefore you run it, predict how many rows the merge returns. Then check.",
+      "hints": [
+        "`pd.merge(left, right, on='permno', how='inner')` matches rows by the key.",
+        "Both files have exactly one row per `permno`, so no match multiplies a row — the merged frame is the same height.",
+        "`merged.groupby('sector')['mcap'].mean()` gives one average per sector."
+      ],
+      "tests": "assert len(merged) == 600\nassert \"sector\" in merged.columns and \"ticker\" in merged.columns\nassert abs(float(sector_mcap[\"Technology\"]) - 2046.5836) < 0.01\nassert abs(float(sector_mcap[\"Health Care\"]) - 1534.682) < 0.01",
+      "test_summary": "the two company files combined on permno, with average market cap by sector",
+      "order": 151,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-merge-left",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 15 — Left merge versus inner merge",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
+        "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "line_count": 6,
+      "prompt": "Same two company files. Build both merges on `permno`:\n\n- `left_merge` with `how='left'`\n- `inner_merge` with `how='inner'`\n\nPrint both lengths. Count how many rows have a missing sector after the left\nmerge and store that in `missing_sector`.\n\nThen answer in a comment: why do the two merges return the same number of\nrows here, and what would have to change for the left merge to be longer?",
+      "hints": [
+        "Argument order matters: the frame you want to keep goes on the left.",
+        "`left_merge['sector'].isna().sum()` counts rows that found no match.",
+        "A left merge only adds rows when a key appears more than once on the right — here every `permno` appears once."
+      ],
+      "tests": "assert len(left_merge) == 600\nassert len(inner_merge) == 600\nassert missing_sector == 0",
+      "test_summary": "both merge types keep every company, because the right-hand keys are unique",
+      "order": 152,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-leverage-by-year",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 16 — The typical firm's leverage, year by year",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping",
+        "Merging"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "line_count": 10,
+      "prompt": "Same panel. Compute the **median** leverage ratio for every fiscal year with a\nsingle `groupby` statement and store the result in `lev_by_year`.\n\nThen put that yearly median back on every row: reset the index of the grouped\nresult, rename the value column `levratio_median_year`, and merge on `fyear`\nso `data` gains the column.\n\nPrint `lev_by_year` and look at 2008 and 2009 — the worst of the financial\ncrisis. Which way does the typical ratio move, and what does a falling market\nvalue of equity do to a ratio whose denominator is debt plus market cap?",
+      "hints": [
+        "`data.groupby('fyear')['levratio'].median()` returns a Series indexed by year.",
+        "`reset_index()` turns that index into a real column so it can be merged.",
+        "`rename(columns={...})` before `pd.merge(..., on='fyear', how='left')` stops the two leverage columns from colliding."
+      ],
+      "tests": "assert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2008]) - 0.331683) < 1e-3\nassert abs(float(lev_by_year.loc[2009]) - 0.388013) < 1e-3\nassert \"levratio_median_year\" in data.columns\nassert len(data) > 2000\nrow_2009 = data.loc[data[\"fyear\"] == 2009, \"levratio_median_year\"].iloc[0]\nassert abs(float(row_2009) - 0.388013) < 1e-3",
+      "test_summary": "a year-level median series, merged back onto every firm-year without changing the row count",
+      "order": 161,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-duplicate-years",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 16 — Count, then drop, duplicated firm-years",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Data cleaning"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
+      },
+      "line_count": 8,
+      "prompt": "`fin400-stock-panel-dupes.csv` has the same columns as the panel, but some\nfirm-years were entered twice. One observation should be one ticker in one\nfiscal year.\n\nLoad it into `data`, store the number of duplicated `(ticker, fyear)` pairs in\n`duplicate_count`, then drop them. Afterwards compute the median leverage\nratio by fiscal year and store it in `lev_by_year`.\n\nPrint the count first — no company should appear twice in a year.",
+      "hints": [
+        "`data.duplicated(subset=['ticker', 'fyear'])` marks the repeated rows; `.sum()` counts them.",
+        "`drop_duplicates(subset=['ticker', 'fyear'])` returns a cleaned frame — assign it back to `data`.",
+        "The leverage ratio has to exist as a column before the groupby can take a median of it."
+      ],
+      "tests": "assert duplicate_count == 12\nassert len(data) == 2343\nassert len(lev_by_year) == 45",
+      "test_summary": "twelve duplicate firm-years are counted and removed, leaving one row per ticker-year",
+      "order": 162,
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+    },
+    {
+      "id": "fin400-practice-regress-size",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 17 — Regress market cap on employees",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "line_count": 8,
+      "prompt": "`fin400-mcap-emp.csv` has `mcap` (market value of equity, $ millions) and `emp`\n(employees, thousands) for 600 firms in fiscal 2024.\n\nFit `mcap = a + b * emp + z` with the statsmodels formula API and store the\nfitted object in `reg`. Then keep three results:\n\n- `slope = reg.params['emp']`\n- `resid_mean = reg.resid.mean()`\n- `predicted_25` — the expected market cap of a company with 25 thousand\n  employees (25,000 people)\n\nPrint `reg.summary()`. Also check whether the residuals correlate with `emp`;\nwhat should that correlation be once the line is fitted by least squares?",
+      "hints": [
+        "`import statsmodels.formula.api as smf`, then `smf.ols('mcap ~ emp', data=firms).fit()`.",
+        "`reg.params` is a Series of fitted coefficients by name; `reg.resid` is the residual Series.",
+        "For the prediction, evaluate the fitted line at 25 — `emp` is in thousands, so 25 means 25,000 employees."
+      ],
+      "tests": "assert int(reg.nobs) == 600\nassert abs(float(slope) - 120.422248) < 0.01\nassert abs(float(reg.params[\"Intercept\"]) - 771.784559) < 0.01\nassert abs(float(resid_mean)) < 1e-6\nassert abs(float(predicted_25) - 3782.340759) < 0.01",
+      "test_summary": "a fitted line, its slope and intercept, residuals that average to zero, and a prediction",
+      "order": 171,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-beta-portfolio",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 18 — A beta portfolio against the market, and two t-tests",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression",
+        "Hypothesis testing"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 12,
+      "prompt": "`fin400-port-beta.csv` has monthly returns on ten portfolios sorted by past\nbeta (`p0` … `p9`); `fin400-factors.csv` has the market return `mkt` and a\nsmall-cap factor `small`.\n\nMerge them on `caldt`, keeping only months that appear in both files, then\nregress `p9` on `mkt` and store the fitted object in `capm`.\n\nTest two hypotheses with `t_test` and store the p-values:\n\n- the true slope equals 1 → `slope_p`\n- the true intercept equals −0.004 → `alpha_p`\n\nFor each, say in a comment whether you reject the null at 5% and what that\nmeans in words. A very small p-value is a rejection, not a confirmation.",
+      "hints": [
+        "`pd.merge(port, factors, on='caldt', how='inner')` lines the dates up before you regress.",
+        "`capm.t_test('mkt = 1')` takes the hypothesis as a string; its `.pvalue` is a 2-D array, so use `.squeeze()` to get one number.",
+        "Name the intercept in the test string exactly as statsmodels does: `'Intercept = -0.004'`."
+      ],
+      "tests": "assert int(capm.nobs) == 120\nassert abs(float(capm.params[\"mkt\"]) - 1.345073) < 0.005\nassert float(slope_p) < 0.05\nassert float(alpha_p) < 0.05",
+      "test_summary": "an inner merge, a fitted CAPM line, and two t-test p-values",
+      "order": 181,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    },
+    {
+      "id": "fin400-practice-pe-loop",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "Practice 19 — Five portfolios, five regressions, one loop",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "statsmodels",
+        "Regression",
+        "Loops"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 12,
+      "prompt": "`fin400-port-pe.csv` has monthly returns on five portfolios sorted by past P/E\n(`p0` is the lowest, `p4` the highest); `fin400-factors.csv` has `mkt` and\n`small`.\n\nMerge on `caldt` with an inner merge, then **in a loop** estimate\n`p ~ mkt + small` for every portfolio. Store each fitted parameter Series in a\ndict called `results`, keyed by the portfolio name, and print the summary\ninside the loop.\n\nCompare the `mkt` slopes across the five portfolios: do high-P/E portfolios\nlook more or less market-sensitive in this sample?",
+      "hints": [
+        "Build the formula from the loop variable: an f-string such as `f'{name} ~ mkt + small'`.",
+        "Start with `results = {}` and add one entry per portfolio — `results[name] = ...`.",
+        "`.fit().params` gives a Series with `Intercept`, `mkt` and `small`, which is exactly what the check reads."
+      ],
+      "tests": "assert sorted(results.keys()) == [\"p0\", \"p1\", \"p2\", \"p3\", \"p4\"]\nassert abs(float(results[\"p0\"][\"mkt\"]) - 1.05249) < 0.005\nassert abs(float(results[\"p4\"][\"mkt\"]) - 0.862471) < 0.005\nassert abs(float(results[\"p4\"][\"Intercept\"]) + 0.003559) < 0.005",
+      "test_summary": "one regression per portfolio, collected in a dict of fitted coefficients",
+      "order": 191,
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+    }
+  ]
+}
