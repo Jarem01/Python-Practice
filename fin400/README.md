@@ -12,7 +12,7 @@ The class has two halves, plus an assignments section:
 | **Second half — DataFrames and regression** | `fin400/notebooks/` | `.ipynb` class notebooks, pandas, and a regression at the end |
 | **Assignments** | `fin400/assignments/` | assignment briefs and worked practice, listed after the two halves |
 
-The homework is now part of the site. **HW 1 to HW 19** live in `fin400/homework/`, one exercise per assignment, in the wording of the class handout and on stand-in data, and the practice page shows them as their own section ahead of the extra practice. The solutions are the one thing that never ships.
+The exercises are now part of the site. **Exercises 1 to 19** live in `fin400/exercises/`, one per assignment, in the wording of the class handout and on stand-in data, and the practice page shows them as their own section ahead of the extra practice. The solutions are the one thing that never ships.
 
 **Three rules for this class:**
 
@@ -36,7 +36,7 @@ fin400/
 ├── bootcamp/     .py files from the first half — one file per class session
 ├── notebooks/    .ipynb files from the second half — one notebook per class session
 ├── assignments/  assignment briefs and worked practice
-├── homework/     HW 1 … HW 19 as exercises — solutions removed by the build
+├── exercises/    Exercises 1 … 19, one per assignment — solutions removed by the build
 ├── practice/     the extra practice: Practice 1–19, the drills and the lecture exercises
 ├── lectures/     one notebook per class meeting
 ├── data/         the datasets the notebooks and exercises read (csv, xlsx, …)
@@ -297,13 +297,13 @@ Four things, and that is the whole class:
   demonstration cell and its exercises, and each opens from the Learning tab under **Part 3 — Lecture
   notebooks**. They carry **20 exercises** — `Lecture 01 · Exercise 1`, `Lecture 01 · Exercise 2`, … —
   which sit after Practice 19 in the practice list.
-* **Homework 1 to 19** — `fin400/homework/homework-1-9.json` and `homework-10-19.json`, one exercise per
-  assignment, in the handout's wording (HW 1 mean by hand, HW 6 winsorize, HW 12 lags and weighting,
-  HW 18 t-tests, …). Every one runs on the stand-in data in `fin400/data/`, never on the assignment's own
+* **Exercises 1 to 19** — `fin400/exercises/exercises-1-9.json` and `exercises-10-19.json`, one per
+  assignment, in the handout's wording (Exercise 1 mean by hand, Exercise 6 winsorize, Exercise 12 lags
+  and weighting, Exercise 18 t-tests, …). Every one runs on the stand-in data in `fin400/data/`, never on the assignment's own
   numbers, and every one carries hints plus a worked *similar* example with different names instead of an
   answer.
 * **50 extra practice exercises**, numbered **Practice 1 … Practice 19**, plus the drills and the eight
-  older seed exercises. Each numbered track repeats one homework skill with different companies, numbers
+  older seed exercises. Each numbered track repeats one of these skills with different companies, numbers
   and wording, and most tracks have **two or three exercises in different formats** — the full task, then a
   shorter fix / fill-in / predict-the-output version.
 
@@ -314,12 +314,12 @@ and Module 4 had nineteen. A track moves as a unit: the whole of Practice 2 (a l
 Module 1, the whole of Practice 13 (portfolio growth) sits in Module 5.
 * **Twenty seed flashcards** covering the methods the class actually uses.
 
-The practice page opens **grouped into sections**, in course order: **Homework 1–19**, then **Extra
-practice**, then **Lecture notebooks**. Inside a section the list runs in course order, so HW 10 never
-comes before HW 2, and the numbers never sort as text. One compact row of dropdowns does the filtering —
+The practice page opens **grouped into sections**, in course order: **Exercises 1–19**, then **Extra
+practice**, then **Lecture notebooks**. Inside a section the list runs in course order, so Exercise 10
+never comes before Exercise 2, and the numbers never sort as text. One compact row of dropdowns does the filtering —
 Section, Topic, Type, Level, Progress, Group by and Sort — and `Clear filters` puts it all back.
 
-Both tracks are ordinary problem files: the homework in `fin400/homework/` (one exercise per assignment)
+Both tracks are ordinary problem files: the exercises in `fin400/exercises/` (one per assignment)
 and the extra practice in `fin400/practice/` — `practice-1-9.json`, `practice-10-19.json` and
 `practice-lectures.json`, in the order the class works through them. `tools/build_index.py` reads those
 folders as well as `problems/`, so a set kept next to the class's data still appears in the FIN 400 tab.
@@ -389,8 +389,8 @@ The rule for this class: a student gets hints about syntax and methods, never th
   `tools/assemble_site.py` keeps it out of `_site`. Treat that as a second lock, not as privacy: if the
   repository is public, do not put an answer key in it at all.
 - the lecture notebooks show a **demonstration** cell per lecture — how the data loads, what a summary
-  looks like — never the exercise's own solution. The master compilation's Part 1 (the homework
-  solutions, HW1–HW19) was not stored anywhere: no notebook, no problem file, no data file reproduces
+  looks like — never the exercise's own solution. The master compilation's Part 1 (the handout's
+  worked solutions) was not stored anywhere: no notebook, no problem file, no data file reproduces
   it.
 
 Because no answer is committed, the Pyodide test (`tests/pyodide.test.mjs`) cannot check these
@@ -431,7 +431,7 @@ python3 tools/make_fin400_data.py --verify   # check the committed files
 python3 tools/make_fin400_data.py           # rebuild them (same seed, same bytes)
 ```
 
-The monthly panels cover ten years rather than the fifty in the homework, because 50 years × every
+The monthly panels cover ten years rather than the fifty in the handout's data, because 50 years × every
 stock is a large file to serve to a browser; the exercises say so where it matters. Every set is
 self-contained: the page copies the file the exercise declares into the Python sandbox, so the code
 reads a bare name such as `fin400-survey.csv`.

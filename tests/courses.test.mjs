@@ -164,22 +164,22 @@ test("a missing registry is an error the page can show", async () => {
   }
 });
 
-test("FIN 400 keeps the homework apart from the extra practice", async () => {
+test("FIN 400 keeps the exercises apart from the extra practice", async () => {
   const fin400 = bundle.problems.filter((problem) => problem.course === "fin400");
   const ofSet = (group) => fin400.filter((problem) => (problem.assignment || {}).group === group);
 
-  // Nineteen homework assignments, one exercise each, numbered 1 … 19 in order.
-  const homework = ofSet("Homework 1–19");
-  assert.equal(homework.length, 19, "every homework assignment ships as an exercise");
-  const numbers = homework.map((problem) => {
-    const match = /^HW (\d+) ·/.exec(problem.title);
-    assert.ok(match, `${problem.id} must name its homework number in the title`);
+  // Nineteen exercises, one per assignment, numbered 1 … 19 in order.
+  const exercises = ofSet("Exercises 1–19");
+  assert.equal(exercises.length, 19, "every exercise in the handout ships as an exercise");
+  const numbers = exercises.map((problem) => {
+    const match = /^Exercise (\d+) ·/.exec(problem.title);
+    assert.ok(match, `${problem.id} must name its exercise number in the title`);
     return Number(match[1]);
   });
   assert.deepEqual([...numbers].sort((a, b) => a - b), Array.from({ length: 19 }, (_, i) => i + 1));
 
-  // Homework is graded, so it needs checks, and it is never given away.
-  for (const problem of homework) {
+  // The exercises are graded, so they need checks, and they are never given away.
+  for (const problem of exercises) {
     assert.equal(problem.type, "write_from_scratch", `${problem.id} is a programming exercise`);
     assert.ok(problem.tests || problem.expected_output, `${problem.id} needs something to check against`);
     assert.ok((problem.hints || []).length >= 3, `${problem.id} must offer helpful hints`);

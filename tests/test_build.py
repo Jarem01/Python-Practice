@@ -267,7 +267,7 @@ class CourseTests(unittest.TestCase):
     def test_a_class_can_keep_a_folder_off_the_site(self):
         prefixes = builder.private_prefixes(self.registry)
         self.assertEqual(builder.private_owner("fin400/solutions/week1_key.ipynb", prefixes), "fin400")
-        self.assertEqual(builder.private_owner("fin400/solutions/nested/hw2.py", prefixes), "fin400")
+        self.assertEqual(builder.private_owner("fin400/solutions/nested/exercise2.py", prefixes), "fin400")
         self.assertIsNone(builder.private_owner("fin400/assignments/week1.ipynb", prefixes))
         # A path that merely starts with the same letters is not private.
         self.assertIsNone(builder.private_owner("fin400/solutions-notes/week1.ipynb", prefixes))

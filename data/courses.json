@@ -47,7 +47,7 @@
       "id": "fin400",
       "code": "FIN 400",
       "title": "Python for finance",
-      "summary": "Two halves: guided modules and Python functions in plain .py files first, then notebooks with DataFrames and regression. The practice page keeps the homework (HW 1 to HW 19) apart from the extra practice and the lecture exercises. Solutions are never shown — hints are, and every exercise runs on its own data.",
+      "summary": "Two halves: guided modules and Python functions in plain .py files first, then notebooks with DataFrames and regression. The practice page keeps Exercises 1 to 19 apart from the extra practice and the lecture exercises. Solutions are never shown — hints are, and every exercise runs on its own data.",
       "paths": [
         "fin400"
       ],
@@ -59,7 +59,7 @@
         {
           "id": "bootcamp",
           "title": "First half — Python foundations",
-          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Homework 1 to 6, then Practice 1 to 9. No notebooks and no DataFrames yet.",
+          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Exercises 1 to 6, then Practice 1 to 9. No notebooks and no DataFrames yet.",
           "groups": [
             "bootcamp"
           ]

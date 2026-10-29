@@ -941,7 +941,7 @@ test("every page offers the class picker and opens on the default class", { skip
   }
 });
 
-test("?course=fin400 separates the homework from the extra practice", { skip }, async () => {
+test("?course=fin400 separates the exercises from the extra practice", { skip }, async () => {
   const page = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400");
   try {
     await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
@@ -950,21 +950,21 @@ test("?course=fin400 separates the homework from the extra practice", { skip }, 
     assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
     assert.match(page.document.getElementById("count-badge").textContent, /FIN 400/);
 
-    // Three sections, in course order: homework, extra practice, lectures.
+    // Three sections, in course order: exercises, extra practice, lectures.
     const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-    assert.deepEqual(headings, ["Homework 1–19", "Extra practice", "Lecture notebooks"]);
+    assert.deepEqual(headings, ["Exercises 1–19", "Extra practice", "Lecture notebooks"]);
 
-    const homework = fin400Problems.filter((p) => p.assignment && p.assignment.group === "Homework 1–19");
-    assert.equal(homework.length, 19, "all nineteen homework assignments ship as exercises");
+    const exercises = fin400Problems.filter((p) => p.assignment && p.assignment.group === "Exercises 1–19");
+    assert.equal(exercises.length, 19, "all nineteen handout exercises ship as exercises");
 
-    // Sequential: HW 10 may never precede HW 2.
+    // Sequential: Exercise 10 may never precede Exercise 2.
     const numbers = [...page.document.querySelectorAll("#problem-list .tile h3")]
-      .map((h) => /^HW (\d+)/.exec(h.textContent))
+      .map((h) => /^Exercise (\d+)/.exec(h.textContent))
       .filter(Boolean)
       .map((match) => Number(match[1]));
-    assert.equal(numbers.length, 19, "every homework assignment is listed");
+    assert.equal(numbers.length, 19, "every exercise in the handout is listed");
     for (let i = 1; i < numbers.length; i += 1) {
-      assert.equal(numbers[i], numbers[i - 1] + 1, `HW ${numbers[i]} must follow HW ${numbers[i - 1]}`);
+      assert.equal(numbers[i], numbers[i - 1] + 1, `Exercise ${numbers[i]} must follow Exercise ${numbers[i - 1]}`);
     }
 
     // The section dropdown narrows the list to one track.
@@ -978,14 +978,14 @@ test("?course=fin400 separates the homework from the extra practice", { skip }, 
       "the extra practice section holds the practice sets",
     );
 
-    // Grouping by set names every homework assignment and every practice set.
+    // Grouping by set names every exercise and every practice set.
     const page2 = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400&group=assignment");
     try {
       await waitFor(() => page2.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
       const sets = [...page2.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-      assert.ok(sets.includes("HW 1 — mean of a list"), "each homework assignment is its own set");
+      assert.ok(sets.includes("Exercise 1 — mean of a list"), "each exercise is its own set");
       assert.ok(sets.includes("Practice 10–19"), "each practice set is its own set");
-      assert.ok(sets.indexOf("HW 1 — mean of a list") < sets.indexOf("Practice 10–19"), "homework reads before practice");
+      assert.ok(sets.indexOf("Exercise 1 — mean of a list") < sets.indexOf("Practice 10–19"), "the exercises read before the practice");
     } finally {
       page2.restore();
     }

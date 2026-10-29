@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-29T22:12:19+00:00",
-  "root": "Python-Practice",
+  "generated_at": "2026-10-29T22:54:58+00:00",
+  "root": "5de7ac673820556d5eb2fdf4",
   "totals": {
     "notebooks": 25,
     "scripts": 0,
@@ -71,7 +71,7 @@
         {
           "id": "bootcamp",
           "title": "First half \u2014 Python foundations",
-          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Homework 1 to 6, then Practice 1 to 9. No notebooks and no DataFrames yet.",
+          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Exercises 1 to 6, then Practice 1 to 9. No notebooks and no DataFrames yet.",
           "groups": [
             "bootcamp"
           ]
@@ -216,7 +216,6 @@
       "exercises": [],
       "inferred_topics": [
         "FIN 400",
-        "Homework",
         "Lists",
         "Loops",
         "Numbers",
@@ -305,6 +304,7 @@
       "output_cell_count": 6,
       "exercises": [],
       "inferred_topics": [
+        "Exercises",
         "Functions",
         "Probability",
         "Returns",
@@ -681,7 +681,6 @@
       "output_cell_count": 7,
       "exercises": [],
       "inferred_topics": [
-        "Homework",
         "Indexing",
         "Numbers",
         "Sorting",
@@ -1055,6 +1054,7 @@
         }
       ],
       "inferred_topics": [
+        "Exercises",
         "FIN 400",
         "Functions",
         "Lecture 02",
@@ -1175,7 +1175,7 @@
       "group": "lectures",
       "group_order": 3,
       "kernel": "Python 3",
-      "summary": "The homework pattern: given a list of values and a mean and standard deviation, return the probability of each one. One function, one loop, one cdf call per value.",
+      "summary": "The exercise pattern: given a list of values and a mean and standard deviation, return the probability of each one. One function, one loop, one cdf call per value.",
       "cell_count": 6,
       "code_cell_count": 2,
       "markdown_cell_count": 4,
@@ -1194,7 +1194,6 @@
       ],
       "inferred_topics": [
         "FIN 400",
-        "Homework",
         "Lecture 05",
         "Loops",
         "Probability",
@@ -1663,6 +1662,33 @@
         "acc525/Data Analysis/Data Analysis (Part 4) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
+    "Exercises": {
+      "problems": [
+        "fin400-hw-01-mean",
+        "fin400-hw-02-max",
+        "fin400-hw-03-sqdevs",
+        "fin400-hw-04-listcdf",
+        "fin400-hw-05-index-of-max",
+        "fin400-hw-06-winsorize",
+        "fin400-hw-07-cdc-bmi",
+        "fin400-hw-08-pmf6",
+        "fin400-hw-09-cdc-filters",
+        "fin400-hw-10-stock-panel",
+        "fin400-hw-11-equal-weight",
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-13-value-weight",
+        "fin400-hw-14-lagged-sign",
+        "fin400-hw-15-merges",
+        "fin400-hw-16-dupes-and-median",
+        "fin400-hw-17-regression-mcap-emp",
+        "fin400-hw-18-beta-portfolio-tests",
+        "fin400-hw-19-pe-portfolios"
+      ],
+      "notebooks": [
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-02-distributions-loops-functions.ipynb"
+      ]
+    },
     "FIN 400": {
       "problems": [
         "fin400-average-monthly-return",
@@ -1845,34 +1871,6 @@
       ],
       "notebooks": [
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
-      ]
-    },
-    "Homework": {
-      "problems": [
-        "fin400-hw-01-mean",
-        "fin400-hw-02-max",
-        "fin400-hw-03-sqdevs",
-        "fin400-hw-04-listcdf",
-        "fin400-hw-05-index-of-max",
-        "fin400-hw-06-winsorize",
-        "fin400-hw-07-cdc-bmi",
-        "fin400-hw-08-pmf6",
-        "fin400-hw-09-cdc-filters",
-        "fin400-hw-10-stock-panel",
-        "fin400-hw-11-equal-weight",
-        "fin400-hw-12-counts-lag-weighted",
-        "fin400-hw-13-value-weight",
-        "fin400-hw-14-lagged-sign",
-        "fin400-hw-15-merges",
-        "fin400-hw-16-dupes-and-median",
-        "fin400-hw-17-regression-mcap-emp",
-        "fin400-hw-18-beta-portfolio-tests",
-        "fin400-hw-19-pe-portfolios"
-      ],
-      "notebooks": [
-        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
-        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
-        "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
       ]
     },
     "Hypothesis testing": {

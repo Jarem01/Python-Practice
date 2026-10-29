@@ -90,7 +90,7 @@ export function generalAssignment() {
 }
 
 /**
- * A set the exercise names itself, e.g. FIN 400's homework and practice tracks:
+ * A set the exercise names itself, e.g. FIN 400's exercises and practice tracks:
  * `"assignment": {key, label, group, order}`. Notebook-based courses never use
  * this; an exercise that names a set is filed under it instead of a notebook.
  */

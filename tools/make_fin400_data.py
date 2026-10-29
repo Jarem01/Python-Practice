@@ -2,7 +2,7 @@
 """Create the practice datasets that live in fin400/data/.
 
 The FIN 400 practice exercises in fin400/practice/ are modeled on the skills the
-homework asks for, but they never use the homework's own data: a few of those
+handout's exercises ask for, but they never use the handout's own data: a few of those
 files are only reachable from a link, one or two are implied rather than
 supplied, and none of them can be committed here. So this script builds a small,
 self-contained set instead — same shape, same column names a student will meet

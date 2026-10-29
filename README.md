@@ -87,7 +87,7 @@ The pages (every one of them is on the deployed URL above as well):
 | `index.html` | Landing page: stats, progress, the notebook overview, a suggested next exercise |
 | `learning/index.html` | All notebooks grouped by part, with the exercises found inside each one |
 | `learning/view.html?nb=…` | Renders one `.ipynb` in the browser (markdown, code, outputs, tracebacks, TOC) |
-| `practice/index.html` | All exercises, grouped into sections (homework, extra practice, lecture exercises), with one row of dropdown filters |
+| `practice/index.html` | All exercises, grouped into sections (exercises, extra practice, lecture exercises), with one row of dropdown filters |
 | `practice/exercise.html?id=…` | The exercise engine (all four types, with the run output and a colored comparison) |
 | `practice/create.html` | Form to author a new exercise, save it as a local draft, download JSON |
 | `flashcards.html` | Revision deck: one card per method, flipped to show what it does, a call to run and the output it prints |
@@ -360,8 +360,8 @@ print(total)
 | `hints` | all | Revealed one at a time; Markdown allowed |
 | `solution` | all | Shown on request (never marks the exercise solved by itself) |
 | `mode`, `line_count` | write | `both` (default), `guided` or `lines`; suggested line budget |
-| `order` | all | Position inside its group: a numbered track (FIN 400's *HW 1 … 19*, *Practice 1 … 19*) sorts 1, 2, 3 instead of alphabetically |
-| `assignment` | all | An object `{key, label, group, order}` naming the set the exercise belongs to, for a class that files exercises by set instead of by notebook (FIN 400: `Homework 1–19`, `Extra practice`, `Lecture notebooks`) |
+| `order` | all | Position inside its group: a numbered track (FIN 400's *Exercises 1 … 19*, *Practice 1 … 19*) sorts 1, 2, 3 instead of alphabetically |
+| `assignment` | all | An object `{key, label, group, order}` naming the set the exercise belongs to, for a class that files exercises by set instead of by notebook (FIN 400: `Exercises 1–19`, `Extra practice`, `Lecture notebooks`) |
 | `glossary` | all | Glossary slugs to link, e.g. `["for-loop", "dictionary"]` |
 | `packages` | all | Extra Pyodide packages loaded on demand, e.g. `["numpy", "pandas"]` |
 | `notebook` | all | Optional notebook path, shown as "from the notebook" |
@@ -579,7 +579,7 @@ exercises join on.
 FIN 400's practice data is built the same way, from a different seed, by
 `tools/make_fin400_data.py`: a 900-adult survey, a 2,343-row firm-year panel (plus a copy with
 duplicates), a ten-year stock-month panel, four portfolio files and a 600-firm size file. None of it
-comes from an assignment — the homework's own files are either linked or not supplied at all — so the
+comes from an assignment — the handout's own files are either linked or not supplied at all — so the
 exercises ask the same questions with different companies and different numbers. The generator also writes `acc525/analyticskit.py`, the helper module Data
 Analysis 5 imports — keep the two in step by editing the constant in `tools/make_datasets.py` or,
 better, re-syncing it from the file the way the tool does now.

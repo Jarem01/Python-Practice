@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T22:12:19+00:00",
+  "generated_at": "2026-10-29T22:54:58+00:00",
   "count": 203,
   "courses": [
     {
@@ -35,13 +35,13 @@
     "Duplicates",
     "Errors",
     "Excel",
+    "Exercises",
     "FIN 400",
     "Files",
     "Filtering",
     "Formatting",
     "Functions",
     "Grouping",
-    "Homework",
     "Hypothesis testing",
     "Indexing",
     "Intro to Python",
@@ -4344,23 +4344,23 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 1 \u00b7 Q11 \u2014 Mean of a list without libraries",
+      "title": "Exercise 1 \u00b7 Q11 \u2014 Mean of a list without libraries",
       "difficulty": "easy",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Loops"
       ],
       "assignment": {
         "key": "fin400-hw-01",
-        "label": "HW 1 \u2014 mean of a list",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 1 \u2014 mean of a list",
+        "group": "Exercises 1\u201319",
         "order": 101
       },
       "order": 101,
       "packages": [],
       "line_count": 8,
-      "prompt": "**Homework 1 \u2014 Q11.** Write a short Python function that takes a list of any size and returns the mean of that list. Do not use the `statistics` library or anything similar \u2014 no `sum()`, no `mean()`. Loop over the values yourself.\n\nName it `find_mean` so the checks can call it.\n\n```python\nprint(find_mean([4, 8, 6, 5, 7]))   # 6.0\n```",
+      "prompt": "**Exercise 1 \u2014 Q11.** Write a short Python function that takes a list of any size and returns the mean of that list. Do not use the `statistics` library or anything similar \u2014 no `sum()`, no `mean()`. Loop over the values yourself.\n\nName it `find_mean` so the checks can call it.\n\n```python\nprint(find_mean([4, 8, 6, 5, 7]))   # 6.0\n```",
       "hints": [
         "A mean needs two things you have to build up inside the loop: a running total and a count of how many values you have seen.",
         "Add the value to the total and add 1 to the count on every pass, then divide once, after the loop has finished.",
@@ -4378,23 +4378,23 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 2 \u00b7 Q8 \u2014 Maximum of a list without max()",
+      "title": "Exercise 2 \u00b7 Q8 \u2014 Maximum of a list without max()",
       "difficulty": "easy",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Loops"
       ],
       "assignment": {
         "key": "fin400-hw-02",
-        "label": "HW 2 \u2014 maximum of a list",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 2 \u2014 maximum of a list",
+        "group": "Exercises 1\u201319",
         "order": 102
       },
       "order": 102,
       "packages": [],
       "line_count": 7,
-      "prompt": "**Homework 2 \u2014 Q8.** Write a short Python function that takes a list of any size and returns the maximum value of that list. Implement it by iterating over all of the values \u2014 no calls to `max()`, `sorted()` or any library that finds the max for you.\n\nName it `find_max`.",
+      "prompt": "**Exercise 2 \u2014 Q8.** Write a short Python function that takes a list of any size and returns the maximum value of that list. Implement it by iterating over all of the values \u2014 no calls to `max()`, `sorted()` or any library that finds the max for you.\n\nName it `find_max`.",
       "hints": [
         "You need something to compare against on the first pass, and you cannot start with 0 \u2014 the list may be all negative.",
         "Prime the running maximum with the first element: `maximum = nums[0]`. Then loop over every value, including that first one, and replace the maximum whenever you meet something bigger.",
@@ -4412,24 +4412,24 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 3 \u00b7 Q10 \u2014 Squared deviations from the mean",
+      "title": "Exercise 3 \u00b7 Q10 \u2014 Squared deviations from the mean",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Loops",
         "Statistics"
       ],
       "assignment": {
         "key": "fin400-hw-03",
-        "label": "HW 3 \u2014 squared deviations",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 3 \u2014 squared deviations",
+        "group": "Exercises 1\u201319",
         "order": 103
       },
       "order": 103,
       "packages": [],
       "line_count": 10,
-      "prompt": "**Homework 3 \u2014 Q10.** Write a Python function named `sqdevs()` that takes a list of numeric data and returns a list of the squared deviations from the mean. You must use a loop to iterate over all of the values. No canned functions or libraries that would circumvent this. You may use the `mean` function of the `statistics` library.\n\n```python\nsqdevs([1, 2, 3, 4])   # [2.25, 0.25, 0.25, 2.25]\n```",
+      "prompt": "**Exercise 3 \u2014 Q10.** Write a Python function named `sqdevs()` that takes a list of numeric data and returns a list of the squared deviations from the mean. You must use a loop to iterate over all of the values. No canned functions or libraries that would circumvent this. You may use the `mean` function of the `statistics` library.\n\n```python\nsqdevs([1, 2, 3, 4])   # [2.25, 0.25, 0.25, 2.25]\n```",
       "hints": [
         "Get the mean first, with `import statistics as s` and `s.mean(numbers)`. Only the mean may come from the library.",
         "For each value: subtract the mean, square the result with `** 2`, then `append` it to a new list.",
@@ -4447,24 +4447,24 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 4 \u00b7 Q10 \u2014 listcdf: the normal CDF for every value",
+      "title": "Exercise 4 \u00b7 Q10 \u2014 listcdf: the normal CDF for every value",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Functions",
         "Statistics"
       ],
       "assignment": {
         "key": "fin400-hw-04",
-        "label": "HW 4 \u2014 listcdf",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 4 \u2014 listcdf",
+        "group": "Exercises 1\u201319",
         "order": 104
       },
       "order": 104,
       "packages": [],
       "line_count": 10,
-      "prompt": "**Homework 4 \u2014 Q10.** Write a Python function named `listcdf` that takes three parameters:\n\n1. a list of numeric data\n2. the mean of the distribution for the data in the list\n3. the standard deviation for the distribution for the data in the list\n\nThe function definition should look like:\n\n```python\ndef listcdf(data, mu=0, sigma=1):\n```\n\nThe function should return a list containing the normal CDF value for each data value from the list you pass to the function, given the mean and standard deviation parameters. You will need to use the `NormalDist` object from the `statistics` library.\n\n**a.** Test with `mu = 23`, `sigma = 3.90`, and\n`data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]`.\n\n**b.** Test with a list, a mean and a standard deviation that you make up.",
+      "prompt": "**Exercise 4 \u2014 Q10.** Write a Python function named `listcdf` that takes three parameters:\n\n1. a list of numeric data\n2. the mean of the distribution for the data in the list\n3. the standard deviation for the distribution for the data in the list\n\nThe function definition should look like:\n\n```python\ndef listcdf(data, mu=0, sigma=1):\n```\n\nThe function should return a list containing the normal CDF value for each data value from the list you pass to the function, given the mean and standard deviation parameters. You will need to use the `NormalDist` object from the `statistics` library.\n\n**a.** Test with `mu = 23`, `sigma = 3.90`, and\n`data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]`.\n\n**b.** Test with a list, a mean and a standard deviation that you make up.",
       "hints": [
         "`statistics.NormalDist(mu, sigma)` builds the distribution object once; the object has a `.cdf(x)` method that takes one value at a time.",
         "Build the result list the way you loop over any list: start empty, `append` one CDF per value, return the list.",
@@ -4482,24 +4482,24 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 5 \u00b7 Q9 \u2014 Index of the maximum value",
+      "title": "Exercise 5 \u00b7 Q9 \u2014 Index of the maximum value",
       "difficulty": "easy",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Loops",
         "Indexing"
       ],
       "assignment": {
         "key": "fin400-hw-05",
-        "label": "HW 5 \u2014 index of the maximum",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 5 \u2014 index of the maximum",
+        "group": "Exercises 1\u201319",
         "order": 105
       },
       "order": 105,
       "packages": [],
       "line_count": 8,
-      "prompt": "**Homework 5 \u2014 Q9.** Write a Python function that takes a list of any size and returns the index of the maximum value of that list. Remember: no calls to any library to find the index of the max or to sort the data.\n\nIf `mylist = [10, 2, -5, 17, 7]`, your function should return `3` (the index of 17). Loop by index using:\n\n```python\nfor i in range(len(mylist)):\n```\n\nName it `index_of_max`. When the maximum appears more than once, return the first index.",
+      "prompt": "**Exercise 5 \u2014 Q9.** Write a Python function that takes a list of any size and returns the index of the maximum value of that list. Remember: no calls to any library to find the index of the max or to sort the data.\n\nIf `mylist = [10, 2, -5, 17, 7]`, your function should return `3` (the index of 17). Loop by index using:\n\n```python\nfor i in range(len(mylist)):\n```\n\nName it `index_of_max`. When the maximum appears more than once, return the first index.",
       "hints": [
         "Track an index, not a value: start at 0, and remember which position currently holds the biggest number you have seen.",
         "Compare `mylist[i]` with `mylist[best_index]` \u2014 comparing one element against the element at the remembered position is what makes the index easy to return.",
@@ -4517,24 +4517,24 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 6 \u00b7 Q7 \u2014 winsorize: clip values to a floor and a ceiling",
+      "title": "Exercise 6 \u00b7 Q7 \u2014 winsorize: clip values to a floor and a ceiling",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Conditionals",
         "Loops"
       ],
       "assignment": {
         "key": "fin400-hw-06",
-        "label": "HW 6 \u2014 winsorize",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 6 \u2014 winsorize",
+        "group": "Exercises 1\u201319",
         "order": 106
       },
       "order": 106,
       "packages": [],
       "line_count": 11,
-      "prompt": "**Homework 6 \u2014 Q7.** Write a Python function that takes a list of any size as well as two bounds (a ceiling and a floor), and returns a new list where any values outside of those provided bounds have been \"clipped\" to the provided bound values. You must use a loop and an explicit `if`/`elif`/`else`. Do not use `min`, `max`, `sorted`, or any library or command that circumvents the opportunity for you to use programmatic thinking tools.\n\n```python\ndef winsorize(data, floor, ceil):\n```\n\nExamples:\n\n```python\nprint(winsorize([-3, 0, 5, 10, 42], 1, 20))      # [1, 1, 5, 10, 20]\nprint(winsorize([7, 12, 58, 0, 95, 130], 0, 90)) # [7, 12, 58, 0, 90, 90]\n```",
+      "prompt": "**Exercise 6 \u2014 Q7.** Write a Python function that takes a list of any size as well as two bounds (a ceiling and a floor), and returns a new list where any values outside of those provided bounds have been \"clipped\" to the provided bound values. You must use a loop and an explicit `if`/`elif`/`else`. Do not use `min`, `max`, `sorted`, or any library or command that circumvents the opportunity for you to use programmatic thinking tools.\n\n```python\ndef winsorize(data, floor, ceil):\n```\n\nExamples:\n\n```python\nprint(winsorize([-3, 0, 5, 10, 42], 1, 20))      # [1, 1, 5, 10, 20]\nprint(winsorize([7, 12, 58, 0, 95, 130], 0, 90)) # [7, 12, 58, 0, 90, 90]\n```",
       "hints": [
         "Three cases, in this order: below the floor, above the ceiling, and everything else \u2014 that is exactly the `if` / `elif` / `else` the question is asking for.",
         "Do not modify `data` in place; build a new list and `append` the clipped value each time round.",
@@ -4552,18 +4552,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 7 \u00b7 Q4 \u2014 CDC sample: BMI and its percentiles",
+      "title": "Exercise 7 \u00b7 Q4 \u2014 CDC sample: BMI and its percentiles",
       "difficulty": "easy",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Summary statistics"
       ],
       "assignment": {
         "key": "fin400-hw-07",
-        "label": "HW 7 \u2014 BMI with pandas",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 7 \u2014 BMI with pandas",
+        "group": "Exercises 1\u201319",
         "order": 107
       },
       "order": 107,
@@ -4574,7 +4574,7 @@
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
       },
       "line_count": 12,
-      "prompt": "**Homework 7 \u2014 Q4.** Using Python/Pandas, analyze a random sample of 900 American adults collected by the CDC in 2023. Variables: `seqn` (ID), `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm). The file is `fin400-survey.csv`.\n\n**a.** Read the data into a dataframe called `df` with pandas; print the dataframe.\n**b.** Compute and print summary statistics for each variable.\n**c.** Create a new column `bmi = weight / (height in metres) ** 2`.\n**d.** Compute and print summary statistics for the `bmi` column.\n**e.** Compute the 10th and 90th percentile of `bmi` and store them in `bmi_q10` and `bmi_q90`.\n**f.** Based on the obesity classifications (BMI > 30 obese, 25\u201330 overweight) and the summary statistics, do you think it is fair to conclude the average American adult is not obese? Work the answer out and say it in a comment.",
+      "prompt": "**Exercise 7 \u2014 Q4.** Using Python/Pandas, analyze a random sample of 900 American adults collected by the CDC in 2023. Variables: `seqn` (ID), `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm). The file is `fin400-survey.csv`.\n\n**a.** Read the data into a dataframe called `df` with pandas; print the dataframe.\n**b.** Compute and print summary statistics for each variable.\n**c.** Create a new column `bmi = weight / (height in metres) ** 2`.\n**d.** Compute and print summary statistics for the `bmi` column.\n**e.** Compute the 10th and 90th percentile of `bmi` and store them in `bmi_q10` and `bmi_q90`.\n**f.** Based on the obesity classifications (BMI > 30 obese, 25\u201330 overweight) and the summary statistics, do you think it is fair to conclude the average American adult is not obese? Work the answer out and say it in a comment.",
       "hints": [
         "`height` is in centimetres, so metres is `height / 100`. The squared term applies to the whole converted height, not just the number.",
         "Parts b and d are one call each: `df.describe()` and `df['bmi'].describe()`. `df.describe()` on its own skips the ID column for you.",
@@ -4593,24 +4593,24 @@
       "course": "fin400",
       "phase": "bootcamp",
       "type": "write_from_scratch",
-      "title": "HW 8 \u00b7 Q8 \u2014 pmf6: the empirical pmf of six-sided dice",
+      "title": "Exercise 8 \u00b7 Q8 \u2014 pmf6: the empirical pmf of six-sided dice",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "Loops",
         "Probability"
       ],
       "assignment": {
         "key": "fin400-hw-08",
-        "label": "HW 8 \u2014 pmf6",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 8 \u2014 pmf6",
+        "group": "Exercises 1\u201319",
         "order": 108
       },
       "order": 108,
       "packages": [],
       "line_count": 11,
-      "prompt": "**Homework 8 \u2014 Q8.** Create a Python function that takes an arbitrarily sized list of die rolls (values 1\u20136) and returns the \"empirical probability mass function\" \u2014 the realized probabilities for each of the six outcomes.\n\n```python\ndef pmf6(rolls):\n```\n\nTest:\n\n```python\nempiricalrolls = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\nprint(pmf6(empiricalrolls))\n# Correct Output: [0.18181818181818182, 0.18181818181818182, 0.09090909090909091, 0.09090909090909091, 0.09090909090909091, 0.36363636363636365]\n```\n\nNo canned functions or libraries except, if you wish, `len()`.",
+      "prompt": "**Exercise 8 \u2014 Q8.** Create a Python function that takes an arbitrarily sized list of die rolls (values 1\u20136) and returns the \"empirical probability mass function\" \u2014 the realized probabilities for each of the six outcomes.\n\n```python\ndef pmf6(rolls):\n```\n\nTest:\n\n```python\nempiricalrolls = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\nprint(pmf6(empiricalrolls))\n# Correct Output: [0.18181818181818182, 0.18181818181818182, 0.09090909090909091, 0.09090909090909091, 0.09090909090909091, 0.36363636363636365]\n```\n\nNo canned functions or libraries except, if you wish, `len()`.",
       "hints": [
         "Six outcomes means six counters. A list of six zeros, `counts = [0, 0, 0, 0, 0, 0]`, is enough \u2014 no dictionary needed.",
         "A roll of 1 belongs in slot 0, a roll of 2 in slot 1, and so on, so the slot is `roll - 1`. That off-by-one is the whole trick.",
@@ -4628,18 +4628,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 9 \u00b7 Q9 \u2014 Logical indexing on the CDC sample",
+      "title": "Exercise 9 \u00b7 Q9 \u2014 Logical indexing on the CDC sample",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Boolean indexing"
       ],
       "assignment": {
         "key": "fin400-hw-09",
-        "label": "HW 9 \u2014 logical indexing",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 9 \u2014 logical indexing",
+        "group": "Exercises 1\u201319",
         "order": 109
       },
       "order": 109,
@@ -4650,7 +4650,7 @@
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
       },
       "line_count": 14,
-      "prompt": "**Homework 9 \u2014 Q9.** Using Python/Pandas, analyze the same sample of 900 American adults (CDC 2023). Variables: `seqn`, `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm), plus `hincome` \u2014 `\"high\"` if household income > $120,000, else `\"not\"`. The file is `fin400-survey.csv`.\n\n**a.** Read the data with pandas; compute summary statistics for `age`, `weight`, `height` and BMI using one code statement (`describe`).\n**b.** Use logical indexing to create a new dataframe of only male participants (`males`); compute summary statistics for age, weight, height and BMI in one statement.\n**c.** Using the original dataframe and logical indexing, create `young_males`: only male participants aged 18\u201330 (single code statement). Compute the same summary statistics.\n**d.** Using the original dataframe and logical indexing, create `tall_young_males`: only male participants aged 18\u201330 and taller than 6 feet (182.9 cm) (single code statement). Compute summary statistics for weight, height and BMI.\n**e.** Create `high_income_females`: only female participants from households earning more than $120,000/year. Compute the same summary statistics.\n\nBuild the BMI column the same way as in HW 7 (`weight / (height/100) ** 2`) before filtering.",
+      "prompt": "**Exercise 9 \u2014 Q9.** Using Python/Pandas, analyze the same sample of 900 American adults (CDC 2023). Variables: `seqn`, `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm), plus `hincome` \u2014 `\"high\"` if household income > $120,000, else `\"not\"`. The file is `fin400-survey.csv`.\n\n**a.** Read the data with pandas; compute summary statistics for `age`, `weight`, `height` and BMI using one code statement (`describe`).\n**b.** Use logical indexing to create a new dataframe of only male participants (`males`); compute summary statistics for age, weight, height and BMI in one statement.\n**c.** Using the original dataframe and logical indexing, create `young_males`: only male participants aged 18\u201330 (single code statement). Compute the same summary statistics.\n**d.** Using the original dataframe and logical indexing, create `tall_young_males`: only male participants aged 18\u201330 and taller than 6 feet (182.9 cm) (single code statement). Compute summary statistics for weight, height and BMI.\n**e.** Create `high_income_females`: only female participants from households earning more than $120,000/year. Compute the same summary statistics.\n\nBuild the BMI column the same way as in Exercise 7 (`weight / (height/100) ** 2`) before filtering.",
       "hints": [
         "One mask is one condition; two conditions need `&` with each condition in its own parentheses: `df[(df['gender'] == 'male') & (df['age'] <= 30)]`.",
         "`and` / `or` do not work on pandas columns. It has to be the elementwise `&` and `|`, and every condition needs brackets around it.",
@@ -4669,18 +4669,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 10 \u00b7 Q5 \u2014 Firm panel: EPS, leverage and value_counts",
+      "title": "Exercise 10 \u00b7 Q5 \u2014 Firm panel: EPS, leverage and value_counts",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Grouping"
       ],
       "assignment": {
         "key": "fin400-hw-10",
-        "label": "HW 10 \u2014 firm panel",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 10 \u2014 firm panel",
+        "group": "Exercises 1\u201319",
         "order": 110
       },
       "order": 110,
@@ -4691,7 +4691,7 @@
         "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
       },
       "line_count": 16,
-      "prompt": "**Homework 10 \u2014 Q5.** Using Python/Pandas, analyze a panel of 70 publicly traded US companies from 1980 to 2024. Variables: `ticker`, `fyear`, `ni` (annual net income, millions), `debt_lgterm` (book value of long-term debt, millions), `mcap` (market value of equity, millions), `shr` (shares outstanding, millions). Read it into `df` from `fin400-stock-panel.csv`.\n\n**a.** Create two new columns: `eps = ni / shr` and `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute summary statistics for both.\n**b.** Create a True/False column `pos` that is True if `levratio` is positive, else False. Run `df['pos'].value_counts()` and `df['pos'].value_counts() / df['pos'].count()`. What did each line compute? What did you learn about the data? Answer in a comment.\n**c.** On average, are firms with leverage ratio zero more or less valuable (use `mcap`) than firms with positive leverage ratios? Compute it with a `groupby` with `pos` as the grouping variable, store it in `mcap_by_pos`.\n**d.** Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024 with one `groupby` statement, store it in `lev_by_year` and print it.\n**e.** In part d you should find a sizeable move between 2008 and 2009. Why? Answer in a comment.",
+      "prompt": "**Exercise 10 \u2014 Q5.** Using Python/Pandas, analyze a panel of 70 publicly traded US companies from 1980 to 2024. Variables: `ticker`, `fyear`, `ni` (annual net income, millions), `debt_lgterm` (book value of long-term debt, millions), `mcap` (market value of equity, millions), `shr` (shares outstanding, millions). Read it into `df` from `fin400-stock-panel.csv`.\n\n**a.** Create two new columns: `eps = ni / shr` and `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute summary statistics for both.\n**b.** Create a True/False column `pos` that is True if `levratio` is positive, else False. Run `df['pos'].value_counts()` and `df['pos'].value_counts() / df['pos'].count()`. What did each line compute? What did you learn about the data? Answer in a comment.\n**c.** On average, are firms with leverage ratio zero more or less valuable (use `mcap`) than firms with positive leverage ratios? Compute it with a `groupby` with `pos` as the grouping variable, store it in `mcap_by_pos`.\n**d.** Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024 with one `groupby` statement, store it in `lev_by_year` and print it.\n**e.** In part d you should find a sizeable move between 2008 and 2009. Why? Answer in a comment.",
       "hints": [
         "A new column on a dataframe is just an assignment whose right-hand side is a whole column of arithmetic: `df['eps'] = df['ni'] / df['shr']`.",
         "`levratio` is debt divided by **debt plus** market cap \u2014 both terms go in the denominator, and the debt appears twice in the formula.",
@@ -4711,18 +4711,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 11 \u00b7 Q6 \u2014 Equal-weight portfolio, then average return by month",
+      "title": "Exercise 11 \u00b7 Q6 \u2014 Equal-weight portfolio, then average return by month",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Portfolios"
       ],
       "assignment": {
         "key": "fin400-hw-11",
-        "label": "HW 11 \u2014 equal-weight portfolio",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 11 \u2014 equal-weight portfolio",
+        "group": "Exercises 1\u201319",
         "order": 111
       },
       "order": 111,
@@ -4733,7 +4733,7 @@
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
       },
       "line_count": 12,
-      "prompt": "**Homework 11 \u2014 Q6.** Monthly stock prices and returns for all publicly traded US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`. Read it with `pd.read_csv('fin400-monthly-stocks.csv', parse_dates=['caldt'])` into `df`.\n\n**a.** Form an equal-weight portfolio of all stocks every year-month (Jan 1926, Feb 1926, etc). Compute portfolio returns for the whole sample, and store the portfolio Series in `ew`. Compute the mean and the sample standard deviation of the portfolio.\n**b.** Reset the index of the portfolio dataframe so `caldt` is a column (call it `ew_df`). Using a `groupby`, compute the average portfolio return by month (Jan=1, Feb=2, \u2026). Hint: use the `dt` accessor to get the month as an integer 1\u201312. Save that result as a new column in `ew_df` called `avg_ret_month`, and also keep the by-month averages in `avg_by_month`.",
+      "prompt": "**Exercise 11 \u2014 Q6.** Monthly stock prices and returns for all publicly traded US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`. Read it with `pd.read_csv('fin400-monthly-stocks.csv', parse_dates=['caldt'])` into `df`.\n\n**a.** Form an equal-weight portfolio of all stocks every year-month (Jan 1926, Feb 1926, etc). Compute portfolio returns for the whole sample, and store the portfolio Series in `ew`. Compute the mean and the sample standard deviation of the portfolio.\n**b.** Reset the index of the portfolio dataframe so `caldt` is a column (call it `ew_df`). Using a `groupby`, compute the average portfolio return by month (Jan=1, Feb=2, \u2026). Hint: use the `dt` accessor to get the month as an integer 1\u201312. Save that result as a new column in `ew_df` called `avg_ret_month`, and also keep the by-month averages in `avg_by_month`.",
       "hints": [
         "Equal weight means every stock counts the same, so each month's portfolio return is simply the mean of that month's `ret` values: group by `caldt` and take `.mean()` of `ret`.",
         "After `ew.reset_index()` the result has `caldt` and the return column as ordinary columns; the month number is `ew_df['caldt'].dt.month`.",
@@ -4752,19 +4752,19 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 12 \u00b7 Q8 & Q9 \u2014 Stock counts, a lagged mcap, and a weighted portfolio",
+      "title": "Exercise 12 \u00b7 Q8 & Q9 \u2014 Stock counts, a lagged mcap, and a weighted portfolio",
       "difficulty": "hard",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Lagging",
         "Portfolios"
       ],
       "assignment": {
         "key": "fin400-hw-12",
-        "label": "HW 12 \u2014 counts, lag and weights",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 12 \u2014 counts, lag and weights",
+        "group": "Exercises 1\u201319",
         "order": 112
       },
       "order": 112,
@@ -4776,7 +4776,7 @@
         "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
       },
       "line_count": 16,
-      "prompt": "**Homework 12 \u2014 Q8.** Monthly stock prices and returns for publicly traded US stocks, 1926\u20131935, with `mcap` added. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`. Read it with `pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])` into `df`.\n\n**a.** Use a `groupby` to count the number of stocks in an equally-weighted portfolio (all stocks) every year-month. Store it in `counts` and compute summary statistics for the date-by-date count of stocks.\n**b.** Create a lagged market-cap column (lagged one month), called `mcap_lag`, as in the class discussion on lagging variables in a stock-date panel. Compute summary statistics for both `mcap` and the lagged column.\n**c.** In a comment, explain why the count of observations is lower for the lagged `mcap` column than for the `mcap` column.\n\n**Q9.** Read `port = pd.read_csv(\"fin400-port-mcap.csv\", parse_dates=['caldt'])`. Columns: the date plus returns on four portfolios formed on lagged market-cap: `micro`, `small`, `mid`, `large`. Create a new column `weighted` with portfolio returns where the weights are 0.3 micro-cap, 0.5 small-cap, and 0.2 in a risk-free asset with monthly return 0.0025. Compute summary statistics for `micro`, `small` and `weighted`.",
+      "prompt": "**Exercise 12 \u2014 Q8.** Monthly stock prices and returns for publicly traded US stocks, 1926\u20131935, with `mcap` added. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`. Read it with `pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])` into `df`.\n\n**a.** Use a `groupby` to count the number of stocks in an equally-weighted portfolio (all stocks) every year-month. Store it in `counts` and compute summary statistics for the date-by-date count of stocks.\n**b.** Create a lagged market-cap column (lagged one month), called `mcap_lag`, as in the class discussion on lagging variables in a stock-date panel. Compute summary statistics for both `mcap` and the lagged column.\n**c.** In a comment, explain why the count of observations is lower for the lagged `mcap` column than for the `mcap` column.\n\n**Q9.** Read `port = pd.read_csv(\"fin400-port-mcap.csv\", parse_dates=['caldt'])`. Columns: the date plus returns on four portfolios formed on lagged market-cap: `micro`, `small`, `mid`, `large`. Create a new column `weighted` with portfolio returns where the weights are 0.3 micro-cap, 0.5 small-cap, and 0.2 in a risk-free asset with monthly return 0.0025. Compute summary statistics for `micro`, `small` and `weighted`.",
       "hints": [
         "Q8a is a count per date, not a sum: `df.groupby('caldt')['permno'].count()`. Counting a column also skips missing values, which matters for the lag.",
         "A lag is only meaningful inside a stock: sort by `permno` and `caldt` first, then `df.groupby('permno')['mcap'].shift(1)`.",
@@ -4795,18 +4795,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 13 \u00b7 Q2 \u2014 Value-weight portfolio and cumulative growth",
+      "title": "Exercise 13 \u00b7 Q2 \u2014 Value-weight portfolio and cumulative growth",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Portfolios"
       ],
       "assignment": {
         "key": "fin400-hw-13",
-        "label": "HW 13 \u2014 value-weight portfolio",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 13 \u2014 value-weight portfolio",
+        "group": "Exercises 1\u201319",
         "order": 113
       },
       "order": 113,
@@ -4817,7 +4817,7 @@
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
       },
       "line_count": 11,
-      "prompt": "**Homework 13 \u2014 Q2.** Same dataset as HW 12: monthly stock prices and returns for US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\n**a.** Form a value-weight portfolio of all stocks every year-month, store it in `vw`, and compute portfolio returns for the whole sample. Compute the mean and sample standard deviation of the portfolio.\n**b.** Create a one-column dataframe (technically a Series) based on the value-weight portfolio returns. Assuming your portfolio is called `vw` and you have not reset the index, run:\n\n```python\nnew = (1 + vw).cumprod() - 1\nprint(new)\n```\n\nWhat does each observation in `new` represent? Answer in a comment. (Looking at the pandas documentation for `cumprod` may help.)",
+      "prompt": "**Exercise 13 \u2014 Q2.** Same dataset as Exercise 12: monthly stock prices and returns for US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\n**a.** Form a value-weight portfolio of all stocks every year-month, store it in `vw`, and compute portfolio returns for the whole sample. Compute the mean and sample standard deviation of the portfolio.\n**b.** Create a one-column dataframe (technically a Series) based on the value-weight portfolio returns. Assuming your portfolio is called `vw` and you have not reset the index, run:\n\n```python\nnew = (1 + vw).cumprod() - 1\nprint(new)\n```\n\nWhat does each observation in `new` represent? Answer in a comment. (Looking at the pandas documentation for `cumprod` may help.)",
       "hints": [
         "A value-weight portfolio weights each stock by its market cap, so the month's return is \u03a3(ret \u00d7 mcap) \u00f7 \u03a3(mcap) \u2014 two groupbys over the same dates, one divided by the other.",
         "Build it in two steps so you can see each piece: `df['contrib'] = df['ret'] * df['mcap']`, then group `contrib` and `mcap` by `caldt`, sum both, divide.",
@@ -4836,19 +4836,19 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 14 \u00b7 Q8 \u2014 Value-weight portfolios split on the sign of last month's return",
+      "title": "Exercise 14 \u00b7 Q8 \u2014 Value-weight portfolios split on the sign of last month's return",
       "difficulty": "hard",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Lagging",
         "Portfolios"
       ],
       "assignment": {
         "key": "fin400-hw-14",
-        "label": "HW 14 \u2014 portfolios by lagged return",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 14 \u2014 portfolios by lagged return",
+        "group": "Exercises 1\u201319",
         "order": 114
       },
       "order": 114,
@@ -4859,7 +4859,7 @@
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
       },
       "line_count": 16,
-      "prompt": "**Homework 14 \u2014 Q8.** Same dataset as HW 12 and HW 13. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\nForm value-weight portfolios based on whether lagged one-month returns were positive or negative (the same two portfolios as in class, but value-weight instead of equal-weight). Note: you can multiply and divide dataframes even with a multi-index as long as the multi-index is the same and the number of columns matches.\n\nStore the two portfolio Series in `vw_pos` and `vw_neg`, and compute the mean and sample standard deviation of each.",
+      "prompt": "**Exercise 14 \u2014 Q8.** Same dataset as Exercise 12 and Exercise 13. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\nForm value-weight portfolios based on whether lagged one-month returns were positive or negative (the same two portfolios as in class, but value-weight instead of equal-weight). Note: you can multiply and divide dataframes even with a multi-index as long as the multi-index is the same and the number of columns matches.\n\nStore the two portfolio Series in `vw_pos` and `vw_neg`, and compute the mean and sample standard deviation of each.",
       "hints": [
         "Two steps before you can sort stocks: create the lag (`groupby('permno')['ret'].shift(1)` after sorting), then drop the rows where the lag is missing \u2014 otherwise 'NaN > 0' quietly throws those rows out and the counts get confusing.",
         "Split with two masks on the same dataframe: `df[df['ret_lag'] > 0]` and `df[df['ret_lag'] < 0]`. The zero case belongs to neither portfolio.",
@@ -4878,18 +4878,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 15 \u00b7 Q9 & Q10 \u2014 Merging two dataframes",
+      "title": "Exercise 15 \u00b7 Q9 & Q10 \u2014 Merging two dataframes",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Merging"
       ],
       "assignment": {
         "key": "fin400-hw-15",
-        "label": "HW 15 \u2014 merging",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 15 \u2014 merging",
+        "group": "Exercises 1\u201319",
         "order": 115
       },
       "order": 115,
@@ -4903,7 +4903,7 @@
         "fin400-merge-stock.csv": "fin400/data/fin400-merge-stock.csv"
       },
       "line_count": 14,
-      "prompt": "**Homework 15 \u2014 Q9 & Q10.** The homework ships two files with starter dataframes; here are the same two jobs on stand-in tables. Read all four files, then merge them.\n\n**Q9.** `roster` (`employee_id`, `department`) and `pay` (`employee_id`, `salary`). Merge them so the result has `employee_id`, `department` and `salary`, keeping only employees that appear in **both** tables. Store the merged frame in `merged`.\n\n**Q10.** `products` (`product`, `price`) and `stock` (`product`, `stock`). Merge them so the result keeps **every** product from `products` and attaches its stock count where one exists. Store it in `merged_extra`.\n\nDo not concatenate and do not loop over rows \u2014 this is a merge.",
+      "prompt": "**Exercise 15 \u2014 Q9 & Q10.** The original assignment ships two files with starter dataframes; here are the same two jobs on stand-in tables. Read all four files, then merge them.\n\n**Q9.** `roster` (`employee_id`, `department`) and `pay` (`employee_id`, `salary`). Merge them so the result has `employee_id`, `department` and `salary`, keeping only employees that appear in **both** tables. Store the merged frame in `merged`.\n\n**Q10.** `products` (`product`, `price`) and `stock` (`product`, `stock`). Merge them so the result keeps **every** product from `products` and attaches its stock count where one exists. Store it in `merged_extra`.\n\nDo not concatenate and do not loop over rows \u2014 this is a merge.",
       "hints": [
         "`pd.merge(left, right, on='key', how=...)` is the whole tool. The key here is the column the two tables share: `employee_id` for Q9 and `product` for Q10.",
         "The `how` argument decides which rows survive: `'inner'` keeps only keys present on both sides, `'left'` keeps every key from the left table.",
@@ -4922,19 +4922,19 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 16 \u00b7 Q4 \u2014 Duplicates, the year median, and merging it back",
+      "title": "Exercise 16 \u00b7 Q4 \u2014 Duplicates, the year median, and merging it back",
       "difficulty": "hard",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "pandas",
         "Duplicates",
         "Merging"
       ],
       "assignment": {
         "key": "fin400-hw-16",
-        "label": "HW 16 \u2014 duplicates and year medians",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 16 \u2014 duplicates and year medians",
+        "group": "Exercises 1\u201319",
         "order": 116
       },
       "order": 116,
@@ -4945,7 +4945,7 @@
         "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
       },
       "line_count": 16,
-      "prompt": "**Homework 16 \u2014 Q4.** Same data as HW 10: a panel of publicly traded US companies, 1980\u20132024. Variables: `ticker`, `fyear`, `ni`, `debt_lgterm`, `mcap`, `shr`. The date variable is fiscal year (integer), so do not use `parse_dates`. This copy of the file, `fin400-stock-panel-dupes.csv`, has some duplicated observations in it.\n\n```python\nimport pandas as pd\ndf = pd.read_csv('fin400-stock-panel-dupes.csv')\n```\n\n**a.** Observations should be defined by ticker/year. Store the number of duplicate observations in `dup_count` and print it. If duplicates exist, drop them.\n**b.** Create a new column with the leverage ratio `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024, store it in `lev_by_year`.\n**c.** Create a new column in the original dataframe containing the median leverage ratio for the year (from the groupby). Think about merging the groupby dataframe into the original dataframe. Reset the index of the groupby dataframe so `fyear` is a column, and rename the leverage column before merging. The new column must be called `levratio_median_year`.",
+      "prompt": "**Exercise 16 \u2014 Q4.** Same data as Exercise 10: a panel of publicly traded US companies, 1980\u20132024. Variables: `ticker`, `fyear`, `ni`, `debt_lgterm`, `mcap`, `shr`. The date variable is fiscal year (integer), so do not use `parse_dates`. This copy of the file, `fin400-stock-panel-dupes.csv`, has some duplicated observations in it.\n\n```python\nimport pandas as pd\ndf = pd.read_csv('fin400-stock-panel-dupes.csv')\n```\n\n**a.** Observations should be defined by ticker/year. Store the number of duplicate observations in `dup_count` and print it. If duplicates exist, drop them.\n**b.** Create a new column with the leverage ratio `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024, store it in `lev_by_year`.\n**c.** Create a new column in the original dataframe containing the median leverage ratio for the year (from the groupby). Think about merging the groupby dataframe into the original dataframe. Reset the index of the groupby dataframe so `fyear` is a column, and rename the leverage column before merging. The new column must be called `levratio_median_year`.",
       "hints": [
         "`df.duplicated(subset=['ticker', 'fyear'])` returns True/False per row and `.sum()` counts the repeats; `df.drop_duplicates(subset=['ticker', 'fyear'])` removes them.",
         "A grouped Series has `fyear` in the index. `reset_index()` turns that index into a column so it can be used as a merge key.",
@@ -4964,18 +4964,18 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 17 \u00b7 Q4 \u2014 Regressing market cap on employees",
+      "title": "Exercise 17 \u00b7 Q4 \u2014 Regressing market cap on employees",
       "difficulty": "medium",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "statsmodels",
         "Regression"
       ],
       "assignment": {
         "key": "fin400-hw-17",
-        "label": "HW 17 \u2014 mcap on employees",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 17 \u2014 mcap on employees",
+        "group": "Exercises 1\u201319",
         "order": 117
       },
       "order": 117,
@@ -4987,7 +4987,7 @@
         "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
       },
       "line_count": 14,
-      "prompt": "**Homework 17 \u2014 Q4.** Data: market cap and number of employees for publicly traded companies in fiscal year 2024. Variables: `permno`, `fyear`, `mcap` (millions of dollars), `emp` (number of employees, in thousands).\n\n```python\nimport pandas as pd\nimport statsmodels.formula.api as smf\ndf = pd.read_csv(\"fin400-mcap-emp.csv\")\n```\n\n**a.** Print summary statistics for `mcap` and `emp`.\n**b.** Estimate a regression (using statsmodels) of `mcap` on `emp`, store the fitted result in `reg`, and use the summary function to report the results.\n**c.** Check whether the residuals are mean zero and have zero covariance (or correlation) with the x-variable (`emp`). Print both numbers.\n**d.** Based on the regression, if a company has 10,000 employees, what is the expected market cap? (Use Python as a calculator, e.g. `print(500 + 104 * 77)`.) Store your answer in `pred_10k`.",
+      "prompt": "**Exercise 17 \u2014 Q4.** Data: market cap and number of employees for publicly traded companies in fiscal year 2024. Variables: `permno`, `fyear`, `mcap` (millions of dollars), `emp` (number of employees, in thousands).\n\n```python\nimport pandas as pd\nimport statsmodels.formula.api as smf\ndf = pd.read_csv(\"fin400-mcap-emp.csv\")\n```\n\n**a.** Print summary statistics for `mcap` and `emp`.\n**b.** Estimate a regression (using statsmodels) of `mcap` on `emp`, store the fitted result in `reg`, and use the summary function to report the results.\n**c.** Check whether the residuals are mean zero and have zero covariance (or correlation) with the x-variable (`emp`). Print both numbers.\n**d.** Based on the regression, if a company has 10,000 employees, what is the expected market cap? (Use Python as a calculator, e.g. `print(500 + 104 * 77)`.) Store your answer in `pred_10k`.",
       "hints": [
         "The formula string spells the regression in words: `'mcap ~ emp'` means mcap on the left, emp on the right. `smf.ols(...).fit()` gives you the fitted object.",
         "The fitted object carries what you need: `reg.params` for coefficients, `reg.resid` for residuals, `reg.summary()` for the table.",
@@ -5006,19 +5006,19 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 18 \u00b7 Q3 \u2014 Beta portfolio on the market, with t-tests",
+      "title": "Exercise 18 \u00b7 Q3 \u2014 Beta portfolio on the market, with t-tests",
       "difficulty": "hard",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "statsmodels",
         "Regression",
         "t-test"
       ],
       "assignment": {
         "key": "fin400-hw-18",
-        "label": "HW 18 \u2014 beta portfolio t-tests",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 18 \u2014 beta portfolio t-tests",
+        "group": "Exercises 1\u201319",
         "order": 118
       },
       "order": 118,
@@ -5031,7 +5031,7 @@
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
       },
       "line_count": 16,
-      "prompt": "**Homework 18 \u2014 Q3.** Use the two datasets used in class: ten portfolios formed on past beta (`p0`\u2013`p9`) and returns on the market portfolio. Read both into dataframes and import pandas and statsmodels.\n\n```python\nport = pd.read_csv('fin400-port-beta.csv', parse_dates=['caldt'])   # p0 ... p9\nfac  = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])     # mkt\n```\n\n**a.** Merge the two dataframes using an `'inner'` merge, as done in class. Store it in `df`.\n**b.** Estimate a regression of `p9` on the market portfolio, store it in `reg9`, and report the results with summary: `p9 = a + b*mkt + z`.\n**c.** Can you reject the hypothesis that the true slope = 0? Briefly explain, in a comment.\n**d.** Use the `t_test` method on the regression object to test the hypothesis that the true slope = 1, e.g. `print(reg9.t_test(\"mkt = 1\"))`. Can you reject it?\n**e.** Can you reject the hypothesis that the true `a` = -0.004? Briefly explain. Note: in `t_test` you can reference the intercept as `\"Intercept\"`.",
+      "prompt": "**Exercise 18 \u2014 Q3.** Use the two datasets used in class: ten portfolios formed on past beta (`p0`\u2013`p9`) and returns on the market portfolio. Read both into dataframes and import pandas and statsmodels.\n\n```python\nport = pd.read_csv('fin400-port-beta.csv', parse_dates=['caldt'])   # p0 ... p9\nfac  = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])     # mkt\n```\n\n**a.** Merge the two dataframes using an `'inner'` merge, as done in class. Store it in `df`.\n**b.** Estimate a regression of `p9` on the market portfolio, store it in `reg9`, and report the results with summary: `p9 = a + b*mkt + z`.\n**c.** Can you reject the hypothesis that the true slope = 0? Briefly explain, in a comment.\n**d.** Use the `t_test` method on the regression object to test the hypothesis that the true slope = 1, e.g. `print(reg9.t_test(\"mkt = 1\"))`. Can you reject it?\n**e.** Can you reject the hypothesis that the true `a` = -0.004? Briefly explain. Note: in `t_test` you can reference the intercept as `\"Intercept\"`.",
       "hints": [
         "The merge key is the date column in both files, `caldt`. `how='inner'` keeps only the months that appear in both \u2014 check `len(df)` before you move on.",
         "The regression itself is one line, `smf.ols('p9 ~ mkt', data=df).fit()`. The t-tests are methods on that same object, not new regressions.",
@@ -5050,19 +5050,19 @@
       "course": "fin400",
       "phase": "analysis",
       "type": "write_from_scratch",
-      "title": "HW 19 \u00b7 Q2 \u2014 P/E portfolios on the market and small-cap factors",
+      "title": "Exercise 19 \u00b7 Q2 \u2014 P/E portfolios on the market and small-cap factors",
       "difficulty": "hard",
       "topics": [
         "FIN 400",
-        "Homework",
+        "Exercises",
         "statsmodels",
         "Regression",
         "Loops"
       ],
       "assignment": {
         "key": "fin400-hw-19",
-        "label": "HW 19 \u2014 P/E portfolios",
-        "group": "Homework 1\u201319",
+        "label": "Exercise 19 \u2014 P/E portfolios",
+        "group": "Exercises 1\u201319",
         "order": 119
       },
       "order": 119,
@@ -5075,7 +5075,7 @@
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
       },
       "line_count": 18,
-      "prompt": "**Homework 19 \u2014 Q2.** Two datasets. First: five portfolio returns formed on past P/E ratio (`p0` = lowest P/E \u2026 `p4` = highest P/E):\n\n```python\nport = pd.read_csv('fin400-port-pe.csv', parse_dates=['caldt'])\n# p0 ... p4\n```\n\nSecond: market portfolio (`mkt`) and small-cap portfolio (`small`):\n\n```python\nfac = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])\n# mkt, small\n```\n\n**a.** Merge the two dataframes using an inner merge. Store it in `df`.\n**b.** Briefly explain why a left merge would have resulted in an identical dataframe. Answer in a comment.\n**c.** Estimate a regression of `p0` on `mkt` and `small`, store it in `reg0`, and report results with summary: `p0 = a + b1*mkt + b2*small + z`.\n**d.** Use a loop to estimate a regression for each portfolio (`p0`, `p1`, `p2`, `p3`, `p4`) on `mkt` and `small`. Print the estimated results for each portfolio using the summary function (the `print` belongs in the loop body). Adapt code from the lecture notebook. Also store the fitted objects in a dictionary called `models`, keyed by portfolio name.",
+      "prompt": "**Exercise 19 \u2014 Q2.** Two datasets. First: five portfolio returns formed on past P/E ratio (`p0` = lowest P/E \u2026 `p4` = highest P/E):\n\n```python\nport = pd.read_csv('fin400-port-pe.csv', parse_dates=['caldt'])\n# p0 ... p4\n```\n\nSecond: market portfolio (`mkt`) and small-cap portfolio (`small`):\n\n```python\nfac = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])\n# mkt, small\n```\n\n**a.** Merge the two dataframes using an inner merge. Store it in `df`.\n**b.** Briefly explain why a left merge would have resulted in an identical dataframe. Answer in a comment.\n**c.** Estimate a regression of `p0` on `mkt` and `small`, store it in `reg0`, and report results with summary: `p0 = a + b1*mkt + b2*small + z`.\n**d.** Use a loop to estimate a regression for each portfolio (`p0`, `p1`, `p2`, `p3`, `p4`) on `mkt` and `small`. Print the estimated results for each portfolio using the summary function (the `print` belongs in the loop body). Adapt code from the lecture notebook. Also store the fitted objects in a dictionary called `models`, keyed by portfolio name.",
       "hints": [
         "One formula string, three columns: `'p0 ~ mkt + small'`. The `+` here means 'and also', not arithmetic addition.",
         "The loop body is one fit and one print, with the portfolio name dropped into the formula each time \u2014 build the string with an f-string inside the loop.",

@@ -1,11 +1,11 @@
 /**
  * practice/index.html — browse, filter and pick exercises.
  *
- * Exercises come in sets: FIN 400 keeps its homework (HW 1 … HW 19), its extra
- * practice and its lecture exercises apart, and ACC 525 files its exercises
- * under the notebook they came from. A set is what the "assignment" of an
- * exercise means, and the section is the larger track that set belongs to
- * ("Homework 1–19", "Extra practice", "Lecture notebooks").
+ * Exercises come in sets: FIN 400 keeps Exercises 1 … 19, its extra practice
+ * and its lecture exercises apart, and ACC 525 files its exercises under the
+ * notebook they came from. A set is what the "assignment" of an exercise
+ * means, and the section is the larger track that set belongs to
+ * ("Exercises 1–19", "Extra practice", "Lecture notebooks").
  *
  * Everything a learner picked is mirrored in the URL, so a list view can be
  * bookmarked or shared.
@@ -70,7 +70,7 @@ const state = {
   filters: freshFilters(),
 };
 
-/** The larger tracks in this class, in course order (Homework, Extra practice…). */
+/** The larger tracks in this class, in course order (Exercises, Extra practice…). */
 function sections() {
   const found = new Map();
   for (const problem of state.problems) {
@@ -211,7 +211,7 @@ function byOrder(a, b) {
   return (a.order ?? 0) - (b.order ?? 0);
 }
 
-/** Position of the set an exercise belongs to: homework first, then practice. */
+/** Position of the set an exercise belongs to: the exercises first, then the practice. */
 function bySet(a, b) {
   return assignmentForProblem(a).order - assignmentForProblem(b).order;
 }
@@ -237,7 +237,7 @@ function sortedProblems(problems) {
         return rank[problemStatus(a)] - rank[problemStatus(b)] || byTitle(a, b);
       });
     default:
-      // Course order: the set first (HW 1 … HW 19, then practice), then the
+      // Course order: the set first (Exercises 1 … 19, then practice), then the
       // exercise's own track position, then its title read as a number.
       return list.sort(
         (a, b) => bySet(a, b) || (a.order ?? UNORDERED) - (b.order ?? UNORDERED) || byTitle(a, b),
@@ -313,7 +313,7 @@ function problemsView(problems) {
   return state.view === "table" ? tableElement(problems) : tileGridElement(problems);
 }
 
-/** Group exercises by the larger track they belong to (Homework, Extra practice…). */
+/** Group exercises by the larger track they belong to (Exercises, Extra practice…). */
 function sectionBuckets(problems) {
   const found = new Map();
   for (const problem of problems) {
