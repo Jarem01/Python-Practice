@@ -87,7 +87,7 @@ The pages (every one of them is on the deployed URL above as well):
 | `index.html` | Landing page: stats, progress, the notebook overview, a suggested next exercise |
 | `learning/index.html` | All notebooks grouped by part, with the exercises found inside each one |
 | `learning/view.html?nb=…` | Renders one `.ipynb` in the browser (markdown, code, outputs, tracebacks, TOC) |
-| `practice/index.html` | All exercises, grouped by the assignment they came from and by topic, with search and filters |
+| `practice/index.html` | All exercises, grouped into sections (homework, extra practice, lecture exercises), with one row of dropdown filters |
 | `practice/exercise.html?id=…` | The exercise engine (all four types, with the run output and a colored comparison) |
 | `practice/create.html` | Form to author a new exercise, save it as a local draft, download JSON |
 | `flashcards.html` | Revision deck: one card per method, flipped to show what it does, a call to run and the output it prints |
@@ -360,7 +360,8 @@ print(total)
 | `hints` | all | Revealed one at a time; Markdown allowed |
 | `solution` | all | Shown on request (never marks the exercise solved by itself) |
 | `mode`, `line_count` | write | `both` (default), `guided` or `lines`; suggested line budget |
-| `order` | all | Position inside its group: a numbered track (FIN 400's *Practice 1 … 19*) sorts 1, 2, 3 instead of alphabetically |
+| `order` | all | Position inside its group: a numbered track (FIN 400's *HW 1 … 19*, *Practice 1 … 19*) sorts 1, 2, 3 instead of alphabetically |
+| `assignment` | all | An object `{key, label, group, order}` naming the set the exercise belongs to, for a class that files exercises by set instead of by notebook (FIN 400: `Homework 1–19`, `Extra practice`, `Lecture notebooks`) |
 | `glossary` | all | Glossary slugs to link, e.g. `["for-loop", "dictionary"]` |
 | `packages` | all | Extra Pyodide packages loaded on demand, e.g. `["numpy", "pandas"]` |
 | `notebook` | all | Optional notebook path, shown as "from the notebook" |

@@ -163,3 +163,39 @@ test("a missing registry is an error the page can show", async () => {
     globalThis.fetch = original;
   }
 });
+
+test("FIN 400 keeps the homework apart from the extra practice", async () => {
+  const fin400 = bundle.problems.filter((problem) => problem.course === "fin400");
+  const ofSet = (group) => fin400.filter((problem) => (problem.assignment || {}).group === group);
+
+  // Nineteen homework assignments, one exercise each, numbered 1 … 19 in order.
+  const homework = ofSet("Homework 1–19");
+  assert.equal(homework.length, 19, "every homework assignment ships as an exercise");
+  const numbers = homework.map((problem) => {
+    const match = /^HW (\d+) ·/.exec(problem.title);
+    assert.ok(match, `${problem.id} must name its homework number in the title`);
+    return Number(match[1]);
+  });
+  assert.deepEqual([...numbers].sort((a, b) => a - b), Array.from({ length: 19 }, (_, i) => i + 1));
+
+  // Homework is graded, so it needs checks, and it is never given away.
+  for (const problem of homework) {
+    assert.equal(problem.type, "write_from_scratch", `${problem.id} is a programming exercise`);
+    assert.ok(problem.tests || problem.expected_output, `${problem.id} needs something to check against`);
+    assert.ok((problem.hints || []).length >= 3, `${problem.id} must offer helpful hints`);
+    assert.equal(problem.solution, undefined, `${problem.id} must not carry a solution`);
+    assert.equal(problem.solutions, "hidden");
+    assert.ok(problem.assignment.label && problem.assignment.order, `${problem.id} needs a labeled, ordered set`);
+    for (const [name, source] of Object.entries(problem.data_files || {})) {
+      assert.ok(name.endsWith(".csv"), `${problem.id} hands the sandbox a csv`);
+      await readFile(path.join(root, source));
+    }
+  }
+
+  // The extra practice and the lecture exercises stay where they were, but are
+  // now filed under their own sets so the page can tell them apart.
+  assert.equal(ofSet("Lecture notebooks").length, 20, "the lecture exercises are unchanged");
+  const practice = ofSet("Extra practice");
+  assert.ok(practice.length >= 40, `the extra practice is still there (found ${practice.length})`);
+  assert.ok(practice.every((problem) => problem.assignment.label), "every practice exercise names its set");
+});

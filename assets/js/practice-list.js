@@ -1,13 +1,17 @@
 /**
  * practice/index.html — browse, filter and pick exercises.
  *
- * The list is organized the way the course is: by assignment (the notebook the
- * exercise came from), then by topic, with filters for type, topic, difficulty
- * and progress. Everything a learner picked is mirrored in the URL, so a list
- * view can be bookmarked or shared.
+ * Exercises come in sets: FIN 400 keeps its homework (HW 1 … HW 19), its extra
+ * practice and its lecture exercises apart, and ACC 525 files its exercises
+ * under the notebook they came from. A set is what the "assignment" of an
+ * exercise means, and the section is the larger track that set belongs to
+ * ("Homework 1–19", "Extra practice", "Lecture notebooks").
+ *
+ * Everything a learner picked is mirrored in the URL, so a list view can be
+ * bookmarked or shared.
  */
 
-import { assignmentForProblem, assignmentsForProblems, groupProblems, loadAssignments } from "./assignments.js";
+import { assignmentForProblem, groupProblems, loadAssignments } from "./assignments.js";
 import {
   activeCourse,
   filterProblems as inCourse,
@@ -29,32 +33,65 @@ import {
 import { filterProblems, loadProblems, problemStats, problemStatus, uniqueValues } from "./problems.js";
 
 const VIEW_KEY = "practice";
+const LEVELS = ["easy", "medium", "hard"];
+const STATUSES = [
+  ["", "All"],
+  ["new", "Not started"],
+  ["attempted", "In progress"],
+  ["solved", "Solved"],
+];
+const SORTS = [
+  ["curated", "Course order (1, 2, 3…)"],
+  ["title", "Title"],
+  ["difficulty", "Level"],
+  ["type", "Type"],
+  ["progress", "Least progress first"],
+];
+
+function freshFilters() {
+  return {
+    section: "",
+    assignment: "",
+    type: "",
+    topic: "",
+    difficulty: "",
+    status: "",
+    query: "",
+    group: "section",
+    sort: "curated",
+    phase: "",
+  };
+}
 
 const state = {
   problems: [],
-  assignments: [],
   course: null,
-  catalog: null,
   view: getViewMode(VIEW_KEY),
-  filters: { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated", phase: "" },
+  filters: freshFilters(),
 };
 
-const DIFFICULTIES = ["easy", "medium", "hard"];
-const STATUSES = [
-  ["", "all"],
-  ["new", "not started"],
-  ["attempted", "in progress"],
-  ["solved", "solved"],
-];
+/** The larger tracks in this class, in course order (Homework, Extra practice…). */
+function sections() {
+  const found = new Map();
+  for (const problem of state.problems) {
+    const assignment = assignmentForProblem(problem);
+    const bucket = found.get(assignment.group);
+    if (bucket) bucket.count += 1;
+    else found.set(assignment.group, { label: assignment.group, order: assignment.order, count: 1 });
+  }
+  return [...found.values()].sort((a, b) => a.order - b.order || a.label.localeCompare(b.label));
+}
+
 function groupings() {
   const options = [
-    ["assignment", "by assignment"],
-    ["topic", "by topic"],
+    ["section", "Section"],
+    ["assignment", "Set"],
+    ["topic", "Topic"],
   ];
   // A class with two halves (FIN 400: .py functions, then notebooks) reads
-  // best split that way, so that grouping is offered whenever it applies.
-  if (phasesOf(state.course).length > 1) options.push(["phase", "by half of the course"]);
-  options.push(["none", "one list"]);
+  // best split that way too, so that grouping is offered whenever it applies.
+  if (phasesOf(state.course).length > 1) options.push(["phase", "Half of the course"]);
+  options.push(["none", "One list"]);
   return options;
 }
 
@@ -62,24 +99,34 @@ function setQueryParams() {
   const url = new URL(location.href);
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(state.filters)) {
-    const isDefault = (key === "sort" && value === "curated") || (key === "group" && value === "assignment");
+    const isDefault = (key === "sort" && value === "curated") || (key === "group" && value === "section");
     if (value && !isDefault) params.set(key, value);
   }
   url.search = params.toString();
   history.replaceState(null, "", url);
 }
 
-function pillRow(options, current, onPick) {
-  const row = el("div", { class: "pill-row" });
+function pick(key, value) {
+  state.filters[key] = value;
+  setQueryParams();
+  renderList();
+}
+
+/** One labeled control in the filter bar. */
+function filterField(label, control, extra = "") {
+  const wrap = el("label", { class: `filter-field${extra ? ` ${extra}` : ""}` });
+  wrap.append(el("span", { class: "lbl", text: label }), control);
+  return wrap;
+}
+
+/** A dropdown bound to one filter key. Every option carries its own value. */
+function filterSelect(options, current, key) {
+  const select = el("select");
   for (const [value, label] of options) {
-    const pill = el("button", { class: "pill", type: "button", text: label, "aria-pressed": String(current === value), "data-value": value });
-    pill.addEventListener("click", () => {
-      onPick(value);
-      [...row.children].forEach((child) => child.setAttribute("aria-pressed", String(child.dataset.value === value)));
-    });
-    row.append(pill);
+    select.append(el("option", { value, text: label, selected: current === value }));
   }
-  return row;
+  select.addEventListener("change", () => pick(key, select.value));
+  return select;
 }
 
 function renderFilters(container) {
@@ -87,159 +134,67 @@ function renderFilters(container) {
 
   const search = el("input", {
     type: "search",
-    placeholder: "Search titles, text and hints…",
+    placeholder: "Search titles, hints and text…",
     value: state.filters.query,
-    style: "min-width:16em",
   });
-  search.addEventListener("input", () => {
-    state.filters.query = search.value;
-    setQueryParams();
-    renderList();
-  });
-  container.append(el("div", { class: "group" }, [el("span", { class: "lbl", text: "Search" }), search]));
+  search.addEventListener("input", () => pick("query", search.value));
 
-  const assignmentSelect = el("select");
-  assignmentSelect.append(el("option", { value: "", text: "all assignments", selected: state.filters.assignment === "" }));
-  for (const assignment of state.assignments) {
-    assignmentSelect.append(
-      el("option", {
-        value: assignment.key,
-        text: `${assignment.label} (${assignment.count})`,
-        selected: state.filters.assignment === assignment.key,
-      }),
-    );
-  }
-  assignmentSelect.addEventListener("change", () => {
-    state.filters.assignment = assignmentSelect.value;
-    setQueryParams();
-    renderList();
-  });
-  container.append(el("div", { class: "group" }, [el("span", { class: "lbl", text: "Assignment" }), assignmentSelect]));
-
-  const topics = ["", ...uniqueValues(state.problems, "topics")];
-  const topicSelect = el("select");
-  for (const topic of topics) {
-    topicSelect.append(el("option", { value: topic, text: topic || "all topics", selected: state.filters.topic === topic }));
-  }
-  topicSelect.addEventListener("change", () => {
-    state.filters.topic = topicSelect.value;
-    setQueryParams();
-    renderList();
-  });
-  container.append(el("div", { class: "group" }, [el("span", { class: "lbl", text: "Topic" }), topicSelect]));
-
-  container.append(
-    el("div", { class: "group" }, [
-      el("span", { class: "lbl", text: "Type" }),
-      pillRow([["", "all"], ...TYPE_ORDER.map((t) => [t, TYPE_LABELS[t]])], state.filters.type, (value) => {
-        state.filters.type = value;
-        setQueryParams();
-        renderList();
-      }),
-    ]),
-  );
-
-  container.append(
-    el("div", { class: "group" }, [
-      el("span", { class: "lbl", text: "Difficulty" }),
-      pillRow([["", "all"], ...DIFFICULTIES.map((d) => [d, d])], state.filters.difficulty, (value) => {
-        state.filters.difficulty = value;
-        setQueryParams();
-        renderList();
-      }),
-    ]),
-  );
-
-  // The halves of the class, offered as a filter when the class has them.
-  const phases = phasesOf(state.course);
-  if (phases.length > 1) {
-    container.append(
-      el("div", { class: "group" }, [
-        el("span", { class: "lbl", text: "Half" }),
-        pillRow(
-          [["", "both halves"], ...phases.map((phase) => [phase.id, phase.title.split("—")[0].trim() || phase.title])],
-          state.filters.phase,
-          (value) => {
-            state.filters.phase = value;
-            setQueryParams();
-            renderList();
-          },
-        ),
-      ]),
-    );
-  }
-
-  const statusCounts = problemStats(state.problems);
-  container.append(
-    el("div", { class: "group" }, [
-      el("span", { class: "lbl", text: "Progress" }),
-      pillRow(
-        STATUSES.map(([value, label]) => {
-          const count =
-            value === "solved"
-              ? statusCounts.solved
-              : value === "attempted"
-                ? statusCounts.attempted
-                : value === "new"
-                  ? statusCounts.total - statusCounts.solved - statusCounts.attempted
-                  : statusCounts.total;
-          return [value, `${label} (${count})`];
-        }),
-        state.filters.status,
-        (value) => {
-          state.filters.status = value;
-          setQueryParams();
-          renderList();
-        },
+  const bar = el("div", { class: "filter-bar" });
+  bar.append(filterField("Search", search, "wide"));
+  bar.append(
+    filterField(
+      "Section",
+      filterSelect(
+        [["", "All sections"], ...sections().map((section) => [section.label, `${section.label} (${section.count})`])],
+        state.filters.section,
+        "section",
       ),
-    ]),
+    ),
   );
-
-  container.append(
-    el("div", { class: "group" }, [
-      el("span", { class: "lbl", text: "Group" }),
-      pillRow(groupings(), state.filters.group, (value) => {
-        state.filters.group = value;
-        setQueryParams();
-        renderList();
-      }),
-    ]),
+  bar.append(
+    filterField(
+      "Topic",
+      filterSelect(
+        [["", "All topics"], ...uniqueValues(state.problems, "topics").map((topic) => [topic, topic])],
+        state.filters.topic,
+        "topic",
+      ),
+    ),
   );
+  bar.append(
+    filterField(
+      "Type",
+      filterSelect([["", "All types"], ...TYPE_ORDER.map((type) => [type, TYPE_LABELS[type]])], state.filters.type, "type"),
+    ),
+  );
+  bar.append(
+    filterField(
+      "Level",
+      filterSelect([["", "All levels"], ...LEVELS.map((level) => [level, level])], state.filters.difficulty, "difficulty"),
+    ),
+  );
+  bar.append(filterField("Progress", filterSelect(STATUSES, state.filters.status, "status")));
+  bar.append(filterField("Group by", filterSelect(groupings(), state.filters.group, "group")));
+  bar.append(filterField("Sort", filterSelect(SORTS, state.filters.sort, "sort")));
+  container.append(bar);
 
-  // Cards or a table — the same exercises either way.
-  container.append(
+  const actions = el("div", { class: "filter-actions" });
+  actions.append(
     viewToggle(state.view, (value) => {
       state.view = value;
       setViewMode(VIEW_KEY, value);
       renderList();
     }),
   );
-
-  const sort = el("select");
-  for (const [value, label] of [
-    ["curated", "course order (1, 2, 3…)"],
-    ["title", "title"],
-    ["difficulty", "difficulty"],
-    ["type", "type"],
-    ["progress", "least progress first"],
-  ]) {
-    sort.append(el("option", { value, text: label, selected: state.filters.sort === value }));
-  }
-  sort.addEventListener("change", () => {
-    state.filters.sort = sort.value;
-    setQueryParams();
-    renderList();
-  });
-  container.append(el("div", { class: "group" }, [el("span", { class: "lbl", text: "Sort" }), sort]));
-
   const clear = el("button", { class: "btn small ghost", type: "button", text: "Clear filters" });
   clear.addEventListener("click", () => {
-    state.filters = { assignment: "", type: "", topic: "", difficulty: "", status: "", query: "", group: "assignment", sort: "curated", phase: "" };
+    state.filters = freshFilters();
     setQueryParams();
     renderFilters(container);
     renderList();
   });
-  container.append(clear);
+  actions.append(clear);
+  container.append(actions);
 }
 
 /**
@@ -254,6 +209,11 @@ function byTitle(a, b) {
 /** The track position a problem declares, if any (FIN 400's Practice 1 … 19). */
 function byOrder(a, b) {
   return (a.order ?? 0) - (b.order ?? 0);
+}
+
+/** Position of the set an exercise belongs to: homework first, then practice. */
+function bySet(a, b) {
+  return assignmentForProblem(a).order - assignmentForProblem(b).order;
 }
 
 /** Sort key for an exercise with no track position: after every numbered one. */
@@ -277,24 +237,11 @@ function sortedProblems(problems) {
         return rank[problemStatus(a)] - rank[problemStatus(b)] || byTitle(a, b);
       });
     default:
-      // "Assignment order": the notebook the exercise came from, then its topic,
-      // then the order it appears in inside that notebook. A numbered track
-      // (FIN 400's Practice 1 … 19) carries its own `order`, so it reads in the
-      // order the class works through it instead of alphabetically.
-      return list.sort((a, b) => {
-        const left = assignmentForProblem(a);
-        const right = assignmentForProblem(b);
-        return (
-          // An explicit track position wins over everything, so a numbered set
-          // is read 1, 2, 3 … even when its exercises come from several
-          // notebooks. Exercises without one keep the assignment order.
-          (a.order ?? UNORDERED) - (b.order ?? UNORDERED) ||
-          left.order - right.order ||
-          left.label.localeCompare(right.label) ||
-          (a.topics || []).join().localeCompare((b.topics || []).join()) ||
-          byTitle(a, b)
-        );
-      });
+      // Course order: the set first (HW 1 … HW 19, then practice), then the
+      // exercise's own track position, then its title read as a number.
+      return list.sort(
+        (a, b) => bySet(a, b) || (a.order ?? UNORDERED) - (b.order ?? UNORDERED) || byTitle(a, b),
+      );
   }
 }
 
@@ -313,7 +260,9 @@ function problemBadges(problem) {
 
 function problemFacts(problem) {
   const bits = [(problem.topics || []).join(" · ")];
-  if (state.filters.group !== "assignment") bits.push(assignmentForProblem(problem).label);
+  if (state.filters.group !== "section" && state.filters.group !== "assignment") {
+    bits.push(assignmentForProblem(problem).label);
+  }
   if ((problem.hints || []).length) bits.push(`${problem.hints.length} hints`);
   return bits.filter(Boolean).join(" · ");
 }
@@ -339,7 +288,7 @@ function tableElement(problems) {
   const wrap = el("div");
   const table = el("table", { class: "data-table" });
   table.innerHTML =
-    "<thead><tr><th>Exercise</th><th>Assignment</th><th>Topic</th><th>Type</th><th>Level</th><th>Status</th></tr></thead>";
+    "<thead><tr><th>Exercise</th><th>Set</th><th>Topic</th><th>Type</th><th>Level</th><th>Status</th></tr></thead>";
   const body = el("tbody");
   for (const problem of problems) {
     const status = problemStatus(problem);
@@ -364,12 +313,24 @@ function problemsView(problems) {
   return state.view === "table" ? tableElement(problems) : tileGridElement(problems);
 }
 
+/** Group exercises by the larger track they belong to (Homework, Extra practice…). */
+function sectionBuckets(problems) {
+  const found = new Map();
+  for (const problem of problems) {
+    const assignment = assignmentForProblem(problem);
+    const bucket = found.get(assignment.group);
+    if (bucket) bucket.problems.push(problem);
+    else found.set(assignment.group, { key: assignment.group, label: assignment.group, order: assignment.order, problems: [problem] });
+  }
+  return [...found.values()].sort((a, b) => a.order - b.order || a.label.localeCompare(b.label));
+}
+
 function renderList() {
   const container = document.getElementById("problem-list");
   const summary = document.getElementById("list-summary");
-  const matched = filterProblems(state.problems, state.filters).filter(
-    (problem) => !state.filters.phase || problem.phase === state.filters.phase,
-  );
+  const matched = filterProblems(state.problems, state.filters)
+    .filter((problem) => !state.filters.phase || problem.phase === state.filters.phase)
+    .filter((problem) => !state.filters.section || assignmentForProblem(problem).group === state.filters.section);
   const filtered = sortedProblems(matched);
   const stats = problemStats(state.problems);
 
@@ -406,7 +367,9 @@ function renderList() {
   const buckets =
     state.filters.group === "phase"
       ? groupProblemsByPhase(filtered, state.course)
-      : groupProblems(filtered, state.filters.group);
+      : state.filters.group === "section"
+        ? sectionBuckets(filtered)
+        : groupProblems(filtered, state.filters.group);
 
   for (const bucket of buckets) {
     const heading = el("div", { class: "list-group" });
@@ -417,22 +380,21 @@ function renderList() {
         text: `${bucket.problems.length} exercise${bucket.problems.length === 1 ? "" : "s"}`,
       }),
     );
-    if (state.filters.group === "assignment" && bucket.group && bucket.group !== bucket.label) {
+    if (state.filters.group === "section") {
+      const sets = new Set(bucket.problems.map((problem) => assignmentForProblem(problem).key)).size;
+      heading.append(el("span", { class: "badge", text: `${sets} set${sets === 1 ? "" : "s"}` }));
+    } else if (state.filters.group === "assignment" && bucket.group && bucket.group !== bucket.label) {
       heading.append(el("span", { class: "badge", text: bucket.group }));
     }
     container.append(heading);
     if (state.filters.group === "phase" && bucket.summary) {
       container.append(el("p", { class: "small muted", text: bucket.summary, style: "margin:0 0 .6rem" }));
     }
-    // Sequential inside a group: the numbered track first, then topic and
-    // title. Sorting on the title alone would put Practice 10 before Practice 2.
+    // Sequential inside a group: the set, then the numbered track, then title.
     const ordered =
       state.filters.sort === "curated"
         ? [...bucket.problems].sort(
-            (a, b) =>
-              byOrder(a, b) ||
-              (a.topics || []).join().localeCompare((b.topics || []).join()) ||
-              byTitle(a, b),
+            (a, b) => bySet(a, b) || byOrder(a, b) || byTitle(a, b),
           )
         : bucket.problems;
     container.append(problemsView(ordered));
@@ -452,9 +414,9 @@ async function main() {
   // One class at a time: the list, its filters and its counts all belong to the
   // class picked in the header. Without data/courses.json everything is shown.
   try {
-    state.catalog = await loadCourses();
-    state.course = await activeCourse(state.catalog);
-    mountCoursePicker(state.catalog, { active: state.course.id });
+    const catalog = await loadCourses();
+    state.course = await activeCourse(catalog);
+    mountCoursePicker(catalog, { active: state.course.id });
     state.problems = inCourse(state.problems, state.course.id);
   } catch (error) {
     state.course = null;
@@ -462,30 +424,17 @@ async function main() {
   }
 
   await loadAssignments();
-  state.assignments = assignmentsForProblems(state.problems);
 
-  for (const key of ["assignment", "type", "topic", "difficulty", "status", "query", "group", "sort", "phase"]) {
+  for (const key of ["section", "assignment", "type", "topic", "difficulty", "status", "query", "group", "sort", "phase"]) {
     const value = param(key);
     if (value) state.filters[key] = value;
   }
 
-  // A class whose exercises are not tied to notebooks yet (FIN 400 while its
-  // class files are still being added) would otherwise show one anonymous
-  // "General exercises" group. Its halves are the useful grouping there.
-  if (!param("group") && state.course && phasesOf(state.course).length > 1 && state.assignments.length <= 1) {
-    state.filters.group = "phase";
-  }
-
-  // A class with numbered tracks reads as one sequence — Practice 1, 2, 3 … —
-  // so it starts as a single list. The pills still group it by module or half.
-  if (!param("group") && state.problems.some((problem) => problem.order != null)) {
-    state.filters.group = "none";
-  }
   renderFilters(filtersHost);
   renderList();
   const scope = state.course ? `${state.course.code} · ` : "";
   document.getElementById("count-badge").textContent =
-    `${scope}${state.problems.length} exercises in ${state.assignments.length} assignments`;
+    `${scope}${state.problems.length} exercises · ${sections().length} sections`;
   if (state.course) document.title = `Practice — ${state.course.code}`;
 }
 

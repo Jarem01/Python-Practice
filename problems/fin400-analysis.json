@@ -7,9 +7,17 @@
       "type": "write_from_scratch",
       "title": "Average monthly return per fund",
       "difficulty": "easy",
-      "topics": ["FIN 400", "pandas", "Grouping"],
-      "packages": ["pandas"],
-      "data_files": { "fund_returns.csv": "fin400/data/fund_returns.csv" },
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fund_returns.csv": "fin400/data/fund_returns.csv"
+      },
       "line_count": 3,
       "prompt": "`fund_returns.csv` holds one row per fund per month, with `fund`, `month`, `return_pct` and `benchmark_pct`.\n\nLoad it into `data` and store each fund's average `return_pct` in a Series called `avg_return`, indexed by fund name.\n\n```python\navg_return\n# fund\n# Blue Ridge      0.666667\n# Cedar Growth    1.103333\n# Harbor Value    0.389167\n```\n\nDo not round or sort the values; the checks compare them at full precision.",
       "hints": [
@@ -18,7 +26,13 @@
         "The result of that expression is the Series you need; assign it to `avg_return`."
       ],
       "tests": "assert hasattr(avg_return, 'index'), 'avg_return must be a pandas Series indexed by fund'\nassert list(avg_return.index) == ['Blue Ridge', 'Cedar Growth', 'Harbor Value']\nassert round(float(avg_return['Blue Ridge']), 4) == 0.6667\nassert round(float(avg_return['Cedar Growth']), 4) == 1.1033\nassert round(float(avg_return['Harbor Value']), 4) == 0.3892",
-      "test_summary": "a Series named avg_return, indexed by the three fund names, with each fund's mean return"
+      "test_summary": "a Series named avg_return, indexed by the three fund names, with each fund's mean return",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      }
     },
     {
       "id": "fin400-fix-fund-report",
@@ -27,9 +41,18 @@
       "type": "fix_the_code",
       "title": "The fund report counts months instead of averaging them",
       "difficulty": "medium",
-      "topics": ["FIN 400", "pandas", "Grouping", "Formatting"],
-      "packages": ["pandas"],
-      "data_files": { "fund_returns.csv": "fin400/data/fund_returns.csv" },
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Grouping",
+        "Formatting"
+      ],
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fund_returns.csv": "fin400/data/fund_returns.csv"
+      },
       "prompt": "This report should print each fund's **average monthly return, to two decimals** — but it prints something else.\n\nRun it, read the numbers, and fix the two mistakes: the statistic it computes, and the formatting.\n\nExpected output:\n\n```\nBlue Ridge: 0.67\nCedar Growth: 1.10\nHarbor Value: 0.39\n```",
       "hints": [
         "Twelve is the number of months each fund reported — that is `count`, not `mean`.",
@@ -39,7 +62,13 @@
       "starter_code": "import pandas as pd\n\ndata = pd.read_csv(\"fund_returns.csv\")\navg = data.groupby(\"fund\")[\"return_pct\"].count()\n\nfor fund, value in avg.items():\n    print(f\"{fund}: {value}\")\n",
       "expected_output": "Blue Ridge: 0.67\nCedar Growth: 1.10\nHarbor Value: 0.39",
       "tests": "assert round(float(avg['Harbor Value']), 4) == 0.3892, 'avg must hold averages, not counts'",
-      "test_summary": "the grouped Series holds mean returns and each line is formatted to two decimals"
+      "test_summary": "the grouped Series holds mean returns and each line is formatted to two decimals",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      }
     },
     {
       "id": "fin400-net-of-fees",
@@ -48,8 +77,15 @@
       "type": "write_from_scratch",
       "title": "Rank funds by return net of fees",
       "difficulty": "medium",
-      "topics": ["FIN 400", "pandas", "Merging", "Sorting"],
-      "packages": ["pandas"],
+      "topics": [
+        "FIN 400",
+        "pandas",
+        "Merging",
+        "Sorting"
+      ],
+      "packages": [
+        "pandas"
+      ],
       "data_files": {
         "fund_returns.csv": "fin400/data/fund_returns.csv",
         "fund_fees.csv": "fin400/data/fund_fees.csv"
@@ -62,7 +98,13 @@
         "After the merge: `ranked[\"net_return\"] = ranked[\"avg_return\"] - ranked[\"expense_ratio\"]`, then `sort_values(\"net_return\", ascending=False)` and `set_index(\"fund\")`."
       ],
       "tests": "assert list(ranked.index) == ['Cedar Growth', 'Blue Ridge', 'Harbor Value'], 'ranked must be sorted by net return, best first, indexed by fund'\nfor column in ['avg_return', 'expense_ratio', 'assets_mm', 'net_return']:\n    assert column in ranked.columns, f'{column} is missing from ranked'\nassert round(float(ranked.loc['Harbor Value', 'net_return']), 4) == -0.0908\nassert round(float(ranked.loc['Cedar Growth', 'net_return']), 4) == 0.0533",
-      "test_summary": "a merged, sorted frame indexed by fund with avg_return, the fee columns and net_return"
+      "test_summary": "a merged, sorted frame indexed by fund with avg_return, the fee columns and net_return",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      }
     },
     {
       "id": "fin400-regression-beta",
@@ -71,9 +113,19 @@
       "type": "write_from_scratch",
       "title": "Regress fund returns on the benchmark",
       "difficulty": "hard",
-      "topics": ["FIN 400", "Regression", "statsmodels", "pandas"],
-      "packages": ["pandas", "statsmodels"],
-      "data_files": { "fund_returns.csv": "fin400/data/fund_returns.csv" },
+      "topics": [
+        "FIN 400",
+        "Regression",
+        "statsmodels",
+        "pandas"
+      ],
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fund_returns.csv": "fin400/data/fund_returns.csv"
+      },
       "line_count": 6,
       "prompt": "Run one regression, pooling every month of every fund:\n\n`return_pct = a + b × benchmark_pct`\n\nLoad `fund_returns.csv`, fit it with `statsmodels.api.OLS`, and store the fitted result in `model`. Do not split the funds — this is the simple pooled regression.\n\nWhen it is right, `model.params[\"benchmark_pct\"]` is about **0.879** and `model.rsquared` is about **0.833**.\n\nThe intercept only appears if you add the constant column. A regression without one reports a slope of about 0.54 and has no intercept, which is not what this asks for.",
       "hints": [
@@ -82,7 +134,13 @@
         "The order matters: `sm.OLS(y, X)` — response first, design matrix second. `params` is indexed by column name after `add_constant`."
       ],
       "tests": "assert model.params['const'] is not None, 'the regression needs an intercept: use sm.add_constant'\nassert round(float(model.params['benchmark_pct']), 3) == 0.879\nassert round(float(model.params['const']), 3) == 0.2\nassert round(float(model.rsquared), 3) == 0.833",
-      "test_summary": "a fitted OLS model with an intercept, a benchmark slope of 0.879 and R² of 0.833"
+      "test_summary": "a fitted OLS model with an intercept, a benchmark slope of 0.879 and R² of 0.833",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      }
     }
   ]
 }

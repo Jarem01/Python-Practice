@@ -28,7 +28,13 @@
       "tests": "assert len(data) > 2000\nassert abs(float(data[\"eps\"].median()) - 4.222102) < 1e-3\nassert abs(float(data[\"levratio\"].median()) - 0.369484) < 1e-3\nassert int(lev_counts[True]) == 2152\nassert int(lev_counts[False]) == 191\nassert abs(float(mcap_by_pos[False]) - 10670.0013) < 0.01\nassert abs(float(mcap_by_pos[True]) - 9381.9091) < 0.01",
       "test_summary": "eps, leverage and a boolean column, with the counts and the average market cap per group",
       "order": 101,
-      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-p10-fix-levratio",
@@ -57,6 +63,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
       }
     },
     {
@@ -87,7 +99,13 @@
       "tests": "assert len(ew_returns) == 120\nassert abs(float(ew_returns.mean()) - 0.008561) < 1e-5\nassert abs(float(ew_returns.std()) - 0.051730) < 1e-5\nassert abs(float(ew_mean) - 0.008561) < 1e-5\nassert abs(float(ew_std) - 0.051730) < 1e-5",
       "test_summary": "one equal-weight return per month, with its mean and sample standard deviation",
       "order": 111,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-count-and-lag",
@@ -117,7 +135,13 @@
       "tests": "assert len(stock_count) == 120\nassert abs(float(stock_count.mean()) - 45.0) < 1e-9\nassert int(stock_count.sum()) == 5400\nassert int(data[\"mcap_lag\"].notna().sum()) == 5355",
       "test_summary": "a dated count of stocks and a within-stock lag that leaves the first month of each stock empty",
       "order": 121,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-blended-portfolio",
@@ -147,7 +171,13 @@
       "tests": "assert len(port) == 120\nassert \"blend\" in port.columns\nassert abs(float(port[\"blend\"].mean()) - 0.00576) < 1e-5\nassert abs(float(port[\"blend\"].std()) - 0.051997) < 1e-5",
       "test_summary": "a weighted column mixing two portfolios with a constant risk-free return",
       "order": 122,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-value-weight",
@@ -177,7 +207,13 @@
       "tests": "assert len(vw_returns) == 120\nassert abs(float(vw_returns.mean()) - 0.016356) < 1e-5\nassert abs(float(vw_returns.std()) - 0.052597) < 1e-5\nassert abs(float(vw_mean) - 0.016356) < 1e-5\nassert abs(float(vw_std) - 0.052597) < 1e-5",
       "test_summary": "market-cap weights applied month by month, with the mean and sample standard deviation stored",
       "order": 131,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-cumulative-growth",
@@ -207,7 +243,13 @@
       "tests": "assert len(growth) == 120\nassert abs(float(growth.iloc[0]) - 0.022638) < 1e-5\nassert abs(float(growth.iloc[-1]) - 4.984085) < 1e-4",
       "test_summary": "the compounding of monthly returns, where each entry is the cumulative return to that date",
       "order": 132,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-wide-returns",
@@ -237,7 +279,13 @@
       "tests": "assert tuple(wide.shape) == (120, 4)\nassert list(wide.columns) == [\"micro\", \"small\", \"mid\", \"large\"]\nassert abs(float(cumulative[\"large\"].iloc[-1]) - 2.337838) < 1e-5\nassert abs(float(cumulative[\"micro\"].iloc[-1]) - 1.493871) < 1e-5",
       "test_summary": "a date-indexed frame with the four portfolios in order and their cumulative growth",
       "order": 133,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-sign-portfolios",
@@ -268,7 +316,13 @@
       "tests": "assert len(vw_positive) >= 100\nassert len(vw_negative) >= 100\nassert abs(float(vw_positive.mean()) - 0.023553) < 1e-5\nassert abs(float(vw_negative.mean()) - 0.007798) < 1e-5",
       "test_summary": "two value-weight portfolios split on the lagged return, each with its monthly mean",
       "order": 141,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-merge-sector",
@@ -299,7 +353,13 @@
       "tests": "assert len(merged) == 600\nassert \"sector\" in merged.columns and \"ticker\" in merged.columns\nassert abs(float(sector_mcap[\"Technology\"]) - 2046.5836) < 0.01\nassert abs(float(sector_mcap[\"Health Care\"]) - 1534.682) < 0.01",
       "test_summary": "the two company files combined on permno, with average market cap by sector",
       "order": 151,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-merge-left",
@@ -330,7 +390,13 @@
       "tests": "assert len(left_merge) == 600\nassert len(inner_merge) == 600\nassert missing_sector == 0",
       "test_summary": "both merge types keep every company, because the right-hand keys are unique",
       "order": 152,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-leverage-by-year",
@@ -361,7 +427,13 @@
       "tests": "assert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2008]) - 0.331683) < 1e-3\nassert abs(float(lev_by_year.loc[2009]) - 0.388013) < 1e-3\nassert \"levratio_median_year\" in data.columns\nassert len(data) > 2000\nrow_2009 = data.loc[data[\"fyear\"] == 2009, \"levratio_median_year\"].iloc[0]\nassert abs(float(row_2009) - 0.388013) < 1e-3",
       "test_summary": "a year-level median series, merged back onto every firm-year without changing the row count",
       "order": 161,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-duplicate-years",
@@ -391,7 +463,13 @@
       "tests": "assert duplicate_count == 12\nassert len(data) == 2343\nassert len(lev_by_year) == 45",
       "test_summary": "twelve duplicate firm-years are counted and removed, leaving one row per ticker-year",
       "order": 162,
-      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-regress-size",
@@ -422,7 +500,13 @@
       "tests": "assert int(reg.nobs) == 600\nassert abs(float(slope) - 120.422248) < 0.01\nassert abs(float(reg.params[\"Intercept\"]) - 771.784559) < 0.01\nassert abs(float(resid_mean)) < 1e-6\nassert abs(float(predicted_25) - 3782.340759) < 0.01",
       "test_summary": "a fitted line, its slope and intercept, residuals that average to zero, and a prediction",
       "order": 171,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-beta-portfolio",
@@ -455,7 +539,13 @@
       "tests": "assert int(capm.nobs) == 120\nassert abs(float(capm.params[\"mkt\"]) - 1.345073) < 0.005\nassert float(slope_p) < 0.05\nassert float(alpha_p) < 0.05",
       "test_summary": "an inner merge, a fitted CAPM line, and two t-test p-values",
       "order": 181,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     },
     {
       "id": "fin400-practice-pe-loop",
@@ -488,7 +578,13 @@
       "tests": "assert sorted(results.keys()) == [\"p0\", \"p1\", \"p2\", \"p3\", \"p4\"]\nassert abs(float(results[\"p0\"][\"mkt\"]) - 1.05249) < 0.005\nassert abs(float(results[\"p4\"][\"mkt\"]) - 0.862471) < 0.005\nassert abs(float(results[\"p4\"][\"Intercept\"]) + 0.003559) < 0.005",
       "test_summary": "one regression per portfolio, collected in a dict of fitted coefficients",
       "order": 191,
-      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10–19",
+        "group": "Extra practice",
+        "order": 211
+      }
     }
   ]
 }

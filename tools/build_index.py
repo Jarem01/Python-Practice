@@ -42,7 +42,7 @@ FLASHCARDS_FILE = "data/flashcards.json"
 #: Folders that hold exercise definitions. `problems/` is the shared one; a
 #: class may also keep its own sets beside its data (FIN 400 uses fin400/practice),
 #: so the material for a class sits in one place when it is time to edit it.
-PROBLEM_DIRS = ("problems", "fin400/practice")
+PROBLEM_DIRS = ("problems", "fin400/homework", "fin400/practice")
 
 #: Folder that collects the source study material, including files uploaded
 #: from the website. Keep in sync with CONFIG.materialsDir in assets/js/config.js.
@@ -800,6 +800,17 @@ def validate_problems(problems: list[dict], glossary_slugs: set[str], notebook_p
         difficulty = problem.get("difficulty", "easy")
         if difficulty not in DIFFICULTIES:
             warnings.append(f"{where}: problem '{pid}' has difficulty '{difficulty}' (expected {'/'.join(DIFFICULTIES)})")
+
+        # A class can file an exercise under a set of its own (FIN 400's homework
+        # and practice tracks) instead of under a notebook. The pages read the
+        # label and the order, so both have to be there.
+        declared = problem.get("assignment")
+        if declared is not None and (
+            not isinstance(declared, dict) or not str(declared.get("label") or "").strip()
+        ):
+            errors.append(
+                f"{where}: problem '{pid}' has an 'assignment' that is not an object with a 'label'"
+            )
 
         if ptype in ("fix_the_code", "fill_in_blank") and not str(problem.get("starter_code", "")).strip():
             errors.append(f"{where}: problem '{pid}' ({ptype}) needs 'starter_code'")

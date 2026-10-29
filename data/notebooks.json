@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-26T19:17:41+00:00",
-  "root": "Python-Practice",
+  "generated_at": "2026-10-29T22:11:28+00:00",
+  "root": "5de7ac673820556d5eb2fdf4",
   "totals": {
     "notebooks": 25,
     "scripts": 0,
     "cells": 388,
     "exercises": 55,
-    "problems": 184,
-    "topics": 51
+    "problems": 203,
+    "topics": 57
   },
   "courses": [
     {
@@ -71,7 +71,7 @@
         {
           "id": "bootcamp",
           "title": "First half \u2014 Python foundations",
-          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Practice 1 to 9. No notebooks and no DataFrames yet.",
+          "summary": "Guided modules first, then loops, functions and the statistics library in plain .py files. Homework 1 to 6, then Practice 1 to 9. No notebooks and no DataFrames yet.",
           "groups": [
             "bootcamp"
           ]
@@ -120,7 +120,7 @@
         "notebooks": 15,
         "scripts": 0,
         "exercises": 20,
-        "problems": 78
+        "problems": 97
       }
     }
   ],
@@ -216,6 +216,7 @@
       "exercises": [],
       "inferred_topics": [
         "FIN 400",
+        "Homework",
         "Lists",
         "Loops",
         "Numbers",
@@ -641,6 +642,7 @@
         "Sorting",
         "Statistics",
         "Summary Statistics",
+        "Summary statistics",
         "pandas"
       ],
       "matched_topics": [
@@ -679,6 +681,8 @@
       "output_cell_count": 7,
       "exercises": [],
       "inferred_topics": [
+        "Homework",
+        "Indexing",
         "Numbers",
         "Sorting",
         "pandas"
@@ -845,7 +849,8 @@
       "inferred_topics": [
         "Data Analysis",
         "Statistics",
-        "Summary Statistics"
+        "Summary Statistics",
+        "Summary statistics"
       ],
       "matched_topics": [
         "Data Analysis",
@@ -950,6 +955,7 @@
         "Regression",
         "Statistics",
         "Summary Statistics",
+        "Summary statistics",
         "pandas"
       ],
       "matched_topics": [
@@ -1188,6 +1194,7 @@
       ],
       "inferred_topics": [
         "FIN 400",
+        "Homework",
         "Lecture 05",
         "Loops",
         "Probability",
@@ -1332,8 +1339,10 @@
         }
       ],
       "inferred_topics": [
+        "Boolean indexing",
         "FIN 400",
         "Filtering",
+        "Indexing",
         "Lecture 08",
         "Strings"
       ],
@@ -1453,6 +1462,14 @@
   ],
   "scripts": [],
   "topics": {
+    "Boolean indexing": {
+      "problems": [
+        "fin400-hw-09-cdc-filters"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb"
+      ]
+    },
     "Boolean logic": {
       "problems": [
         "da1-public-december"
@@ -1483,6 +1500,7 @@
     },
     "Conditionals": {
       "problems": [
+        "fin400-hw-06-winsorize",
         "fin400-practice-palindrome",
         "fin400-practice-clip-extremes",
         "fin400-p6-blank-clip"
@@ -1622,6 +1640,12 @@
         "acc525/Intro to Python/Intro to Python (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb"
       ]
     },
+    "Duplicates": {
+      "problems": [
+        "fin400-hw-16-dupes-and-median"
+      ],
+      "notebooks": []
+    },
     "Errors": {
       "problems": [
         "fin400-clean-ticker"
@@ -1649,6 +1673,25 @@
         "fin400-fix-simple-interest",
         "fin400-sharpe-ratio",
         "fin400-clean-ticker",
+        "fin400-hw-01-mean",
+        "fin400-hw-02-max",
+        "fin400-hw-03-sqdevs",
+        "fin400-hw-04-listcdf",
+        "fin400-hw-05-index-of-max",
+        "fin400-hw-06-winsorize",
+        "fin400-hw-07-cdc-bmi",
+        "fin400-hw-08-pmf6",
+        "fin400-hw-09-cdc-filters",
+        "fin400-hw-10-stock-panel",
+        "fin400-hw-11-equal-weight",
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-13-value-weight",
+        "fin400-hw-14-lagged-sign",
+        "fin400-hw-15-merges",
+        "fin400-hw-16-dupes-and-median",
+        "fin400-hw-17-regression-mcap-emp",
+        "fin400-hw-18-beta-portfolio-tests",
+        "fin400-hw-19-pe-portfolios",
         "fin400-practice-palindrome",
         "fin400-practice-average",
         "fin400-p1-fix-mean",
@@ -1771,6 +1814,7 @@
         "write-count-vowels",
         "fill-sum-args",
         "write-celsius-to-fahrenheit",
+        "fin400-hw-04-listcdf",
         "fin400-practice-average",
         "fin400-p1-fix-mean",
         "fin400-practice-largest",
@@ -1795,11 +1839,40 @@
       "problems": [
         "fin400-average-monthly-return",
         "fin400-fix-fund-report",
+        "fin400-hw-10-stock-panel",
         "fin400-practice-eps-leverage",
         "fin400-practice-leverage-by-year"
       ],
       "notebooks": [
         "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb"
+      ]
+    },
+    "Homework": {
+      "problems": [
+        "fin400-hw-01-mean",
+        "fin400-hw-02-max",
+        "fin400-hw-03-sqdevs",
+        "fin400-hw-04-listcdf",
+        "fin400-hw-05-index-of-max",
+        "fin400-hw-06-winsorize",
+        "fin400-hw-07-cdc-bmi",
+        "fin400-hw-08-pmf6",
+        "fin400-hw-09-cdc-filters",
+        "fin400-hw-10-stock-panel",
+        "fin400-hw-11-equal-weight",
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-13-value-weight",
+        "fin400-hw-14-lagged-sign",
+        "fin400-hw-15-merges",
+        "fin400-hw-16-dupes-and-median",
+        "fin400-hw-17-regression-mcap-emp",
+        "fin400-hw-18-beta-portfolio-tests",
+        "fin400-hw-19-pe-portfolios"
+      ],
+      "notebooks": [
+        "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+        "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
+        "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
       ]
     },
     "Hypothesis testing": {
@@ -1808,6 +1881,15 @@
         "fin400-practice-beta-portfolio"
       ],
       "notebooks": []
+    },
+    "Indexing": {
+      "problems": [
+        "fin400-hw-05-index-of-max"
+      ],
+      "notebooks": [
+        "fin400/lectures/lecture-08-boolean-indexing.ipynb",
+        "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+      ]
     },
     "Intro to Python": {
       "problems": [
@@ -1868,6 +1950,8 @@
     },
     "Lagging": {
       "problems": [
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-14-lagged-sign",
         "fin400-practice-count-and-lag",
         "fin400-practice-sign-portfolios"
       ],
@@ -2074,6 +2158,13 @@
         "fix-loop-sum-1-to-5",
         "predict-while-counter",
         "fix-loop-off-by-one",
+        "fin400-hw-01-mean",
+        "fin400-hw-02-max",
+        "fin400-hw-03-sqdevs",
+        "fin400-hw-05-index-of-max",
+        "fin400-hw-06-winsorize",
+        "fin400-hw-08-pmf6",
+        "fin400-hw-19-pe-portfolios",
         "fin400-practice-average",
         "fin400-practice-largest",
         "fin400-p2-predict-max",
@@ -2101,6 +2192,8 @@
         "da4-concat-degrees",
         "da4-left-join-spend",
         "da5-load-and-merge-industry",
+        "fin400-hw-15-merges",
+        "fin400-hw-16-dupes-and-median",
         "fin400-p15-predict-merge",
         "fin400-practice-merge-sector",
         "fin400-practice-merge-left",
@@ -2162,6 +2255,10 @@
     },
     "Portfolios": {
       "problems": [
+        "fin400-hw-11-equal-weight",
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-13-value-weight",
+        "fin400-hw-14-lagged-sign",
         "fin400-p12-blank-weighted",
         "fin400-p14-fix-sign",
         "fin400-practice-equal-weight",
@@ -2192,6 +2289,7 @@
     },
     "Probability": {
       "problems": [
+        "fin400-hw-08-pmf6",
         "fin400-practice-roll-probabilities"
       ],
       "notebooks": [
@@ -2237,6 +2335,9 @@
         "da6-smoke-indicator",
         "da6-train-test-split",
         "da6-lowest-excess-charges",
+        "fin400-hw-17-regression-mcap-emp",
+        "fin400-hw-18-beta-portfolio-tests",
+        "fin400-hw-19-pe-portfolios",
         "fin400-practice-regress-size",
         "fin400-practice-beta-portfolio",
         "fin400-practice-pe-loop"
@@ -2276,6 +2377,8 @@
     "Statistics": {
       "problems": [
         "fin400-sharpe-ratio",
+        "fin400-hw-03-sqdevs",
+        "fin400-hw-04-listcdf",
         "fin400-practice-squared-deviations",
         "fin400-p3-fix-sqdevs",
         "fin400-p3-predict-variance",
@@ -2335,6 +2438,18 @@
         "fin400/lectures/lecture-03-statistics-library.ipynb"
       ]
     },
+    "Summary statistics": {
+      "problems": [
+        "fin400-hw-07-cdc-bmi"
+      ],
+      "notebooks": [
+        "acc525/Data Analysis/Data Analysis (Part 3) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis (Part 6) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "acc525/Data Analysis/Data Analysis - (Part 5) - CLASS EXERCISE SOLUTIONS.ipynb",
+        "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+        "fin400/lectures/lecture-03-statistics-library.ipynb"
+      ]
+    },
     "Visualization": {
       "problems": [
         "fin400-practice-wide-returns"
@@ -2375,6 +2490,15 @@
         "da6-region-average-charges",
         "da6-train-test-split",
         "da6-lowest-excess-charges",
+        "fin400-hw-07-cdc-bmi",
+        "fin400-hw-09-cdc-filters",
+        "fin400-hw-10-stock-panel",
+        "fin400-hw-11-equal-weight",
+        "fin400-hw-12-counts-lag-weighted",
+        "fin400-hw-13-value-weight",
+        "fin400-hw-14-lagged-sign",
+        "fin400-hw-15-merges",
+        "fin400-hw-16-dupes-and-median",
         "fin400-practice-bmi-summary",
         "fin400-p7-fix-bmi",
         "fin400-p7-blank-between",
@@ -2427,12 +2551,21 @@
     "statsmodels": {
       "problems": [
         "fin400-regression-beta",
+        "fin400-hw-17-regression-mcap-emp",
+        "fin400-hw-18-beta-portfolio-tests",
+        "fin400-hw-19-pe-portfolios",
         "fin400-p17-predict-slope",
         "fin400-p18-blank-ttest",
         "fin400-p19-fix-loop",
         "fin400-practice-regress-size",
         "fin400-practice-beta-portfolio",
         "fin400-practice-pe-loop"
+      ],
+      "notebooks": []
+    },
+    "t-test": {
+      "problems": [
+        "fin400-hw-18-beta-portfolio-tests"
       ],
       "notebooks": []
     }

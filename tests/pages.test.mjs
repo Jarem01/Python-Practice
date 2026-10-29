@@ -537,10 +537,20 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
     const items = () => [...page.document.querySelectorAll("#problem-list .tile")];
     assert.equal(items().length, courseProblems.length, "the list shows the default class only");
 
-    const typePill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "Fix the code");
-    click(page.window, typePill);
+    // Every filter is a labeled dropdown, and each one changes the list.
+    const field = (label) =>
+      [...page.document.querySelectorAll("#filters .filter-field")].find(
+        (wrap) => wrap.querySelector(".lbl").textContent === label,
+      );
+    assert.deepEqual(
+      [...page.document.querySelectorAll("#filters .filter-field .lbl")].map((l) => l.textContent),
+      ["Search", "Section", "Topic", "Type", "Level", "Progress", "Group by", "Sort"],
+      "the filter bar is one labeled row",
+    );
+
+    type(page.window, field("Type").querySelector("select"), "fix_the_code");
     assert.equal(items().length, courseProblems.filter((p) => p.type === "fix_the_code").length);
-    assert.equal(typePill.getAttribute("aria-pressed"), "true");
+    assert.equal(field("Type").querySelector("select").value, "fix_the_code");
 
     const search = page.document.querySelector('#filters input[type="search"]');
     type(page.window, search, "dictionary");
@@ -552,35 +562,36 @@ test("practice/index.html lists every exercise and the filters work", { skip }, 
 
     const solved = courseProblems[0].id;
     page.window.localStorage.setItem("pypractice:progress", JSON.stringify({ [solved]: { status: "solved", attempts: 2 } }));
-    const solvedPill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent.startsWith("solved"));
-    click(page.window, solvedPill);
+    type(page.window, field("Progress").querySelector("select"), "solved");
     assert.equal(items().length, 1);
     assert.match(items()[0].textContent, /solved/);
 
-    // The list is organized by assignment: headed groups, in course order.
+    // Sections are the larger tracks; picking one keeps that track only.
     click(page.window, page.document.querySelector("#filters .btn.ghost"));
     const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-    assert.ok(headings.length >= 2, `exercises are grouped by assignment (got ${headings.length} groups)`);
-    assert.ok(headings.some((h) => /Intro \d/.test(h)), "the group labels name the section");
-    const assignmentSelect = [...page.document.querySelectorAll("#filters select")][0];
-    assert.ok(assignmentSelect.options.length > 2, "the assignment filter lists the assignments");
+    assert.ok(headings.length >= 2, `exercises are grouped into sections (got ${headings.length})`);
+    const sectionSelect = field("Section").querySelector("select");
+    assert.ok(sectionSelect.options.length > 2, "the section filter lists the sections");
+    const firstSection = [...sectionSelect.options].find((option) => option.value);
+    type(page.window, sectionSelect, firstSection.value);
+    const inSection = items().length;
+    assert.ok(inSection > 0 && inSection < courseProblems.length, "the section filter keeps one section");
+    assert.equal(page.document.querySelectorAll("#problem-list .list-group h3").length, 1, "one section at a time");
 
-    // The same exercises are available as a table, and the order follows the course.
+    // The same exercises are available as a table, in course order.
+    click(page.window, page.document.querySelector("#filters .btn.ghost"));
     const tableButton = [...page.document.querySelectorAll("#filters .view-toggle button")].find((b) => b.textContent === "Table");
     click(page.window, tableButton);
     const tables = [...page.document.querySelectorAll("#problem-list .data-table")];
     assert.ok(tables.length, "the table view renders tables");
     const rowCount = tables.reduce((total, table) => total + table.querySelectorAll("tbody tr").length, 0);
     assert.equal(rowCount, courseProblems.length, "every exercise of the class is a row");
-    const firstRow = tables[0].querySelector("tbody tr").textContent;
-    assert.match(firstRow, /Intro 1/, `the table starts with the first Intro section (got "${firstRow}")`);
     const tilesButton = [...page.document.querySelectorAll("#filters .view-toggle button")].find((b) => b.textContent === "Tiles");
     click(page.window, tilesButton);
     assert.equal(items().length, courseProblems.length, "switching back restores the tiles");
 
-    // "by topic" groups the same exercises the other way round.
-    const topicPill = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "by topic");
-    click(page.window, topicPill);
+    // "Group by" rebuilds the same exercises the other way round.
+    type(page.window, field("Group by").querySelector("select"), "topic");
     const topicHeadings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
     assert.ok(topicHeadings.length >= 2, "groups are rebuilt when grouping by topic");
     assert.notDeepEqual(topicHeadings, headings, "the two groupings differ");
@@ -930,59 +941,66 @@ test("every page offers the class picker and opens on the default class", { skip
   }
 });
 
-test("?course=fin400 narrows the practice list to that class, split by half", { skip }, async () => {
+test("?course=fin400 separates the homework from the extra practice", { skip }, async () => {
   const page = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400");
   try {
     await waitFor(() => page.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
-    const tiles = page.document.querySelectorAll("#problem-list .tile");
-    assert.equal(tiles.length, fin400Problems.length, "only FIN 400 exercises are listed");
+    const items = () => [...page.document.querySelectorAll("#problem-list .tile")];
+    assert.equal(items().length, fin400Problems.length, "only FIN 400 exercises are listed");
     assert.equal(page.document.querySelector("#course-picker select").value, "fin400");
     assert.match(page.document.getElementById("count-badge").textContent, /FIN 400/);
 
-    // A numbered class opens as one sequence, in track order.
+    // Three sections, in course order: homework, extra practice, lectures.
     const headings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-    assert.equal(headings.length, 0, "the numbered track is one plain list");
+    assert.deepEqual(headings, ["Homework 1–19", "Extra practice", "Lecture notebooks"]);
 
-    // Sequential: Practice 10 may never precede Practice 2.
-    const trackNumbers = () => [...page.document.querySelectorAll("#problem-list .tile h3")]
-      .map((h) => /Practice (\d+)/.exec(h.textContent))
+    const homework = fin400Problems.filter((p) => p.assignment && p.assignment.group === "Homework 1–19");
+    assert.equal(homework.length, 19, "all nineteen homework assignments ship as exercises");
+
+    // Sequential: HW 10 may never precede HW 2.
+    const numbers = [...page.document.querySelectorAll("#problem-list .tile h3")]
+      .map((h) => /^HW (\d+)/.exec(h.textContent))
       .filter(Boolean)
       .map((match) => Number(match[1]));
-    const listedTracks = trackNumbers();
-    assert.ok(listedTracks.length >= 19, "every numbered track is listed");
-    for (let i = 1; i < listedTracks.length; i += 1) {
-      assert.ok(
-        listedTracks[i] >= listedTracks[i - 1],
-        `Practice ${listedTracks[i]} must not come before Practice ${listedTracks[i - 1]}`,
-      );
+    assert.equal(numbers.length, 19, "every homework assignment is listed");
+    for (let i = 1; i < numbers.length; i += 1) {
+      assert.equal(numbers[i], numbers[i - 1] + 1, `HW ${numbers[i]} must follow HW ${numbers[i - 1]}`);
     }
 
-    // Grouping is still available on demand.
-    const byAssignment = [...page.document.querySelectorAll("#filters .pill")].find((p) => p.textContent === "by assignment");
-    click(page.window, byAssignment);
-    const moduleHeadings = [...page.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
-    assert.deepEqual(moduleHeadings.slice(0, 5), ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5"]);
-
-    // Both halves can be picked apart, and a half can be deep-linked.
-    const halves = [...page.document.querySelectorAll("#filters .pill")].filter((p) => /both halves|First half|Second half/.test(p.textContent));
-    assert.equal(halves.length, 3, "the half filter is offered");
-    const bootcamp = halves.find((p) => /First half/.test(p.textContent));
-    click(page.window, bootcamp);
+    // The section dropdown narrows the list to one track.
+    const sectionSelect = [...page.document.querySelectorAll("#filters select")]
+      .find((select) => select.closest(".filter-field").querySelector(".lbl").textContent === "Section");
+    assert.ok(sectionSelect.options.length >= 4, "every section is listed");
+    type(page.window, sectionSelect, "Extra practice");
     assert.equal(
-      page.document.querySelectorAll("#problem-list .tile").length,
-      fin400Problems.filter((p) => p.phase === "bootcamp").length,
+      items().length,
+      fin400Problems.filter((p) => p.assignment && p.assignment.group === "Extra practice").length,
+      "the extra practice section holds the practice sets",
     );
 
-    const page2 = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400&phase=analysis");
+    // Grouping by set names every homework assignment and every practice set.
+    const page2 = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400&group=assignment");
     try {
       await waitFor(() => page2.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
+      const sets = [...page2.document.querySelectorAll("#problem-list .list-group h3")].map((h) => h.textContent);
+      assert.ok(sets.includes("HW 1 — mean of a list"), "each homework assignment is its own set");
+      assert.ok(sets.includes("Practice 10–19"), "each practice set is its own set");
+      assert.ok(sets.indexOf("HW 1 — mean of a list") < sets.indexOf("Practice 10–19"), "homework reads before practice");
+    } finally {
+      page2.restore();
+    }
+
+    // A half of the course can still be deep-linked.
+    const page3 = await loadPage("practice/index.html", "assets/js/practice-list.js", "?course=fin400&phase=analysis");
+    try {
+      await waitFor(() => page3.document.querySelectorAll("#problem-list .tile").length, { timeout: 3000 });
       assert.equal(
-        page2.document.querySelectorAll("#problem-list .tile").length,
+        page3.document.querySelectorAll("#problem-list .tile").length,
         fin400Problems.filter((p) => p.phase === "analysis").length,
         "?phase= shows one half only",
       );
     } finally {
-      page2.restore();
+      page3.restore();
     }
   } finally {
     page.restore();

@@ -1,0 +1,207 @@
+{
+  "_comment": "FIN 400 homework, HW 1 to HW 9, one exercise per assignment. The wording follows the class handout; only the data names differ, because every dataset here is a stand-in that behaves like the real one. There is no 'solution' field anywhere in this file: solutions are never published. 'assignment' puts each homework in its own set so the practice page can separate homework from extra practice.",
+  "problems": [
+    {
+      "id": "fin400-hw-01-mean",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 1 · Q11 — Mean of a list without libraries",
+      "difficulty": "easy",
+      "topics": ["FIN 400", "Homework", "Loops"],
+      "assignment": {"key": "fin400-hw-01", "label": "HW 1 — mean of a list", "group": "Homework 1–19", "order": 101},
+      "order": 101,
+      "packages": [],
+      "line_count": 8,
+      "prompt": "**Homework 1 — Q11.** Write a short Python function that takes a list of any size and returns the mean of that list. Do not use the `statistics` library or anything similar — no `sum()`, no `mean()`. Loop over the values yourself.\n\nName it `find_mean` so the checks can call it.\n\n```python\nprint(find_mean([4, 8, 6, 5, 7]))   # 6.0\n```",
+      "hints": [
+        "A mean needs two things you have to build up inside the loop: a running total and a count of how many values you have seen.",
+        "Add the value to the total and add 1 to the count on every pass, then divide once, after the loop has finished.",
+        "Similar problem, different shape — the average of a list of hourly temperatures. Only the names change, the pattern is the same one you need here:\n\n```python\ndef avg_temp(temps):\n    total = 0\n    hours = 0\n    for t in temps:\n        total = total + t\n        hours = hours + 1\n    return total / hours\n```",
+        "Return the division itself (`total / items`); no `print` inside the function, or the checks see `None`."
+      ],
+      "tests": "assert callable(find_mean), 'define a function called find_mean'\nassert abs(find_mean([4, 8, 6, 5, 7]) - 6.0) < 1e-9\nassert abs(find_mean([2.5, -1.5]) - 0.5) < 1e-9\nassert abs(find_mean([10]) - 10.0) < 1e-9\nassert abs(find_mean(list(range(1, 11))) - 5.5) < 1e-9\nassert abs(find_mean([-3, -1, 4]) - 0.0) < 1e-9",
+      "test_summary": "find_mean returns the arithmetic mean of any list, including a one-element list"
+    },
+    {
+      "id": "fin400-hw-02-max",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 2 · Q8 — Maximum of a list without max()",
+      "difficulty": "easy",
+      "topics": ["FIN 400", "Homework", "Loops"],
+      "assignment": {"key": "fin400-hw-02", "label": "HW 2 — maximum of a list", "group": "Homework 1–19", "order": 102},
+      "order": 102,
+      "packages": [],
+      "line_count": 7,
+      "prompt": "**Homework 2 — Q8.** Write a short Python function that takes a list of any size and returns the maximum value of that list. Implement it by iterating over all of the values — no calls to `max()`, `sorted()` or any library that finds the max for you.\n\nName it `find_max`.",
+      "hints": [
+        "You need something to compare against on the first pass, and you cannot start with 0 — the list may be all negative.",
+        "Prime the running maximum with the first element: `maximum = nums[0]`. Then loop over every value, including that first one, and replace the maximum whenever you meet something bigger.",
+        "Similar problem, different shape — the smallest value in a list of fund returns. Same pattern, opposite comparison:\n\n```python\ndef smallest_ret(returns):\n    low = returns[0]\n    for r in returns:\n        if r < low:\n            low = r\n    return low\n```",
+        "Empty lists are not tested; assume there is at least one value."
+      ],
+      "tests": "assert callable(find_max), 'define a function called find_max'\nassert find_max([10, 2, -5, 17, 7]) == 17\nassert find_max([-8, -3, -25]) == -3\nassert find_max([42]) == 42\nassert find_max([1, 1, 1]) == 1\nassert find_max([2.5, 9.75, 9.5]) == 9.75",
+      "test_summary": "find_max returns the largest value, including all-negative lists"
+    },
+    {
+      "id": "fin400-hw-03-sqdevs",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 3 · Q10 — Squared deviations from the mean",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "Loops", "Statistics"],
+      "assignment": {"key": "fin400-hw-03", "label": "HW 3 — squared deviations", "group": "Homework 1–19", "order": 103},
+      "order": 103,
+      "packages": [],
+      "line_count": 10,
+      "prompt": "**Homework 3 — Q10.** Write a Python function named `sqdevs()` that takes a list of numeric data and returns a list of the squared deviations from the mean. You must use a loop to iterate over all of the values. No canned functions or libraries that would circumvent this. You may use the `mean` function of the `statistics` library.\n\n```python\nsqdevs([1, 2, 3, 4])   # [2.25, 0.25, 0.25, 2.25]\n```",
+      "hints": [
+        "Get the mean first, with `import statistics as s` and `s.mean(numbers)`. Only the mean may come from the library.",
+        "For each value: subtract the mean, square the result with `** 2`, then `append` it to a new list.",
+        "Similar problem, different shape — deviations from a target, not from the mean. The loop-and-append shape is the one to copy:\n\n```python\ndef gaps(values, target):\n    gaps_list = []\n    for v in values:\n        gap = v - target\n        gaps_list.append(gap)\n    return gaps_list\n```",
+        "Squared deviations are never negative, so a negative number in your result means you squared before subtracting."
+      ],
+      "tests": "assert callable(sqdevs), 'define a function called sqdevs'\nassert sqdevs([1, 2, 3, 4]) == [2.25, 0.25, 0.25, 2.25]\nassert sqdevs([5]) == [0.0]\nout = sqdevs([10, 12, 14, 16, 18])\nassert len(out) == 5\nassert abs(sum(out) - 40.0) < 1e-9\nassert all(v >= 0 for v in out)",
+      "test_summary": "sqdevs returns one squared deviation per value, zero for a single value"
+    },
+    {
+      "id": "fin400-hw-04-listcdf",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 4 · Q10 — listcdf: the normal CDF for every value",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "Functions", "Statistics"],
+      "assignment": {"key": "fin400-hw-04", "label": "HW 4 — listcdf", "group": "Homework 1–19", "order": 104},
+      "order": 104,
+      "packages": [],
+      "line_count": 10,
+      "prompt": "**Homework 4 — Q10.** Write a Python function named `listcdf` that takes three parameters:\n\n1. a list of numeric data\n2. the mean of the distribution for the data in the list\n3. the standard deviation for the distribution for the data in the list\n\nThe function definition should look like:\n\n```python\ndef listcdf(data, mu=0, sigma=1):\n```\n\nThe function should return a list containing the normal CDF value for each data value from the list you pass to the function, given the mean and standard deviation parameters. You will need to use the `NormalDist` object from the `statistics` library.\n\n**a.** Test with `mu = 23`, `sigma = 3.90`, and\n`data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]`.\n\n**b.** Test with a list, a mean and a standard deviation that you make up.",
+      "hints": [
+        "`statistics.NormalDist(mu, sigma)` builds the distribution object once; the object has a `.cdf(x)` method that takes one value at a time.",
+        "Build the result list the way you loop over any list: start empty, `append` one CDF per value, return the list.",
+        "Similar problem, different shape — the same idea for a uniform distribution's density. Note where the object is created (before the loop) and where the value is produced (inside it):\n\n```python\nimport random as r\n\ndef densities(values, low, high):\n    dist = r.Random(0)\n    out = []\n    for v in values:\n        out.append(dist.uniform(low, high))\n    return out\n```",
+        "The default `mu=0, sigma=1` means `listcdf([0])` must return something very close to `0.5` — the CDF of the standard normal at zero."
+      ],
+      "tests": "import statistics as _s\nassert callable(listcdf), 'define a function called listcdf'\nassert abs(listcdf([0])[0] - 0.5) < 1e-12, 'default arguments must give the standard normal'\n_data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]\n_nd = _s.NormalDist(23, 3.90)\n_expected = [_nd.cdf(x) for x in _data]\n_got = listcdf(_data, mu=23, sigma=3.90)\nassert len(_got) == 17\nassert all(abs(a - b) < 1e-12 for a, b in zip(_got, _expected))\n_own = listcdf([10.0, 20.0], 15.0, 5.0)\nassert len(_own) == 2 and _own[0] < _own[1]",
+      "test_summary": "listcdf returns one normal CDF value per input, honouring mu and sigma and the defaults"
+    },
+    {
+      "id": "fin400-hw-05-index-of-max",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 5 · Q9 — Index of the maximum value",
+      "difficulty": "easy",
+      "topics": ["FIN 400", "Homework", "Loops", "Indexing"],
+      "assignment": {"key": "fin400-hw-05", "label": "HW 5 — index of the maximum", "group": "Homework 1–19", "order": 105},
+      "order": 105,
+      "packages": [],
+      "line_count": 8,
+      "prompt": "**Homework 5 — Q9.** Write a Python function that takes a list of any size and returns the index of the maximum value of that list. Remember: no calls to any library to find the index of the max or to sort the data.\n\nIf `mylist = [10, 2, -5, 17, 7]`, your function should return `3` (the index of 17). Loop by index using:\n\n```python\nfor i in range(len(mylist)):\n```\n\nName it `index_of_max`. When the maximum appears more than once, return the first index.",
+      "hints": [
+        "Track an index, not a value: start at 0, and remember which position currently holds the biggest number you have seen.",
+        "Compare `mylist[i]` with `mylist[best_index]` — comparing one element against the element at the remembered position is what makes the index easy to return.",
+        "Similar problem, different shape — the index of the smallest value in a list of prices. Same loop-by-index pattern, opposite comparison:\n\n```python\ndef cheapest_index(prices):\n    best = 0\n    for i in range(len(prices)):\n        if prices[i] < prices[best]:\n            best = i\n    return best\n```",
+        "Because you only replace the stored index on a strict `>`, the first of several equal maxima wins automatically."
+      ],
+      "tests": "assert callable(index_of_max), 'define a function called index_of_max'\nassert index_of_max([10, 2, -5, 17, 7]) == 3\nassert index_of_max([3, 3, 1]) == 0, 'ties go to the first index'\nassert index_of_max([-4, -9, -2]) == 2\nassert index_of_max([5]) == 0\nassert index_of_max([1, 2, 3, 4]) == 3",
+      "test_summary": "index_of_max returns the position of the largest value, first index on ties"
+    },
+    {
+      "id": "fin400-hw-06-winsorize",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 6 · Q7 — winsorize: clip values to a floor and a ceiling",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "Conditionals", "Loops"],
+      "assignment": {"key": "fin400-hw-06", "label": "HW 6 — winsorize", "group": "Homework 1–19", "order": 106},
+      "order": 106,
+      "packages": [],
+      "line_count": 11,
+      "prompt": "**Homework 6 — Q7.** Write a Python function that takes a list of any size as well as two bounds (a ceiling and a floor), and returns a new list where any values outside of those provided bounds have been \"clipped\" to the provided bound values. You must use a loop and an explicit `if`/`elif`/`else`. Do not use `min`, `max`, `sorted`, or any library or command that circumvents the opportunity for you to use programmatic thinking tools.\n\n```python\ndef winsorize(data, floor, ceil):\n```\n\nExamples:\n\n```python\nprint(winsorize([-3, 0, 5, 10, 42], 1, 20))      # [1, 1, 5, 10, 20]\nprint(winsorize([7, 12, 58, 0, 95, 130], 0, 90)) # [7, 12, 58, 0, 90, 90]\n```",
+      "hints": [
+        "Three cases, in this order: below the floor, above the ceiling, and everything else — that is exactly the `if` / `elif` / `else` the question is asking for.",
+        "Do not modify `data` in place; build a new list and `append` the clipped value each time round.",
+        "Similar problem, different shape — tagging scores instead of clipping them, same three-branch structure:\n\n```python\ndef label_scores(scores):\n    labels = []\n    for value in scores:\n        if value < 60:\n            labels.append('fail')\n        elif value > 90:\n            labels.append('distinction')\n        else:\n            labels.append('pass')\n    return labels\n```",
+        "A value exactly equal to the floor or ceiling is unchanged, so use `<` and `>`, not `<=` and `>=`."
+      ],
+      "tests": "assert callable(winsorize), 'define a function called winsorize'\nassert winsorize([-3, 0, 5, 10, 42], 1, 20) == [1, 1, 5, 10, 20]\nassert winsorize([7, 12, 58, 0, 95, 130], 0, 90) == [7, 12, 58, 0, 90, 90]\nassert winsorize([1, 20], 1, 20) == [1, 20], 'the bounds themselves are unchanged'\nassert winsorize([-5, 5], 0, 2) == [0, 2]\nassert winsorize([], 0, 1) == []",
+      "test_summary": "winsorize clips below the floor and above the ceiling and leaves the rest alone"
+    },
+    {
+      "id": "fin400-hw-07-cdc-bmi",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 7 · Q4 — CDC sample: BMI and its percentiles",
+      "difficulty": "easy",
+      "topics": ["FIN 400", "Homework", "pandas", "Summary statistics"],
+      "assignment": {"key": "fin400-hw-07", "label": "HW 7 — BMI with pandas", "group": "Homework 1–19", "order": 107},
+      "order": 107,
+      "packages": ["pandas"],
+      "data_files": {"fin400-survey.csv": "fin400/data/fin400-survey.csv"},
+      "line_count": 12,
+      "prompt": "**Homework 7 — Q4.** Using Python/Pandas, analyze a random sample of 900 American adults collected by the CDC in 2023. Variables: `seqn` (ID), `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm). The file is `fin400-survey.csv`.\n\n**a.** Read the data into a dataframe called `df` with pandas; print the dataframe.\n**b.** Compute and print summary statistics for each variable.\n**c.** Create a new column `bmi = weight / (height in metres) ** 2`.\n**d.** Compute and print summary statistics for the `bmi` column.\n**e.** Compute the 10th and 90th percentile of `bmi` and store them in `bmi_q10` and `bmi_q90`.\n**f.** Based on the obesity classifications (BMI > 30 obese, 25–30 overweight) and the summary statistics, do you think it is fair to conclude the average American adult is not obese? Work the answer out and say it in a comment.",
+      "hints": [
+        "`height` is in centimetres, so metres is `height / 100`. The squared term applies to the whole converted height, not just the number.",
+        "Parts b and d are one call each: `df.describe()` and `df['bmi'].describe()`. `df.describe()` on its own skips the ID column for you.",
+        "Similar problem, different shape — a body-surface-area column from the same file, built the same way (divide first, then square):\n\n```python\ndf['bsa'] = (df['weight'] ** 0.5 * df['height'] / 100) / 60\n```\nThe pattern to copy is: convert units inside the expression, then assign the new column.",
+        "For part e, `df['bmi'].quantile([0.1, 0.9])` returns two values; unpack them into `bmi_q10, bmi_q90 = ...` so the checks can read them by name.",
+        "Part f is an interpretation, not code. Compare the sample mean with the 30 cutoff and notice how close it is — then ask yourself what a sample mean tells you about the population mean."
+      ],
+      "tests": "assert 'df' in dir(), 'load the file into a dataframe called df'\nassert df.shape == (900, 8), f'expected 900 rows and the 6 original columns plus bmi, got {df.shape}'\nassert 'bmi' in df.columns\nassert abs(df['weight'].mean() - 84.6581) < 1e-3\nassert abs(df['height'].mean() - 169.9266) < 1e-3\nassert abs(df['bmi'].mean() - 29.2217) < 1e-3\nassert abs(df['bmi'].max() - 50.9602) < 1e-3\nassert abs(float(bmi_q10) - 21.0640) < 1e-3\nassert abs(float(bmi_q90) - 36.5464) < 1e-3",
+      "test_summary": "the survey is loaded, the bmi column is right, and the 10th/90th percentiles are stored"
+    },
+    {
+      "id": "fin400-hw-08-pmf6",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 8 · Q8 — pmf6: the empirical pmf of six-sided dice",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "Loops", "Probability"],
+      "assignment": {"key": "fin400-hw-08", "label": "HW 8 — pmf6", "group": "Homework 1–19", "order": 108},
+      "order": 108,
+      "packages": [],
+      "line_count": 11,
+      "prompt": "**Homework 8 — Q8.** Create a Python function that takes an arbitrarily sized list of die rolls (values 1–6) and returns the \"empirical probability mass function\" — the realized probabilities for each of the six outcomes.\n\n```python\ndef pmf6(rolls):\n```\n\nTest:\n\n```python\nempiricalrolls = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\nprint(pmf6(empiricalrolls))\n# Correct Output: [0.18181818181818182, 0.18181818181818182, 0.09090909090909091, 0.09090909090909091, 0.09090909090909091, 0.36363636363636365]\n```\n\nNo canned functions or libraries except, if you wish, `len()`.",
+      "hints": [
+        "Six outcomes means six counters. A list of six zeros, `counts = [0, 0, 0, 0, 0, 0]`, is enough — no dictionary needed.",
+        "A roll of 1 belongs in slot 0, a roll of 2 in slot 1, and so on, so the slot is `roll - 1`. That off-by-one is the whole trick.",
+        "Similar problem, different shape — a coin-toss tally with only two outcomes. The counting loop and the divide-by-total step are identical to what you need:\n\n```python\ndef head_share(tosses):\n    counts = [0, 0]\n    for t in tosses:\n        if t == 'H':\n            counts[0] += 1\n        else:\n            counts[1] += 1\n    total = len(tosses)\n    return [c / total for c in counts]\n```",
+        "Return six probabilities, not counts, and keep them in roll order 1 → 6. They should add up to 1 (up to floating-point rounding)."
+      ],
+      "tests": "assert callable(pmf6), 'define a function called pmf6'\n_ex = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\n_got = pmf6(_ex)\nassert len(_got) == 6\nassert abs(_got[0] - 2 / 11) < 1e-12\nassert abs(_got[2] - 1 / 11) < 1e-12\nassert abs(_got[5] - 4 / 11) < 1e-12\nassert abs(sum(_got) - 1.0) < 1e-12\nassert pmf6([3, 3, 3, 3]) == [0.0, 0.0, 1.0, 0.0, 0.0, 0.0]",
+      "test_summary": "pmf6 returns six probabilities in roll order that sum to one"
+    },
+    {
+      "id": "fin400-hw-09-cdc-filters",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 9 · Q9 — Logical indexing on the CDC sample",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "pandas", "Boolean indexing"],
+      "assignment": {"key": "fin400-hw-09", "label": "HW 9 — logical indexing", "group": "Homework 1–19", "order": 109},
+      "order": 109,
+      "packages": ["pandas"],
+      "data_files": {"fin400-survey.csv": "fin400/data/fin400-survey.csv"},
+      "line_count": 14,
+      "prompt": "**Homework 9 — Q9.** Using Python/Pandas, analyze the same sample of 900 American adults (CDC 2023). Variables: `seqn`, `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm), plus `hincome` — `\"high\"` if household income > $120,000, else `\"not\"`. The file is `fin400-survey.csv`.\n\n**a.** Read the data with pandas; compute summary statistics for `age`, `weight`, `height` and BMI using one code statement (`describe`).\n**b.** Use logical indexing to create a new dataframe of only male participants (`males`); compute summary statistics for age, weight, height and BMI in one statement.\n**c.** Using the original dataframe and logical indexing, create `young_males`: only male participants aged 18–30 (single code statement). Compute the same summary statistics.\n**d.** Using the original dataframe and logical indexing, create `tall_young_males`: only male participants aged 18–30 and taller than 6 feet (182.9 cm) (single code statement). Compute summary statistics for weight, height and BMI.\n**e.** Create `high_income_females`: only female participants from households earning more than $120,000/year. Compute the same summary statistics.\n\nBuild the BMI column the same way as in HW 7 (`weight / (height/100) ** 2`) before filtering.",
+      "hints": [
+        "One mask is one condition; two conditions need `&` with each condition in its own parentheses: `df[(df['gender'] == 'male') & (df['age'] <= 30)]`.",
+        "`and` / `or` do not work on pandas columns. It has to be the elementwise `&` and `|`, and every condition needs brackets around it.",
+        "Similar problem, different shape — a different filter on a different column, same construction. Copy the structure, not the column names:\n\n```python\nexpensive = df[(df['price'] > 50) & (df['region'] == 'north')]\nprint(expensive[['price', 'units']].describe())\n```",
+        "Each part asks you to filter the **original** dataframe, not the one you filtered in the previous part — chaining filters would quietly pile up conditions.",
+        "Select the columns before `describe()` when you only want some of them: `young_males[['age', 'weight', 'height', 'bmi']].describe()`."
+      ],
+      "tests": "assert 'df' in dir(), 'load the file into df first'\nassert 'bmi' in df.columns, 'add the bmi column before filtering'\nassert len(males) == 420, f'expected 420 male participants, got {len(males)}'\nassert len(young_males) == 93, f'expected 93 men aged 18-30, got {len(young_males)}'\nassert len(tall_young_males) == 15, f'expected 15 tall young men, got {len(tall_young_males)}'\nassert len(high_income_females) == 83, f'expected 83 high-income women, got {len(high_income_females)}'\nassert set(young_males['gender']) == {'male'}\nassert set(high_income_females['gender']) == {'female'} and set(high_income_females['hincome']) == {'high'}\nassert abs(young_males['bmi'].mean() - 29.140) < 5e-3\nassert abs(tall_young_males['weight'].mean() - 103.753) < 5e-3\nassert abs(high_income_females['age'].mean() - 46.928) < 5e-3",
+      "test_summary": "each filtered dataframe holds exactly the participants asked for, with the right group means"
+    }
+  ]
+}

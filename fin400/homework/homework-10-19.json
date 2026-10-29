@@ -1,0 +1,260 @@
+{
+  "_comment": "FIN 400 homework, HW 10 to HW 19. Same rules as homework-1-9.json: the wording follows the class handout, the data is a stand-in with the same columns, and no solution is published anywhere.",
+  "problems": [
+    {
+      "id": "fin400-hw-10-stock-panel",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 10 · Q5 — Firm panel: EPS, leverage and value_counts",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "pandas", "Grouping"],
+      "assignment": {"key": "fin400-hw-10", "label": "HW 10 — firm panel", "group": "Homework 1–19", "order": 110},
+      "order": 110,
+      "packages": ["pandas"],
+      "data_files": {"fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"},
+      "line_count": 16,
+      "prompt": "**Homework 10 — Q5.** Using Python/Pandas, analyze a panel of 70 publicly traded US companies from 1980 to 2024. Variables: `ticker`, `fyear`, `ni` (annual net income, millions), `debt_lgterm` (book value of long-term debt, millions), `mcap` (market value of equity, millions), `shr` (shares outstanding, millions). Read it into `df` from `fin400-stock-panel.csv`.\n\n**a.** Create two new columns: `eps = ni / shr` and `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute summary statistics for both.\n**b.** Create a True/False column `pos` that is True if `levratio` is positive, else False. Run `df['pos'].value_counts()` and `df['pos'].value_counts() / df['pos'].count()`. What did each line compute? What did you learn about the data? Answer in a comment.\n**c.** On average, are firms with leverage ratio zero more or less valuable (use `mcap`) than firms with positive leverage ratios? Compute it with a `groupby` with `pos` as the grouping variable, store it in `mcap_by_pos`.\n**d.** Compute the leverage ratio of the typical firm every fiscal year 1980–2024 with one `groupby` statement, store it in `lev_by_year` and print it.\n**e.** In part d you should find a sizeable move between 2008 and 2009. Why? Answer in a comment.",
+      "hints": [
+        "A new column on a dataframe is just an assignment whose right-hand side is a whole column of arithmetic: `df['eps'] = df['ni'] / df['shr']`.",
+        "`levratio` is debt divided by **debt plus** market cap — both terms go in the denominator, and the debt appears twice in the formula.",
+        "Similar problem, different shape — a book-to-market ratio and a flag for it, same three steps (divide, divide, compare):\n\n```python\ndf['b2m'] = df['book'] / df['mcap']\ndf['rich'] = df['b2m'] > 1.0\nprint(df.groupby('rich')['mcap'].mean())\n```",
+        "The grouping column for part c is `pos`. `df.groupby('pos')['mcap'].mean()` returns one number per group; keep it as a variable rather than only printing it.",
+        "Part d says the *typical* firm, and 'typical' in a skewed ratio means the median, not the mean. One statement: `df.groupby('fyear')['levratio'].median()`.",
+        "Part e is about what moves: the market value of equity is the volatile piece, and 2008–2009 was an extreme period for it. Look at what mcap does to the denominator."
+      ],
+      "tests": "assert 'df' in dir(), 'load the panel into df'\nassert df.shape == (2343, 9), f'expected 2343 rows and 9 columns (6 original + eps, levratio, pos), got {df.shape}'\nassert abs(df['eps'].mean() - 10.8663) < 1e-3\nassert abs(df['levratio'].mean() - 0.3728) < 1e-3\nassert abs(df['levratio'].max() - 0.9200) < 1e-3\nassert int(df['pos'].sum()) == 2152, f\"expected 2152 positive-leverage firm-years, got {int(df['pos'].sum())}\"\nassert abs(float(mcap_by_pos[False]) - 10670.0) < 0.05\nassert abs(float(mcap_by_pos[True]) - 9381.91) < 0.05\nassert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2008]) - 0.3317) < 1e-3\nassert abs(float(lev_by_year.loc[2009]) - 0.3880) < 1e-3\nassert abs(float(lev_by_year.loc[1980]) - 0.6460) < 1e-3",
+      "test_summary": "eps and levratio are right, the pos split matches, and the per-year median leverage is stored"
+    },
+    {
+      "id": "fin400-hw-11-equal-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 11 · Q6 — Equal-weight portfolio, then average return by month",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "pandas", "Portfolios"],
+      "assignment": {"key": "fin400-hw-11", "label": "HW 11 — equal-weight portfolio", "group": "Homework 1–19", "order": 111},
+      "order": 111,
+      "packages": ["pandas"],
+      "data_files": {"fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"},
+      "line_count": 12,
+      "prompt": "**Homework 11 — Q6.** Monthly stock prices and returns for all publicly traded US stocks, 1926–1935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`. Read it with `pd.read_csv('fin400-monthly-stocks.csv', parse_dates=['caldt'])` into `df`.\n\n**a.** Form an equal-weight portfolio of all stocks every year-month (Jan 1926, Feb 1926, etc). Compute portfolio returns for the whole sample, and store the portfolio Series in `ew`. Compute the mean and the sample standard deviation of the portfolio.\n**b.** Reset the index of the portfolio dataframe so `caldt` is a column (call it `ew_df`). Using a `groupby`, compute the average portfolio return by month (Jan=1, Feb=2, …). Hint: use the `dt` accessor to get the month as an integer 1–12. Save that result as a new column in `ew_df` called `avg_ret_month`, and also keep the by-month averages in `avg_by_month`.",
+      "hints": [
+        "Equal weight means every stock counts the same, so each month's portfolio return is simply the mean of that month's `ret` values: group by `caldt` and take `.mean()` of `ret`.",
+        "After `ew.reset_index()` the result has `caldt` and the return column as ordinary columns; the month number is `ew_df['caldt'].dt.month`.",
+        "Similar problem, different shape — an equal-weight portfolio by sector instead of by date. Notice the same two moves, group then average:\n\n```python\nsector_ret = df.groupby('sector')['ret'].mean()\n```",
+        "To attach the 12 monthly averages back onto every row, `map` the small by-month Series onto the month column: `ew_df['avg_ret_month'] = ew_df['month'].map(avg_by_month)`.",
+        "`std()` on a Series is already the **sample** standard deviation (ddof=1), which is what the question asks for."
+      ],
+      "tests": "import pandas as _pd\nassert 'df' in dir(), 'load the file with parse_dates=[\"caldt\"] into df'\nassert isinstance(ew, _pd.Series), 'ew should be the portfolio return Series'\nassert len(ew) == 120, f'expected 120 months, got {len(ew)}'\nassert abs(float(ew.mean()) - 0.008561) < 1e-6, f'portfolio mean is off: {float(ew.mean())}'\nassert abs(float(ew.std()) - 0.051730) < 1e-6, f'portfolio std is off: {float(ew.std())}'\nassert 'caldt' in getattr(ew_df, 'columns', []), 'reset the index so caldt is a column'\nassert len(avg_by_month) == 12, f'expected 12 monthly averages, got {len(avg_by_month)}'\nassert abs(float(avg_by_month.loc[1]) - -0.005869) < 1e-6\nassert 'avg_ret_month' in ew_df.columns\nassert abs(float(ew_df['avg_ret_month'].iloc[0]) - float(avg_by_month.loc[1])) < 1e-12",
+      "test_summary": "the equal-weight portfolio, its mean and std, and the 12 calendar-month averages stored on the dataframe"
+    },
+    {
+      "id": "fin400-hw-12-counts-lag-weighted",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 12 · Q8 & Q9 — Stock counts, a lagged mcap, and a weighted portfolio",
+      "difficulty": "hard",
+      "topics": ["FIN 400", "Homework", "pandas", "Lagging", "Portfolios"],
+      "assignment": {"key": "fin400-hw-12", "label": "HW 12 — counts, lag and weights", "group": "Homework 1–19", "order": 112},
+      "order": 112,
+      "packages": ["pandas"],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv",
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 12 — Q8.** Monthly stock prices and returns for publicly traded US stocks, 1926–1935, with `mcap` added. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`. Read it with `pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])` into `df`.\n\n**a.** Use a `groupby` to count the number of stocks in an equally-weighted portfolio (all stocks) every year-month. Store it in `counts` and compute summary statistics for the date-by-date count of stocks.\n**b.** Create a lagged market-cap column (lagged one month), called `mcap_lag`, as in the class discussion on lagging variables in a stock-date panel. Compute summary statistics for both `mcap` and the lagged column.\n**c.** In a comment, explain why the count of observations is lower for the lagged `mcap` column than for the `mcap` column.\n\n**Q9.** Read `port = pd.read_csv(\"fin400-port-mcap.csv\", parse_dates=['caldt'])`. Columns: the date plus returns on four portfolios formed on lagged market-cap: `micro`, `small`, `mid`, `large`. Create a new column `weighted` with portfolio returns where the weights are 0.3 micro-cap, 0.5 small-cap, and 0.2 in a risk-free asset with monthly return 0.0025. Compute summary statistics for `micro`, `small` and `weighted`.",
+      "hints": [
+        "Q8a is a count per date, not a sum: `df.groupby('caldt')['permno'].count()`. Counting a column also skips missing values, which matters for the lag.",
+        "A lag is only meaningful inside a stock: sort by `permno` and `caldt` first, then `df.groupby('permno')['mcap'].shift(1)`.",
+        "Similar problem, different shape — lagging a price instead of a market cap, same sort-then-group-then-shift recipe:\n\n```python\ndf = df.sort_values(['ticker', 'month'])\ndf['price_lag1'] = df.groupby('ticker')['price'].shift(1)\ndf['price_lag3'] = df.groupby('ticker')['price'].shift(3)\n```",
+        "Q9 is one column built from three numbers: 0.3 × micro + 0.5 × small + 0.2 × 0.0025. The risk-free piece is a constant, not a column.",
+        "For Q8c, think about the first month of every stock: `shift(1)` has nothing to put there."
+      ],
+      "tests": "assert 'df' in dir(), 'load the monthly file into df'\nassert len(counts) == 120, f'expected 120 monthly counts, got {len(counts)}'\nassert int(counts.sum()) == 5400\nassert float(counts.min()) == float(counts.max()), 'the panel is balanced: 45 stocks every month'\nassert 'mcap_lag' in df.columns\nassert int(df['mcap_lag'].notna().sum()) == 5355, f\"expected 5355 lagged values, got {int(df['mcap_lag'].notna().sum())}\"\nassert abs(df['mcap'].mean() - df['mcap_lag'].mean()) < 10.0, 'the lagged column should look like the original, one month back'\nassert 'weighted' in port.columns\nassert abs(float(port['weighted'].mean()) - 0.005760) < 1e-6\nassert abs(float(port['micro'].mean()) - 0.006428) < 1e-6\nassert abs(float(port['small'].std()) - 0.075776) < 1e-6\nassert abs(float(port['weighted'].std()) - 0.051997) < 1e-6",
+      "test_summary": "monthly stock counts, a correct one-month lag inside each permno, and the 0.3/0.5/0.2 weighted portfolio"
+    },
+    {
+      "id": "fin400-hw-13-value-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 13 · Q2 — Value-weight portfolio and cumulative growth",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "pandas", "Portfolios"],
+      "assignment": {"key": "fin400-hw-13", "label": "HW 13 — value-weight portfolio", "group": "Homework 1–19", "order": 113},
+      "order": 113,
+      "packages": ["pandas"],
+      "data_files": {"fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"},
+      "line_count": 11,
+      "prompt": "**Homework 13 — Q2.** Same dataset as HW 12: monthly stock prices and returns for US stocks, 1926–1935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\n**a.** Form a value-weight portfolio of all stocks every year-month, store it in `vw`, and compute portfolio returns for the whole sample. Compute the mean and sample standard deviation of the portfolio.\n**b.** Create a one-column dataframe (technically a Series) based on the value-weight portfolio returns. Assuming your portfolio is called `vw` and you have not reset the index, run:\n\n```python\nnew = (1 + vw).cumprod() - 1\nprint(new)\n```\n\nWhat does each observation in `new` represent? Answer in a comment. (Looking at the pandas documentation for `cumprod` may help.)",
+      "hints": [
+        "A value-weight portfolio weights each stock by its market cap, so the month's return is Σ(ret × mcap) ÷ Σ(mcap) — two groupbys over the same dates, one divided by the other.",
+        "Build it in two steps so you can see each piece: `df['contrib'] = df['ret'] * df['mcap']`, then group `contrib` and `mcap` by `caldt`, sum both, divide.",
+        "Similar problem, different shape — weighting by shares outstanding instead of market cap. The two-sum-then-divide shape is what transfers:\n\n```python\ndf['w'] = df['ret'] * df['shares']\nport = df.groupby('date')['w'].sum() / df.groupby('date')['shares'].sum()\n```",
+        "`1 + vw` turns returns into growth factors; `cumprod` multiplies them forward; subtracting 1 puts the answer back in return units.",
+        "Each entry of `new` is cumulative — it answers 'what did I have by this month if I started with 1 in the first sample month', not 'what happened this month'."
+      ],
+      "tests": "import pandas as _pd\nassert isinstance(vw, _pd.Series), 'vw should be the value-weight portfolio Series'\nassert len(vw) == 120\nassert abs(float(vw.mean()) - 0.016356) < 1e-6, f'value-weight mean is off: {float(vw.mean())}'\nassert abs(float(vw.std()) - 0.052597) < 1e-6, f'value-weight std is off: {float(vw.std())}'\nassert float(vw.mean()) > 0.008561, 'value weighting should differ from equal weighting here'\nassert len(new) == 120\nassert abs(float(new.iloc[0]) - float(vw.iloc[0])) < 1e-12, 'the first observation is just the first return'\nassert abs(float(new.iloc[-1]) - 4.984085) < 1e-5, f'cumulative growth is off: {float(new.iloc[-1])}'",
+      "test_summary": "the value-weight portfolio and its cumulative growth series, including the final cumulative return"
+    },
+    {
+      "id": "fin400-hw-14-lagged-sign",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 14 · Q8 — Value-weight portfolios split on the sign of last month's return",
+      "difficulty": "hard",
+      "topics": ["FIN 400", "Homework", "pandas", "Lagging", "Portfolios"],
+      "assignment": {"key": "fin400-hw-14", "label": "HW 14 — portfolios by lagged return", "group": "Homework 1–19", "order": 114},
+      "order": 114,
+      "packages": ["pandas"],
+      "data_files": {"fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"},
+      "line_count": 16,
+      "prompt": "**Homework 14 — Q8.** Same dataset as HW 12 and HW 13. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\nForm value-weight portfolios based on whether lagged one-month returns were positive or negative (the same two portfolios as in class, but value-weight instead of equal-weight). Note: you can multiply and divide dataframes even with a multi-index as long as the multi-index is the same and the number of columns matches.\n\nStore the two portfolio Series in `vw_pos` and `vw_neg`, and compute the mean and sample standard deviation of each.",
+      "hints": [
+        "Two steps before you can sort stocks: create the lag (`groupby('permno')['ret'].shift(1)` after sorting), then drop the rows where the lag is missing — otherwise 'NaN > 0' quietly throws those rows out and the counts get confusing.",
+        "Split with two masks on the same dataframe: `df[df['ret_lag'] > 0]` and `df[df['ret_lag'] < 0]`. The zero case belongs to neither portfolio.",
+        "Similar problem, different shape — splitting on last month's **volume** instead of return, then value-weighting the same way:\n\n```python\ndf = df.sort_values(['permno', 'caldt'])\ndf['vol_lag'] = df.groupby('permno')['volume'].shift(1)\nheavy = df[df['vol_lag'] > df['vol_lag'].median()]\nport = (heavy['ret'] * heavy['mcap']).groupby(heavy['caldt']).sum() / heavy.groupby('caldt')['mcap'].sum()\n```",
+        "Each portfolio is Σ(ret × mcap) ÷ Σ(mcap) within its own subset, grouped by `caldt`. The two subsets have different stocks, so the denominators differ.",
+        "The two Series will not have the same length: some months contain no stock with a positive lagged return, or none with a negative one."
+      ],
+      "tests": "import pandas as _pd\nassert isinstance(vw_pos, _pd.Series) and isinstance(vw_neg, _pd.Series), 'vw_pos and vw_neg must both be Series'\nassert len(vw_pos) == 119, f'expected 119 months in the positive portfolio, got {len(vw_pos)}'\nassert len(vw_neg) == 118, f'expected 118 months in the negative portfolio, got {len(vw_neg)}'\nassert abs(float(vw_pos.mean()) - 0.023553) < 1e-6\nassert abs(float(vw_neg.mean()) - 0.007798) < 1e-6\nassert abs(float(vw_pos.std()) - 0.062116) < 1e-6\nassert abs(float(vw_neg.std()) - 0.055856) < 1e-6\nassert float(vw_pos.mean()) > float(vw_neg.mean()), 'the winner portfolio should beat the loser portfolio in this sample'",
+      "test_summary": "both sign-based value-weight portfolios, with the right lengths, means and standard deviations"
+    },
+    {
+      "id": "fin400-hw-15-merges",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 15 · Q9 & Q10 — Merging two dataframes",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "pandas", "Merging"],
+      "assignment": {"key": "fin400-hw-15", "label": "HW 15 — merging", "group": "Homework 1–19", "order": 115},
+      "order": 115,
+      "packages": ["pandas"],
+      "data_files": {
+        "fin400-merge-roster.csv": "fin400/data/fin400-merge-roster.csv",
+        "fin400-merge-pay.csv": "fin400/data/fin400-merge-pay.csv",
+        "fin400-merge-products.csv": "fin400/data/fin400-merge-products.csv",
+        "fin400-merge-stock.csv": "fin400/data/fin400-merge-stock.csv"
+      },
+      "line_count": 14,
+      "prompt": "**Homework 15 — Q9 & Q10.** The homework ships two files with starter dataframes; here are the same two jobs on stand-in tables. Read all four files, then merge them.\n\n**Q9.** `roster` (`employee_id`, `department`) and `pay` (`employee_id`, `salary`). Merge them so the result has `employee_id`, `department` and `salary`, keeping only employees that appear in **both** tables. Store the merged frame in `merged`.\n\n**Q10.** `products` (`product`, `price`) and `stock` (`product`, `stock`). Merge them so the result keeps **every** product from `products` and attaches its stock count where one exists. Store it in `merged_extra`.\n\nDo not concatenate and do not loop over rows — this is a merge.",
+      "hints": [
+        "`pd.merge(left, right, on='key', how=...)` is the whole tool. The key here is the column the two tables share: `employee_id` for Q9 and `product` for Q10.",
+        "The `how` argument decides which rows survive: `'inner'` keeps only keys present on both sides, `'left'` keeps every key from the left table.",
+        "Similar problem, different shape — joining orders to customers on a different key, both ways round:\n\n```python\nonly_matched = pd.merge(orders, customers, on='customer_id', how='inner')\nkeep_all_orders = pd.merge(orders, customers, on='customer_id', how='left')\n```",
+        "Which table goes on the left decides what 'left' means. For Q10, `products` must be the left table so a product with no stock record still appears, with `NaN` in the stock column.",
+        "Both merges are one statement each. If you find yourself with more rows than the left table has, the right table has duplicate keys."
+      ],
+      "tests": "assert 'merged' in dir(), 'store the Q9 result in merged'\nassert list(merged.columns) == ['employee_id', 'department', 'salary']\nassert len(merged) == 4, f'Q9 keeps only employees in both tables, expected 4 rows, got {len(merged)}'\nassert 'E-102' not in set(merged['employee_id'])\nassert abs(float(merged.loc[merged['employee_id'] == 'E-101', 'salary'].iloc[0]) - 62000.0) < 1e-9\nassert 'merged_extra' in dir(), 'store the Q10 result in merged_extra'\nassert list(merged_extra.columns) == ['product', 'price', 'stock']\nassert len(merged_extra) == 4, f'Q10 keeps every product, expected 4 rows, got {len(merged_extra)}'\nassert merged_extra['stock'].isna().sum() == 1, 'the one product with no stock record keeps NaN'\nassert abs(float(merged_extra['price'].sum()) - 38.00) < 1e-9",
+      "test_summary": "an inner merge that drops the unmatched employee and a left merge that keeps the unmatched product"
+    },
+    {
+      "id": "fin400-hw-16-dupes-and-median",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 16 · Q4 — Duplicates, the year median, and merging it back",
+      "difficulty": "hard",
+      "topics": ["FIN 400", "Homework", "pandas", "Duplicates", "Merging"],
+      "assignment": {"key": "fin400-hw-16", "label": "HW 16 — duplicates and year medians", "group": "Homework 1–19", "order": 116},
+      "order": 116,
+      "packages": ["pandas"],
+      "data_files": {"fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"},
+      "line_count": 16,
+      "prompt": "**Homework 16 — Q4.** Same data as HW 10: a panel of publicly traded US companies, 1980–2024. Variables: `ticker`, `fyear`, `ni`, `debt_lgterm`, `mcap`, `shr`. The date variable is fiscal year (integer), so do not use `parse_dates`. This copy of the file, `fin400-stock-panel-dupes.csv`, has some duplicated observations in it.\n\n```python\nimport pandas as pd\ndf = pd.read_csv('fin400-stock-panel-dupes.csv')\n```\n\n**a.** Observations should be defined by ticker/year. Store the number of duplicate observations in `dup_count` and print it. If duplicates exist, drop them.\n**b.** Create a new column with the leverage ratio `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute the leverage ratio of the typical firm every fiscal year 1980–2024, store it in `lev_by_year`.\n**c.** Create a new column in the original dataframe containing the median leverage ratio for the year (from the groupby). Think about merging the groupby dataframe into the original dataframe. Reset the index of the groupby dataframe so `fyear` is a column, and rename the leverage column before merging. The new column must be called `levratio_median_year`.",
+      "hints": [
+        "`df.duplicated(subset=['ticker', 'fyear'])` returns True/False per row and `.sum()` counts the repeats; `df.drop_duplicates(subset=['ticker', 'fyear'])` removes them.",
+        "A grouped Series has `fyear` in the index. `reset_index()` turns that index into a column so it can be used as a merge key.",
+        "Similar problem, different shape — a sector-level median merged back onto every firm, same reset-rename-merge chain:\n\n```python\nby_sector = df.groupby('sector')['margins'].median()\nby_sector = by_sector.reset_index().rename(columns={'margins': 'margins_median_sector'})\ndf = pd.merge(df, by_sector, on='sector', how='left')\n```",
+        "The `how` for part c is `'left'`: every firm-year keeps its row, and the year-level median is attached. An inner merge would silently drop years with no median.",
+        "Do part a before part b — the duplicates would double-count firms in the median, and the median is what part c attaches."
+      ],
+      "tests": "assert 'df' in dir(), 'load the duplicated panel into df'\nassert int(dup_count) == 12, f'expected 12 duplicate ticker/year rows, got {dup_count}'\nassert len(df) == 2343, f'after dropping duplicates the panel has 2343 rows, got {len(df)}'\nassert not df.duplicated(subset=['ticker', 'fyear']).any(), 'duplicates must be gone by the end'\nassert abs(df['levratio'].mean() - 0.3728) < 1e-3\nassert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2009]) - 0.388013) < 1e-5\nassert 'levratio_median_year' in df.columns\nassert abs(float(df.loc[df['fyear'] == 2009, 'levratio_median_year'].iloc[0]) - 0.388013) < 1e-5\nassert abs(df['levratio_median_year'].isna().sum()) == 0, 'every year has a median, so the left merge should leave no gaps'",
+      "test_summary": "duplicates counted and dropped, the year median computed, and the median merged onto every firm-year"
+    },
+    {
+      "id": "fin400-hw-17-regression-mcap-emp",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 17 · Q4 — Regressing market cap on employees",
+      "difficulty": "medium",
+      "topics": ["FIN 400", "Homework", "statsmodels", "Regression"],
+      "assignment": {"key": "fin400-hw-17", "label": "HW 17 — mcap on employees", "group": "Homework 1–19", "order": 117},
+      "order": 117,
+      "packages": ["pandas", "statsmodels"],
+      "data_files": {"fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"},
+      "line_count": 14,
+      "prompt": "**Homework 17 — Q4.** Data: market cap and number of employees for publicly traded companies in fiscal year 2024. Variables: `permno`, `fyear`, `mcap` (millions of dollars), `emp` (number of employees, in thousands).\n\n```python\nimport pandas as pd\nimport statsmodels.formula.api as smf\ndf = pd.read_csv(\"fin400-mcap-emp.csv\")\n```\n\n**a.** Print summary statistics for `mcap` and `emp`.\n**b.** Estimate a regression (using statsmodels) of `mcap` on `emp`, store the fitted result in `reg`, and use the summary function to report the results.\n**c.** Check whether the residuals are mean zero and have zero covariance (or correlation) with the x-variable (`emp`). Print both numbers.\n**d.** Based on the regression, if a company has 10,000 employees, what is the expected market cap? (Use Python as a calculator, e.g. `print(500 + 104 * 77)`.) Store your answer in `pred_10k`.",
+      "hints": [
+        "The formula string spells the regression in words: `'mcap ~ emp'` means mcap on the left, emp on the right. `smf.ols(...).fit()` gives you the fitted object.",
+        "The fitted object carries what you need: `reg.params` for coefficients, `reg.resid` for residuals, `reg.summary()` for the table.",
+        "Similar problem, different shape — the same model on sales and headcount, including the residual check:\n\n```python\nreg_s = smf.ols('sales ~ headcount', data=df).fit()\nprint(reg_s.summary())\nprint(reg_s.resid.mean(), reg_s.resid.cov(df['headcount']))\n```",
+        "`emp` is in **thousands** of employees, so 10,000 employees is `emp = 10`, not `10_000`. Multiply the slope by 10 and add the intercept.",
+        "The residual checks are diagnostics, not tests you can fail: an OLS fit with an intercept always has residuals that average to zero and are uncorrelated with the regressor. Printing them is the point."
+      ],
+      "tests": "assert 'reg' in dir(), 'store the fitted regression in reg'\nassert int(reg.nobs) == 600\nassert abs(float(reg.params['Intercept']) - 771.784559) < 0.01\nassert abs(float(reg.params['emp']) - 120.422248) < 0.01\nassert abs(float(reg.resid.mean())) < 1e-6\nassert abs(float(reg.resid.cov(df['emp']))) < 1e-6\nassert abs(float(reg.resid.corr(df['emp']))) < 1e-6\nassert abs(float(pred_10k) - 1976.007) < 0.05, f'expected market cap is off: {pred_10k}'",
+      "test_summary": "the fitted mcap-on-emp regression, its zero-mean zero-covariance residuals, and the 10,000-employee prediction"
+    },
+    {
+      "id": "fin400-hw-18-beta-portfolio-tests",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 18 · Q3 — Beta portfolio on the market, with t-tests",
+      "difficulty": "hard",
+      "topics": ["FIN 400", "Homework", "statsmodels", "Regression", "t-test"],
+      "assignment": {"key": "fin400-hw-18", "label": "HW 18 — beta portfolio t-tests", "group": "Homework 1–19", "order": 118},
+      "order": 118,
+      "packages": ["pandas", "statsmodels"],
+      "data_files": {
+        "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 18 — Q3.** Use the two datasets used in class: ten portfolios formed on past beta (`p0`–`p9`) and returns on the market portfolio. Read both into dataframes and import pandas and statsmodels.\n\n```python\nport = pd.read_csv('fin400-port-beta.csv', parse_dates=['caldt'])   # p0 ... p9\nfac  = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])     # mkt\n```\n\n**a.** Merge the two dataframes using an `'inner'` merge, as done in class. Store it in `df`.\n**b.** Estimate a regression of `p9` on the market portfolio, store it in `reg9`, and report the results with summary: `p9 = a + b*mkt + z`.\n**c.** Can you reject the hypothesis that the true slope = 0? Briefly explain, in a comment.\n**d.** Use the `t_test` method on the regression object to test the hypothesis that the true slope = 1, e.g. `print(reg9.t_test(\"mkt = 1\"))`. Can you reject it?\n**e.** Can you reject the hypothesis that the true `a` = -0.004? Briefly explain. Note: in `t_test` you can reference the intercept as `\"Intercept\"`.",
+      "hints": [
+        "The merge key is the date column in both files, `caldt`. `how='inner'` keeps only the months that appear in both — check `len(df)` before you move on.",
+        "The regression itself is one line, `smf.ols('p9 ~ mkt', data=df).fit()`. The t-tests are methods on that same object, not new regressions.",
+        "Similar problem, different shape — testing a slope against 0.5 on a two-factor model. The `t_test` string is a linear restriction written with `=`, and `Intercept` is the keyword for the constant:\n\n```python\nr = smf.ols('p1 ~ mkt + small', data=df).fit()\nprint(r.t_test('mkt = 0.5'))\nprint(r.t_test('Intercept = 0'))\n```",
+        "Read the p-value column of the `t_test` output. A tiny p-value means the data are inconsistent with the value you tested, so you reject it.",
+        "Parts c, d and e are all the same question asked of three different numbers: slope vs 0, slope vs 1, intercept vs -0.004. Report the p-value and then say reject / do not reject."
+      ],
+      "tests": "assert 'df' in dir(), 'merge port and fac into df'\nassert len(df) == 120, f'expected 120 merged months, got {len(df)}'\nassert 'mkt' in df.columns and 'p9' in df.columns\nassert int(reg9.nobs) == 120\nassert abs(float(reg9.params['Intercept']) - 0.001869) < 1e-6\nassert abs(float(reg9.params['mkt']) - 1.345073) < 1e-6\nassert abs(float(reg9.rsquared) - 0.956) < 1e-3\nassert float(reg9.pvalues['mkt']) < 1e-6, 'the slope is overwhelmingly different from zero'\n_t1 = reg9.t_test('mkt = 1')\nassert float(_t1.pvalue) < 1e-6, 'the slope is far enough above 1 to reject slope = 1'\n_t2 = reg9.t_test('Intercept = -0.004')\nassert float(_t2.pvalue) < 1e-3, 'the intercept is far from -0.004'",
+      "test_summary": "the merged data, the p9-on-mkt fit, and the three t-test p-values (slope 0, slope 1, intercept -0.004)"
+    },
+    {
+      "id": "fin400-hw-19-pe-portfolios",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 19 · Q2 — P/E portfolios on the market and small-cap factors",
+      "difficulty": "hard",
+      "topics": ["FIN 400", "Homework", "statsmodels", "Regression", "Loops"],
+      "assignment": {"key": "fin400-hw-19", "label": "HW 19 — P/E portfolios", "group": "Homework 1–19", "order": 119},
+      "order": 119,
+      "packages": ["pandas", "statsmodels"],
+      "data_files": {
+        "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 18,
+      "prompt": "**Homework 19 — Q2.** Two datasets. First: five portfolio returns formed on past P/E ratio (`p0` = lowest P/E … `p4` = highest P/E):\n\n```python\nport = pd.read_csv('fin400-port-pe.csv', parse_dates=['caldt'])\n# p0 ... p4\n```\n\nSecond: market portfolio (`mkt`) and small-cap portfolio (`small`):\n\n```python\nfac = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])\n# mkt, small\n```\n\n**a.** Merge the two dataframes using an inner merge. Store it in `df`.\n**b.** Briefly explain why a left merge would have resulted in an identical dataframe. Answer in a comment.\n**c.** Estimate a regression of `p0` on `mkt` and `small`, store it in `reg0`, and report results with summary: `p0 = a + b1*mkt + b2*small + z`.\n**d.** Use a loop to estimate a regression for each portfolio (`p0`, `p1`, `p2`, `p3`, `p4`) on `mkt` and `small`. Print the estimated results for each portfolio using the summary function (the `print` belongs in the loop body). Adapt code from the lecture notebook. Also store the fitted objects in a dictionary called `models`, keyed by portfolio name.",
+      "hints": [
+        "One formula string, three columns: `'p0 ~ mkt + small'`. The `+` here means 'and also', not arithmetic addition.",
+        "The loop body is one fit and one print, with the portfolio name dropped into the formula each time — build the string with an f-string inside the loop.",
+        "Similar problem, different shape — the same loop over sectors with a single factor, storing the fits in a dict:\n\n```python\nmodels = {}\nfor s in ['tech', 'energy', 'health']:\n    fit = smf.ols(f'{s} ~ mkt', data=df).fit()\n    print(fit.summary())\n    models[s] = fit\n```",
+        "For part b: an inner merge drops rows whose key is missing from either side. Ask whether `fac` has a row for every date in `port`, and what a left merge would then be dropping.",
+        "The R-squared of these five regressions is very high — if yours is near zero, the merge probably produced misaligned dates."
+      ],
+      "tests": "assert 'df' in dir(), 'merge port and fac into df'\nassert len(df) == 120, f'expected 120 merged months, got {len(df)}'\nassert list(df.columns) == ['caldt', 'p0', 'p1', 'p2', 'p3', 'p4', 'mkt', 'small'], f'unexpected columns: {list(df.columns)}'\nassert abs(float(reg0.params['Intercept']) - 0.001941) < 1e-6\nassert abs(float(reg0.params['mkt']) - 1.052490) < 1e-6\nassert abs(float(reg0.params['small']) - 0.463223) < 1e-6\nassert abs(float(reg0.rsquared) - 0.952190) < 1e-5\nassert set(models) == {'p0', 'p1', 'p2', 'p3', 'p4'}, f'models should hold all five fits, got {sorted(models)}'\nassert abs(float(models['p4'].params['mkt']) - 0.862471) < 1e-6\nassert abs(float(models['p4'].params['small']) - 0.474450) < 1e-6\nassert abs(float(models['p2'].params['mkt']) - 0.925885) < 1e-6\nassert abs(float(models['p1'].params['Intercept']) - 0.000045) < 1e-6",
+      "test_summary": "the inner merge, the p0 three-coefficient fit, and all five loop fits stored by portfolio name"
+    }
+  ]
+}

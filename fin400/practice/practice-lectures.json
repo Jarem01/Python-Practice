@@ -26,7 +26,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-01-loading-the-data.ipynb",
       "phase": "lectures",
-      "order": 511
+      "order": 511,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l01-predict-range",
@@ -54,7 +60,13 @@
       "notebook": "fin400/lectures/lecture-01-loading-the-data.ipynb",
       "phase": "lectures",
       "order": 512,
-      "expected_output": "5400\n1926\n1935"
+      "expected_output": "5400\n1926\n1935",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l02-loglist",
@@ -79,7 +91,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
       "phase": "lectures",
-      "order": 521
+      "order": 521,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l02-fix-logloop",
@@ -106,7 +124,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
       "phase": "lectures",
-      "order": 522
+      "order": 522,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l03-fix-max-priming",
@@ -133,7 +157,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-03-statistics-library.ipynb",
       "phase": "lectures",
-      "order": 531
+      "order": 531,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l03-predict-summary",
@@ -158,7 +188,13 @@
       "notebook": "fin400/lectures/lecture-03-statistics-library.ipynb",
       "phase": "lectures",
       "order": 532,
-      "expected_output": "23.8\n24\n[23.0, 24.0, 25.0]"
+      "expected_output": "23.8\n24\n[23.0, 24.0, 25.0]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l04-sqdevs",
@@ -183,7 +219,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
       "phase": "lectures",
-      "order": 541
+      "order": 541,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l04-blank-invcdf",
@@ -221,7 +263,13 @@
       "notebook": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
       "phase": "lectures",
       "order": 542,
-      "expected_output": "16.59"
+      "expected_output": "16.59",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l05-listcdf",
@@ -246,7 +294,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
       "phase": "lectures",
-      "order": 551
+      "order": 551,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l05-predict-indexloop",
@@ -271,7 +325,13 @@
       "notebook": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
       "phase": "lectures",
       "order": 552,
-      "expected_output": "0 19.0 0.1525\n1 23.0 0.5\n2 27.0 0.8475"
+      "expected_output": "0 19.0 0.1525\n1 23.0 0.5\n2 27.0 0.8475",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l06-bins",
@@ -298,7 +358,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-06-empirical-probability.ipynb",
       "phase": "lectures",
-      "order": 561
+      "order": 561,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l06-predict-cut",
@@ -326,7 +392,13 @@
       "notebook": "fin400/lectures/lecture-06-empirical-probability.ipynb",
       "phase": "lectures",
       "order": 562,
-      "expected_output": "14\n39\n44\n23"
+      "expected_output": "14\n39\n44\n23",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l07-columns",
@@ -353,7 +425,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
       "phase": "lectures",
-      "order": 571
+      "order": 571,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l07-blank-quantile",
@@ -394,7 +472,13 @@
       "notebook": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
       "phase": "lectures",
       "order": 572,
-      "expected_output": "[-0.97, 30.7]"
+      "expected_output": "[-0.97, 30.7]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l08-mask",
@@ -421,7 +505,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
       "phase": "lectures",
-      "order": 581
+      "order": 581,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l08-fix-mask-and",
@@ -450,7 +540,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
       "phase": "lectures",
-      "order": 582
+      "order": 582,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l11-or-mask",
@@ -477,7 +573,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-11-data-review.ipynb",
       "phase": "lectures",
-      "order": 611
+      "order": 611,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l11-predict-dates",
@@ -505,7 +607,13 @@
       "notebook": "fin400/lectures/lecture-11-data-review.ipynb",
       "phase": "lectures",
       "order": 612,
-      "expected_output": "540\n12"
+      "expected_output": "540\n12",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l12-groupby",
@@ -532,7 +640,13 @@
       "packages": [],
       "notebook": "fin400/lectures/lecture-12-groupby.ipynb",
       "phase": "lectures",
-      "order": 621
+      "order": 621,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     },
     {
       "id": "fin400-l12-blank-twokeys",
@@ -573,7 +687,13 @@
       "notebook": "fin400/lectures/lecture-12-groupby.ipynb",
       "phase": "lectures",
       "order": 622,
-      "expected_output": "[27.98, 29.68, 29.35, 28.98]"
+      "expected_output": "[27.98, 29.68, 29.35, 28.98]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      }
     }
   ]
 }

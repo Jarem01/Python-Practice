@@ -23,7 +23,13 @@
       "tests": "assert is_palindrome(\"racecar\") == True\nassert is_palindrome(\"Racecar\") == False\nassert is_palindrome(\"\") == True\nassert is_palindrome(\"ab\") == False",
       "test_summary": "the reversed string is compared with the original, case-sensitive",
       "order": 1,
-      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-average",
@@ -48,7 +54,13 @@
       "tests": "assert average_rating([10, 20, 30, 40]) == 25.0\nassert average_rating([7]) == 7.0\nassert abs(average_rating([1.5, 2.5]) - 2.0) < 1e-9",
       "test_summary": "the function averages any length of list by looping, including a single value",
       "order": 11,
-      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p1-fix-mean",
@@ -74,7 +86,13 @@
       "packages": [],
       "order": 12,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-largest",
@@ -99,7 +117,13 @@
       "tests": "assert largest_value([4, 19, -3, 12]) == 19\nassert largest_value([-5, -2, -9]) == -2\nassert largest_value([42]) == 42",
       "test_summary": "the maximum is found by comparison in a loop, including an all-negative list",
       "order": 21,
-      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p2-predict-max",
@@ -123,7 +147,13 @@
       "packages": [],
       "order": 22,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-squared-deviations",
@@ -148,7 +178,13 @@
       "tests": "assert squared_deviations([4, 8, 6, 5, 7]) == [4.0, 4.0, 0.0, 1.0, 1.0]\nassert squared_deviations([2.0, 4.0]) == [1.0, 1.0]",
       "test_summary": "every value is turned into its squared distance from the mean, in list order",
       "order": 31,
-      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p3-fix-sqdevs",
@@ -175,7 +211,13 @@
       "packages": [],
       "order": 32,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p3-predict-variance",
@@ -199,7 +241,13 @@
       "packages": [],
       "order": 33,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-cdf-list",
@@ -224,7 +272,13 @@
       "tests": "out = cdf_values([10, 15, 20], 15, 2.5)\nassert len(out) == 3\nassert out[1] == 0.5\nassert abs(out[0] - 0.0227501) < 1e-5\nassert abs(out[2] - 0.9772499) < 1e-5\nassert abs(cdf_values([1.0])[0] - 0.8413447) < 1e-5",
       "test_summary": "one CDF per value, with the defaults giving the standard normal",
       "order": 41,
-      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-normal-draws",
@@ -249,7 +303,13 @@
       "tests": "assert len(draw_sample(5)) == 5\nassert len(draw_sample(3, 10, 2)) == 3\nassert len(draw_sample(1, mu=5)) == 1\nassert isinstance(draw_sample(4)[0], float)",
       "test_summary": "n draws are returned, and the distribution parameters really are optional",
       "order": 42,
-      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p4-blank-cdf",
@@ -285,7 +345,13 @@
       "packages": [],
       "order": 43,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p4-fix-normal-args",
@@ -312,7 +378,13 @@
       "packages": [],
       "order": 44,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-index-largest",
@@ -337,7 +409,13 @@
       "tests": "assert index_of_largest([4, 9, 2, 9, 1]) == 1\nassert index_of_largest([-3, -8, -1]) == 2\nassert index_of_largest([5]) == 0",
       "test_summary": "the index of the maximum is returned, with ties resolved to the first position",
       "order": 51,
-      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p5-predict-index",
@@ -361,7 +439,13 @@
       "packages": [],
       "order": 52,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-clip-extremes",
@@ -386,7 +470,13 @@
       "tests": "assert clip_extremes([11, -2, 44, 6], 3, 30) == [11, 3, 30, 6]\nassert clip_extremes([7, 12, 58, 0, 95, 130], 0, 90) == [7, 12, 58, 0, 90, 90]",
       "test_summary": "values outside the bounds are clipped while the order and length are preserved",
       "order": 61,
-      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p6-blank-clip",
@@ -429,7 +519,13 @@
       "packages": [],
       "order": 62,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-bmi-summary",
@@ -459,7 +555,13 @@
       "tests": "assert len(data) == 900\nassert abs(float(bmi_summary[\"mean\"]) - 29.221717) < 1e-3\nassert abs(float(bmi_extremes.loc[0.1]) - 21.063982) < 1e-3\nassert abs(float(bmi_extremes.loc[0.9]) - 36.546397) < 1e-3",
       "test_summary": "a bmi column per row, with its summary statistics and 10th/90th percentiles",
       "order": 71,
-      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p7-fix-bmi",
@@ -488,6 +590,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -527,6 +635,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -552,7 +666,13 @@
       "tests": "got = roll_probabilities([1, 1, 2, 2, 2, 2, 5, 6, 6, 3])\nassert len(got) == 6\nassert abs(got[0] - 0.2) < 1e-9\nassert abs(got[1] - 0.4) < 1e-9\nassert abs(got[2] - 0.1) < 1e-9\nassert got[3] == 0.0\nassert abs(got[4] - 0.1) < 1e-9\nassert abs(got[5] - 0.2) < 1e-9",
       "test_summary": "six realized probabilities, including a face that never appeared",
       "order": 81,
-      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb"
+      "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p8-predict-pmf",
@@ -576,7 +696,13 @@
       "packages": [],
       "order": 82,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
-      "phase": "bootcamp"
+      "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-survey-groups",
@@ -607,7 +733,13 @@
       "tests": "assert len(young_men) == 15\nassert len(women_high_income) == 83\nassert bool((young_men[\"height\"] > 182.9).all())\nassert bool((young_men[\"age\"] >= 18).all()) and bool((young_men[\"age\"] <= 30).all())\nassert bool((women_high_income[\"gender\"] == \"female\").all())\nassert bool((women_high_income[\"hincome\"] == \"high\").all())",
       "test_summary": "both filters select exactly the rows that satisfy every condition",
       "order": 91,
-      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-practice-count-outside",
@@ -632,7 +764,13 @@
       "tests": "assert count_outside([3, 8, 12, 1, 9, 15], 2, 10) == 3\nassert count_outside([], 0, 1) == 0\nassert count_outside([2, 10], 2, 10) == 0",
       "test_summary": "values beyond either bound are counted, with the bounds themselves treated as inside",
       "order": 92,
-      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb"
+      "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
+      }
     },
     {
       "id": "fin400-p9-fix-mask",
@@ -661,6 +799,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -688,6 +832,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -717,6 +867,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -764,6 +920,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -794,6 +956,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -824,6 +992,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -853,6 +1027,12 @@
       "data_files": {
         "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
         "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -888,6 +1068,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -915,6 +1101,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -957,6 +1149,12 @@
       "data_files": {
         "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     },
     {
@@ -988,6 +1186,12 @@
       "data_files": {
         "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1–9",
+        "group": "Extra practice",
+        "order": 201
       }
     }
   ]

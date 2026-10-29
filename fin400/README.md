@@ -12,7 +12,7 @@ The class has two halves, plus an assignments section:
 | **Second half — DataFrames and regression** | `fin400/notebooks/` | `.ipynb` class notebooks, pandas, and a regression at the end |
 | **Assignments** | `fin400/assignments/` | assignment briefs and worked practice, listed after the two halves |
 
-Homework is called an **assignment** (or **practice**) on the site. There is no "HW" label anywhere.
+The homework is now part of the site. **HW 1 to HW 19** live in `fin400/homework/`, one exercise per assignment, in the wording of the class handout and on stand-in data, and the practice page shows them as their own section ahead of the extra practice. The solutions are the one thing that never ships.
 
 **Three rules for this class:**
 
@@ -35,7 +35,10 @@ Homework is called an **assignment** (or **practice**) on the site. There is no 
 fin400/
 ├── bootcamp/     .py files from the first half — one file per class session
 ├── notebooks/    .ipynb files from the second half — one notebook per class session
-├── assignments/  assignment briefs and worked practice (homework, renamed)
+├── assignments/  assignment briefs and worked practice
+├── homework/     HW 1 … HW 19 as exercises — solutions removed by the build
+├── practice/     the extra practice: Practice 1–19, the drills and the lecture exercises
+├── lectures/     one notebook per class meeting
 ├── data/         the datasets the notebooks and exercises read (csv, xlsx, …)
 ├── solutions/    answer keys — never published by the site
 └── README.md     this file
@@ -294,11 +297,15 @@ Four things, and that is the whole class:
   demonstration cell and its exercises, and each opens from the Learning tab under **Part 3 — Lecture
   notebooks**. They carry **20 exercises** — `Lecture 01 · Exercise 1`, `Lecture 01 · Exercise 2`, … —
   which sit after Practice 19 in the practice list.
-* **50 practice sets**, numbered **Practice 1 … Practice 19** after the homework, plus a warm-up on
-  strings and the eight older seed exercises. Every numbered track carries the same skill as one homework
-  with different companies, different numbers and different wording, and most tracks have **two or three
-  exercises in different formats** — the full task, then a shorter fix / fill-in / predict-the-output
-  version.
+* **Homework 1 to 19** — `fin400/homework/homework-1-9.json` and `homework-10-19.json`, one exercise per
+  assignment, in the handout's wording (HW 1 mean by hand, HW 6 winsorize, HW 12 lags and weighting,
+  HW 18 t-tests, …). Every one runs on the stand-in data in `fin400/data/`, never on the assignment's own
+  numbers, and every one carries hints plus a worked *similar* example with different names instead of an
+  answer.
+* **50 extra practice exercises**, numbered **Practice 1 … Practice 19**, plus the drills and the eight
+  older seed exercises. Each numbered track repeats one homework skill with different companies, numbers
+  and wording, and most tracks have **two or three exercises in different formats** — the full task, then a
+  shorter fix / fill-in / predict-the-output version.
 
 Every exercise names the module it belongs to (its `notebook` field), and the *Practice coverage by
 section* table on the home page counts them. Each of the five modules now carries a comparable set —
@@ -307,12 +314,17 @@ and Module 4 had nineteen. A track moves as a unit: the whole of Practice 2 (a l
 Module 1, the whole of Practice 13 (portfolio growth) sits in Module 5.
 * **Twenty seed flashcards** covering the methods the class actually uses.
 
-The practice page opens as **one list in track order** — Practice 1, 2, 3 … 19 and the warm-ups after
-them — so the numbers never sort as text (10 before 2). Grouping by module or by half is one pill away.
+The practice page opens **grouped into sections**, in course order: **Homework 1–19**, then **Extra
+practice**, then **Lecture notebooks**. Inside a section the list runs in course order, so HW 10 never
+comes before HW 2, and the numbers never sort as text. One compact row of dropdowns does the filtering —
+Section, Topic, Type, Level, Progress, Group by and Sort — and `Clear filters` puts it all back.
 
-The practice sets are ordinary problem files in `fin400/practice/` — `practice-1-9.json` and
-`practice-10-19.json`, in the order the class works through them. `tools/build_index.py` reads that folder
-as well as `problems/`, so a set kept next to the class's data still appears in the FIN 400 tab. Each file
+Both tracks are ordinary problem files: the homework in `fin400/homework/` (one exercise per assignment)
+and the extra practice in `fin400/practice/` — `practice-1-9.json`, `practice-10-19.json` and
+`practice-lectures.json`, in the order the class works through them. `tools/build_index.py` reads those
+folders as well as `problems/`, so a set kept next to the class's data still appears in the FIN 400 tab.
+Each exercise names its set with an `assignment` object (`key`, `label`, `group`, `order`), which is what
+the section headings and the Section dropdown are built from. Each file
 is a plain `{ "problems": [...] }` wrapper, and each exercise carries `"order"` so the list reads 1, 2, 3
 rather than alphabetically.
 

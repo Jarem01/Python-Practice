@@ -7,7 +7,11 @@
       "type": "write_from_scratch",
       "title": "Compound a balance forward",
       "difficulty": "easy",
-      "topics": ["FIN 400", "Functions", "Numbers"],
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Numbers"
+      ],
       "line_count": 2,
       "prompt": "Write a function `future_value(present, annual_rate, years)` that returns what `present` grows to after `years` years of **annual compounding**, rounded to 2 decimals.\n\n`annual_rate` is a decimal: `0.07` means 7%. The function returns the number — it prints nothing.\n\n```python\nprint(future_value(1000, 0.07, 10))   # 1967.15\n```",
       "hints": [
@@ -16,7 +20,13 @@
         "Two lines is enough: one expression, one `return`."
       ],
       "tests": "assert future_value(1000, 0.07, 10) == 1967.15\nassert future_value(500, 0.0, 5) == 500.0\nassert future_value(0, 0.05, 3) == 0.0",
-      "test_summary": "the function compounds annually and rounds to 2 decimals, including a 0% rate"
+      "test_summary": "the function compounds annually and rounds to 2 decimals, including a 0% rate",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      }
     },
     {
       "id": "fin400-fix-simple-interest",
@@ -25,7 +35,11 @@
       "type": "fix_the_code",
       "title": "The balance is too low: fix the interest",
       "difficulty": "easy",
-      "topics": ["FIN 400", "Functions", "Debugging"],
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Debugging"
+      ],
       "prompt": "The `balance` function below is documented as **annual compounding**, but it computes simple interest: it applies the rate only once.\n\nRun it, look at what it prints, and fix the function so the program prints `1102.5`.\n\nKeep the same function name and arguments — only the formula is wrong.",
       "hints": [
         "Simple interest is `principal * (1 + rate * years)`. Compounding applies the growth factor once per year, which needs an exponent.",
@@ -35,7 +49,13 @@
       "starter_code": "def balance(principal, annual_rate, years):\n    \"\"\"Value of principal after `years` at `annual_rate`, compounded annually.\"\"\"\n    return principal * (1 + annual_rate * years)\n\n\nprint(balance(1000, 0.05, 2))\n",
       "expected_output": "1102.5",
       "tests": "assert balance(1000, 0.05, 2) == 1102.5\nassert balance(1000, 0.05, 20) > 2600",
-      "test_summary": "the account compounds annually instead of earning simple interest"
+      "test_summary": "the account compounds annually instead of earning simple interest",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      }
     },
     {
       "id": "fin400-sharpe-ratio",
@@ -44,7 +64,11 @@
       "type": "write_from_scratch",
       "title": "A Sharpe ratio from a list of returns",
       "difficulty": "medium",
-      "topics": ["FIN 400", "Functions", "Statistics"],
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Statistics"
+      ],
       "line_count": 4,
       "prompt": "Write `sharpe(returns, risk_free=0.0)` that returns the Sharpe ratio of a list of returns, **rounded to 3 decimals**:\n\n`(mean(returns) - risk_free) / stdev(returns)`\n\nUse the *sample* standard deviation (the one that divides by n − 1) from the standard library's `statistics` module — no extra packages. Return the number; print nothing.\n\n```python\nprint(sharpe([1.2, -0.4, 2.1, 0.85, -1.15, 1.75], 0.1))   # 0.495\n```",
       "hints": [
@@ -53,7 +77,13 @@
         "`return round((statistics.mean(returns) - risk_free) / statistics.stdev(returns), 3)` is the whole body."
       ],
       "tests": "assert sharpe([1.2, -0.4, 2.1, 0.85, -1.15, 1.75], 0.1) == 0.495\nassert sharpe([1.2, -0.4, 2.1, 0.85, -1.15, 1.75]) == 0.574\nassert sharpe([1, 2, 3], 1.0) == 1.0",
-      "test_summary": "the ratio is computed from the sample standard deviation, rounded to 3 decimals, and defaults to a 0% risk-free rate"
+      "test_summary": "the ratio is computed from the sample standard deviation, rounded to 3 decimals, and defaults to a 0% risk-free rate",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      }
     },
     {
       "id": "fin400-clean-ticker",
@@ -62,7 +92,12 @@
       "type": "write_from_scratch",
       "title": "Clean a ticker symbol",
       "difficulty": "hard",
-      "topics": ["FIN 400", "Functions", "Strings", "Errors"],
+      "topics": [
+        "FIN 400",
+        "Functions",
+        "Strings",
+        "Errors"
+      ],
       "line_count": 6,
       "prompt": "Write `clean_ticker(raw)` that turns what a student typed into the symbol the data uses:\n\n1. drop surrounding whitespace and a leading `$`,\n2. uppercase everything,\n3. replace `.` with `-` (share classes: `BRK.B` → `BRK-B`),\n4. raise `ValueError` when what is left is empty.\n\nReturn the cleaned symbol.\n\n```python\nclean_ticker(\"  $brk.b \")   # 'BRK-B'\nclean_ticker(\"   \")         # raises ValueError\n```",
       "hints": [
@@ -71,7 +106,13 @@
         "Check for the empty string *after* cleaning, and `raise ValueError(...)` — an `assert` will not satisfy the hidden check."
       ],
       "tests": "assert clean_ticker('  $brk.b ') == 'BRK-B'\nassert clean_ticker('aapl') == 'AAPL'\nassert clean_ticker(' msft ') == 'MSFT'\ntry:\n    clean_ticker('   ')\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError('an empty ticker must raise ValueError')",
-      "test_summary": "whitespace, a leading $, case and dots are handled, and an empty input raises ValueError"
+      "test_summary": "whitespace, a leading $, case and dots are handled, and an empty input raises ValueError",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      }
     }
   ]
 }

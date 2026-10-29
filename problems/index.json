@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T19:17:41+00:00",
-  "count": 184,
+  "generated_at": "2026-10-29T22:11:28+00:00",
+  "count": 203,
   "courses": [
     {
       "id": "acc525",
@@ -11,7 +11,7 @@
     {
       "id": "fin400",
       "code": "FIN 400",
-      "count": 78,
+      "count": 97,
       "solutions": "hidden"
     }
   ],
@@ -19,9 +19,10 @@
     "fix_the_code": 23,
     "fill_in_blank": 21,
     "predict_output": 36,
-    "write_from_scratch": 104
+    "write_from_scratch": 123
   },
   "topics": [
+    "Boolean indexing",
     "Boolean logic",
     "Cleaning Data",
     "Conditionals",
@@ -31,6 +32,7 @@
     "Debugging",
     "Descriptive statistics",
     "Dictionaries",
+    "Duplicates",
     "Errors",
     "Excel",
     "FIN 400",
@@ -39,7 +41,9 @@
     "Formatting",
     "Functions",
     "Grouping",
+    "Homework",
     "Hypothesis testing",
+    "Indexing",
     "Intro to Python",
     "Lagging",
     "Lecture 01",
@@ -70,14 +74,16 @@
     "Statistics",
     "Strings",
     "Summary Statistics",
+    "Summary statistics",
     "Visualization",
     "pandas",
-    "statsmodels"
+    "statsmodels",
+    "t-test"
   ],
   "difficulties": {
-    "easy": 101,
-    "medium": 67,
-    "hard": 16
+    "easy": 105,
+    "medium": 77,
+    "hard": 21
   },
   "problems": [
     {
@@ -2254,6 +2260,12 @@
       ],
       "tests": "assert hasattr(avg_return, 'index'), 'avg_return must be a pandas Series indexed by fund'\nassert list(avg_return.index) == ['Blue Ridge', 'Cedar Growth', 'Harbor Value']\nassert round(float(avg_return['Blue Ridge']), 4) == 0.6667\nassert round(float(avg_return['Cedar Growth']), 4) == 1.1033\nassert round(float(avg_return['Harbor Value']), 4) == 0.3892",
       "test_summary": "a Series named avg_return, indexed by the three fund names, with each fund's mean return",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -2287,6 +2299,12 @@
       "expected_output": "Blue Ridge: 0.67\nCedar Growth: 1.10\nHarbor Value: 0.39",
       "tests": "assert round(float(avg['Harbor Value']), 4) == 0.3892, 'avg must hold averages, not counts'",
       "test_summary": "the grouped Series holds mean returns and each line is formatted to two decimals",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -2319,6 +2337,12 @@
       ],
       "tests": "assert list(ranked.index) == ['Cedar Growth', 'Blue Ridge', 'Harbor Value'], 'ranked must be sorted by net return, best first, indexed by fund'\nfor column in ['avg_return', 'expense_ratio', 'assets_mm', 'net_return']:\n    assert column in ranked.columns, f'{column} is missing from ranked'\nassert round(float(ranked.loc['Harbor Value', 'net_return']), 4) == -0.0908\nassert round(float(ranked.loc['Cedar Growth', 'net_return']), 4) == 0.0533",
       "test_summary": "a merged, sorted frame indexed by fund with avg_return, the fee columns and net_return",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -2352,6 +2376,12 @@
       ],
       "tests": "assert model.params['const'] is not None, 'the regression needs an intercept: use sm.add_constant'\nassert round(float(model.params['benchmark_pct']), 3) == 0.879\nassert round(float(model.params['const']), 3) == 0.2\nassert round(float(model.rsquared), 3) == 0.833",
       "test_summary": "a fitted OLS model with an intercept, a benchmark slope of 0.879 and R\u00b2 of 0.833",
+      "assignment": {
+        "key": "fin400-drills-dataframes",
+        "label": "DataFrame drills",
+        "group": "Extra practice",
+        "order": 231
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -2377,6 +2407,12 @@
       ],
       "tests": "assert future_value(1000, 0.07, 10) == 1967.15\nassert future_value(500, 0.0, 5) == 500.0\nassert future_value(0, 0.05, 3) == 0.0",
       "test_summary": "the function compounds annually and rounds to 2 decimals, including a 0% rate",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      },
       "glossary": [],
       "packages": [],
       "mode": "both",
@@ -2404,6 +2440,12 @@
       "expected_output": "1102.5",
       "tests": "assert balance(1000, 0.05, 2) == 1102.5\nassert balance(1000, 0.05, 20) > 2600",
       "test_summary": "the account compounds annually instead of earning simple interest",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      },
       "glossary": [],
       "packages": [],
       "solutions": "hidden"
@@ -2429,6 +2471,12 @@
       ],
       "tests": "assert sharpe([1.2, -0.4, 2.1, 0.85, -1.15, 1.75], 0.1) == 0.495\nassert sharpe([1.2, -0.4, 2.1, 0.85, -1.15, 1.75]) == 0.574\nassert sharpe([1, 2, 3], 1.0) == 1.0",
       "test_summary": "the ratio is computed from the sample standard deviation, rounded to 3 decimals, and defaults to a 0% risk-free rate",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      },
       "glossary": [],
       "packages": [],
       "mode": "both",
@@ -2456,6 +2504,12 @@
       ],
       "tests": "assert clean_ticker('  $brk.b ') == 'BRK-B'\nassert clean_ticker('aapl') == 'AAPL'\nassert clean_ticker(' msft ') == 'MSFT'\ntry:\n    clean_ticker('   ')\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError('an empty ticker must raise ValueError')",
       "test_summary": "whitespace, a leading $, case and dots are handled, and an empty input raises ValueError",
+      "assignment": {
+        "key": "fin400-drills-fundamentals",
+        "label": "Fundamentals drills",
+        "group": "Extra practice",
+        "order": 221
+      },
       "glossary": [],
       "packages": [],
       "mode": "both",
@@ -4286,6 +4340,756 @@
       "solutions": "shown"
     },
     {
+      "id": "fin400-hw-01-mean",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 1 \u00b7 Q11 \u2014 Mean of a list without libraries",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Loops"
+      ],
+      "assignment": {
+        "key": "fin400-hw-01",
+        "label": "HW 1 \u2014 mean of a list",
+        "group": "Homework 1\u201319",
+        "order": 101
+      },
+      "order": 101,
+      "packages": [],
+      "line_count": 8,
+      "prompt": "**Homework 1 \u2014 Q11.** Write a short Python function that takes a list of any size and returns the mean of that list. Do not use the `statistics` library or anything similar \u2014 no `sum()`, no `mean()`. Loop over the values yourself.\n\nName it `find_mean` so the checks can call it.\n\n```python\nprint(find_mean([4, 8, 6, 5, 7]))   # 6.0\n```",
+      "hints": [
+        "A mean needs two things you have to build up inside the loop: a running total and a count of how many values you have seen.",
+        "Add the value to the total and add 1 to the count on every pass, then divide once, after the loop has finished.",
+        "Similar problem, different shape \u2014 the average of a list of hourly temperatures. Only the names change, the pattern is the same one you need here:\n\n```python\ndef avg_temp(temps):\n    total = 0\n    hours = 0\n    for t in temps:\n        total = total + t\n        hours = hours + 1\n    return total / hours\n```",
+        "Return the division itself (`total / items`); no `print` inside the function, or the checks see `None`."
+      ],
+      "tests": "assert callable(find_mean), 'define a function called find_mean'\nassert abs(find_mean([4, 8, 6, 5, 7]) - 6.0) < 1e-9\nassert abs(find_mean([2.5, -1.5]) - 0.5) < 1e-9\nassert abs(find_mean([10]) - 10.0) < 1e-9\nassert abs(find_mean(list(range(1, 11))) - 5.5) < 1e-9\nassert abs(find_mean([-3, -1, 4]) - 0.0) < 1e-9",
+      "test_summary": "find_mean returns the arithmetic mean of any list, including a one-element list",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-02-max",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 2 \u00b7 Q8 \u2014 Maximum of a list without max()",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Loops"
+      ],
+      "assignment": {
+        "key": "fin400-hw-02",
+        "label": "HW 2 \u2014 maximum of a list",
+        "group": "Homework 1\u201319",
+        "order": 102
+      },
+      "order": 102,
+      "packages": [],
+      "line_count": 7,
+      "prompt": "**Homework 2 \u2014 Q8.** Write a short Python function that takes a list of any size and returns the maximum value of that list. Implement it by iterating over all of the values \u2014 no calls to `max()`, `sorted()` or any library that finds the max for you.\n\nName it `find_max`.",
+      "hints": [
+        "You need something to compare against on the first pass, and you cannot start with 0 \u2014 the list may be all negative.",
+        "Prime the running maximum with the first element: `maximum = nums[0]`. Then loop over every value, including that first one, and replace the maximum whenever you meet something bigger.",
+        "Similar problem, different shape \u2014 the smallest value in a list of fund returns. Same pattern, opposite comparison:\n\n```python\ndef smallest_ret(returns):\n    low = returns[0]\n    for r in returns:\n        if r < low:\n            low = r\n    return low\n```",
+        "Empty lists are not tested; assume there is at least one value."
+      ],
+      "tests": "assert callable(find_max), 'define a function called find_max'\nassert find_max([10, 2, -5, 17, 7]) == 17\nassert find_max([-8, -3, -25]) == -3\nassert find_max([42]) == 42\nassert find_max([1, 1, 1]) == 1\nassert find_max([2.5, 9.75, 9.5]) == 9.75",
+      "test_summary": "find_max returns the largest value, including all-negative lists",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-03-sqdevs",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 3 \u00b7 Q10 \u2014 Squared deviations from the mean",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Loops",
+        "Statistics"
+      ],
+      "assignment": {
+        "key": "fin400-hw-03",
+        "label": "HW 3 \u2014 squared deviations",
+        "group": "Homework 1\u201319",
+        "order": 103
+      },
+      "order": 103,
+      "packages": [],
+      "line_count": 10,
+      "prompt": "**Homework 3 \u2014 Q10.** Write a Python function named `sqdevs()` that takes a list of numeric data and returns a list of the squared deviations from the mean. You must use a loop to iterate over all of the values. No canned functions or libraries that would circumvent this. You may use the `mean` function of the `statistics` library.\n\n```python\nsqdevs([1, 2, 3, 4])   # [2.25, 0.25, 0.25, 2.25]\n```",
+      "hints": [
+        "Get the mean first, with `import statistics as s` and `s.mean(numbers)`. Only the mean may come from the library.",
+        "For each value: subtract the mean, square the result with `** 2`, then `append` it to a new list.",
+        "Similar problem, different shape \u2014 deviations from a target, not from the mean. The loop-and-append shape is the one to copy:\n\n```python\ndef gaps(values, target):\n    gaps_list = []\n    for v in values:\n        gap = v - target\n        gaps_list.append(gap)\n    return gaps_list\n```",
+        "Squared deviations are never negative, so a negative number in your result means you squared before subtracting."
+      ],
+      "tests": "assert callable(sqdevs), 'define a function called sqdevs'\nassert sqdevs([1, 2, 3, 4]) == [2.25, 0.25, 0.25, 2.25]\nassert sqdevs([5]) == [0.0]\nout = sqdevs([10, 12, 14, 16, 18])\nassert len(out) == 5\nassert abs(sum(out) - 40.0) < 1e-9\nassert all(v >= 0 for v in out)",
+      "test_summary": "sqdevs returns one squared deviation per value, zero for a single value",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-04-listcdf",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 4 \u00b7 Q10 \u2014 listcdf: the normal CDF for every value",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Functions",
+        "Statistics"
+      ],
+      "assignment": {
+        "key": "fin400-hw-04",
+        "label": "HW 4 \u2014 listcdf",
+        "group": "Homework 1\u201319",
+        "order": 104
+      },
+      "order": 104,
+      "packages": [],
+      "line_count": 10,
+      "prompt": "**Homework 4 \u2014 Q10.** Write a Python function named `listcdf` that takes three parameters:\n\n1. a list of numeric data\n2. the mean of the distribution for the data in the list\n3. the standard deviation for the distribution for the data in the list\n\nThe function definition should look like:\n\n```python\ndef listcdf(data, mu=0, sigma=1):\n```\n\nThe function should return a list containing the normal CDF value for each data value from the list you pass to the function, given the mean and standard deviation parameters. You will need to use the `NormalDist` object from the `statistics` library.\n\n**a.** Test with `mu = 23`, `sigma = 3.90`, and\n`data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]`.\n\n**b.** Test with a list, a mean and a standard deviation that you make up.",
+      "hints": [
+        "`statistics.NormalDist(mu, sigma)` builds the distribution object once; the object has a `.cdf(x)` method that takes one value at a time.",
+        "Build the result list the way you loop over any list: start empty, `append` one CDF per value, return the list.",
+        "Similar problem, different shape \u2014 the same idea for a uniform distribution's density. Note where the object is created (before the loop) and where the value is produced (inside it):\n\n```python\nimport random as r\n\ndef densities(values, low, high):\n    dist = r.Random(0)\n    out = []\n    for v in values:\n        out.append(dist.uniform(low, high))\n    return out\n```",
+        "The default `mu=0, sigma=1` means `listcdf([0])` must return something very close to `0.5` \u2014 the CDF of the standard normal at zero."
+      ],
+      "tests": "import statistics as _s\nassert callable(listcdf), 'define a function called listcdf'\nassert abs(listcdf([0])[0] - 0.5) < 1e-12, 'default arguments must give the standard normal'\n_data = [11.30, 12.95, 15.20, 15.35, 16.58, 18.00, 19.10, 21.05, 23.0, 24.95, 26.90, 28.00, 29.42, 30.65, 30.80, 33.05, 34.70]\n_nd = _s.NormalDist(23, 3.90)\n_expected = [_nd.cdf(x) for x in _data]\n_got = listcdf(_data, mu=23, sigma=3.90)\nassert len(_got) == 17\nassert all(abs(a - b) < 1e-12 for a, b in zip(_got, _expected))\n_own = listcdf([10.0, 20.0], 15.0, 5.0)\nassert len(_own) == 2 and _own[0] < _own[1]",
+      "test_summary": "listcdf returns one normal CDF value per input, honouring mu and sigma and the defaults",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-05-index-of-max",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 5 \u00b7 Q9 \u2014 Index of the maximum value",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Loops",
+        "Indexing"
+      ],
+      "assignment": {
+        "key": "fin400-hw-05",
+        "label": "HW 5 \u2014 index of the maximum",
+        "group": "Homework 1\u201319",
+        "order": 105
+      },
+      "order": 105,
+      "packages": [],
+      "line_count": 8,
+      "prompt": "**Homework 5 \u2014 Q9.** Write a Python function that takes a list of any size and returns the index of the maximum value of that list. Remember: no calls to any library to find the index of the max or to sort the data.\n\nIf `mylist = [10, 2, -5, 17, 7]`, your function should return `3` (the index of 17). Loop by index using:\n\n```python\nfor i in range(len(mylist)):\n```\n\nName it `index_of_max`. When the maximum appears more than once, return the first index.",
+      "hints": [
+        "Track an index, not a value: start at 0, and remember which position currently holds the biggest number you have seen.",
+        "Compare `mylist[i]` with `mylist[best_index]` \u2014 comparing one element against the element at the remembered position is what makes the index easy to return.",
+        "Similar problem, different shape \u2014 the index of the smallest value in a list of prices. Same loop-by-index pattern, opposite comparison:\n\n```python\ndef cheapest_index(prices):\n    best = 0\n    for i in range(len(prices)):\n        if prices[i] < prices[best]:\n            best = i\n    return best\n```",
+        "Because you only replace the stored index on a strict `>`, the first of several equal maxima wins automatically."
+      ],
+      "tests": "assert callable(index_of_max), 'define a function called index_of_max'\nassert index_of_max([10, 2, -5, 17, 7]) == 3\nassert index_of_max([3, 3, 1]) == 0, 'ties go to the first index'\nassert index_of_max([-4, -9, -2]) == 2\nassert index_of_max([5]) == 0\nassert index_of_max([1, 2, 3, 4]) == 3",
+      "test_summary": "index_of_max returns the position of the largest value, first index on ties",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-06-winsorize",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 6 \u00b7 Q7 \u2014 winsorize: clip values to a floor and a ceiling",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Conditionals",
+        "Loops"
+      ],
+      "assignment": {
+        "key": "fin400-hw-06",
+        "label": "HW 6 \u2014 winsorize",
+        "group": "Homework 1\u201319",
+        "order": 106
+      },
+      "order": 106,
+      "packages": [],
+      "line_count": 11,
+      "prompt": "**Homework 6 \u2014 Q7.** Write a Python function that takes a list of any size as well as two bounds (a ceiling and a floor), and returns a new list where any values outside of those provided bounds have been \"clipped\" to the provided bound values. You must use a loop and an explicit `if`/`elif`/`else`. Do not use `min`, `max`, `sorted`, or any library or command that circumvents the opportunity for you to use programmatic thinking tools.\n\n```python\ndef winsorize(data, floor, ceil):\n```\n\nExamples:\n\n```python\nprint(winsorize([-3, 0, 5, 10, 42], 1, 20))      # [1, 1, 5, 10, 20]\nprint(winsorize([7, 12, 58, 0, 95, 130], 0, 90)) # [7, 12, 58, 0, 90, 90]\n```",
+      "hints": [
+        "Three cases, in this order: below the floor, above the ceiling, and everything else \u2014 that is exactly the `if` / `elif` / `else` the question is asking for.",
+        "Do not modify `data` in place; build a new list and `append` the clipped value each time round.",
+        "Similar problem, different shape \u2014 tagging scores instead of clipping them, same three-branch structure:\n\n```python\ndef label_scores(scores):\n    labels = []\n    for value in scores:\n        if value < 60:\n            labels.append('fail')\n        elif value > 90:\n            labels.append('distinction')\n        else:\n            labels.append('pass')\n    return labels\n```",
+        "A value exactly equal to the floor or ceiling is unchanged, so use `<` and `>`, not `<=` and `>=`."
+      ],
+      "tests": "assert callable(winsorize), 'define a function called winsorize'\nassert winsorize([-3, 0, 5, 10, 42], 1, 20) == [1, 1, 5, 10, 20]\nassert winsorize([7, 12, 58, 0, 95, 130], 0, 90) == [7, 12, 58, 0, 90, 90]\nassert winsorize([1, 20], 1, 20) == [1, 20], 'the bounds themselves are unchanged'\nassert winsorize([-5, 5], 0, 2) == [0, 2]\nassert winsorize([], 0, 1) == []",
+      "test_summary": "winsorize clips below the floor and above the ceiling and leaves the rest alone",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-07-cdc-bmi",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 7 \u00b7 Q4 \u2014 CDC sample: BMI and its percentiles",
+      "difficulty": "easy",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Summary statistics"
+      ],
+      "assignment": {
+        "key": "fin400-hw-07",
+        "label": "HW 7 \u2014 BMI with pandas",
+        "group": "Homework 1\u201319",
+        "order": 107
+      },
+      "order": 107,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "line_count": 12,
+      "prompt": "**Homework 7 \u2014 Q4.** Using Python/Pandas, analyze a random sample of 900 American adults collected by the CDC in 2023. Variables: `seqn` (ID), `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm). The file is `fin400-survey.csv`.\n\n**a.** Read the data into a dataframe called `df` with pandas; print the dataframe.\n**b.** Compute and print summary statistics for each variable.\n**c.** Create a new column `bmi = weight / (height in metres) ** 2`.\n**d.** Compute and print summary statistics for the `bmi` column.\n**e.** Compute the 10th and 90th percentile of `bmi` and store them in `bmi_q10` and `bmi_q90`.\n**f.** Based on the obesity classifications (BMI > 30 obese, 25\u201330 overweight) and the summary statistics, do you think it is fair to conclude the average American adult is not obese? Work the answer out and say it in a comment.",
+      "hints": [
+        "`height` is in centimetres, so metres is `height / 100`. The squared term applies to the whole converted height, not just the number.",
+        "Parts b and d are one call each: `df.describe()` and `df['bmi'].describe()`. `df.describe()` on its own skips the ID column for you.",
+        "Similar problem, different shape \u2014 a body-surface-area column from the same file, built the same way (divide first, then square):\n\n```python\ndf['bsa'] = (df['weight'] ** 0.5 * df['height'] / 100) / 60\n```\nThe pattern to copy is: convert units inside the expression, then assign the new column.",
+        "For part e, `df['bmi'].quantile([0.1, 0.9])` returns two values; unpack them into `bmi_q10, bmi_q90 = ...` so the checks can read them by name.",
+        "Part f is an interpretation, not code. Compare the sample mean with the 30 cutoff and notice how close it is \u2014 then ask yourself what a sample mean tells you about the population mean."
+      ],
+      "tests": "assert 'df' in dir(), 'load the file into a dataframe called df'\nassert df.shape == (900, 8), f'expected 900 rows and the 6 original columns plus bmi, got {df.shape}'\nassert 'bmi' in df.columns\nassert abs(df['weight'].mean() - 84.6581) < 1e-3\nassert abs(df['height'].mean() - 169.9266) < 1e-3\nassert abs(df['bmi'].mean() - 29.2217) < 1e-3\nassert abs(df['bmi'].max() - 50.9602) < 1e-3\nassert abs(float(bmi_q10) - 21.0640) < 1e-3\nassert abs(float(bmi_q90) - 36.5464) < 1e-3",
+      "test_summary": "the survey is loaded, the bmi column is right, and the 10th/90th percentiles are stored",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-08-pmf6",
+      "course": "fin400",
+      "phase": "bootcamp",
+      "type": "write_from_scratch",
+      "title": "HW 8 \u00b7 Q8 \u2014 pmf6: the empirical pmf of six-sided dice",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "Loops",
+        "Probability"
+      ],
+      "assignment": {
+        "key": "fin400-hw-08",
+        "label": "HW 8 \u2014 pmf6",
+        "group": "Homework 1\u201319",
+        "order": 108
+      },
+      "order": 108,
+      "packages": [],
+      "line_count": 11,
+      "prompt": "**Homework 8 \u2014 Q8.** Create a Python function that takes an arbitrarily sized list of die rolls (values 1\u20136) and returns the \"empirical probability mass function\" \u2014 the realized probabilities for each of the six outcomes.\n\n```python\ndef pmf6(rolls):\n```\n\nTest:\n\n```python\nempiricalrolls = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\nprint(pmf6(empiricalrolls))\n# Correct Output: [0.18181818181818182, 0.18181818181818182, 0.09090909090909091, 0.09090909090909091, 0.09090909090909091, 0.36363636363636365]\n```\n\nNo canned functions or libraries except, if you wish, `len()`.",
+      "hints": [
+        "Six outcomes means six counters. A list of six zeros, `counts = [0, 0, 0, 0, 0, 0]`, is enough \u2014 no dictionary needed.",
+        "A roll of 1 belongs in slot 0, a roll of 2 in slot 1, and so on, so the slot is `roll - 1`. That off-by-one is the whole trick.",
+        "Similar problem, different shape \u2014 a coin-toss tally with only two outcomes. The counting loop and the divide-by-total step are identical to what you need:\n\n```python\ndef head_share(tosses):\n    counts = [0, 0]\n    for t in tosses:\n        if t == 'H':\n            counts[0] += 1\n        else:\n            counts[1] += 1\n    total = len(tosses)\n    return [c / total for c in counts]\n```",
+        "Return six probabilities, not counts, and keep them in roll order 1 \u2192 6. They should add up to 1 (up to floating-point rounding)."
+      ],
+      "tests": "assert callable(pmf6), 'define a function called pmf6'\n_ex = [1, 2, 3, 6, 6, 6, 2, 1, 4, 5, 6]\n_got = pmf6(_ex)\nassert len(_got) == 6\nassert abs(_got[0] - 2 / 11) < 1e-12\nassert abs(_got[2] - 1 / 11) < 1e-12\nassert abs(_got[5] - 4 / 11) < 1e-12\nassert abs(sum(_got) - 1.0) < 1e-12\nassert pmf6([3, 3, 3, 3]) == [0.0, 0.0, 1.0, 0.0, 0.0, 0.0]",
+      "test_summary": "pmf6 returns six probabilities in roll order that sum to one",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-09-cdc-filters",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 9 \u00b7 Q9 \u2014 Logical indexing on the CDC sample",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Boolean indexing"
+      ],
+      "assignment": {
+        "key": "fin400-hw-09",
+        "label": "HW 9 \u2014 logical indexing",
+        "group": "Homework 1\u201319",
+        "order": 109
+      },
+      "order": 109,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "line_count": 14,
+      "prompt": "**Homework 9 \u2014 Q9.** Using Python/Pandas, analyze the same sample of 900 American adults (CDC 2023). Variables: `seqn`, `age`, `gender`, `weight` (kg), `height` (cm), `waist` (cm), plus `hincome` \u2014 `\"high\"` if household income > $120,000, else `\"not\"`. The file is `fin400-survey.csv`.\n\n**a.** Read the data with pandas; compute summary statistics for `age`, `weight`, `height` and BMI using one code statement (`describe`).\n**b.** Use logical indexing to create a new dataframe of only male participants (`males`); compute summary statistics for age, weight, height and BMI in one statement.\n**c.** Using the original dataframe and logical indexing, create `young_males`: only male participants aged 18\u201330 (single code statement). Compute the same summary statistics.\n**d.** Using the original dataframe and logical indexing, create `tall_young_males`: only male participants aged 18\u201330 and taller than 6 feet (182.9 cm) (single code statement). Compute summary statistics for weight, height and BMI.\n**e.** Create `high_income_females`: only female participants from households earning more than $120,000/year. Compute the same summary statistics.\n\nBuild the BMI column the same way as in HW 7 (`weight / (height/100) ** 2`) before filtering.",
+      "hints": [
+        "One mask is one condition; two conditions need `&` with each condition in its own parentheses: `df[(df['gender'] == 'male') & (df['age'] <= 30)]`.",
+        "`and` / `or` do not work on pandas columns. It has to be the elementwise `&` and `|`, and every condition needs brackets around it.",
+        "Similar problem, different shape \u2014 a different filter on a different column, same construction. Copy the structure, not the column names:\n\n```python\nexpensive = df[(df['price'] > 50) & (df['region'] == 'north')]\nprint(expensive[['price', 'units']].describe())\n```",
+        "Each part asks you to filter the **original** dataframe, not the one you filtered in the previous part \u2014 chaining filters would quietly pile up conditions.",
+        "Select the columns before `describe()` when you only want some of them: `young_males[['age', 'weight', 'height', 'bmi']].describe()`."
+      ],
+      "tests": "assert 'df' in dir(), 'load the file into df first'\nassert 'bmi' in df.columns, 'add the bmi column before filtering'\nassert len(males) == 420, f'expected 420 male participants, got {len(males)}'\nassert len(young_males) == 93, f'expected 93 men aged 18-30, got {len(young_males)}'\nassert len(tall_young_males) == 15, f'expected 15 tall young men, got {len(tall_young_males)}'\nassert len(high_income_females) == 83, f'expected 83 high-income women, got {len(high_income_females)}'\nassert set(young_males['gender']) == {'male'}\nassert set(high_income_females['gender']) == {'female'} and set(high_income_females['hincome']) == {'high'}\nassert abs(young_males['bmi'].mean() - 29.140) < 5e-3\nassert abs(tall_young_males['weight'].mean() - 103.753) < 5e-3\nassert abs(high_income_females['age'].mean() - 46.928) < 5e-3",
+      "test_summary": "each filtered dataframe holds exactly the participants asked for, with the right group means",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-10-stock-panel",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 10 \u00b7 Q5 \u2014 Firm panel: EPS, leverage and value_counts",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Grouping"
+      ],
+      "assignment": {
+        "key": "fin400-hw-10",
+        "label": "HW 10 \u2014 firm panel",
+        "group": "Homework 1\u201319",
+        "order": 110
+      },
+      "order": 110,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 10 \u2014 Q5.** Using Python/Pandas, analyze a panel of 70 publicly traded US companies from 1980 to 2024. Variables: `ticker`, `fyear`, `ni` (annual net income, millions), `debt_lgterm` (book value of long-term debt, millions), `mcap` (market value of equity, millions), `shr` (shares outstanding, millions). Read it into `df` from `fin400-stock-panel.csv`.\n\n**a.** Create two new columns: `eps = ni / shr` and `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute summary statistics for both.\n**b.** Create a True/False column `pos` that is True if `levratio` is positive, else False. Run `df['pos'].value_counts()` and `df['pos'].value_counts() / df['pos'].count()`. What did each line compute? What did you learn about the data? Answer in a comment.\n**c.** On average, are firms with leverage ratio zero more or less valuable (use `mcap`) than firms with positive leverage ratios? Compute it with a `groupby` with `pos` as the grouping variable, store it in `mcap_by_pos`.\n**d.** Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024 with one `groupby` statement, store it in `lev_by_year` and print it.\n**e.** In part d you should find a sizeable move between 2008 and 2009. Why? Answer in a comment.",
+      "hints": [
+        "A new column on a dataframe is just an assignment whose right-hand side is a whole column of arithmetic: `df['eps'] = df['ni'] / df['shr']`.",
+        "`levratio` is debt divided by **debt plus** market cap \u2014 both terms go in the denominator, and the debt appears twice in the formula.",
+        "Similar problem, different shape \u2014 a book-to-market ratio and a flag for it, same three steps (divide, divide, compare):\n\n```python\ndf['b2m'] = df['book'] / df['mcap']\ndf['rich'] = df['b2m'] > 1.0\nprint(df.groupby('rich')['mcap'].mean())\n```",
+        "The grouping column for part c is `pos`. `df.groupby('pos')['mcap'].mean()` returns one number per group; keep it as a variable rather than only printing it.",
+        "Part d says the *typical* firm, and 'typical' in a skewed ratio means the median, not the mean. One statement: `df.groupby('fyear')['levratio'].median()`.",
+        "Part e is about what moves: the market value of equity is the volatile piece, and 2008\u20132009 was an extreme period for it. Look at what mcap does to the denominator."
+      ],
+      "tests": "assert 'df' in dir(), 'load the panel into df'\nassert df.shape == (2343, 9), f'expected 2343 rows and 9 columns (6 original + eps, levratio, pos), got {df.shape}'\nassert abs(df['eps'].mean() - 10.8663) < 1e-3\nassert abs(df['levratio'].mean() - 0.3728) < 1e-3\nassert abs(df['levratio'].max() - 0.9200) < 1e-3\nassert int(df['pos'].sum()) == 2152, f\"expected 2152 positive-leverage firm-years, got {int(df['pos'].sum())}\"\nassert abs(float(mcap_by_pos[False]) - 10670.0) < 0.05\nassert abs(float(mcap_by_pos[True]) - 9381.91) < 0.05\nassert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2008]) - 0.3317) < 1e-3\nassert abs(float(lev_by_year.loc[2009]) - 0.3880) < 1e-3\nassert abs(float(lev_by_year.loc[1980]) - 0.6460) < 1e-3",
+      "test_summary": "eps and levratio are right, the pos split matches, and the per-year median leverage is stored",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-11-equal-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 11 \u00b7 Q6 \u2014 Equal-weight portfolio, then average return by month",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Portfolios"
+      ],
+      "assignment": {
+        "key": "fin400-hw-11",
+        "label": "HW 11 \u2014 equal-weight portfolio",
+        "group": "Homework 1\u201319",
+        "order": 111
+      },
+      "order": 111,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 12,
+      "prompt": "**Homework 11 \u2014 Q6.** Monthly stock prices and returns for all publicly traded US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`. Read it with `pd.read_csv('fin400-monthly-stocks.csv', parse_dates=['caldt'])` into `df`.\n\n**a.** Form an equal-weight portfolio of all stocks every year-month (Jan 1926, Feb 1926, etc). Compute portfolio returns for the whole sample, and store the portfolio Series in `ew`. Compute the mean and the sample standard deviation of the portfolio.\n**b.** Reset the index of the portfolio dataframe so `caldt` is a column (call it `ew_df`). Using a `groupby`, compute the average portfolio return by month (Jan=1, Feb=2, \u2026). Hint: use the `dt` accessor to get the month as an integer 1\u201312. Save that result as a new column in `ew_df` called `avg_ret_month`, and also keep the by-month averages in `avg_by_month`.",
+      "hints": [
+        "Equal weight means every stock counts the same, so each month's portfolio return is simply the mean of that month's `ret` values: group by `caldt` and take `.mean()` of `ret`.",
+        "After `ew.reset_index()` the result has `caldt` and the return column as ordinary columns; the month number is `ew_df['caldt'].dt.month`.",
+        "Similar problem, different shape \u2014 an equal-weight portfolio by sector instead of by date. Notice the same two moves, group then average:\n\n```python\nsector_ret = df.groupby('sector')['ret'].mean()\n```",
+        "To attach the 12 monthly averages back onto every row, `map` the small by-month Series onto the month column: `ew_df['avg_ret_month'] = ew_df['month'].map(avg_by_month)`.",
+        "`std()` on a Series is already the **sample** standard deviation (ddof=1), which is what the question asks for."
+      ],
+      "tests": "import pandas as _pd\nassert 'df' in dir(), 'load the file with parse_dates=[\"caldt\"] into df'\nassert isinstance(ew, _pd.Series), 'ew should be the portfolio return Series'\nassert len(ew) == 120, f'expected 120 months, got {len(ew)}'\nassert abs(float(ew.mean()) - 0.008561) < 1e-6, f'portfolio mean is off: {float(ew.mean())}'\nassert abs(float(ew.std()) - 0.051730) < 1e-6, f'portfolio std is off: {float(ew.std())}'\nassert 'caldt' in getattr(ew_df, 'columns', []), 'reset the index so caldt is a column'\nassert len(avg_by_month) == 12, f'expected 12 monthly averages, got {len(avg_by_month)}'\nassert abs(float(avg_by_month.loc[1]) - -0.005869) < 1e-6\nassert 'avg_ret_month' in ew_df.columns\nassert abs(float(ew_df['avg_ret_month'].iloc[0]) - float(avg_by_month.loc[1])) < 1e-12",
+      "test_summary": "the equal-weight portfolio, its mean and std, and the 12 calendar-month averages stored on the dataframe",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-12-counts-lag-weighted",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 12 \u00b7 Q8 & Q9 \u2014 Stock counts, a lagged mcap, and a weighted portfolio",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Lagging",
+        "Portfolios"
+      ],
+      "assignment": {
+        "key": "fin400-hw-12",
+        "label": "HW 12 \u2014 counts, lag and weights",
+        "group": "Homework 1\u201319",
+        "order": 112
+      },
+      "order": 112,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv",
+        "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 12 \u2014 Q8.** Monthly stock prices and returns for publicly traded US stocks, 1926\u20131935, with `mcap` added. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`. Read it with `pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])` into `df`.\n\n**a.** Use a `groupby` to count the number of stocks in an equally-weighted portfolio (all stocks) every year-month. Store it in `counts` and compute summary statistics for the date-by-date count of stocks.\n**b.** Create a lagged market-cap column (lagged one month), called `mcap_lag`, as in the class discussion on lagging variables in a stock-date panel. Compute summary statistics for both `mcap` and the lagged column.\n**c.** In a comment, explain why the count of observations is lower for the lagged `mcap` column than for the `mcap` column.\n\n**Q9.** Read `port = pd.read_csv(\"fin400-port-mcap.csv\", parse_dates=['caldt'])`. Columns: the date plus returns on four portfolios formed on lagged market-cap: `micro`, `small`, `mid`, `large`. Create a new column `weighted` with portfolio returns where the weights are 0.3 micro-cap, 0.5 small-cap, and 0.2 in a risk-free asset with monthly return 0.0025. Compute summary statistics for `micro`, `small` and `weighted`.",
+      "hints": [
+        "Q8a is a count per date, not a sum: `df.groupby('caldt')['permno'].count()`. Counting a column also skips missing values, which matters for the lag.",
+        "A lag is only meaningful inside a stock: sort by `permno` and `caldt` first, then `df.groupby('permno')['mcap'].shift(1)`.",
+        "Similar problem, different shape \u2014 lagging a price instead of a market cap, same sort-then-group-then-shift recipe:\n\n```python\ndf = df.sort_values(['ticker', 'month'])\ndf['price_lag1'] = df.groupby('ticker')['price'].shift(1)\ndf['price_lag3'] = df.groupby('ticker')['price'].shift(3)\n```",
+        "Q9 is one column built from three numbers: 0.3 \u00d7 micro + 0.5 \u00d7 small + 0.2 \u00d7 0.0025. The risk-free piece is a constant, not a column.",
+        "For Q8c, think about the first month of every stock: `shift(1)` has nothing to put there."
+      ],
+      "tests": "assert 'df' in dir(), 'load the monthly file into df'\nassert len(counts) == 120, f'expected 120 monthly counts, got {len(counts)}'\nassert int(counts.sum()) == 5400\nassert float(counts.min()) == float(counts.max()), 'the panel is balanced: 45 stocks every month'\nassert 'mcap_lag' in df.columns\nassert int(df['mcap_lag'].notna().sum()) == 5355, f\"expected 5355 lagged values, got {int(df['mcap_lag'].notna().sum())}\"\nassert abs(df['mcap'].mean() - df['mcap_lag'].mean()) < 10.0, 'the lagged column should look like the original, one month back'\nassert 'weighted' in port.columns\nassert abs(float(port['weighted'].mean()) - 0.005760) < 1e-6\nassert abs(float(port['micro'].mean()) - 0.006428) < 1e-6\nassert abs(float(port['small'].std()) - 0.075776) < 1e-6\nassert abs(float(port['weighted'].std()) - 0.051997) < 1e-6",
+      "test_summary": "monthly stock counts, a correct one-month lag inside each permno, and the 0.3/0.5/0.2 weighted portfolio",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-13-value-weight",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 13 \u00b7 Q2 \u2014 Value-weight portfolio and cumulative growth",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Portfolios"
+      ],
+      "assignment": {
+        "key": "fin400-hw-13",
+        "label": "HW 13 \u2014 value-weight portfolio",
+        "group": "Homework 1\u201319",
+        "order": 113
+      },
+      "order": 113,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 11,
+      "prompt": "**Homework 13 \u2014 Q2.** Same dataset as HW 12: monthly stock prices and returns for US stocks, 1926\u20131935. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\n**a.** Form a value-weight portfolio of all stocks every year-month, store it in `vw`, and compute portfolio returns for the whole sample. Compute the mean and sample standard deviation of the portfolio.\n**b.** Create a one-column dataframe (technically a Series) based on the value-weight portfolio returns. Assuming your portfolio is called `vw` and you have not reset the index, run:\n\n```python\nnew = (1 + vw).cumprod() - 1\nprint(new)\n```\n\nWhat does each observation in `new` represent? Answer in a comment. (Looking at the pandas documentation for `cumprod` may help.)",
+      "hints": [
+        "A value-weight portfolio weights each stock by its market cap, so the month's return is \u03a3(ret \u00d7 mcap) \u00f7 \u03a3(mcap) \u2014 two groupbys over the same dates, one divided by the other.",
+        "Build it in two steps so you can see each piece: `df['contrib'] = df['ret'] * df['mcap']`, then group `contrib` and `mcap` by `caldt`, sum both, divide.",
+        "Similar problem, different shape \u2014 weighting by shares outstanding instead of market cap. The two-sum-then-divide shape is what transfers:\n\n```python\ndf['w'] = df['ret'] * df['shares']\nport = df.groupby('date')['w'].sum() / df.groupby('date')['shares'].sum()\n```",
+        "`1 + vw` turns returns into growth factors; `cumprod` multiplies them forward; subtracting 1 puts the answer back in return units.",
+        "Each entry of `new` is cumulative \u2014 it answers 'what did I have by this month if I started with 1 in the first sample month', not 'what happened this month'."
+      ],
+      "tests": "import pandas as _pd\nassert isinstance(vw, _pd.Series), 'vw should be the value-weight portfolio Series'\nassert len(vw) == 120\nassert abs(float(vw.mean()) - 0.016356) < 1e-6, f'value-weight mean is off: {float(vw.mean())}'\nassert abs(float(vw.std()) - 0.052597) < 1e-6, f'value-weight std is off: {float(vw.std())}'\nassert float(vw.mean()) > 0.008561, 'value weighting should differ from equal weighting here'\nassert len(new) == 120\nassert abs(float(new.iloc[0]) - float(vw.iloc[0])) < 1e-12, 'the first observation is just the first return'\nassert abs(float(new.iloc[-1]) - 4.984085) < 1e-5, f'cumulative growth is off: {float(new.iloc[-1])}'",
+      "test_summary": "the value-weight portfolio and its cumulative growth series, including the final cumulative return",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-14-lagged-sign",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 14 \u00b7 Q8 \u2014 Value-weight portfolios split on the sign of last month's return",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Lagging",
+        "Portfolios"
+      ],
+      "assignment": {
+        "key": "fin400-hw-14",
+        "label": "HW 14 \u2014 portfolios by lagged return",
+        "group": "Homework 1\u201319",
+        "order": 114
+      },
+      "order": 114,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 14 \u2014 Q8.** Same dataset as HW 12 and HW 13. Variables: `permno`, `caldt`, `ticker`, `prc`, `ret`, `mcap`.\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"fin400-monthly-stocks.csv\", parse_dates=['caldt'])\n```\n\nForm value-weight portfolios based on whether lagged one-month returns were positive or negative (the same two portfolios as in class, but value-weight instead of equal-weight). Note: you can multiply and divide dataframes even with a multi-index as long as the multi-index is the same and the number of columns matches.\n\nStore the two portfolio Series in `vw_pos` and `vw_neg`, and compute the mean and sample standard deviation of each.",
+      "hints": [
+        "Two steps before you can sort stocks: create the lag (`groupby('permno')['ret'].shift(1)` after sorting), then drop the rows where the lag is missing \u2014 otherwise 'NaN > 0' quietly throws those rows out and the counts get confusing.",
+        "Split with two masks on the same dataframe: `df[df['ret_lag'] > 0]` and `df[df['ret_lag'] < 0]`. The zero case belongs to neither portfolio.",
+        "Similar problem, different shape \u2014 splitting on last month's **volume** instead of return, then value-weighting the same way:\n\n```python\ndf = df.sort_values(['permno', 'caldt'])\ndf['vol_lag'] = df.groupby('permno')['volume'].shift(1)\nheavy = df[df['vol_lag'] > df['vol_lag'].median()]\nport = (heavy['ret'] * heavy['mcap']).groupby(heavy['caldt']).sum() / heavy.groupby('caldt')['mcap'].sum()\n```",
+        "Each portfolio is \u03a3(ret \u00d7 mcap) \u00f7 \u03a3(mcap) within its own subset, grouped by `caldt`. The two subsets have different stocks, so the denominators differ.",
+        "The two Series will not have the same length: some months contain no stock with a positive lagged return, or none with a negative one."
+      ],
+      "tests": "import pandas as _pd\nassert isinstance(vw_pos, _pd.Series) and isinstance(vw_neg, _pd.Series), 'vw_pos and vw_neg must both be Series'\nassert len(vw_pos) == 119, f'expected 119 months in the positive portfolio, got {len(vw_pos)}'\nassert len(vw_neg) == 118, f'expected 118 months in the negative portfolio, got {len(vw_neg)}'\nassert abs(float(vw_pos.mean()) - 0.023553) < 1e-6\nassert abs(float(vw_neg.mean()) - 0.007798) < 1e-6\nassert abs(float(vw_pos.std()) - 0.062116) < 1e-6\nassert abs(float(vw_neg.std()) - 0.055856) < 1e-6\nassert float(vw_pos.mean()) > float(vw_neg.mean()), 'the winner portfolio should beat the loser portfolio in this sample'",
+      "test_summary": "both sign-based value-weight portfolios, with the right lengths, means and standard deviations",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-15-merges",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 15 \u00b7 Q9 & Q10 \u2014 Merging two dataframes",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Merging"
+      ],
+      "assignment": {
+        "key": "fin400-hw-15",
+        "label": "HW 15 \u2014 merging",
+        "group": "Homework 1\u201319",
+        "order": 115
+      },
+      "order": 115,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-merge-roster.csv": "fin400/data/fin400-merge-roster.csv",
+        "fin400-merge-pay.csv": "fin400/data/fin400-merge-pay.csv",
+        "fin400-merge-products.csv": "fin400/data/fin400-merge-products.csv",
+        "fin400-merge-stock.csv": "fin400/data/fin400-merge-stock.csv"
+      },
+      "line_count": 14,
+      "prompt": "**Homework 15 \u2014 Q9 & Q10.** The homework ships two files with starter dataframes; here are the same two jobs on stand-in tables. Read all four files, then merge them.\n\n**Q9.** `roster` (`employee_id`, `department`) and `pay` (`employee_id`, `salary`). Merge them so the result has `employee_id`, `department` and `salary`, keeping only employees that appear in **both** tables. Store the merged frame in `merged`.\n\n**Q10.** `products` (`product`, `price`) and `stock` (`product`, `stock`). Merge them so the result keeps **every** product from `products` and attaches its stock count where one exists. Store it in `merged_extra`.\n\nDo not concatenate and do not loop over rows \u2014 this is a merge.",
+      "hints": [
+        "`pd.merge(left, right, on='key', how=...)` is the whole tool. The key here is the column the two tables share: `employee_id` for Q9 and `product` for Q10.",
+        "The `how` argument decides which rows survive: `'inner'` keeps only keys present on both sides, `'left'` keeps every key from the left table.",
+        "Similar problem, different shape \u2014 joining orders to customers on a different key, both ways round:\n\n```python\nonly_matched = pd.merge(orders, customers, on='customer_id', how='inner')\nkeep_all_orders = pd.merge(orders, customers, on='customer_id', how='left')\n```",
+        "Which table goes on the left decides what 'left' means. For Q10, `products` must be the left table so a product with no stock record still appears, with `NaN` in the stock column.",
+        "Both merges are one statement each. If you find yourself with more rows than the left table has, the right table has duplicate keys."
+      ],
+      "tests": "assert 'merged' in dir(), 'store the Q9 result in merged'\nassert list(merged.columns) == ['employee_id', 'department', 'salary']\nassert len(merged) == 4, f'Q9 keeps only employees in both tables, expected 4 rows, got {len(merged)}'\nassert 'E-102' not in set(merged['employee_id'])\nassert abs(float(merged.loc[merged['employee_id'] == 'E-101', 'salary'].iloc[0]) - 62000.0) < 1e-9\nassert 'merged_extra' in dir(), 'store the Q10 result in merged_extra'\nassert list(merged_extra.columns) == ['product', 'price', 'stock']\nassert len(merged_extra) == 4, f'Q10 keeps every product, expected 4 rows, got {len(merged_extra)}'\nassert merged_extra['stock'].isna().sum() == 1, 'the one product with no stock record keeps NaN'\nassert abs(float(merged_extra['price'].sum()) - 38.00) < 1e-9",
+      "test_summary": "an inner merge that drops the unmatched employee and a left merge that keeps the unmatched product",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-16-dupes-and-median",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 16 \u00b7 Q4 \u2014 Duplicates, the year median, and merging it back",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "pandas",
+        "Duplicates",
+        "Merging"
+      ],
+      "assignment": {
+        "key": "fin400-hw-16",
+        "label": "HW 16 \u2014 duplicates and year medians",
+        "group": "Homework 1\u201319",
+        "order": 116
+      },
+      "order": 116,
+      "packages": [
+        "pandas"
+      ],
+      "data_files": {
+        "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 16 \u2014 Q4.** Same data as HW 10: a panel of publicly traded US companies, 1980\u20132024. Variables: `ticker`, `fyear`, `ni`, `debt_lgterm`, `mcap`, `shr`. The date variable is fiscal year (integer), so do not use `parse_dates`. This copy of the file, `fin400-stock-panel-dupes.csv`, has some duplicated observations in it.\n\n```python\nimport pandas as pd\ndf = pd.read_csv('fin400-stock-panel-dupes.csv')\n```\n\n**a.** Observations should be defined by ticker/year. Store the number of duplicate observations in `dup_count` and print it. If duplicates exist, drop them.\n**b.** Create a new column with the leverage ratio `levratio = debt_lgterm / (debt_lgterm + mcap)`. Compute the leverage ratio of the typical firm every fiscal year 1980\u20132024, store it in `lev_by_year`.\n**c.** Create a new column in the original dataframe containing the median leverage ratio for the year (from the groupby). Think about merging the groupby dataframe into the original dataframe. Reset the index of the groupby dataframe so `fyear` is a column, and rename the leverage column before merging. The new column must be called `levratio_median_year`.",
+      "hints": [
+        "`df.duplicated(subset=['ticker', 'fyear'])` returns True/False per row and `.sum()` counts the repeats; `df.drop_duplicates(subset=['ticker', 'fyear'])` removes them.",
+        "A grouped Series has `fyear` in the index. `reset_index()` turns that index into a column so it can be used as a merge key.",
+        "Similar problem, different shape \u2014 a sector-level median merged back onto every firm, same reset-rename-merge chain:\n\n```python\nby_sector = df.groupby('sector')['margins'].median()\nby_sector = by_sector.reset_index().rename(columns={'margins': 'margins_median_sector'})\ndf = pd.merge(df, by_sector, on='sector', how='left')\n```",
+        "The `how` for part c is `'left'`: every firm-year keeps its row, and the year-level median is attached. An inner merge would silently drop years with no median.",
+        "Do part a before part b \u2014 the duplicates would double-count firms in the median, and the median is what part c attaches."
+      ],
+      "tests": "assert 'df' in dir(), 'load the duplicated panel into df'\nassert int(dup_count) == 12, f'expected 12 duplicate ticker/year rows, got {dup_count}'\nassert len(df) == 2343, f'after dropping duplicates the panel has 2343 rows, got {len(df)}'\nassert not df.duplicated(subset=['ticker', 'fyear']).any(), 'duplicates must be gone by the end'\nassert abs(df['levratio'].mean() - 0.3728) < 1e-3\nassert len(lev_by_year) == 45\nassert abs(float(lev_by_year.loc[2009]) - 0.388013) < 1e-5\nassert 'levratio_median_year' in df.columns\nassert abs(float(df.loc[df['fyear'] == 2009, 'levratio_median_year'].iloc[0]) - 0.388013) < 1e-5\nassert abs(df['levratio_median_year'].isna().sum()) == 0, 'every year has a median, so the left merge should leave no gaps'",
+      "test_summary": "duplicates counted and dropped, the year median computed, and the median merged onto every firm-year",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-17-regression-mcap-emp",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 17 \u00b7 Q4 \u2014 Regressing market cap on employees",
+      "difficulty": "medium",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "statsmodels",
+        "Regression"
+      ],
+      "assignment": {
+        "key": "fin400-hw-17",
+        "label": "HW 17 \u2014 mcap on employees",
+        "group": "Homework 1\u201319",
+        "order": 117
+      },
+      "order": 117,
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "line_count": 14,
+      "prompt": "**Homework 17 \u2014 Q4.** Data: market cap and number of employees for publicly traded companies in fiscal year 2024. Variables: `permno`, `fyear`, `mcap` (millions of dollars), `emp` (number of employees, in thousands).\n\n```python\nimport pandas as pd\nimport statsmodels.formula.api as smf\ndf = pd.read_csv(\"fin400-mcap-emp.csv\")\n```\n\n**a.** Print summary statistics for `mcap` and `emp`.\n**b.** Estimate a regression (using statsmodels) of `mcap` on `emp`, store the fitted result in `reg`, and use the summary function to report the results.\n**c.** Check whether the residuals are mean zero and have zero covariance (or correlation) with the x-variable (`emp`). Print both numbers.\n**d.** Based on the regression, if a company has 10,000 employees, what is the expected market cap? (Use Python as a calculator, e.g. `print(500 + 104 * 77)`.) Store your answer in `pred_10k`.",
+      "hints": [
+        "The formula string spells the regression in words: `'mcap ~ emp'` means mcap on the left, emp on the right. `smf.ols(...).fit()` gives you the fitted object.",
+        "The fitted object carries what you need: `reg.params` for coefficients, `reg.resid` for residuals, `reg.summary()` for the table.",
+        "Similar problem, different shape \u2014 the same model on sales and headcount, including the residual check:\n\n```python\nreg_s = smf.ols('sales ~ headcount', data=df).fit()\nprint(reg_s.summary())\nprint(reg_s.resid.mean(), reg_s.resid.cov(df['headcount']))\n```",
+        "`emp` is in **thousands** of employees, so 10,000 employees is `emp = 10`, not `10_000`. Multiply the slope by 10 and add the intercept.",
+        "The residual checks are diagnostics, not tests you can fail: an OLS fit with an intercept always has residuals that average to zero and are uncorrelated with the regressor. Printing them is the point."
+      ],
+      "tests": "assert 'reg' in dir(), 'store the fitted regression in reg'\nassert int(reg.nobs) == 600\nassert abs(float(reg.params['Intercept']) - 771.784559) < 0.01\nassert abs(float(reg.params['emp']) - 120.422248) < 0.01\nassert abs(float(reg.resid.mean())) < 1e-6\nassert abs(float(reg.resid.cov(df['emp']))) < 1e-6\nassert abs(float(reg.resid.corr(df['emp']))) < 1e-6\nassert abs(float(pred_10k) - 1976.007) < 0.05, f'expected market cap is off: {pred_10k}'",
+      "test_summary": "the fitted mcap-on-emp regression, its zero-mean zero-covariance residuals, and the 10,000-employee prediction",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-18-beta-portfolio-tests",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 18 \u00b7 Q3 \u2014 Beta portfolio on the market, with t-tests",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "statsmodels",
+        "Regression",
+        "t-test"
+      ],
+      "assignment": {
+        "key": "fin400-hw-18",
+        "label": "HW 18 \u2014 beta portfolio t-tests",
+        "group": "Homework 1\u201319",
+        "order": 118
+      },
+      "order": 118,
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 16,
+      "prompt": "**Homework 18 \u2014 Q3.** Use the two datasets used in class: ten portfolios formed on past beta (`p0`\u2013`p9`) and returns on the market portfolio. Read both into dataframes and import pandas and statsmodels.\n\n```python\nport = pd.read_csv('fin400-port-beta.csv', parse_dates=['caldt'])   # p0 ... p9\nfac  = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])     # mkt\n```\n\n**a.** Merge the two dataframes using an `'inner'` merge, as done in class. Store it in `df`.\n**b.** Estimate a regression of `p9` on the market portfolio, store it in `reg9`, and report the results with summary: `p9 = a + b*mkt + z`.\n**c.** Can you reject the hypothesis that the true slope = 0? Briefly explain, in a comment.\n**d.** Use the `t_test` method on the regression object to test the hypothesis that the true slope = 1, e.g. `print(reg9.t_test(\"mkt = 1\"))`. Can you reject it?\n**e.** Can you reject the hypothesis that the true `a` = -0.004? Briefly explain. Note: in `t_test` you can reference the intercept as `\"Intercept\"`.",
+      "hints": [
+        "The merge key is the date column in both files, `caldt`. `how='inner'` keeps only the months that appear in both \u2014 check `len(df)` before you move on.",
+        "The regression itself is one line, `smf.ols('p9 ~ mkt', data=df).fit()`. The t-tests are methods on that same object, not new regressions.",
+        "Similar problem, different shape \u2014 testing a slope against 0.5 on a two-factor model. The `t_test` string is a linear restriction written with `=`, and `Intercept` is the keyword for the constant:\n\n```python\nr = smf.ols('p1 ~ mkt + small', data=df).fit()\nprint(r.t_test('mkt = 0.5'))\nprint(r.t_test('Intercept = 0'))\n```",
+        "Read the p-value column of the `t_test` output. A tiny p-value means the data are inconsistent with the value you tested, so you reject it.",
+        "Parts c, d and e are all the same question asked of three different numbers: slope vs 0, slope vs 1, intercept vs -0.004. Report the p-value and then say reject / do not reject."
+      ],
+      "tests": "assert 'df' in dir(), 'merge port and fac into df'\nassert len(df) == 120, f'expected 120 merged months, got {len(df)}'\nassert 'mkt' in df.columns and 'p9' in df.columns\nassert int(reg9.nobs) == 120\nassert abs(float(reg9.params['Intercept']) - 0.001869) < 1e-6\nassert abs(float(reg9.params['mkt']) - 1.345073) < 1e-6\nassert abs(float(reg9.rsquared) - 0.956) < 1e-3\nassert float(reg9.pvalues['mkt']) < 1e-6, 'the slope is overwhelmingly different from zero'\n_t1 = reg9.t_test('mkt = 1')\nassert float(_t1.pvalue) < 1e-6, 'the slope is far enough above 1 to reject slope = 1'\n_t2 = reg9.t_test('Intercept = -0.004')\nassert float(_t2.pvalue) < 1e-3, 'the intercept is far from -0.004'",
+      "test_summary": "the merged data, the p9-on-mkt fit, and the three t-test p-values (slope 0, slope 1, intercept -0.004)",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
+      "id": "fin400-hw-19-pe-portfolios",
+      "course": "fin400",
+      "phase": "analysis",
+      "type": "write_from_scratch",
+      "title": "HW 19 \u00b7 Q2 \u2014 P/E portfolios on the market and small-cap factors",
+      "difficulty": "hard",
+      "topics": [
+        "FIN 400",
+        "Homework",
+        "statsmodels",
+        "Regression",
+        "Loops"
+      ],
+      "assignment": {
+        "key": "fin400-hw-19",
+        "label": "HW 19 \u2014 P/E portfolios",
+        "group": "Homework 1\u201319",
+        "order": 119
+      },
+      "order": 119,
+      "packages": [
+        "pandas",
+        "statsmodels"
+      ],
+      "data_files": {
+        "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
+        "fin400-factors.csv": "fin400/data/fin400-factors.csv"
+      },
+      "line_count": 18,
+      "prompt": "**Homework 19 \u2014 Q2.** Two datasets. First: five portfolio returns formed on past P/E ratio (`p0` = lowest P/E \u2026 `p4` = highest P/E):\n\n```python\nport = pd.read_csv('fin400-port-pe.csv', parse_dates=['caldt'])\n# p0 ... p4\n```\n\nSecond: market portfolio (`mkt`) and small-cap portfolio (`small`):\n\n```python\nfac = pd.read_csv('fin400-factors.csv', parse_dates=['caldt'])\n# mkt, small\n```\n\n**a.** Merge the two dataframes using an inner merge. Store it in `df`.\n**b.** Briefly explain why a left merge would have resulted in an identical dataframe. Answer in a comment.\n**c.** Estimate a regression of `p0` on `mkt` and `small`, store it in `reg0`, and report results with summary: `p0 = a + b1*mkt + b2*small + z`.\n**d.** Use a loop to estimate a regression for each portfolio (`p0`, `p1`, `p2`, `p3`, `p4`) on `mkt` and `small`. Print the estimated results for each portfolio using the summary function (the `print` belongs in the loop body). Adapt code from the lecture notebook. Also store the fitted objects in a dictionary called `models`, keyed by portfolio name.",
+      "hints": [
+        "One formula string, three columns: `'p0 ~ mkt + small'`. The `+` here means 'and also', not arithmetic addition.",
+        "The loop body is one fit and one print, with the portfolio name dropped into the formula each time \u2014 build the string with an f-string inside the loop.",
+        "Similar problem, different shape \u2014 the same loop over sectors with a single factor, storing the fits in a dict:\n\n```python\nmodels = {}\nfor s in ['tech', 'energy', 'health']:\n    fit = smf.ols(f'{s} ~ mkt', data=df).fit()\n    print(fit.summary())\n    models[s] = fit\n```",
+        "For part b: an inner merge drops rows whose key is missing from either side. Ask whether `fac` has a row for every date in `port`, and what a left merge would then be dropping.",
+        "The R-squared of these five regressions is very high \u2014 if yours is near zero, the merge probably produced misaligned dates."
+      ],
+      "tests": "assert 'df' in dir(), 'merge port and fac into df'\nassert len(df) == 120, f'expected 120 merged months, got {len(df)}'\nassert list(df.columns) == ['caldt', 'p0', 'p1', 'p2', 'p3', 'p4', 'mkt', 'small'], f'unexpected columns: {list(df.columns)}'\nassert abs(float(reg0.params['Intercept']) - 0.001941) < 1e-6\nassert abs(float(reg0.params['mkt']) - 1.052490) < 1e-6\nassert abs(float(reg0.params['small']) - 0.463223) < 1e-6\nassert abs(float(reg0.rsquared) - 0.952190) < 1e-5\nassert set(models) == {'p0', 'p1', 'p2', 'p3', 'p4'}, f'models should hold all five fits, got {sorted(models)}'\nassert abs(float(models['p4'].params['mkt']) - 0.862471) < 1e-6\nassert abs(float(models['p4'].params['small']) - 0.474450) < 1e-6\nassert abs(float(models['p2'].params['mkt']) - 0.925885) < 1e-6\nassert abs(float(models['p1'].params['Intercept']) - 0.000045) < 1e-6",
+      "test_summary": "the inner merge, the p0 three-coefficient fit, and all five loop fits stored by portfolio name",
+      "glossary": [],
+      "mode": "both",
+      "solutions": "hidden"
+    },
+    {
       "id": "fin400-practice-palindrome",
       "course": "fin400",
       "phase": "bootcamp",
@@ -4309,6 +5113,12 @@
       "test_summary": "the reversed string is compared with the original, case-sensitive",
       "order": 1,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4337,6 +5147,12 @@
       "test_summary": "the function averages any length of list by looping, including a single value",
       "order": 11,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4366,6 +5182,12 @@
       "order": 12,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4393,6 +5215,12 @@
       "test_summary": "the maximum is found by comparison in a loop, including an all-negative list",
       "order": 21,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4420,6 +5248,12 @@
       "order": 22,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4447,6 +5281,12 @@
       "test_summary": "every value is turned into its squared distance from the mean, in list order",
       "order": 31,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4477,6 +5317,12 @@
       "order": 32,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4503,6 +5349,12 @@
       "order": 33,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4530,6 +5382,12 @@
       "test_summary": "one CDF per value, with the defaults giving the standard normal",
       "order": 41,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4558,6 +5416,12 @@
       "test_summary": "n draws are returned, and the distribution parameters really are optional",
       "order": 42,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4597,6 +5461,12 @@
       "order": 43,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4626,6 +5496,12 @@
       "order": 44,
       "notebook": "fin400/bootcamp/fin400-module-2-functions-and-statistics.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4653,6 +5529,12 @@
       "test_summary": "the index of the maximum is returned, with ties resolved to the first position",
       "order": 51,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4680,6 +5562,12 @@
       "order": 52,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4707,6 +5595,12 @@
       "test_summary": "values outside the bounds are clipped while the order and length are preserved",
       "order": 61,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4753,6 +5647,12 @@
       "order": 62,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4785,6 +5685,12 @@
       "test_summary": "a bmi column per row, with its summary statistics and 10th/90th percentiles",
       "order": 71,
       "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4818,6 +5724,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -4862,6 +5774,12 @@
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4889,6 +5807,12 @@
       "test_summary": "six realized probabilities, including a face that never appeared",
       "order": 81,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4916,6 +5840,12 @@
       "order": 82,
       "notebook": "fin400/bootcamp/fin400-module-1-values-strings-loops.ipynb",
       "phase": "bootcamp",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -4949,6 +5879,12 @@
       "test_summary": "both filters select exactly the rows that satisfy every condition",
       "order": 91,
       "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -4977,6 +5913,12 @@
       "test_summary": "values beyond either bound are counted, with the bounds themselves treated as inside",
       "order": 92,
       "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5011,6 +5953,12 @@
       "data_files": {
         "fin400-survey.csv": "fin400/data/fin400-survey.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5041,6 +5989,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -5074,6 +6028,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -5126,6 +6086,12 @@
       "data_files": {
         "fin400-port-mcap.csv": "fin400/data/fin400-port-mcap.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5159,6 +6125,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -5194,6 +6166,12 @@
       "data_files": {
         "fin400-monthly-stocks.csv": "fin400/data/fin400-monthly-stocks.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5226,6 +6204,12 @@
       "data_files": {
         "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv",
         "fin400-firms.csv": "fin400/data/fin400-firms.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -5266,6 +6250,12 @@
       "data_files": {
         "fin400-stock-panel-dupes.csv": "fin400/data/fin400-stock-panel-dupes.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5297,6 +6287,12 @@
       "phase": "bootcamp",
       "data_files": {
         "fin400-mcap-emp.csv": "fin400/data/fin400-mcap-emp.csv"
+      },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
       },
       "glossary": [],
       "solutions": "hidden"
@@ -5345,6 +6341,12 @@
         "fin400-port-beta.csv": "fin400/data/fin400-port-beta.csv",
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5381,6 +6383,12 @@
         "fin400-port-pe.csv": "fin400/data/fin400-port-pe.csv",
         "fin400-factors.csv": "fin400/data/fin400-factors.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-1-9",
+        "label": "Practice 1\u20139",
+        "group": "Extra practice",
+        "order": 201
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5413,6 +6421,12 @@
       "test_summary": "eps, leverage and a boolean column, with the counts and the average market cap per group",
       "order": 101,
       "notebook": "fin400/notebooks/fin400-module-3-pandas-basics.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5447,6 +6461,12 @@
       "data_files": {
         "fin400-stock-panel.csv": "fin400/data/fin400-stock-panel.csv"
       },
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -5479,6 +6499,12 @@
       "test_summary": "one equal-weight return per month, with its mean and sample standard deviation",
       "order": 111,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5512,6 +6538,12 @@
       "test_summary": "a dated count of stocks and a within-stock lag that leaves the first month of each stock empty",
       "order": 121,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5545,6 +6577,12 @@
       "test_summary": "a weighted column mixing two portfolios with a constant risk-free return",
       "order": 122,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5578,6 +6616,12 @@
       "test_summary": "market-cap weights applied month by month, with the mean and sample standard deviation stored",
       "order": 131,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5611,6 +6655,12 @@
       "test_summary": "the compounding of monthly returns, where each entry is the cumulative return to that date",
       "order": 132,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5644,6 +6694,12 @@
       "test_summary": "a date-indexed frame with the four portfolios in order and their cumulative growth",
       "order": 133,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5678,6 +6734,12 @@
       "test_summary": "two value-weight portfolios split on the lagged return, each with its monthly mean",
       "order": 141,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5712,6 +6774,12 @@
       "test_summary": "the two company files combined on permno, with average market cap by sector",
       "order": 151,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5746,6 +6814,12 @@
       "test_summary": "both merge types keep every company, because the right-hand keys are unique",
       "order": 152,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5780,6 +6854,12 @@
       "test_summary": "a year-level median series, merged back onto every firm-year without changing the row count",
       "order": 161,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5813,6 +6893,12 @@
       "test_summary": "twelve duplicate firm-years are counted and removed, leaving one row per ticker-year",
       "order": 162,
       "notebook": "fin400/notebooks/fin400-module-4-grouping-lagging-merging.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5847,6 +6933,12 @@
       "test_summary": "a fitted line, its slope and intercept, residuals that average to zero, and a prediction",
       "order": 171,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5883,6 +6975,12 @@
       "test_summary": "an inner merge, a fitted CAPM line, and two t-test p-values",
       "order": 181,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5919,6 +7017,12 @@
       "test_summary": "one regression per portfolio, collected in a dict of fitted coefficients",
       "order": 191,
       "notebook": "fin400/notebooks/fin400-module-5-portfolios-and-regression.ipynb",
+      "assignment": {
+        "key": "fin400-practice-10-19",
+        "label": "Practice 10\u201319",
+        "group": "Extra practice",
+        "order": 211
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5949,6 +7053,12 @@
       "notebook": "fin400/lectures/lecture-01-loading-the-data.ipynb",
       "phase": "lectures",
       "order": 511,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -5982,6 +7092,12 @@
       "phase": "lectures",
       "order": 512,
       "expected_output": "5400\n1926\n1935",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6009,6 +7125,12 @@
       "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
       "phase": "lectures",
       "order": 521,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6039,6 +7161,12 @@
       "notebook": "fin400/lectures/lecture-02-distributions-loops-functions.ipynb",
       "phase": "lectures",
       "order": 522,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6068,6 +7196,12 @@
       "notebook": "fin400/lectures/lecture-03-statistics-library.ipynb",
       "phase": "lectures",
       "order": 531,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6095,6 +7229,12 @@
       "phase": "lectures",
       "order": 532,
       "expected_output": "23.8\n24\n[23.0, 24.0, 25.0]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6122,6 +7262,12 @@
       "notebook": "fin400/lectures/lecture-04-squared-deviations-cdf.ipynb",
       "phase": "lectures",
       "order": 541,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6163,6 +7309,12 @@
       "phase": "lectures",
       "order": 542,
       "expected_output": "16.59",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6190,6 +7342,12 @@
       "notebook": "fin400/lectures/lecture-05-listcdf-and-index-loops.ipynb",
       "phase": "lectures",
       "order": 551,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6218,6 +7376,12 @@
       "phase": "lectures",
       "order": 552,
       "expected_output": "0 19.0 0.1525\n1 23.0 0.5\n2 27.0 0.8475",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6247,6 +7411,12 @@
       "notebook": "fin400/lectures/lecture-06-empirical-probability.ipynb",
       "phase": "lectures",
       "order": 561,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6280,6 +7450,12 @@
       "phase": "lectures",
       "order": 562,
       "expected_output": "14\n39\n44\n23",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6309,6 +7485,12 @@
       "notebook": "fin400/lectures/lecture-07-first-look-pandas.ipynb",
       "phase": "lectures",
       "order": 571,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6355,6 +7537,12 @@
       "phase": "lectures",
       "order": 572,
       "expected_output": "[-0.97, 30.7]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6384,6 +7572,12 @@
       "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
       "phase": "lectures",
       "order": 581,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6418,6 +7612,12 @@
       "notebook": "fin400/lectures/lecture-08-boolean-indexing.ipynb",
       "phase": "lectures",
       "order": 582,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6447,6 +7647,12 @@
       "notebook": "fin400/lectures/lecture-11-data-review.ipynb",
       "phase": "lectures",
       "order": 611,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6480,6 +7686,12 @@
       "phase": "lectures",
       "order": 612,
       "expected_output": "540\n12",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     },
@@ -6509,6 +7721,12 @@
       "notebook": "fin400/lectures/lecture-12-groupby.ipynb",
       "phase": "lectures",
       "order": 621,
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "mode": "both",
       "solutions": "hidden"
@@ -6555,6 +7773,12 @@
       "phase": "lectures",
       "order": 622,
       "expected_output": "[27.98, 29.68, 29.35, 28.98]",
+      "assignment": {
+        "key": "fin400-lecture-exercises",
+        "label": "Lecture exercises",
+        "group": "Lecture notebooks",
+        "order": 301
+      },
       "glossary": [],
       "solutions": "hidden"
     }

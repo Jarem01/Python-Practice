@@ -461,9 +461,38 @@ input.blank.bad { border-bottom-color: var(--bad); background: var(--bad-soft); 
 .problem-list .ptitle { font-weight: 550; }
 .problem-list .pmeta { margin-left: auto; display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
 
-.filters { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; margin-bottom: 1rem; }
+/* The filter bar: one tidy row of labeled dropdowns, then the view switch.
+   Every control is a select so the whole bar fits on one line per row instead
+   of scattering pills across four. */
+.filters { margin-bottom: 1rem; }
+.filter-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .55rem .7rem;
+  align-items: end;
+}
+.filter-field { display: flex; flex-direction: column; gap: .18rem; min-width: 0; }
+.filter-field.wide { grid-column: span 2; }
+.filter-field > .lbl {
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--fg-muted);
+  font-weight: 600;
+}
+.filter-field select, .filter-field input { width: 100%; padding: .3rem .45rem; font-size: .88rem; }
+.filter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8rem;
+  flex-wrap: wrap;
+  margin-top: .7rem;
+  padding-top: .6rem;
+  border-top: 1px solid var(--border);
+}
 .filters .group { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
-.filters .group > .lbl { font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; color: var(--fg-muted); }
+.filters .group > .lbl { font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; color: var(--fg-muted); }
 
 /* ------------------------------------------------------------ notebook ---- */
 

@@ -89,9 +89,29 @@ export function generalAssignment() {
   };
 }
 
-/** The assignment of one exercise. */
+/**
+ * A set the exercise names itself, e.g. FIN 400's homework and practice tracks:
+ * `"assignment": {key, label, group, order}`. Notebook-based courses never use
+ * this; an exercise that names a set is filed under it instead of a notebook.
+ */
+function declaredSet(problem) {
+  const declared = problem && problem.assignment;
+  if (!declared || typeof declared !== "object" || !declared.label) return null;
+  return {
+    key: String(declared.key || `set:${declared.label}`),
+    path: null,
+    group: String(declared.group || "Exercises"),
+    order: Number(declared.order ?? 900000),
+    title: String(declared.label),
+    label: String(declared.label),
+    kind: "set",
+    exercises: 0,
+  };
+}
+
+/** The assignment of one exercise: its declared set, else its notebook. */
 export function assignmentForProblem(problem) {
-  return assignmentForPath(problem && problem.notebook);
+  return declaredSet(problem) || assignmentForPath(problem && problem.notebook);
 }
 
 /** Every assignment that the given exercises belong to, in course order. */
